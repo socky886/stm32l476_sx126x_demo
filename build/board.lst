@@ -1,0 +1,2094 @@
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"board.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.OnCalibrateSystemWakeupTimeTimerEvent,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	OnCalibrateSystemWakeupTimeTimerEvent:
+  26              	.LFB135:
+  27              		.file 1 "Core/Src/boards/NucleoL476/board.c"
+   1:Core/Src/boards/NucleoL476/board.c **** /*
+   2:Core/Src/boards/NucleoL476/board.c ****   ______                              _
+   3:Core/Src/boards/NucleoL476/board.c ****  / _____)             _              | |
+   4:Core/Src/boards/NucleoL476/board.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   5:Core/Src/boards/NucleoL476/board.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   6:Core/Src/boards/NucleoL476/board.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   7:Core/Src/boards/NucleoL476/board.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   8:Core/Src/boards/NucleoL476/board.c ****     (C)2013 Semtech
+   9:Core/Src/boards/NucleoL476/board.c **** 
+  10:Core/Src/boards/NucleoL476/board.c **** Description: Target board general functions implementation
+  11:Core/Src/boards/NucleoL476/board.c **** 
+  12:Core/Src/boards/NucleoL476/board.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  13:Core/Src/boards/NucleoL476/board.c **** 
+  14:Core/Src/boards/NucleoL476/board.c **** Maintainer: Miguel Luis and Gregory Cristian
+  15:Core/Src/boards/NucleoL476/board.c **** */
+  16:Core/Src/boards/NucleoL476/board.c **** #include "board.h"
+  17:Core/Src/boards/NucleoL476/board.c **** #include <stdio.h>
+  18:Core/Src/boards/NucleoL476/board.c **** 
+  19:Core/Src/boards/NucleoL476/board.c **** /*!
+  20:Core/Src/boards/NucleoL476/board.c ****  * Unique Devices IDs register set ( STM32L152x )
+  21:Core/Src/boards/NucleoL476/board.c ****  */
+  22:Core/Src/boards/NucleoL476/board.c **** 
+  23:Core/Src/boards/NucleoL476/board.c **** #define         ID1                                 ( 0x1FF800D0 )
+  24:Core/Src/boards/NucleoL476/board.c **** #define         ID2                                 ( 0x1FF800D4 )
+  25:Core/Src/boards/NucleoL476/board.c **** #define         ID3                                 ( 0x1FF800E4 )
+  26:Core/Src/boards/NucleoL476/board.c **** 
+  27:Core/Src/boards/NucleoL476/board.c **** /*!
+  28:Core/Src/boards/NucleoL476/board.c ****  * LED GPIO pins objects
+  29:Core/Src/boards/NucleoL476/board.c ****  */
+  30:Core/Src/boards/NucleoL476/board.c **** Gpio_t Led1;
+  31:Core/Src/boards/NucleoL476/board.c **** Gpio_t Led2;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 2
+
+
+  32:Core/Src/boards/NucleoL476/board.c **** 
+  33:Core/Src/boards/NucleoL476/board.c **** /*
+  34:Core/Src/boards/NucleoL476/board.c ****  * MCU objects
+  35:Core/Src/boards/NucleoL476/board.c ****  */
+  36:Core/Src/boards/NucleoL476/board.c **** Uart_t Uart2;
+  37:Core/Src/boards/NucleoL476/board.c **** 
+  38:Core/Src/boards/NucleoL476/board.c **** /*!
+  39:Core/Src/boards/NucleoL476/board.c ****  * Initializes the unused GPIO to a know status
+  40:Core/Src/boards/NucleoL476/board.c ****  */
+  41:Core/Src/boards/NucleoL476/board.c **** static void BoardUnusedIoInit( void );
+  42:Core/Src/boards/NucleoL476/board.c **** 
+  43:Core/Src/boards/NucleoL476/board.c **** /*!
+  44:Core/Src/boards/NucleoL476/board.c ****  * System Clock Configuration
+  45:Core/Src/boards/NucleoL476/board.c ****  */
+  46:Core/Src/boards/NucleoL476/board.c **** static void SystemClockConfig( void );
+  47:Core/Src/boards/NucleoL476/board.c **** 
+  48:Core/Src/boards/NucleoL476/board.c **** /*!
+  49:Core/Src/boards/NucleoL476/board.c ****  * Used to measure and calibrate the system wake-up time from STOP mode
+  50:Core/Src/boards/NucleoL476/board.c ****  */
+  51:Core/Src/boards/NucleoL476/board.c **** static void CalibrateSystemWakeupTime( void );
+  52:Core/Src/boards/NucleoL476/board.c **** 
+  53:Core/Src/boards/NucleoL476/board.c **** /*!
+  54:Core/Src/boards/NucleoL476/board.c ****  * System Clock Re-Configuration when waking up from STOP mode
+  55:Core/Src/boards/NucleoL476/board.c ****  */
+  56:Core/Src/boards/NucleoL476/board.c **** static void SystemClockReConfig( void );
+  57:Core/Src/boards/NucleoL476/board.c **** 
+  58:Core/Src/boards/NucleoL476/board.c **** /*!
+  59:Core/Src/boards/NucleoL476/board.c ****  * Timer used at first boot to calibrate the SystemWakeupTime
+  60:Core/Src/boards/NucleoL476/board.c ****  */
+  61:Core/Src/boards/NucleoL476/board.c **** static TimerEvent_t CalibrateSystemWakeupTimeTimer;
+  62:Core/Src/boards/NucleoL476/board.c **** 
+  63:Core/Src/boards/NucleoL476/board.c **** /*!
+  64:Core/Src/boards/NucleoL476/board.c ****  * Flag to indicate if the MCU is Initialized
+  65:Core/Src/boards/NucleoL476/board.c ****  */
+  66:Core/Src/boards/NucleoL476/board.c **** static bool McuInitialized = false;
+  67:Core/Src/boards/NucleoL476/board.c **** 
+  68:Core/Src/boards/NucleoL476/board.c **** /*!
+  69:Core/Src/boards/NucleoL476/board.c ****  * Flag used to indicate if board is powered from the USB
+  70:Core/Src/boards/NucleoL476/board.c ****  */
+  71:Core/Src/boards/NucleoL476/board.c **** static bool UsbIsConnected = false;
+  72:Core/Src/boards/NucleoL476/board.c **** 
+  73:Core/Src/boards/NucleoL476/board.c **** /*!
+  74:Core/Src/boards/NucleoL476/board.c ****  * UART FIFO buffers size
+  75:Core/Src/boards/NucleoL476/board.c ****  */
+  76:Core/Src/boards/NucleoL476/board.c **** #define UART2_FIFO_TX_SIZE                                8
+  77:Core/Src/boards/NucleoL476/board.c **** #define UART2_FIFO_RX_SIZE                                256
+  78:Core/Src/boards/NucleoL476/board.c **** 
+  79:Core/Src/boards/NucleoL476/board.c **** uint8_t Uart2TxBuffer[UART2_FIFO_TX_SIZE];
+  80:Core/Src/boards/NucleoL476/board.c **** uint8_t Uart2RxBuffer[UART2_FIFO_RX_SIZE];
+  81:Core/Src/boards/NucleoL476/board.c **** 
+  82:Core/Src/boards/NucleoL476/board.c **** /*!
+  83:Core/Src/boards/NucleoL476/board.c ****  * Flag to indicate if the SystemWakeupTime is Calibrated
+  84:Core/Src/boards/NucleoL476/board.c ****  */
+  85:Core/Src/boards/NucleoL476/board.c **** static bool SystemWakeupTimeCalibrated = false;
+  86:Core/Src/boards/NucleoL476/board.c **** 
+  87:Core/Src/boards/NucleoL476/board.c **** /*!
+  88:Core/Src/boards/NucleoL476/board.c ****  * Callback indicating the end of the system wake-up time calibration
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 3
+
+
+  89:Core/Src/boards/NucleoL476/board.c ****  */
+  90:Core/Src/boards/NucleoL476/board.c **** static void OnCalibrateSystemWakeupTimeTimerEvent( void )
+  91:Core/Src/boards/NucleoL476/board.c **** {
+  28              		.loc 1 91 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  92:Core/Src/boards/NucleoL476/board.c ****     SystemWakeupTimeCalibrated = true;
+  33              		.loc 1 92 5 view .LVU1
+  34              		.loc 1 92 32 is_stmt 0 view .LVU2
+  35 0000 014B     		ldr	r3, .L2
+  36 0002 0122     		movs	r2, #1
+  37 0004 1A70     		strb	r2, [r3]
+  93:Core/Src/boards/NucleoL476/board.c **** }
+  38              		.loc 1 93 1 view .LVU3
+  39 0006 7047     		bx	lr
+  40              	.L3:
+  41              		.align	2
+  42              	.L2:
+  43 0008 00000000 		.word	.LANCHOR0
+  44              		.cfi_endproc
+  45              	.LFE135:
+  47              		.section	.text.SystemClockReConfig,"ax",%progbits
+  48              		.align	1
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv4-sp-d16
+  54              	SystemClockReConfig:
+  55              	.LFB149:
+  94:Core/Src/boards/NucleoL476/board.c **** 
+  95:Core/Src/boards/NucleoL476/board.c **** /*!
+  96:Core/Src/boards/NucleoL476/board.c ****  * Nested interrupt counter.
+  97:Core/Src/boards/NucleoL476/board.c ****  *
+  98:Core/Src/boards/NucleoL476/board.c ****  * \remark Interrupt should only be fully disabled once the value is 0
+  99:Core/Src/boards/NucleoL476/board.c ****  */
+ 100:Core/Src/boards/NucleoL476/board.c **** static uint8_t IrqNestLevel = 0;
+ 101:Core/Src/boards/NucleoL476/board.c **** 
+ 102:Core/Src/boards/NucleoL476/board.c **** void BoardDisableIrq( void )
+ 103:Core/Src/boards/NucleoL476/board.c **** {
+ 104:Core/Src/boards/NucleoL476/board.c ****     __disable_irq( );
+ 105:Core/Src/boards/NucleoL476/board.c ****     IrqNestLevel++;
+ 106:Core/Src/boards/NucleoL476/board.c **** }
+ 107:Core/Src/boards/NucleoL476/board.c **** 
+ 108:Core/Src/boards/NucleoL476/board.c **** void BoardEnableIrq( void )
+ 109:Core/Src/boards/NucleoL476/board.c **** {
+ 110:Core/Src/boards/NucleoL476/board.c ****     IrqNestLevel--;
+ 111:Core/Src/boards/NucleoL476/board.c ****     if( IrqNestLevel == 0 )
+ 112:Core/Src/boards/NucleoL476/board.c ****     {
+ 113:Core/Src/boards/NucleoL476/board.c ****         __enable_irq( );
+ 114:Core/Src/boards/NucleoL476/board.c ****     }
+ 115:Core/Src/boards/NucleoL476/board.c **** }
+ 116:Core/Src/boards/NucleoL476/board.c **** 
+ 117:Core/Src/boards/NucleoL476/board.c **** void BoardInitPeriph( void )
+ 118:Core/Src/boards/NucleoL476/board.c **** {
+ 119:Core/Src/boards/NucleoL476/board.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 4
+
+
+ 120:Core/Src/boards/NucleoL476/board.c **** }
+ 121:Core/Src/boards/NucleoL476/board.c **** 
+ 122:Core/Src/boards/NucleoL476/board.c **** void BoardInitMcu( void )
+ 123:Core/Src/boards/NucleoL476/board.c **** {
+ 124:Core/Src/boards/NucleoL476/board.c ****     Gpio_t ioPin;
+ 125:Core/Src/boards/NucleoL476/board.c **** 
+ 126:Core/Src/boards/NucleoL476/board.c ****     if( McuInitialized == false )
+ 127:Core/Src/boards/NucleoL476/board.c ****     {
+ 128:Core/Src/boards/NucleoL476/board.c ****         HAL_Init( );
+ 129:Core/Src/boards/NucleoL476/board.c **** 
+ 130:Core/Src/boards/NucleoL476/board.c ****         // LEDs
+ 131:Core/Src/boards/NucleoL476/board.c ****         GpioInit( &Led1, LED_1, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 132:Core/Src/boards/NucleoL476/board.c ****         GpioInit( &Led2, LED_2, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 133:Core/Src/boards/NucleoL476/board.c **** 
+ 134:Core/Src/boards/NucleoL476/board.c ****         SystemClockConfig( );
+ 135:Core/Src/boards/NucleoL476/board.c **** 
+ 136:Core/Src/boards/NucleoL476/board.c ****         UsbIsConnected = true;
+ 137:Core/Src/boards/NucleoL476/board.c ****         GpioInit( &ioPin, UART_RX, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 138:Core/Src/boards/NucleoL476/board.c ****         FifoInit( &Uart2.FifoTx, Uart2TxBuffer, UART2_FIFO_TX_SIZE );
+ 139:Core/Src/boards/NucleoL476/board.c ****         FifoInit( &Uart2.FifoRx, Uart2RxBuffer, UART2_FIFO_RX_SIZE );
+ 140:Core/Src/boards/NucleoL476/board.c ****         // Configure your terminal for 8 Bits data (7 data bit + 1 parity bit), no parity and no fl
+ 141:Core/Src/boards/NucleoL476/board.c ****         UartInit( &Uart2, UART_2, UART_TX, UART_RX );
+ 142:Core/Src/boards/NucleoL476/board.c ****         UartConfig( &Uart2, RX_TX, 115200, UART_8_BIT, UART_1_STOP_BIT, NO_PARITY, NO_FLOW_CTRL );
+ 143:Core/Src/boards/NucleoL476/board.c **** 
+ 144:Core/Src/boards/NucleoL476/board.c ****         RtcInit( );
+ 145:Core/Src/boards/NucleoL476/board.c **** 
+ 146:Core/Src/boards/NucleoL476/board.c ****         BoardUnusedIoInit( );
+ 147:Core/Src/boards/NucleoL476/board.c ****     }
+ 148:Core/Src/boards/NucleoL476/board.c ****     else
+ 149:Core/Src/boards/NucleoL476/board.c ****     {
+ 150:Core/Src/boards/NucleoL476/board.c ****         SystemClockReConfig( );
+ 151:Core/Src/boards/NucleoL476/board.c ****     }
+ 152:Core/Src/boards/NucleoL476/board.c **** 
+ 153:Core/Src/boards/NucleoL476/board.c ****     SpiInit( &SX126x.Spi, RADIO_MOSI, RADIO_MISO, RADIO_SCLK, NC );
+ 154:Core/Src/boards/NucleoL476/board.c ****     SX126xIoInit( );
+ 155:Core/Src/boards/NucleoL476/board.c **** 
+ 156:Core/Src/boards/NucleoL476/board.c ****     if( McuInitialized == false )
+ 157:Core/Src/boards/NucleoL476/board.c ****     {
+ 158:Core/Src/boards/NucleoL476/board.c ****         McuInitialized = true;
+ 159:Core/Src/boards/NucleoL476/board.c ****         if( GetBoardPowerSource( ) == BATTERY_POWER )
+ 160:Core/Src/boards/NucleoL476/board.c ****         {
+ 161:Core/Src/boards/NucleoL476/board.c ****             CalibrateSystemWakeupTime( );
+ 162:Core/Src/boards/NucleoL476/board.c ****         }
+ 163:Core/Src/boards/NucleoL476/board.c ****     }
+ 164:Core/Src/boards/NucleoL476/board.c **** }
+ 165:Core/Src/boards/NucleoL476/board.c **** 
+ 166:Core/Src/boards/NucleoL476/board.c **** void BoardDeInitMcu( void )
+ 167:Core/Src/boards/NucleoL476/board.c **** {
+ 168:Core/Src/boards/NucleoL476/board.c ****     SpiDeInit( &SX126x.Spi );
+ 169:Core/Src/boards/NucleoL476/board.c ****     SX126xIoDeInit( );
+ 170:Core/Src/boards/NucleoL476/board.c **** }
+ 171:Core/Src/boards/NucleoL476/board.c **** 
+ 172:Core/Src/boards/NucleoL476/board.c **** uint32_t BoardGetRandomSeed( void )
+ 173:Core/Src/boards/NucleoL476/board.c **** {
+ 174:Core/Src/boards/NucleoL476/board.c ****     return ( ( *( uint32_t* )ID1 ) ^ ( *( uint32_t* )ID2 ) ^ ( *( uint32_t* )ID3 ) );
+ 175:Core/Src/boards/NucleoL476/board.c **** }
+ 176:Core/Src/boards/NucleoL476/board.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 5
+
+
+ 177:Core/Src/boards/NucleoL476/board.c **** void BoardGetUniqueId( uint8_t *id )
+ 178:Core/Src/boards/NucleoL476/board.c **** {
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[7] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 24;
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 182:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 183:Core/Src/boards/NucleoL476/board.c ****     id[3] = ( ( *( uint32_t* )ID2 ) ) >> 24;
+ 184:Core/Src/boards/NucleoL476/board.c ****     id[2] = ( ( *( uint32_t* )ID2 ) ) >> 16;
+ 185:Core/Src/boards/NucleoL476/board.c ****     id[1] = ( ( *( uint32_t* )ID2 ) ) >> 8;
+ 186:Core/Src/boards/NucleoL476/board.c ****     id[0] = ( ( *( uint32_t* )ID2 ) );
+ 187:Core/Src/boards/NucleoL476/board.c **** }
+ 188:Core/Src/boards/NucleoL476/board.c **** 
+ 189:Core/Src/boards/NucleoL476/board.c **** uint16_t BoardBatteryMeasureVolage( void )
+ 190:Core/Src/boards/NucleoL476/board.c **** {
+ 191:Core/Src/boards/NucleoL476/board.c ****     return 0;
+ 192:Core/Src/boards/NucleoL476/board.c **** }
+ 193:Core/Src/boards/NucleoL476/board.c **** 
+ 194:Core/Src/boards/NucleoL476/board.c **** uint32_t BoardGetBatteryVoltage( void )
+ 195:Core/Src/boards/NucleoL476/board.c **** {
+ 196:Core/Src/boards/NucleoL476/board.c ****     return 0;
+ 197:Core/Src/boards/NucleoL476/board.c **** }
+ 198:Core/Src/boards/NucleoL476/board.c **** 
+ 199:Core/Src/boards/NucleoL476/board.c **** uint8_t BoardGetBatteryLevel( void )
+ 200:Core/Src/boards/NucleoL476/board.c **** {
+ 201:Core/Src/boards/NucleoL476/board.c ****     return 0;
+ 202:Core/Src/boards/NucleoL476/board.c **** }
+ 203:Core/Src/boards/NucleoL476/board.c **** 
+ 204:Core/Src/boards/NucleoL476/board.c **** static void BoardUnusedIoInit( void )
+ 205:Core/Src/boards/NucleoL476/board.c **** {
+ 206:Core/Src/boards/NucleoL476/board.c ****     HAL_DBGMCU_EnableDBGSleepMode( );
+ 207:Core/Src/boards/NucleoL476/board.c ****     HAL_DBGMCU_EnableDBGStopMode( );
+ 208:Core/Src/boards/NucleoL476/board.c ****     HAL_DBGMCU_EnableDBGStandbyMode( );
+ 209:Core/Src/boards/NucleoL476/board.c **** }
+ 210:Core/Src/boards/NucleoL476/board.c **** 
+ 211:Core/Src/boards/NucleoL476/board.c **** void SystemClockConfig( void )
+ 212:Core/Src/boards/NucleoL476/board.c **** {
+ 213:Core/Src/boards/NucleoL476/board.c **** 
+ 214:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitTypeDef RCC_OscInitStruct;
+ 215:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+ 216:Core/Src/boards/NucleoL476/board.c ****   RCC_PeriphCLKInitTypeDef PeriphClkInit;
+ 217:Core/Src/boards/NucleoL476/board.c **** 
+ 218:Core/Src/boards/NucleoL476/board.c ****     /**Configure LSE Drive Capability 
+ 219:Core/Src/boards/NucleoL476/board.c ****     */
+ 220:Core/Src/boards/NucleoL476/board.c ****   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
+ 221:Core/Src/boards/NucleoL476/board.c **** 
+ 222:Core/Src/boards/NucleoL476/board.c ****     /**Initializes the CPU, AHB and APB busses clocks 
+ 223:Core/Src/boards/NucleoL476/board.c ****     */
+ 224:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSE;
+ 225:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+ 226:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 227:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.HSICalibrationValue = 16;
+ 228:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 229:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+ 230:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLM = 1;
+ 231:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLN = 10;
+ 232:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+ 233:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 6
+
+
+ 234:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+ 235:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 236:Core/Src/boards/NucleoL476/board.c ****   {
+ 237:Core/Src/boards/NucleoL476/board.c ****     assert_failed(__FILE__, __LINE__);
+ 238:Core/Src/boards/NucleoL476/board.c ****   }
+ 239:Core/Src/boards/NucleoL476/board.c **** 
+ 240:Core/Src/boards/NucleoL476/board.c ****     /**Initializes the CPU, AHB and APB busses clocks 
+ 241:Core/Src/boards/NucleoL476/board.c ****     */
+ 242:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 243:Core/Src/boards/NucleoL476/board.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 244:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+ 245:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 246:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 247:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 248:Core/Src/boards/NucleoL476/board.c **** 
+ 249:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
+ 250:Core/Src/boards/NucleoL476/board.c ****   {
+ 251:Core/Src/boards/NucleoL476/board.c ****     assert_failed(__FILE__, __LINE__);
+ 252:Core/Src/boards/NucleoL476/board.c ****   }
+ 253:Core/Src/boards/NucleoL476/board.c **** 
+ 254:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_USART2;
+ 255:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+ 256:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+ 257:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+ 258:Core/Src/boards/NucleoL476/board.c ****   {
+ 259:Core/Src/boards/NucleoL476/board.c ****     assert_failed(__FILE__, __LINE__);
+ 260:Core/Src/boards/NucleoL476/board.c ****   }
+ 261:Core/Src/boards/NucleoL476/board.c **** 
+ 262:Core/Src/boards/NucleoL476/board.c ****     /**Configure the main internal regulator output voltage 
+ 263:Core/Src/boards/NucleoL476/board.c ****     */
+ 264:Core/Src/boards/NucleoL476/board.c ****   if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+ 265:Core/Src/boards/NucleoL476/board.c ****   {
+ 266:Core/Src/boards/NucleoL476/board.c ****     assert_failed(__FILE__, __LINE__);
+ 267:Core/Src/boards/NucleoL476/board.c ****   }
+ 268:Core/Src/boards/NucleoL476/board.c **** 
+ 269:Core/Src/boards/NucleoL476/board.c ****     /**Configure the Systick interrupt time 
+ 270:Core/Src/boards/NucleoL476/board.c ****     */
+ 271:Core/Src/boards/NucleoL476/board.c ****   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+ 272:Core/Src/boards/NucleoL476/board.c **** 
+ 273:Core/Src/boards/NucleoL476/board.c ****     /**Configure the Systick 
+ 274:Core/Src/boards/NucleoL476/board.c ****     */
+ 275:Core/Src/boards/NucleoL476/board.c ****   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+ 276:Core/Src/boards/NucleoL476/board.c **** 
+ 277:Core/Src/boards/NucleoL476/board.c ****   /* SysTick_IRQn interrupt configuration */
+ 278:Core/Src/boards/NucleoL476/board.c ****   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+ 279:Core/Src/boards/NucleoL476/board.c **** }
+ 280:Core/Src/boards/NucleoL476/board.c **** 
+ 281:Core/Src/boards/NucleoL476/board.c **** void CalibrateSystemWakeupTime( void )
+ 282:Core/Src/boards/NucleoL476/board.c **** {
+ 283:Core/Src/boards/NucleoL476/board.c ****     if( SystemWakeupTimeCalibrated == false )
+ 284:Core/Src/boards/NucleoL476/board.c ****     {
+ 285:Core/Src/boards/NucleoL476/board.c ****         TimerInit( &CalibrateSystemWakeupTimeTimer, OnCalibrateSystemWakeupTimeTimerEvent );
+ 286:Core/Src/boards/NucleoL476/board.c ****         TimerSetValue( &CalibrateSystemWakeupTimeTimer, 1000 );
+ 287:Core/Src/boards/NucleoL476/board.c ****         TimerStart( &CalibrateSystemWakeupTimeTimer );
+ 288:Core/Src/boards/NucleoL476/board.c ****         while( SystemWakeupTimeCalibrated == false )
+ 289:Core/Src/boards/NucleoL476/board.c ****         {
+ 290:Core/Src/boards/NucleoL476/board.c ****             TimerLowPowerHandler( );
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 7
+
+
+ 291:Core/Src/boards/NucleoL476/board.c ****         }
+ 292:Core/Src/boards/NucleoL476/board.c ****     }
+ 293:Core/Src/boards/NucleoL476/board.c **** }
+ 294:Core/Src/boards/NucleoL476/board.c **** 
+ 295:Core/Src/boards/NucleoL476/board.c **** void SystemClockReConfig( void )
+ 296:Core/Src/boards/NucleoL476/board.c **** {
+  56              		.loc 1 296 1 is_stmt 1 view -0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 8
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61 0000 82B0     		sub	sp, sp, #8
+  62              	.LCFI0:
+  63              		.cfi_def_cfa_offset 8
+ 297:Core/Src/boards/NucleoL476/board.c ****     __HAL_RCC_PWR_CLK_ENABLE( );
+  64              		.loc 1 297 5 view .LVU5
+  65              	.LBB6:
+  66              		.loc 1 297 5 view .LVU6
+  67              		.loc 1 297 5 view .LVU7
+  68 0002 1B4B     		ldr	r3, .L9
+  69 0004 9A6D     		ldr	r2, [r3, #88]
+  70 0006 42F08052 		orr	r2, r2, #268435456
+  71 000a 9A65     		str	r2, [r3, #88]
+  72              		.loc 1 297 5 view .LVU8
+  73 000c 9A6D     		ldr	r2, [r3, #88]
+  74 000e 02F08052 		and	r2, r2, #268435456
+  75 0012 0092     		str	r2, [sp]
+  76              		.loc 1 297 5 view .LVU9
+  77 0014 009A     		ldr	r2, [sp]
+  78              	.LBE6:
+  79              		.loc 1 297 5 view .LVU10
+ 298:Core/Src/boards/NucleoL476/board.c ****     __HAL_PWR_VOLTAGESCALING_CONFIG( PWR_REGULATOR_VOLTAGE_SCALE1 );
+  80              		.loc 1 298 5 view .LVU11
+  81              	.LBB7:
+  82              		.loc 1 298 5 view .LVU12
+  83              		.loc 1 298 5 view .LVU13
+  84 0016 1749     		ldr	r1, .L9+4
+  85 0018 0A68     		ldr	r2, [r1]
+  86 001a 22F4C062 		bic	r2, r2, #1536
+  87 001e 42F40072 		orr	r2, r2, #512
+  88 0022 0A60     		str	r2, [r1]
+  89              		.loc 1 298 5 view .LVU14
+  90 0024 0A68     		ldr	r2, [r1]
+  91 0026 02F4C062 		and	r2, r2, #1536
+  92 002a 0192     		str	r2, [sp, #4]
+  93              		.loc 1 298 5 view .LVU15
+  94 002c 019A     		ldr	r2, [sp, #4]
+  95              	.LBE7:
+  96              		.loc 1 298 5 view .LVU16
+ 299:Core/Src/boards/NucleoL476/board.c **** 
+ 300:Core/Src/boards/NucleoL476/board.c ****     /* Enable HSI */
+ 301:Core/Src/boards/NucleoL476/board.c ****     __HAL_RCC_HSI_ENABLE( );
+  97              		.loc 1 301 5 view .LVU17
+  98 002e 1A68     		ldr	r2, [r3]
+  99 0030 42F48072 		orr	r2, r2, #256
+ 100 0034 1A60     		str	r2, [r3]
+ 302:Core/Src/boards/NucleoL476/board.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 8
+
+
+ 303:Core/Src/boards/NucleoL476/board.c ****     /* Wait till HSE is ready */
+ 304:Core/Src/boards/NucleoL476/board.c ****     while( __HAL_RCC_GET_FLAG( RCC_FLAG_HSIRDY ) == RESET )
+ 101              		.loc 1 304 5 view .LVU18
+ 102              	.L5:
+ 305:Core/Src/boards/NucleoL476/board.c ****     {
+ 306:Core/Src/boards/NucleoL476/board.c ****     }
+ 103              		.loc 1 306 5 discriminator 1 view .LVU19
+ 304:Core/Src/boards/NucleoL476/board.c ****     {
+ 104              		.loc 1 304 10 discriminator 1 view .LVU20
+ 304:Core/Src/boards/NucleoL476/board.c ****     {
+ 105              		.loc 1 304 12 is_stmt 0 discriminator 1 view .LVU21
+ 106 0036 0E4B     		ldr	r3, .L9
+ 107 0038 1B68     		ldr	r3, [r3]
+ 304:Core/Src/boards/NucleoL476/board.c ****     {
+ 108              		.loc 1 304 10 discriminator 1 view .LVU22
+ 109 003a 13F4806F 		tst	r3, #1024
+ 110 003e FAD0     		beq	.L5
+ 307:Core/Src/boards/NucleoL476/board.c **** 
+ 308:Core/Src/boards/NucleoL476/board.c ****     /* Enable PLL */
+ 309:Core/Src/boards/NucleoL476/board.c ****     __HAL_RCC_PLL_ENABLE( );
+ 111              		.loc 1 309 5 is_stmt 1 view .LVU23
+ 112 0040 0B4A     		ldr	r2, .L9
+ 113 0042 1368     		ldr	r3, [r2]
+ 114 0044 43F08073 		orr	r3, r3, #16777216
+ 115 0048 1360     		str	r3, [r2]
+ 310:Core/Src/boards/NucleoL476/board.c **** 
+ 311:Core/Src/boards/NucleoL476/board.c ****     /* Wait till PLL is ready */
+ 312:Core/Src/boards/NucleoL476/board.c ****     while( __HAL_RCC_GET_FLAG( RCC_FLAG_PLLRDY ) == RESET )
+ 116              		.loc 1 312 5 view .LVU24
+ 117              	.L6:
+ 313:Core/Src/boards/NucleoL476/board.c ****     {
+ 314:Core/Src/boards/NucleoL476/board.c ****     }
+ 118              		.loc 1 314 5 discriminator 1 view .LVU25
+ 312:Core/Src/boards/NucleoL476/board.c ****     {
+ 119              		.loc 1 312 10 discriminator 1 view .LVU26
+ 312:Core/Src/boards/NucleoL476/board.c ****     {
+ 120              		.loc 1 312 12 is_stmt 0 discriminator 1 view .LVU27
+ 121 004a 094B     		ldr	r3, .L9
+ 122 004c 1B68     		ldr	r3, [r3]
+ 312:Core/Src/boards/NucleoL476/board.c ****     {
+ 123              		.loc 1 312 10 discriminator 1 view .LVU28
+ 124 004e 13F0007F 		tst	r3, #33554432
+ 125 0052 FAD0     		beq	.L6
+ 315:Core/Src/boards/NucleoL476/board.c **** 
+ 316:Core/Src/boards/NucleoL476/board.c ****     /* Select PLL as system clock source */
+ 317:Core/Src/boards/NucleoL476/board.c ****     __HAL_RCC_SYSCLK_CONFIG ( RCC_SYSCLKSOURCE_PLLCLK );
+ 126              		.loc 1 317 5 is_stmt 1 view .LVU29
+ 127 0054 064A     		ldr	r2, .L9
+ 128 0056 9368     		ldr	r3, [r2, #8]
+ 129 0058 43F00303 		orr	r3, r3, #3
+ 130 005c 9360     		str	r3, [r2, #8]
+ 318:Core/Src/boards/NucleoL476/board.c **** 
+ 319:Core/Src/boards/NucleoL476/board.c ****     /* Wait till PLL is used as system clock source */
+ 320:Core/Src/boards/NucleoL476/board.c ****     while( __HAL_RCC_GET_SYSCLK_SOURCE( ) != RCC_SYSCLKSOURCE_STATUS_PLLCLK )
+ 131              		.loc 1 320 5 view .LVU30
+ 132              	.L7:
+ 321:Core/Src/boards/NucleoL476/board.c ****     {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 9
+
+
+ 322:Core/Src/boards/NucleoL476/board.c ****     }
+ 133              		.loc 1 322 5 discriminator 1 view .LVU31
+ 320:Core/Src/boards/NucleoL476/board.c ****     {
+ 134              		.loc 1 320 10 discriminator 1 view .LVU32
+ 320:Core/Src/boards/NucleoL476/board.c ****     {
+ 135              		.loc 1 320 12 is_stmt 0 discriminator 1 view .LVU33
+ 136 005e 044B     		ldr	r3, .L9
+ 137 0060 9B68     		ldr	r3, [r3, #8]
+ 138 0062 03F00C03 		and	r3, r3, #12
+ 320:Core/Src/boards/NucleoL476/board.c ****     {
+ 139              		.loc 1 320 10 discriminator 1 view .LVU34
+ 140 0066 0C2B     		cmp	r3, #12
+ 141 0068 F9D1     		bne	.L7
+ 323:Core/Src/boards/NucleoL476/board.c **** }
+ 142              		.loc 1 323 1 view .LVU35
+ 143 006a 02B0     		add	sp, sp, #8
+ 144              	.LCFI1:
+ 145              		.cfi_def_cfa_offset 0
+ 146              		@ sp needed
+ 147 006c 7047     		bx	lr
+ 148              	.L10:
+ 149 006e 00BF     		.align	2
+ 150              	.L9:
+ 151 0070 00100240 		.word	1073876992
+ 152 0074 00700040 		.word	1073770496
+ 153              		.cfi_endproc
+ 154              	.LFE149:
+ 156              		.section	.text.BoardUnusedIoInit,"ax",%progbits
+ 157              		.align	1
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 163              	BoardUnusedIoInit:
+ 164              	.LFB146:
+ 205:Core/Src/boards/NucleoL476/board.c ****     HAL_DBGMCU_EnableDBGSleepMode( );
+ 165              		.loc 1 205 1 is_stmt 1 view -0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169 0000 08B5     		push	{r3, lr}
+ 170              	.LCFI2:
+ 171              		.cfi_def_cfa_offset 8
+ 172              		.cfi_offset 3, -8
+ 173              		.cfi_offset 14, -4
+ 206:Core/Src/boards/NucleoL476/board.c ****     HAL_DBGMCU_EnableDBGStopMode( );
+ 174              		.loc 1 206 5 view .LVU37
+ 175 0002 FFF7FEFF 		bl	HAL_DBGMCU_EnableDBGSleepMode
+ 176              	.LVL0:
+ 207:Core/Src/boards/NucleoL476/board.c ****     HAL_DBGMCU_EnableDBGStandbyMode( );
+ 177              		.loc 1 207 5 view .LVU38
+ 178 0006 FFF7FEFF 		bl	HAL_DBGMCU_EnableDBGStopMode
+ 179              	.LVL1:
+ 208:Core/Src/boards/NucleoL476/board.c **** }
+ 180              		.loc 1 208 5 view .LVU39
+ 181 000a FFF7FEFF 		bl	HAL_DBGMCU_EnableDBGStandbyMode
+ 182              	.LVL2:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 10
+
+
+ 209:Core/Src/boards/NucleoL476/board.c **** 
+ 183              		.loc 1 209 1 is_stmt 0 view .LVU40
+ 184 000e 08BD     		pop	{r3, pc}
+ 185              		.cfi_endproc
+ 186              	.LFE146:
+ 188              		.section	.text.CalibrateSystemWakeupTime,"ax",%progbits
+ 189              		.align	1
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 193              		.fpu fpv4-sp-d16
+ 195              	CalibrateSystemWakeupTime:
+ 196              	.LFB148:
+ 282:Core/Src/boards/NucleoL476/board.c ****     if( SystemWakeupTimeCalibrated == false )
+ 197              		.loc 1 282 1 is_stmt 1 view -0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 283:Core/Src/boards/NucleoL476/board.c ****     {
+ 201              		.loc 1 283 5 view .LVU42
+ 283:Core/Src/boards/NucleoL476/board.c ****     {
+ 202              		.loc 1 283 36 is_stmt 0 view .LVU43
+ 203 0000 0C4B     		ldr	r3, .L22
+ 204 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 283:Core/Src/boards/NucleoL476/board.c ****     {
+ 205              		.loc 1 283 7 view .LVU44
+ 206 0004 03B1     		cbz	r3, .L21
+ 207 0006 7047     		bx	lr
+ 208              	.L21:
+ 282:Core/Src/boards/NucleoL476/board.c ****     if( SystemWakeupTimeCalibrated == false )
+ 209              		.loc 1 282 1 view .LVU45
+ 210 0008 10B5     		push	{r4, lr}
+ 211              	.LCFI3:
+ 212              		.cfi_def_cfa_offset 8
+ 213              		.cfi_offset 4, -8
+ 214              		.cfi_offset 14, -4
+ 285:Core/Src/boards/NucleoL476/board.c ****         TimerSetValue( &CalibrateSystemWakeupTimeTimer, 1000 );
+ 215              		.loc 1 285 9 is_stmt 1 view .LVU46
+ 216 000a 0B4C     		ldr	r4, .L22+4
+ 217 000c 0B49     		ldr	r1, .L22+8
+ 218 000e 2046     		mov	r0, r4
+ 219 0010 FFF7FEFF 		bl	TimerInit
+ 220              	.LVL3:
+ 286:Core/Src/boards/NucleoL476/board.c ****         TimerStart( &CalibrateSystemWakeupTimeTimer );
+ 221              		.loc 1 286 9 view .LVU47
+ 222 0014 4FF47A71 		mov	r1, #1000
+ 223 0018 2046     		mov	r0, r4
+ 224 001a FFF7FEFF 		bl	TimerSetValue
+ 225              	.LVL4:
+ 287:Core/Src/boards/NucleoL476/board.c ****         while( SystemWakeupTimeCalibrated == false )
+ 226              		.loc 1 287 9 view .LVU48
+ 227 001e 2046     		mov	r0, r4
+ 228 0020 FFF7FEFF 		bl	TimerStart
+ 229              	.LVL5:
+ 288:Core/Src/boards/NucleoL476/board.c ****         {
+ 230              		.loc 1 288 9 view .LVU49
+ 288:Core/Src/boards/NucleoL476/board.c ****         {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 11
+
+
+ 231              		.loc 1 288 14 is_stmt 0 view .LVU50
+ 232 0024 01E0     		b	.L15
+ 233              	.L16:
+ 290:Core/Src/boards/NucleoL476/board.c ****         }
+ 234              		.loc 1 290 13 is_stmt 1 view .LVU51
+ 235 0026 FFF7FEFF 		bl	TimerLowPowerHandler
+ 236              	.LVL6:
+ 237              	.L15:
+ 288:Core/Src/boards/NucleoL476/board.c ****         {
+ 238              		.loc 1 288 14 view .LVU52
+ 288:Core/Src/boards/NucleoL476/board.c ****         {
+ 239              		.loc 1 288 43 is_stmt 0 view .LVU53
+ 240 002a 024B     		ldr	r3, .L22
+ 241 002c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 288:Core/Src/boards/NucleoL476/board.c ****         {
+ 242              		.loc 1 288 14 view .LVU54
+ 243 002e 002B     		cmp	r3, #0
+ 244 0030 F9D0     		beq	.L16
+ 293:Core/Src/boards/NucleoL476/board.c **** 
+ 245              		.loc 1 293 1 view .LVU55
+ 246 0032 10BD     		pop	{r4, pc}
+ 247              	.L23:
+ 248              		.align	2
+ 249              	.L22:
+ 250 0034 00000000 		.word	.LANCHOR0
+ 251 0038 00000000 		.word	.LANCHOR1
+ 252 003c 00000000 		.word	OnCalibrateSystemWakeupTimeTimerEvent
+ 253              		.cfi_endproc
+ 254              	.LFE148:
+ 256              		.section	.text.BoardDisableIrq,"ax",%progbits
+ 257              		.align	1
+ 258              		.global	BoardDisableIrq
+ 259              		.syntax unified
+ 260              		.thumb
+ 261              		.thumb_func
+ 262              		.fpu fpv4-sp-d16
+ 264              	BoardDisableIrq:
+ 265              	.LFB136:
+ 103:Core/Src/boards/NucleoL476/board.c ****     __disable_irq( );
+ 266              		.loc 1 103 1 is_stmt 1 view -0
+ 267              		.cfi_startproc
+ 268              		@ args = 0, pretend = 0, frame = 0
+ 269              		@ frame_needed = 0, uses_anonymous_args = 0
+ 270              		@ link register save eliminated.
+ 104:Core/Src/boards/NucleoL476/board.c ****     IrqNestLevel++;
+ 271              		.loc 1 104 5 view .LVU57
+ 272              	.LBB8:
+ 273              	.LBI8:
+ 274              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+   1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
+   2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @version  V5.2.0
+   5:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @date     08. May 2019
+   6:Drivers/CMSIS/Include/cmsis_gcc.h ****  ******************************************************************************/
+   7:Drivers/CMSIS/Include/cmsis_gcc.h **** /*
+   8:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Copyright (c) 2009-2019 Arm Limited. All rights reserved.
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 12
+
+
+   9:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  10:Drivers/CMSIS/Include/cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  12:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:Drivers/CMSIS/Include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:Drivers/CMSIS/Include/cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  16:Drivers/CMSIS/Include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+  18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:Drivers/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:Drivers/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:Drivers/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
+  23:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  24:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  25:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  28:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  34:Drivers/CMSIS/Include/cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __has_builtin
+  36:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  38:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  39:Drivers/CMSIS/Include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ASM
+  41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  43:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
+  44:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
+  45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  49:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif                                           
+  52:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  55:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
+  56:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  58:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __WEAK
+  59:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  61:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED
+  62:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  64:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 13
+
+
+  66:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  67:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  70:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:Drivers/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  86:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  94:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 110:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 113:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 116:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __COMPILER_BARRIER
+ 117:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __COMPILER_BARRIER()                   __ASM volatile("":::"memory")
+ 118:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 119:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 120:Drivers/CMSIS/Include/cmsis_gcc.h **** /* #########################  Startup and Lowlevel Init  ######################## */
+ 121:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 122:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __PROGRAM_START
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 14
+
+
+ 123:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 124:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 125:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Initializes data and bss sections
+ 126:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details This default implementations initialized all data and additional bss
+ 127:Drivers/CMSIS/Include/cmsis_gcc.h ****            sections relying on .copy.table and .zero.table specified properly
+ 128:Drivers/CMSIS/Include/cmsis_gcc.h ****            in the used linker script.
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h ****   
+ 130:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE __NO_RETURN void __cmsis_start(void)
+ 132:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 133:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern void _start(void) __NO_RETURN;
+ 134:Drivers/CMSIS/Include/cmsis_gcc.h ****   
+ 135:Drivers/CMSIS/Include/cmsis_gcc.h ****   typedef struct {
+ 136:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t const* src;
+ 137:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t* dest;
+ 138:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t  wlen;
+ 139:Drivers/CMSIS/Include/cmsis_gcc.h ****   } __copy_table_t;
+ 140:Drivers/CMSIS/Include/cmsis_gcc.h ****   
+ 141:Drivers/CMSIS/Include/cmsis_gcc.h ****   typedef struct {
+ 142:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t* dest;
+ 143:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t  wlen;
+ 144:Drivers/CMSIS/Include/cmsis_gcc.h ****   } __zero_table_t;
+ 145:Drivers/CMSIS/Include/cmsis_gcc.h ****   
+ 146:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern const __copy_table_t __copy_table_start__;
+ 147:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern const __copy_table_t __copy_table_end__;
+ 148:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern const __zero_table_t __zero_table_start__;
+ 149:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern const __zero_table_t __zero_table_end__;
+ 150:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 151:Drivers/CMSIS/Include/cmsis_gcc.h ****   for (__copy_table_t const* pTable = &__copy_table_start__; pTable < &__copy_table_end__; ++pTable
+ 152:Drivers/CMSIS/Include/cmsis_gcc.h ****     for(uint32_t i=0u; i<pTable->wlen; ++i) {
+ 153:Drivers/CMSIS/Include/cmsis_gcc.h ****       pTable->dest[i] = pTable->src[i];
+ 154:Drivers/CMSIS/Include/cmsis_gcc.h ****     }
+ 155:Drivers/CMSIS/Include/cmsis_gcc.h ****   }
+ 156:Drivers/CMSIS/Include/cmsis_gcc.h ****  
+ 157:Drivers/CMSIS/Include/cmsis_gcc.h ****   for (__zero_table_t const* pTable = &__zero_table_start__; pTable < &__zero_table_end__; ++pTable
+ 158:Drivers/CMSIS/Include/cmsis_gcc.h ****     for(uint32_t i=0u; i<pTable->wlen; ++i) {
+ 159:Drivers/CMSIS/Include/cmsis_gcc.h ****       pTable->dest[i] = 0u;
+ 160:Drivers/CMSIS/Include/cmsis_gcc.h ****     }
+ 161:Drivers/CMSIS/Include/cmsis_gcc.h ****   }
+ 162:Drivers/CMSIS/Include/cmsis_gcc.h ****  
+ 163:Drivers/CMSIS/Include/cmsis_gcc.h ****   _start();
+ 164:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 165:Drivers/CMSIS/Include/cmsis_gcc.h ****   
+ 166:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __PROGRAM_START           __cmsis_start
+ 167:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 168:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 169:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __INITIAL_SP
+ 170:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __INITIAL_SP              __StackTop
+ 171:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 172:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 173:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __STACK_LIMIT
+ 174:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __STACK_LIMIT             __StackLimit
+ 175:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 176:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 177:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __VECTOR_TABLE
+ 178:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __VECTOR_TABLE            __Vectors
+ 179:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 15
+
+
+ 180:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 181:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __VECTOR_TABLE_ATTRIBUTE
+ 182:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __VECTOR_TABLE_ATTRIBUTE  __attribute((used, section(".vectors")))
+ 183:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 184:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 185:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 186:Drivers/CMSIS/Include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 187:Drivers/CMSIS/Include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 188:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
+ 189:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 190:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 191:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 192:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 193:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 194:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 195:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 196:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 197:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 198:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 199:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 200:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 201:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 202:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 203:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 204:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 205:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 206:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 207:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 275              		.loc 2 207 27 view .LVU58
+ 276              	.LBB9:
+ 208:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 209:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 277              		.loc 2 209 3 view .LVU59
+ 278              		.syntax unified
+ 279              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 280 0000 72B6     		cpsid i
+ 281              	@ 0 "" 2
+ 282              		.thumb
+ 283              		.syntax unified
+ 284              	.LBE9:
+ 285              	.LBE8:
+ 105:Core/Src/boards/NucleoL476/board.c **** }
+ 286              		.loc 1 105 5 view .LVU60
+ 105:Core/Src/boards/NucleoL476/board.c **** }
+ 287              		.loc 1 105 17 is_stmt 0 view .LVU61
+ 288 0002 024A     		ldr	r2, .L25
+ 289 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 290 0006 0133     		adds	r3, r3, #1
+ 291 0008 1370     		strb	r3, [r2]
+ 106:Core/Src/boards/NucleoL476/board.c **** 
+ 292              		.loc 1 106 1 view .LVU62
+ 293 000a 7047     		bx	lr
+ 294              	.L26:
+ 295              		.align	2
+ 296              	.L25:
+ 297 000c 00000000 		.word	.LANCHOR2
+ 298              		.cfi_endproc
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 16
+
+
+ 299              	.LFE136:
+ 301              		.section	.text.BoardEnableIrq,"ax",%progbits
+ 302              		.align	1
+ 303              		.global	BoardEnableIrq
+ 304              		.syntax unified
+ 305              		.thumb
+ 306              		.thumb_func
+ 307              		.fpu fpv4-sp-d16
+ 309              	BoardEnableIrq:
+ 310              	.LFB137:
+ 109:Core/Src/boards/NucleoL476/board.c ****     IrqNestLevel--;
+ 311              		.loc 1 109 1 is_stmt 1 view -0
+ 312              		.cfi_startproc
+ 313              		@ args = 0, pretend = 0, frame = 0
+ 314              		@ frame_needed = 0, uses_anonymous_args = 0
+ 315              		@ link register save eliminated.
+ 110:Core/Src/boards/NucleoL476/board.c ****     if( IrqNestLevel == 0 )
+ 316              		.loc 1 110 5 view .LVU64
+ 110:Core/Src/boards/NucleoL476/board.c ****     if( IrqNestLevel == 0 )
+ 317              		.loc 1 110 17 is_stmt 0 view .LVU65
+ 318 0000 034A     		ldr	r2, .L29
+ 319 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 320 0004 013B     		subs	r3, r3, #1
+ 321 0006 DBB2     		uxtb	r3, r3
+ 322 0008 1370     		strb	r3, [r2]
+ 111:Core/Src/boards/NucleoL476/board.c ****     {
+ 323              		.loc 1 111 5 is_stmt 1 view .LVU66
+ 111:Core/Src/boards/NucleoL476/board.c ****     {
+ 324              		.loc 1 111 7 is_stmt 0 view .LVU67
+ 325 000a 03B9     		cbnz	r3, .L27
+ 113:Core/Src/boards/NucleoL476/board.c ****     }
+ 326              		.loc 1 113 9 is_stmt 1 view .LVU68
+ 327              	.LBB10:
+ 328              	.LBI10:
+ 196:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 329              		.loc 2 196 27 view .LVU69
+ 330              	.LBB11:
+ 198:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 331              		.loc 2 198 3 view .LVU70
+ 332              		.syntax unified
+ 333              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 334 000c 62B6     		cpsie i
+ 335              	@ 0 "" 2
+ 336              		.thumb
+ 337              		.syntax unified
+ 338              	.L27:
+ 339              	.LBE11:
+ 340              	.LBE10:
+ 115:Core/Src/boards/NucleoL476/board.c **** 
+ 341              		.loc 1 115 1 is_stmt 0 view .LVU71
+ 342 000e 7047     		bx	lr
+ 343              	.L30:
+ 344              		.align	2
+ 345              	.L29:
+ 346 0010 00000000 		.word	.LANCHOR2
+ 347              		.cfi_endproc
+ 348              	.LFE137:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 17
+
+
+ 350              		.section	.text.BoardInitPeriph,"ax",%progbits
+ 351              		.align	1
+ 352              		.global	BoardInitPeriph
+ 353              		.syntax unified
+ 354              		.thumb
+ 355              		.thumb_func
+ 356              		.fpu fpv4-sp-d16
+ 358              	BoardInitPeriph:
+ 359              	.LFB138:
+ 118:Core/Src/boards/NucleoL476/board.c **** 
+ 360              		.loc 1 118 1 is_stmt 1 view -0
+ 361              		.cfi_startproc
+ 362              		@ args = 0, pretend = 0, frame = 0
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 364              		@ link register save eliminated.
+ 120:Core/Src/boards/NucleoL476/board.c **** 
+ 365              		.loc 1 120 1 view .LVU73
+ 366 0000 7047     		bx	lr
+ 367              		.cfi_endproc
+ 368              	.LFE138:
+ 370              		.section	.text.BoardDeInitMcu,"ax",%progbits
+ 371              		.align	1
+ 372              		.global	BoardDeInitMcu
+ 373              		.syntax unified
+ 374              		.thumb
+ 375              		.thumb_func
+ 376              		.fpu fpv4-sp-d16
+ 378              	BoardDeInitMcu:
+ 379              	.LFB140:
+ 167:Core/Src/boards/NucleoL476/board.c ****     SpiDeInit( &SX126x.Spi );
+ 380              		.loc 1 167 1 view -0
+ 381              		.cfi_startproc
+ 382              		@ args = 0, pretend = 0, frame = 0
+ 383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 384 0000 08B5     		push	{r3, lr}
+ 385              	.LCFI4:
+ 386              		.cfi_def_cfa_offset 8
+ 387              		.cfi_offset 3, -8
+ 388              		.cfi_offset 14, -4
+ 168:Core/Src/boards/NucleoL476/board.c ****     SX126xIoDeInit( );
+ 389              		.loc 1 168 5 view .LVU75
+ 390 0002 0348     		ldr	r0, .L34
+ 391 0004 FFF7FEFF 		bl	SpiDeInit
+ 392              	.LVL7:
+ 169:Core/Src/boards/NucleoL476/board.c **** }
+ 393              		.loc 1 169 5 view .LVU76
+ 394 0008 FFF7FEFF 		bl	SX126xIoDeInit
+ 395              	.LVL8:
+ 170:Core/Src/boards/NucleoL476/board.c **** 
+ 396              		.loc 1 170 1 is_stmt 0 view .LVU77
+ 397 000c 08BD     		pop	{r3, pc}
+ 398              	.L35:
+ 399 000e 00BF     		.align	2
+ 400              	.L34:
+ 401 0010 3C000000 		.word	SX126x+60
+ 402              		.cfi_endproc
+ 403              	.LFE140:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 18
+
+
+ 405              		.section	.text.BoardGetRandomSeed,"ax",%progbits
+ 406              		.align	1
+ 407              		.global	BoardGetRandomSeed
+ 408              		.syntax unified
+ 409              		.thumb
+ 410              		.thumb_func
+ 411              		.fpu fpv4-sp-d16
+ 413              	BoardGetRandomSeed:
+ 414              	.LFB141:
+ 173:Core/Src/boards/NucleoL476/board.c ****     return ( ( *( uint32_t* )ID1 ) ^ ( *( uint32_t* )ID2 ) ^ ( *( uint32_t* )ID3 ) );
+ 415              		.loc 1 173 1 is_stmt 1 view -0
+ 416              		.cfi_startproc
+ 417              		@ args = 0, pretend = 0, frame = 0
+ 418              		@ frame_needed = 0, uses_anonymous_args = 0
+ 419              		@ link register save eliminated.
+ 174:Core/Src/boards/NucleoL476/board.c **** }
+ 420              		.loc 1 174 5 view .LVU79
+ 174:Core/Src/boards/NucleoL476/board.c **** }
+ 421              		.loc 1 174 16 is_stmt 0 view .LVU80
+ 422 0000 044B     		ldr	r3, .L37
+ 423 0002 D3F8D000 		ldr	r0, [r3, #208]
+ 174:Core/Src/boards/NucleoL476/board.c **** }
+ 424              		.loc 1 174 40 view .LVU81
+ 425 0006 D3F8D420 		ldr	r2, [r3, #212]
+ 174:Core/Src/boards/NucleoL476/board.c **** }
+ 426              		.loc 1 174 36 view .LVU82
+ 427 000a 5040     		eors	r0, r0, r2
+ 174:Core/Src/boards/NucleoL476/board.c **** }
+ 428              		.loc 1 174 64 view .LVU83
+ 429 000c D3F8E430 		ldr	r3, [r3, #228]
+ 175:Core/Src/boards/NucleoL476/board.c **** 
+ 430              		.loc 1 175 1 view .LVU84
+ 431 0010 5840     		eors	r0, r0, r3
+ 432 0012 7047     		bx	lr
+ 433              	.L38:
+ 434              		.align	2
+ 435              	.L37:
+ 436 0014 0000F81F 		.word	536346624
+ 437              		.cfi_endproc
+ 438              	.LFE141:
+ 440              		.section	.text.BoardGetUniqueId,"ax",%progbits
+ 441              		.align	1
+ 442              		.global	BoardGetUniqueId
+ 443              		.syntax unified
+ 444              		.thumb
+ 445              		.thumb_func
+ 446              		.fpu fpv4-sp-d16
+ 448              	BoardGetUniqueId:
+ 449              	.LVL9:
+ 450              	.LFB142:
+ 178:Core/Src/boards/NucleoL476/board.c ****     id[7] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 24;
+ 451              		.loc 1 178 1 is_stmt 1 view -0
+ 452              		.cfi_startproc
+ 453              		@ args = 0, pretend = 0, frame = 0
+ 454              		@ frame_needed = 0, uses_anonymous_args = 0
+ 455              		@ link register save eliminated.
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 19
+
+
+ 456              		.loc 1 179 5 view .LVU86
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ 457              		.loc 1 179 17 is_stmt 0 view .LVU87
+ 458 0000 144B     		ldr	r3, .L40
+ 459 0002 D3F8D020 		ldr	r2, [r3, #208]
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ 460              		.loc 1 179 40 view .LVU88
+ 461 0006 D3F8E410 		ldr	r1, [r3, #228]
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ 462              		.loc 1 179 36 view .LVU89
+ 463 000a 0A44     		add	r2, r2, r1
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ 464              		.loc 1 179 62 view .LVU90
+ 465 000c 120E     		lsrs	r2, r2, #24
+ 179:Core/Src/boards/NucleoL476/board.c ****     id[6] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 16;
+ 466              		.loc 1 179 11 view .LVU91
+ 467 000e C271     		strb	r2, [r0, #7]
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 468              		.loc 1 180 5 is_stmt 1 view .LVU92
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 469              		.loc 1 180 17 is_stmt 0 view .LVU93
+ 470 0010 D3F8D020 		ldr	r2, [r3, #208]
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 471              		.loc 1 180 40 view .LVU94
+ 472 0014 D3F8E410 		ldr	r1, [r3, #228]
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 473              		.loc 1 180 36 view .LVU95
+ 474 0018 0A44     		add	r2, r2, r1
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 475              		.loc 1 180 62 view .LVU96
+ 476 001a 120C     		lsrs	r2, r2, #16
+ 180:Core/Src/boards/NucleoL476/board.c ****     id[5] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) ) >> 8;
+ 477              		.loc 1 180 11 view .LVU97
+ 478 001c 8271     		strb	r2, [r0, #6]
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 479              		.loc 1 181 5 is_stmt 1 view .LVU98
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 480              		.loc 1 181 17 is_stmt 0 view .LVU99
+ 481 001e D3F8D020 		ldr	r2, [r3, #208]
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 482              		.loc 1 181 40 view .LVU100
+ 483 0022 D3F8E410 		ldr	r1, [r3, #228]
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 484              		.loc 1 181 36 view .LVU101
+ 485 0026 0A44     		add	r2, r2, r1
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 486              		.loc 1 181 62 view .LVU102
+ 487 0028 120A     		lsrs	r2, r2, #8
+ 181:Core/Src/boards/NucleoL476/board.c ****     id[4] = ( ( *( uint32_t* )ID1 )+ ( *( uint32_t* )ID3 ) );
+ 488              		.loc 1 181 11 view .LVU103
+ 489 002a 4271     		strb	r2, [r0, #5]
+ 182:Core/Src/boards/NucleoL476/board.c ****     id[3] = ( ( *( uint32_t* )ID2 ) ) >> 24;
+ 490              		.loc 1 182 5 is_stmt 1 view .LVU104
+ 182:Core/Src/boards/NucleoL476/board.c ****     id[3] = ( ( *( uint32_t* )ID2 ) ) >> 24;
+ 491              		.loc 1 182 17 is_stmt 0 view .LVU105
+ 492 002c D3F8D020 		ldr	r2, [r3, #208]
+ 182:Core/Src/boards/NucleoL476/board.c ****     id[3] = ( ( *( uint32_t* )ID2 ) ) >> 24;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 20
+
+
+ 493              		.loc 1 182 40 view .LVU106
+ 494 0030 D3F8E410 		ldr	r1, [r3, #228]
+ 182:Core/Src/boards/NucleoL476/board.c ****     id[3] = ( ( *( uint32_t* )ID2 ) ) >> 24;
+ 495              		.loc 1 182 36 view .LVU107
+ 496 0034 0A44     		add	r2, r2, r1
+ 182:Core/Src/boards/NucleoL476/board.c ****     id[3] = ( ( *( uint32_t* )ID2 ) ) >> 24;
+ 497              		.loc 1 182 11 view .LVU108
+ 498 0036 0271     		strb	r2, [r0, #4]
+ 183:Core/Src/boards/NucleoL476/board.c ****     id[2] = ( ( *( uint32_t* )ID2 ) ) >> 16;
+ 499              		.loc 1 183 5 is_stmt 1 view .LVU109
+ 183:Core/Src/boards/NucleoL476/board.c ****     id[2] = ( ( *( uint32_t* )ID2 ) ) >> 16;
+ 500              		.loc 1 183 39 is_stmt 0 view .LVU110
+ 501 0038 93F8D720 		ldrb	r2, [r3, #215]	@ zero_extendqisi2
+ 183:Core/Src/boards/NucleoL476/board.c ****     id[2] = ( ( *( uint32_t* )ID2 ) ) >> 16;
+ 502              		.loc 1 183 11 view .LVU111
+ 503 003c C270     		strb	r2, [r0, #3]
+ 184:Core/Src/boards/NucleoL476/board.c ****     id[1] = ( ( *( uint32_t* )ID2 ) ) >> 8;
+ 504              		.loc 1 184 5 is_stmt 1 view .LVU112
+ 184:Core/Src/boards/NucleoL476/board.c ****     id[1] = ( ( *( uint32_t* )ID2 ) ) >> 8;
+ 505              		.loc 1 184 39 is_stmt 0 view .LVU113
+ 506 003e B3F8D620 		ldrh	r2, [r3, #214]
+ 184:Core/Src/boards/NucleoL476/board.c ****     id[1] = ( ( *( uint32_t* )ID2 ) ) >> 8;
+ 507              		.loc 1 184 11 view .LVU114
+ 508 0042 8270     		strb	r2, [r0, #2]
+ 185:Core/Src/boards/NucleoL476/board.c ****     id[0] = ( ( *( uint32_t* )ID2 ) );
+ 509              		.loc 1 185 5 is_stmt 1 view .LVU115
+ 185:Core/Src/boards/NucleoL476/board.c ****     id[0] = ( ( *( uint32_t* )ID2 ) );
+ 510              		.loc 1 185 17 is_stmt 0 view .LVU116
+ 511 0044 D3F8D420 		ldr	r2, [r3, #212]
+ 185:Core/Src/boards/NucleoL476/board.c ****     id[0] = ( ( *( uint32_t* )ID2 ) );
+ 512              		.loc 1 185 39 view .LVU117
+ 513 0048 120A     		lsrs	r2, r2, #8
+ 185:Core/Src/boards/NucleoL476/board.c ****     id[0] = ( ( *( uint32_t* )ID2 ) );
+ 514              		.loc 1 185 11 view .LVU118
+ 515 004a 4270     		strb	r2, [r0, #1]
+ 186:Core/Src/boards/NucleoL476/board.c **** }
+ 516              		.loc 1 186 5 is_stmt 1 view .LVU119
+ 186:Core/Src/boards/NucleoL476/board.c **** }
+ 517              		.loc 1 186 17 is_stmt 0 view .LVU120
+ 518 004c D3F8D430 		ldr	r3, [r3, #212]
+ 186:Core/Src/boards/NucleoL476/board.c **** }
+ 519              		.loc 1 186 11 view .LVU121
+ 520 0050 0370     		strb	r3, [r0]
+ 187:Core/Src/boards/NucleoL476/board.c **** 
+ 521              		.loc 1 187 1 view .LVU122
+ 522 0052 7047     		bx	lr
+ 523              	.L41:
+ 524              		.align	2
+ 525              	.L40:
+ 526 0054 0000F81F 		.word	536346624
+ 527              		.cfi_endproc
+ 528              	.LFE142:
+ 530              		.section	.text.BoardBatteryMeasureVolage,"ax",%progbits
+ 531              		.align	1
+ 532              		.global	BoardBatteryMeasureVolage
+ 533              		.syntax unified
+ 534              		.thumb
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 21
+
+
+ 535              		.thumb_func
+ 536              		.fpu fpv4-sp-d16
+ 538              	BoardBatteryMeasureVolage:
+ 539              	.LFB143:
+ 190:Core/Src/boards/NucleoL476/board.c ****     return 0;
+ 540              		.loc 1 190 1 is_stmt 1 view -0
+ 541              		.cfi_startproc
+ 542              		@ args = 0, pretend = 0, frame = 0
+ 543              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544              		@ link register save eliminated.
+ 191:Core/Src/boards/NucleoL476/board.c **** }
+ 545              		.loc 1 191 5 view .LVU124
+ 192:Core/Src/boards/NucleoL476/board.c **** 
+ 546              		.loc 1 192 1 is_stmt 0 view .LVU125
+ 547 0000 0020     		movs	r0, #0
+ 548 0002 7047     		bx	lr
+ 549              		.cfi_endproc
+ 550              	.LFE143:
+ 552              		.section	.text.BoardGetBatteryVoltage,"ax",%progbits
+ 553              		.align	1
+ 554              		.global	BoardGetBatteryVoltage
+ 555              		.syntax unified
+ 556              		.thumb
+ 557              		.thumb_func
+ 558              		.fpu fpv4-sp-d16
+ 560              	BoardGetBatteryVoltage:
+ 561              	.LFB144:
+ 195:Core/Src/boards/NucleoL476/board.c ****     return 0;
+ 562              		.loc 1 195 1 is_stmt 1 view -0
+ 563              		.cfi_startproc
+ 564              		@ args = 0, pretend = 0, frame = 0
+ 565              		@ frame_needed = 0, uses_anonymous_args = 0
+ 566              		@ link register save eliminated.
+ 196:Core/Src/boards/NucleoL476/board.c **** }
+ 567              		.loc 1 196 5 view .LVU127
+ 197:Core/Src/boards/NucleoL476/board.c **** 
+ 568              		.loc 1 197 1 is_stmt 0 view .LVU128
+ 569 0000 0020     		movs	r0, #0
+ 570 0002 7047     		bx	lr
+ 571              		.cfi_endproc
+ 572              	.LFE144:
+ 574              		.section	.text.BoardGetBatteryLevel,"ax",%progbits
+ 575              		.align	1
+ 576              		.global	BoardGetBatteryLevel
+ 577              		.syntax unified
+ 578              		.thumb
+ 579              		.thumb_func
+ 580              		.fpu fpv4-sp-d16
+ 582              	BoardGetBatteryLevel:
+ 583              	.LFB145:
+ 200:Core/Src/boards/NucleoL476/board.c ****     return 0;
+ 584              		.loc 1 200 1 is_stmt 1 view -0
+ 585              		.cfi_startproc
+ 586              		@ args = 0, pretend = 0, frame = 0
+ 587              		@ frame_needed = 0, uses_anonymous_args = 0
+ 588              		@ link register save eliminated.
+ 201:Core/Src/boards/NucleoL476/board.c **** }
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 22
+
+
+ 589              		.loc 1 201 5 view .LVU130
+ 202:Core/Src/boards/NucleoL476/board.c **** 
+ 590              		.loc 1 202 1 is_stmt 0 view .LVU131
+ 591 0000 0020     		movs	r0, #0
+ 592 0002 7047     		bx	lr
+ 593              		.cfi_endproc
+ 594              	.LFE145:
+ 596              		.section	.text.GetBoardPowerSource,"ax",%progbits
+ 597              		.align	1
+ 598              		.global	GetBoardPowerSource
+ 599              		.syntax unified
+ 600              		.thumb
+ 601              		.thumb_func
+ 602              		.fpu fpv4-sp-d16
+ 604              	GetBoardPowerSource:
+ 605              	.LFB150:
+ 324:Core/Src/boards/NucleoL476/board.c **** 
+ 325:Core/Src/boards/NucleoL476/board.c **** // void SysTick_Handler( void )
+ 326:Core/Src/boards/NucleoL476/board.c **** // {
+ 327:Core/Src/boards/NucleoL476/board.c **** //     HAL_IncTick( );
+ 328:Core/Src/boards/NucleoL476/board.c **** //     HAL_SYSTICK_IRQHandler( );
+ 329:Core/Src/boards/NucleoL476/board.c **** // }
+ 330:Core/Src/boards/NucleoL476/board.c **** 
+ 331:Core/Src/boards/NucleoL476/board.c **** uint8_t GetBoardPowerSource( void )
+ 332:Core/Src/boards/NucleoL476/board.c **** {
+ 606              		.loc 1 332 1 is_stmt 1 view -0
+ 607              		.cfi_startproc
+ 608              		@ args = 0, pretend = 0, frame = 0
+ 609              		@ frame_needed = 0, uses_anonymous_args = 0
+ 610              		@ link register save eliminated.
+ 333:Core/Src/boards/NucleoL476/board.c ****     if( UsbIsConnected == false )
+ 611              		.loc 1 333 5 view .LVU133
+ 612              		.loc 1 333 24 is_stmt 0 view .LVU134
+ 613 0000 034B     		ldr	r3, .L48
+ 614 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 615              		.loc 1 333 7 view .LVU135
+ 616 0004 0BB9     		cbnz	r3, .L47
+ 334:Core/Src/boards/NucleoL476/board.c ****     {
+ 335:Core/Src/boards/NucleoL476/board.c ****         return BATTERY_POWER;
+ 617              		.loc 1 335 16 view .LVU136
+ 618 0006 0120     		movs	r0, #1
+ 619 0008 7047     		bx	lr
+ 620              	.L47:
+ 336:Core/Src/boards/NucleoL476/board.c ****     }
+ 337:Core/Src/boards/NucleoL476/board.c ****     else
+ 338:Core/Src/boards/NucleoL476/board.c ****     {
+ 339:Core/Src/boards/NucleoL476/board.c ****         return USB_POWER;
+ 621              		.loc 1 339 16 view .LVU137
+ 622 000a 0020     		movs	r0, #0
+ 340:Core/Src/boards/NucleoL476/board.c ****     }
+ 341:Core/Src/boards/NucleoL476/board.c **** }
+ 623              		.loc 1 341 1 view .LVU138
+ 624 000c 7047     		bx	lr
+ 625              	.L49:
+ 626 000e 00BF     		.align	2
+ 627              	.L48:
+ 628 0010 00000000 		.word	.LANCHOR3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 23
+
+
+ 629              		.cfi_endproc
+ 630              	.LFE150:
+ 632              		.section	.rodata.assert_failed.str1.4,"aMS",%progbits,1
+ 633              		.align	2
+ 634              	.LC0:
+ 635 0000 57726F6E 		.ascii	"Wrong parameters value: file %s on line %d\015\012\000"
+ 635      67207061 
+ 635      72616D65 
+ 635      74657273 
+ 635      2076616C 
+ 636              		.section	.text.assert_failed,"ax",%progbits
+ 637              		.align	1
+ 638              		.global	assert_failed
+ 639              		.syntax unified
+ 640              		.thumb
+ 641              		.thumb_func
+ 642              		.fpu fpv4-sp-d16
+ 644              	assert_failed:
+ 645              	.LVL10:
+ 646              	.LFB151:
+ 342:Core/Src/boards/NucleoL476/board.c **** 
+ 343:Core/Src/boards/NucleoL476/board.c **** // #define  USE_FULL_ASSERT
+ 344:Core/Src/boards/NucleoL476/board.c **** 
+ 345:Core/Src/boards/NucleoL476/board.c **** #ifdef USE_FULL_ASSERT
+ 346:Core/Src/boards/NucleoL476/board.c **** /*
+ 347:Core/Src/boards/NucleoL476/board.c ****  * Function Name  : assert_failed
+ 348:Core/Src/boards/NucleoL476/board.c ****  * Description    : Reports the name of the source file and the source line number
+ 349:Core/Src/boards/NucleoL476/board.c ****  *                  where the assert_param error has occurred.
+ 350:Core/Src/boards/NucleoL476/board.c ****  * Input          : - file: pointer to the source file name
+ 351:Core/Src/boards/NucleoL476/board.c ****  *                  - line: assert_param error line source number
+ 352:Core/Src/boards/NucleoL476/board.c ****  * Output         : None
+ 353:Core/Src/boards/NucleoL476/board.c ****  * Return         : None
+ 354:Core/Src/boards/NucleoL476/board.c ****  */
+ 355:Core/Src/boards/NucleoL476/board.c **** void assert_failed( uint8_t* file, uint32_t line )
+ 356:Core/Src/boards/NucleoL476/board.c **** {
+ 647              		.loc 1 356 1 is_stmt 1 view -0
+ 648              		.cfi_startproc
+ 649              		@ Volatile: function does not return.
+ 650              		@ args = 0, pretend = 0, frame = 0
+ 651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 652              		.loc 1 356 1 is_stmt 0 view .LVU140
+ 653 0000 08B5     		push	{r3, lr}
+ 654              	.LCFI5:
+ 655              		.cfi_def_cfa_offset 8
+ 656              		.cfi_offset 3, -8
+ 657              		.cfi_offset 14, -4
+ 658 0002 0A46     		mov	r2, r1
+ 357:Core/Src/boards/NucleoL476/board.c ****     /* User can add his own implementation to report the file name and line number,
+ 358:Core/Src/boards/NucleoL476/board.c ****      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+ 359:Core/Src/boards/NucleoL476/board.c **** 
+ 360:Core/Src/boards/NucleoL476/board.c ****     printf( "Wrong parameters value: file %s on line %d\r\n", file, line );
+ 659              		.loc 1 360 5 is_stmt 1 view .LVU141
+ 660 0004 0146     		mov	r1, r0
+ 661              	.LVL11:
+ 662              		.loc 1 360 5 is_stmt 0 view .LVU142
+ 663 0006 0248     		ldr	r0, .L53
+ 664              	.LVL12:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 24
+
+
+ 665              		.loc 1 360 5 view .LVU143
+ 666 0008 FFF7FEFF 		bl	printf
+ 667              	.LVL13:
+ 668              	.L51:
+ 361:Core/Src/boards/NucleoL476/board.c ****     /* Infinite loop */
+ 362:Core/Src/boards/NucleoL476/board.c ****     while( 1 )
+ 669              		.loc 1 362 5 is_stmt 1 discriminator 1 view .LVU144
+ 363:Core/Src/boards/NucleoL476/board.c ****     {
+ 364:Core/Src/boards/NucleoL476/board.c ****     }
+ 670              		.loc 1 364 5 discriminator 1 view .LVU145
+ 362:Core/Src/boards/NucleoL476/board.c ****     {
+ 671              		.loc 1 362 10 discriminator 1 view .LVU146
+ 672 000c FEE7     		b	.L51
+ 673              	.L54:
+ 674 000e 00BF     		.align	2
+ 675              	.L53:
+ 676 0010 00000000 		.word	.LC0
+ 677              		.cfi_endproc
+ 678              	.LFE151:
+ 680              		.section	.rodata.SystemClockConfig.str1.4,"aMS",%progbits,1
+ 681              		.align	2
+ 682              	.LC1:
+ 683 0000 436F7265 		.ascii	"Core/Src/boards/NucleoL476/board.c\000"
+ 683      2F537263 
+ 683      2F626F61 
+ 683      7264732F 
+ 683      4E75636C 
+ 684              		.section	.text.SystemClockConfig,"ax",%progbits
+ 685              		.align	1
+ 686              		.syntax unified
+ 687              		.thumb
+ 688              		.thumb_func
+ 689              		.fpu fpv4-sp-d16
+ 691              	SystemClockConfig:
+ 692              	.LFB147:
+ 212:Core/Src/boards/NucleoL476/board.c **** 
+ 693              		.loc 1 212 1 view -0
+ 694              		.cfi_startproc
+ 695              		@ args = 0, pretend = 0, frame = 224
+ 696              		@ frame_needed = 0, uses_anonymous_args = 0
+ 697 0000 00B5     		push	{lr}
+ 698              	.LCFI6:
+ 699              		.cfi_def_cfa_offset 4
+ 700              		.cfi_offset 14, -4
+ 701 0002 B9B0     		sub	sp, sp, #228
+ 702              	.LCFI7:
+ 703              		.cfi_def_cfa_offset 232
+ 214:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+ 704              		.loc 1 214 3 view .LVU148
+ 215:Core/Src/boards/NucleoL476/board.c ****   RCC_PeriphCLKInitTypeDef PeriphClkInit;
+ 705              		.loc 1 215 3 view .LVU149
+ 216:Core/Src/boards/NucleoL476/board.c **** 
+ 706              		.loc 1 216 3 view .LVU150
+ 220:Core/Src/boards/NucleoL476/board.c **** 
+ 707              		.loc 1 220 3 view .LVU151
+ 708 0004 304A     		ldr	r2, .L65
+ 709 0006 D2F89030 		ldr	r3, [r2, #144]
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 25
+
+
+ 710 000a 23F01803 		bic	r3, r3, #24
+ 711 000e C2F89030 		str	r3, [r2, #144]
+ 224:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+ 712              		.loc 1 224 3 view .LVU152
+ 224:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+ 713              		.loc 1 224 36 is_stmt 0 view .LVU153
+ 714 0012 0623     		movs	r3, #6
+ 715 0014 2793     		str	r3, [sp, #156]
+ 225:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 716              		.loc 1 225 3 is_stmt 1 view .LVU154
+ 225:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 717              		.loc 1 225 30 is_stmt 0 view .LVU155
+ 718 0016 0122     		movs	r2, #1
+ 719 0018 2992     		str	r2, [sp, #164]
+ 226:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.HSICalibrationValue = 16;
+ 720              		.loc 1 226 3 is_stmt 1 view .LVU156
+ 226:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.HSICalibrationValue = 16;
+ 721              		.loc 1 226 30 is_stmt 0 view .LVU157
+ 722 001a 4FF48073 		mov	r3, #256
+ 723 001e 2A93     		str	r3, [sp, #168]
+ 227:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 724              		.loc 1 227 3 is_stmt 1 view .LVU158
+ 227:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 725              		.loc 1 227 41 is_stmt 0 view .LVU159
+ 726 0020 1023     		movs	r3, #16
+ 727 0022 2B93     		str	r3, [sp, #172]
+ 228:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+ 728              		.loc 1 228 3 is_stmt 1 view .LVU160
+ 228:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+ 729              		.loc 1 228 34 is_stmt 0 view .LVU161
+ 730 0024 0223     		movs	r3, #2
+ 731 0026 3193     		str	r3, [sp, #196]
+ 229:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLM = 1;
+ 732              		.loc 1 229 3 is_stmt 1 view .LVU162
+ 229:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLM = 1;
+ 733              		.loc 1 229 35 is_stmt 0 view .LVU163
+ 734 0028 3293     		str	r3, [sp, #200]
+ 230:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLN = 10;
+ 735              		.loc 1 230 3 is_stmt 1 view .LVU164
+ 230:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLN = 10;
+ 736              		.loc 1 230 30 is_stmt 0 view .LVU165
+ 737 002a 3392     		str	r2, [sp, #204]
+ 231:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+ 738              		.loc 1 231 3 is_stmt 1 view .LVU166
+ 231:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+ 739              		.loc 1 231 30 is_stmt 0 view .LVU167
+ 740 002c 0A22     		movs	r2, #10
+ 741 002e 3492     		str	r2, [sp, #208]
+ 232:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+ 742              		.loc 1 232 3 is_stmt 1 view .LVU168
+ 232:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+ 743              		.loc 1 232 30 is_stmt 0 view .LVU169
+ 744 0030 0722     		movs	r2, #7
+ 745 0032 3592     		str	r2, [sp, #212]
+ 233:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+ 746              		.loc 1 233 3 is_stmt 1 view .LVU170
+ 233:Core/Src/boards/NucleoL476/board.c ****   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 26
+
+
+ 747              		.loc 1 233 30 is_stmt 0 view .LVU171
+ 748 0034 3693     		str	r3, [sp, #216]
+ 234:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 749              		.loc 1 234 3 is_stmt 1 view .LVU172
+ 234:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 750              		.loc 1 234 30 is_stmt 0 view .LVU173
+ 751 0036 3793     		str	r3, [sp, #220]
+ 235:Core/Src/boards/NucleoL476/board.c ****   {
+ 752              		.loc 1 235 3 is_stmt 1 view .LVU174
+ 235:Core/Src/boards/NucleoL476/board.c ****   {
+ 753              		.loc 1 235 7 is_stmt 0 view .LVU175
+ 754 0038 27A8     		add	r0, sp, #156
+ 755 003a FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 756              	.LVL14:
+ 235:Core/Src/boards/NucleoL476/board.c ****   {
+ 757              		.loc 1 235 6 view .LVU176
+ 758 003e 88BB     		cbnz	r0, .L61
+ 242:Core/Src/boards/NucleoL476/board.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 759              		.loc 1 242 3 is_stmt 1 view .LVU177
+ 242:Core/Src/boards/NucleoL476/board.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 760              		.loc 1 242 31 is_stmt 0 view .LVU178
+ 761 0040 0F23     		movs	r3, #15
+ 762 0042 2293     		str	r3, [sp, #136]
+ 244:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 763              		.loc 1 244 3 is_stmt 1 view .LVU179
+ 244:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 764              		.loc 1 244 34 is_stmt 0 view .LVU180
+ 765 0044 0323     		movs	r3, #3
+ 766 0046 2393     		str	r3, [sp, #140]
+ 245:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 767              		.loc 1 245 3 is_stmt 1 view .LVU181
+ 245:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 768              		.loc 1 245 35 is_stmt 0 view .LVU182
+ 769 0048 0023     		movs	r3, #0
+ 770 004a 2493     		str	r3, [sp, #144]
+ 246:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 771              		.loc 1 246 3 is_stmt 1 view .LVU183
+ 246:Core/Src/boards/NucleoL476/board.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 772              		.loc 1 246 36 is_stmt 0 view .LVU184
+ 773 004c 2593     		str	r3, [sp, #148]
+ 247:Core/Src/boards/NucleoL476/board.c **** 
+ 774              		.loc 1 247 3 is_stmt 1 view .LVU185
+ 247:Core/Src/boards/NucleoL476/board.c **** 
+ 775              		.loc 1 247 36 is_stmt 0 view .LVU186
+ 776 004e 2693     		str	r3, [sp, #152]
+ 249:Core/Src/boards/NucleoL476/board.c ****   {
+ 777              		.loc 1 249 3 is_stmt 1 view .LVU187
+ 249:Core/Src/boards/NucleoL476/board.c ****   {
+ 778              		.loc 1 249 7 is_stmt 0 view .LVU188
+ 779 0050 0421     		movs	r1, #4
+ 780 0052 22A8     		add	r0, sp, #136
+ 781 0054 FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 782              	.LVL15:
+ 249:Core/Src/boards/NucleoL476/board.c ****   {
+ 783              		.loc 1 249 6 view .LVU189
+ 784 0058 40BB     		cbnz	r0, .L62
+ 254:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 27
+
+
+ 785              		.loc 1 254 3 is_stmt 1 view .LVU190
+ 254:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+ 786              		.loc 1 254 38 is_stmt 0 view .LVU191
+ 787 005a 4FF00213 		mov	r3, #131074
+ 788 005e 0093     		str	r3, [sp]
+ 255:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+ 789              		.loc 1 255 3 is_stmt 1 view .LVU192
+ 255:Core/Src/boards/NucleoL476/board.c ****   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+ 790              		.loc 1 255 38 is_stmt 0 view .LVU193
+ 791 0060 0023     		movs	r3, #0
+ 792 0062 0F93     		str	r3, [sp, #60]
+ 256:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+ 793              		.loc 1 256 3 is_stmt 1 view .LVU194
+ 256:Core/Src/boards/NucleoL476/board.c ****   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+ 794              		.loc 1 256 35 is_stmt 0 view .LVU195
+ 795 0064 4FF48073 		mov	r3, #256
+ 796 0068 2193     		str	r3, [sp, #132]
+ 257:Core/Src/boards/NucleoL476/board.c ****   {
+ 797              		.loc 1 257 3 is_stmt 1 view .LVU196
+ 257:Core/Src/boards/NucleoL476/board.c ****   {
+ 798              		.loc 1 257 7 is_stmt 0 view .LVU197
+ 799 006a 6846     		mov	r0, sp
+ 800 006c FFF7FEFF 		bl	HAL_RCCEx_PeriphCLKConfig
+ 801              	.LVL16:
+ 257:Core/Src/boards/NucleoL476/board.c ****   {
+ 802              		.loc 1 257 6 view .LVU198
+ 803 0070 00BB     		cbnz	r0, .L63
+ 264:Core/Src/boards/NucleoL476/board.c ****   {
+ 804              		.loc 1 264 3 is_stmt 1 view .LVU199
+ 264:Core/Src/boards/NucleoL476/board.c ****   {
+ 805              		.loc 1 264 7 is_stmt 0 view .LVU200
+ 806 0072 4FF40070 		mov	r0, #512
+ 807 0076 FFF7FEFF 		bl	HAL_PWREx_ControlVoltageScaling
+ 808              	.LVL17:
+ 264:Core/Src/boards/NucleoL476/board.c ****   {
+ 809              		.loc 1 264 6 view .LVU201
+ 810 007a 00BB     		cbnz	r0, .L64
+ 271:Core/Src/boards/NucleoL476/board.c **** 
+ 811              		.loc 1 271 3 is_stmt 1 view .LVU202
+ 271:Core/Src/boards/NucleoL476/board.c **** 
+ 812              		.loc 1 271 22 is_stmt 0 view .LVU203
+ 813 007c FFF7FEFF 		bl	HAL_RCC_GetHCLKFreq
+ 814              	.LVL18:
+ 271:Core/Src/boards/NucleoL476/board.c **** 
+ 815              		.loc 1 271 3 view .LVU204
+ 816 0080 124B     		ldr	r3, .L65+4
+ 817 0082 A3FB0030 		umull	r3, r0, r3, r0
+ 818 0086 8009     		lsrs	r0, r0, #6
+ 819 0088 FFF7FEFF 		bl	HAL_SYSTICK_Config
+ 820              	.LVL19:
+ 275:Core/Src/boards/NucleoL476/board.c **** 
+ 821              		.loc 1 275 3 is_stmt 1 view .LVU205
+ 822 008c 0420     		movs	r0, #4
+ 823 008e FFF7FEFF 		bl	HAL_SYSTICK_CLKSourceConfig
+ 824              	.LVL20:
+ 278:Core/Src/boards/NucleoL476/board.c **** }
+ 825              		.loc 1 278 3 view .LVU206
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 28
+
+
+ 826 0092 0022     		movs	r2, #0
+ 827 0094 1146     		mov	r1, r2
+ 828 0096 4FF0FF30 		mov	r0, #-1
+ 829 009a FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 830              	.LVL21:
+ 279:Core/Src/boards/NucleoL476/board.c **** 
+ 831              		.loc 1 279 1 is_stmt 0 view .LVU207
+ 832 009e 39B0     		add	sp, sp, #228
+ 833              	.LCFI8:
+ 834              		.cfi_remember_state
+ 835              		.cfi_def_cfa_offset 4
+ 836              		@ sp needed
+ 837 00a0 5DF804FB 		ldr	pc, [sp], #4
+ 838              	.L61:
+ 839              	.LCFI9:
+ 840              		.cfi_restore_state
+ 237:Core/Src/boards/NucleoL476/board.c ****   }
+ 841              		.loc 1 237 5 is_stmt 1 view .LVU208
+ 842 00a4 ED21     		movs	r1, #237
+ 843 00a6 0A48     		ldr	r0, .L65+8
+ 844 00a8 FFF7FEFF 		bl	assert_failed
+ 845              	.LVL22:
+ 846              	.L62:
+ 251:Core/Src/boards/NucleoL476/board.c ****   }
+ 847              		.loc 1 251 5 view .LVU209
+ 848 00ac FB21     		movs	r1, #251
+ 849 00ae 0848     		ldr	r0, .L65+8
+ 850 00b0 FFF7FEFF 		bl	assert_failed
+ 851              	.LVL23:
+ 852              	.L63:
+ 259:Core/Src/boards/NucleoL476/board.c ****   }
+ 853              		.loc 1 259 5 view .LVU210
+ 854 00b4 40F20311 		movw	r1, #259
+ 855 00b8 0548     		ldr	r0, .L65+8
+ 856 00ba FFF7FEFF 		bl	assert_failed
+ 857              	.LVL24:
+ 858              	.L64:
+ 266:Core/Src/boards/NucleoL476/board.c ****   }
+ 859              		.loc 1 266 5 view .LVU211
+ 860 00be 4FF48571 		mov	r1, #266
+ 861 00c2 0348     		ldr	r0, .L65+8
+ 862 00c4 FFF7FEFF 		bl	assert_failed
+ 863              	.LVL25:
+ 864              	.L66:
+ 865              		.align	2
+ 866              	.L65:
+ 867 00c8 00100240 		.word	1073876992
+ 868 00cc D34D6210 		.word	274877907
+ 869 00d0 00000000 		.word	.LC1
+ 870              		.cfi_endproc
+ 871              	.LFE147:
+ 873              		.section	.text.BoardInitMcu,"ax",%progbits
+ 874              		.align	1
+ 875              		.global	BoardInitMcu
+ 876              		.syntax unified
+ 877              		.thumb
+ 878              		.thumb_func
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 29
+
+
+ 879              		.fpu fpv4-sp-d16
+ 881              	BoardInitMcu:
+ 882              	.LFB139:
+ 123:Core/Src/boards/NucleoL476/board.c ****     Gpio_t ioPin;
+ 883              		.loc 1 123 1 view -0
+ 884              		.cfi_startproc
+ 885              		@ args = 0, pretend = 0, frame = 16
+ 886              		@ frame_needed = 0, uses_anonymous_args = 0
+ 887 0000 70B5     		push	{r4, r5, r6, lr}
+ 888              	.LCFI10:
+ 889              		.cfi_def_cfa_offset 16
+ 890              		.cfi_offset 4, -16
+ 891              		.cfi_offset 5, -12
+ 892              		.cfi_offset 6, -8
+ 893              		.cfi_offset 14, -4
+ 894 0002 88B0     		sub	sp, sp, #32
+ 895              	.LCFI11:
+ 896              		.cfi_def_cfa_offset 48
+ 124:Core/Src/boards/NucleoL476/board.c **** 
+ 897              		.loc 1 124 5 view .LVU213
+ 126:Core/Src/boards/NucleoL476/board.c ****     {
+ 898              		.loc 1 126 5 view .LVU214
+ 126:Core/Src/boards/NucleoL476/board.c ****     {
+ 899              		.loc 1 126 24 is_stmt 0 view .LVU215
+ 900 0004 314B     		ldr	r3, .L73
+ 901 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 126:Core/Src/boards/NucleoL476/board.c ****     {
+ 902              		.loc 1 126 7 view .LVU216
+ 903 0008 002B     		cmp	r3, #0
+ 904 000a 58D1     		bne	.L68
+ 128:Core/Src/boards/NucleoL476/board.c **** 
+ 905              		.loc 1 128 9 is_stmt 1 view .LVU217
+ 906 000c FFF7FEFF 		bl	HAL_Init
+ 907              	.LVL26:
+ 131:Core/Src/boards/NucleoL476/board.c ****         GpioInit( &Led2, LED_2, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 908              		.loc 1 131 9 view .LVU218
+ 909 0010 0024     		movs	r4, #0
+ 910 0012 0194     		str	r4, [sp, #4]
+ 911 0014 0094     		str	r4, [sp]
+ 912 0016 2346     		mov	r3, r4
+ 913 0018 0122     		movs	r2, #1
+ 914 001a 2121     		movs	r1, #33
+ 915 001c 2C48     		ldr	r0, .L73+4
+ 916 001e FFF7FEFF 		bl	GpioInit
+ 917              	.LVL27:
+ 132:Core/Src/boards/NucleoL476/board.c **** 
+ 918              		.loc 1 132 9 view .LVU219
+ 919 0022 0194     		str	r4, [sp, #4]
+ 920 0024 0094     		str	r4, [sp]
+ 921 0026 2346     		mov	r3, r4
+ 922 0028 0122     		movs	r2, #1
+ 923 002a 2021     		movs	r1, #32
+ 924 002c 2948     		ldr	r0, .L73+8
+ 925 002e FFF7FEFF 		bl	GpioInit
+ 926              	.LVL28:
+ 134:Core/Src/boards/NucleoL476/board.c **** 
+ 927              		.loc 1 134 9 view .LVU220
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 30
+
+
+ 928 0032 FFF7FEFF 		bl	SystemClockConfig
+ 929              	.LVL29:
+ 136:Core/Src/boards/NucleoL476/board.c ****         GpioInit( &ioPin, UART_RX, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 930              		.loc 1 136 9 view .LVU221
+ 136:Core/Src/boards/NucleoL476/board.c ****         GpioInit( &ioPin, UART_RX, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 931              		.loc 1 136 24 is_stmt 0 view .LVU222
+ 932 0036 0126     		movs	r6, #1
+ 933 0038 274B     		ldr	r3, .L73+12
+ 934 003a 1E70     		strb	r6, [r3]
+ 137:Core/Src/boards/NucleoL476/board.c ****         FifoInit( &Uart2.FifoTx, Uart2TxBuffer, UART2_FIFO_TX_SIZE );
+ 935              		.loc 1 137 9 is_stmt 1 view .LVU223
+ 936 003c 0194     		str	r4, [sp, #4]
+ 937 003e 0094     		str	r4, [sp]
+ 938 0040 2346     		mov	r3, r4
+ 939 0042 2246     		mov	r2, r4
+ 940 0044 0321     		movs	r1, #3
+ 941 0046 05A8     		add	r0, sp, #20
+ 942 0048 FFF7FEFF 		bl	GpioInit
+ 943              	.LVL30:
+ 138:Core/Src/boards/NucleoL476/board.c ****         FifoInit( &Uart2.FifoRx, Uart2RxBuffer, UART2_FIFO_RX_SIZE );
+ 944              		.loc 1 138 9 view .LVU224
+ 945 004c 234D     		ldr	r5, .L73+16
+ 946 004e 0822     		movs	r2, #8
+ 947 0050 2349     		ldr	r1, .L73+20
+ 948 0052 05F11C00 		add	r0, r5, #28
+ 949 0056 FFF7FEFF 		bl	FifoInit
+ 950              	.LVL31:
+ 139:Core/Src/boards/NucleoL476/board.c ****         // Configure your terminal for 8 Bits data (7 data bit + 1 parity bit), no parity and no fl
+ 951              		.loc 1 139 9 view .LVU225
+ 952 005a 4FF48072 		mov	r2, #256
+ 953 005e 2149     		ldr	r1, .L73+24
+ 954 0060 05F12800 		add	r0, r5, #40
+ 955 0064 FFF7FEFF 		bl	FifoInit
+ 956              	.LVL32:
+ 141:Core/Src/boards/NucleoL476/board.c ****         UartConfig( &Uart2, RX_TX, 115200, UART_8_BIT, UART_1_STOP_BIT, NO_PARITY, NO_FLOW_CTRL );
+ 957              		.loc 1 141 9 view .LVU226
+ 958 0068 0323     		movs	r3, #3
+ 959 006a 0222     		movs	r2, #2
+ 960 006c 3146     		mov	r1, r6
+ 961 006e 2846     		mov	r0, r5
+ 962 0070 FFF7FEFF 		bl	UartInit
+ 963              	.LVL33:
+ 142:Core/Src/boards/NucleoL476/board.c **** 
+ 964              		.loc 1 142 9 view .LVU227
+ 965 0074 0294     		str	r4, [sp, #8]
+ 966 0076 0194     		str	r4, [sp, #4]
+ 967 0078 0094     		str	r4, [sp]
+ 968 007a 2346     		mov	r3, r4
+ 969 007c 4FF4E132 		mov	r2, #115200
+ 970 0080 0221     		movs	r1, #2
+ 971 0082 2846     		mov	r0, r5
+ 972 0084 FFF7FEFF 		bl	UartConfig
+ 973              	.LVL34:
+ 144:Core/Src/boards/NucleoL476/board.c **** 
+ 974              		.loc 1 144 9 view .LVU228
+ 975 0088 FFF7FEFF 		bl	RtcInit
+ 976              	.LVL35:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 31
+
+
+ 146:Core/Src/boards/NucleoL476/board.c ****     }
+ 977              		.loc 1 146 9 view .LVU229
+ 978 008c FFF7FEFF 		bl	BoardUnusedIoInit
+ 979              	.LVL36:
+ 980              	.L69:
+ 153:Core/Src/boards/NucleoL476/board.c ****     SX126xIoInit( );
+ 981              		.loc 1 153 5 view .LVU230
+ 982 0090 4FF0FF33 		mov	r3, #-1
+ 983 0094 0093     		str	r3, [sp]
+ 984 0096 0523     		movs	r3, #5
+ 985 0098 0622     		movs	r2, #6
+ 986 009a 0721     		movs	r1, #7
+ 987 009c 1248     		ldr	r0, .L73+28
+ 988 009e FFF7FEFF 		bl	SpiInit
+ 989              	.LVL37:
+ 154:Core/Src/boards/NucleoL476/board.c **** 
+ 990              		.loc 1 154 5 view .LVU231
+ 991 00a2 FFF7FEFF 		bl	SX126xIoInit
+ 992              	.LVL38:
+ 156:Core/Src/boards/NucleoL476/board.c ****     {
+ 993              		.loc 1 156 5 view .LVU232
+ 156:Core/Src/boards/NucleoL476/board.c ****     {
+ 994              		.loc 1 156 24 is_stmt 0 view .LVU233
+ 995 00a6 094B     		ldr	r3, .L73
+ 996 00a8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 156:Core/Src/boards/NucleoL476/board.c ****     {
+ 997              		.loc 1 156 7 view .LVU234
+ 998 00aa 33B9     		cbnz	r3, .L67
+ 158:Core/Src/boards/NucleoL476/board.c ****         if( GetBoardPowerSource( ) == BATTERY_POWER )
+ 999              		.loc 1 158 9 is_stmt 1 view .LVU235
+ 158:Core/Src/boards/NucleoL476/board.c ****         if( GetBoardPowerSource( ) == BATTERY_POWER )
+ 1000              		.loc 1 158 24 is_stmt 0 view .LVU236
+ 1001 00ac 074B     		ldr	r3, .L73
+ 1002 00ae 0122     		movs	r2, #1
+ 1003 00b0 1A70     		strb	r2, [r3]
+ 159:Core/Src/boards/NucleoL476/board.c ****         {
+ 1004              		.loc 1 159 9 is_stmt 1 view .LVU237
+ 159:Core/Src/boards/NucleoL476/board.c ****         {
+ 1005              		.loc 1 159 13 is_stmt 0 view .LVU238
+ 1006 00b2 FFF7FEFF 		bl	GetBoardPowerSource
+ 1007              	.LVL39:
+ 159:Core/Src/boards/NucleoL476/board.c ****         {
+ 1008              		.loc 1 159 11 view .LVU239
+ 1009 00b6 0128     		cmp	r0, #1
+ 1010 00b8 04D0     		beq	.L72
+ 1011              	.L67:
+ 164:Core/Src/boards/NucleoL476/board.c **** 
+ 1012              		.loc 1 164 1 view .LVU240
+ 1013 00ba 08B0     		add	sp, sp, #32
+ 1014              	.LCFI12:
+ 1015              		.cfi_remember_state
+ 1016              		.cfi_def_cfa_offset 16
+ 1017              		@ sp needed
+ 1018 00bc 70BD     		pop	{r4, r5, r6, pc}
+ 1019              	.L68:
+ 1020              	.LCFI13:
+ 1021              		.cfi_restore_state
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 32
+
+
+ 150:Core/Src/boards/NucleoL476/board.c ****     }
+ 1022              		.loc 1 150 9 is_stmt 1 view .LVU241
+ 1023 00be FFF7FEFF 		bl	SystemClockReConfig
+ 1024              	.LVL40:
+ 1025 00c2 E5E7     		b	.L69
+ 1026              	.L72:
+ 161:Core/Src/boards/NucleoL476/board.c ****         }
+ 1027              		.loc 1 161 13 view .LVU242
+ 1028 00c4 FFF7FEFF 		bl	CalibrateSystemWakeupTime
+ 1029              	.LVL41:
+ 164:Core/Src/boards/NucleoL476/board.c **** 
+ 1030              		.loc 1 164 1 is_stmt 0 view .LVU243
+ 1031 00c8 F7E7     		b	.L67
+ 1032              	.L74:
+ 1033 00ca 00BF     		.align	2
+ 1034              	.L73:
+ 1035 00cc 00000000 		.word	.LANCHOR4
+ 1036 00d0 00000000 		.word	.LANCHOR5
+ 1037 00d4 00000000 		.word	.LANCHOR6
+ 1038 00d8 00000000 		.word	.LANCHOR3
+ 1039 00dc 00000000 		.word	.LANCHOR8
+ 1040 00e0 00000000 		.word	.LANCHOR7
+ 1041 00e4 00000000 		.word	.LANCHOR9
+ 1042 00e8 3C000000 		.word	SX126x+60
+ 1043              		.cfi_endproc
+ 1044              	.LFE139:
+ 1046              		.global	Uart2RxBuffer
+ 1047              		.global	Uart2TxBuffer
+ 1048              		.global	Uart2
+ 1049              		.global	Led2
+ 1050              		.global	Led1
+ 1051              		.section	.bss.CalibrateSystemWakeupTimeTimer,"aw",%nobits
+ 1052              		.align	2
+ 1053              		.set	.LANCHOR1,. + 0
+ 1056              	CalibrateSystemWakeupTimeTimer:
+ 1057 0000 00000000 		.space	20
+ 1057      00000000 
+ 1057      00000000 
+ 1057      00000000 
+ 1057      00000000 
+ 1058              		.section	.bss.IrqNestLevel,"aw",%nobits
+ 1059              		.set	.LANCHOR2,. + 0
+ 1062              	IrqNestLevel:
+ 1063 0000 00       		.space	1
+ 1064              		.section	.bss.Led1,"aw",%nobits
+ 1065              		.align	2
+ 1066              		.set	.LANCHOR5,. + 0
+ 1069              	Led1:
+ 1070 0000 00000000 		.space	12
+ 1070      00000000 
+ 1070      00000000 
+ 1071              		.section	.bss.Led2,"aw",%nobits
+ 1072              		.align	2
+ 1073              		.set	.LANCHOR6,. + 0
+ 1076              	Led2:
+ 1077 0000 00000000 		.space	12
+ 1077      00000000 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 33
+
+
+ 1077      00000000 
+ 1078              		.section	.bss.McuInitialized,"aw",%nobits
+ 1079              		.set	.LANCHOR4,. + 0
+ 1082              	McuInitialized:
+ 1083 0000 00       		.space	1
+ 1084              		.section	.bss.SystemWakeupTimeCalibrated,"aw",%nobits
+ 1085              		.set	.LANCHOR0,. + 0
+ 1088              	SystemWakeupTimeCalibrated:
+ 1089 0000 00       		.space	1
+ 1090              		.section	.bss.Uart2,"aw",%nobits
+ 1091              		.align	2
+ 1092              		.set	.LANCHOR8,. + 0
+ 1095              	Uart2:
+ 1096 0000 00000000 		.space	56
+ 1096      00000000 
+ 1096      00000000 
+ 1096      00000000 
+ 1096      00000000 
+ 1097              		.section	.bss.Uart2RxBuffer,"aw",%nobits
+ 1098              		.align	2
+ 1099              		.set	.LANCHOR9,. + 0
+ 1102              	Uart2RxBuffer:
+ 1103 0000 00000000 		.space	256
+ 1103      00000000 
+ 1103      00000000 
+ 1103      00000000 
+ 1103      00000000 
+ 1104              		.section	.bss.Uart2TxBuffer,"aw",%nobits
+ 1105              		.align	2
+ 1106              		.set	.LANCHOR7,. + 0
+ 1109              	Uart2TxBuffer:
+ 1110 0000 00000000 		.space	8
+ 1110      00000000 
+ 1111              		.section	.bss.UsbIsConnected,"aw",%nobits
+ 1112              		.set	.LANCHOR3,. + 0
+ 1115              	UsbIsConnected:
+ 1116 0000 00       		.space	1
+ 1117              		.text
+ 1118              	.Letext0:
+ 1119              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1120              		.file 4 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1121              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h"
+ 1122              		.file 6 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
+ 1123              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 1124              		.file 8 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h"
+ 1125              		.file 9 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc_ex.h"
+ 1126              		.file 10 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h"
+ 1127              		.file 11 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h"
+ 1128              		.file 12 "Core/Src/system/timer.h"
+ 1129              		.file 13 "Core/Src/system/gpio.h"
+ 1130              		.file 14 "Core/Src/boards/NucleoL476/spi-board.h"
+ 1131              		.file 15 "Core/Src/system/spi.h"
+ 1132              		.file 16 "Core/Src/system/fifo.h"
+ 1133              		.file 17 "Core/Src/system/uart.h"
+ 1134              		.file 18 "Core/Src/radio/sx126x/sx126x.h"
+ 1135              		.file 19 "Core/Src/boards/NucleoL476/uart-board.h"
+ 1136              		.file 20 "Core/Src/boards/NucleoL476/sx126x-board.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 34
+
+
+ 1137              		.file 21 "Core/Src/boards/NucleoL476/board.h"
+ 1138              		.file 22 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\in
+ 1139              		.file 23 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h"
+ 1140              		.file 24 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h"
+ 1141              		.file 25 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h"
+ 1142              		.file 26 "Core/Src/boards/NucleoL476/rtc-board.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 35
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 board.c
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:18     .text.OnCalibrateSystemWakeupTimeTimerEvent:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:25     .text.OnCalibrateSystemWakeupTimeTimerEvent:00000000 OnCalibrateSystemWakeupTimeTimerEvent
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:43     .text.OnCalibrateSystemWakeupTimeTimerEvent:00000008 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:48     .text.SystemClockReConfig:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:54     .text.SystemClockReConfig:00000000 SystemClockReConfig
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:151    .text.SystemClockReConfig:00000070 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:157    .text.BoardUnusedIoInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:163    .text.BoardUnusedIoInit:00000000 BoardUnusedIoInit
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:189    .text.CalibrateSystemWakeupTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:195    .text.CalibrateSystemWakeupTime:00000000 CalibrateSystemWakeupTime
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:250    .text.CalibrateSystemWakeupTime:00000034 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:257    .text.BoardDisableIrq:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:264    .text.BoardDisableIrq:00000000 BoardDisableIrq
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:297    .text.BoardDisableIrq:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:302    .text.BoardEnableIrq:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:309    .text.BoardEnableIrq:00000000 BoardEnableIrq
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:346    .text.BoardEnableIrq:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:351    .text.BoardInitPeriph:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:358    .text.BoardInitPeriph:00000000 BoardInitPeriph
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:371    .text.BoardDeInitMcu:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:378    .text.BoardDeInitMcu:00000000 BoardDeInitMcu
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:401    .text.BoardDeInitMcu:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:406    .text.BoardGetRandomSeed:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:413    .text.BoardGetRandomSeed:00000000 BoardGetRandomSeed
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:436    .text.BoardGetRandomSeed:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:441    .text.BoardGetUniqueId:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:448    .text.BoardGetUniqueId:00000000 BoardGetUniqueId
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:526    .text.BoardGetUniqueId:00000054 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:531    .text.BoardBatteryMeasureVolage:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:538    .text.BoardBatteryMeasureVolage:00000000 BoardBatteryMeasureVolage
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:553    .text.BoardGetBatteryVoltage:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:560    .text.BoardGetBatteryVoltage:00000000 BoardGetBatteryVoltage
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:575    .text.BoardGetBatteryLevel:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:582    .text.BoardGetBatteryLevel:00000000 BoardGetBatteryLevel
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:597    .text.GetBoardPowerSource:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:604    .text.GetBoardPowerSource:00000000 GetBoardPowerSource
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:628    .text.GetBoardPowerSource:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:633    .rodata.assert_failed.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:637    .text.assert_failed:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:644    .text.assert_failed:00000000 assert_failed
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:676    .text.assert_failed:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:681    .rodata.SystemClockConfig.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:685    .text.SystemClockConfig:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:691    .text.SystemClockConfig:00000000 SystemClockConfig
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:867    .text.SystemClockConfig:000000c8 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:874    .text.BoardInitMcu:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:881    .text.BoardInitMcu:00000000 BoardInitMcu
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1035   .text.BoardInitMcu:000000cc $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1102   .bss.Uart2RxBuffer:00000000 Uart2RxBuffer
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1109   .bss.Uart2TxBuffer:00000000 Uart2TxBuffer
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1095   .bss.Uart2:00000000 Uart2
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1076   .bss.Led2:00000000 Led2
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1069   .bss.Led1:00000000 Led1
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1052   .bss.CalibrateSystemWakeupTimeTimer:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1056   .bss.CalibrateSystemWakeupTimeTimer:00000000 CalibrateSystemWakeupTimeTimer
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s 			page 36
+
+
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1062   .bss.IrqNestLevel:00000000 IrqNestLevel
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1063   .bss.IrqNestLevel:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1065   .bss.Led1:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1072   .bss.Led2:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1082   .bss.McuInitialized:00000000 McuInitialized
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1083   .bss.McuInitialized:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1088   .bss.SystemWakeupTimeCalibrated:00000000 SystemWakeupTimeCalibrated
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1089   .bss.SystemWakeupTimeCalibrated:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1091   .bss.Uart2:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1098   .bss.Uart2RxBuffer:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1105   .bss.Uart2TxBuffer:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1115   .bss.UsbIsConnected:00000000 UsbIsConnected
+C:\Users\andywei\AppData\Local\Temp\ccJA22D2.s:1116   .bss.UsbIsConnected:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_DBGMCU_EnableDBGSleepMode
+HAL_DBGMCU_EnableDBGStopMode
+HAL_DBGMCU_EnableDBGStandbyMode
+TimerInit
+TimerSetValue
+TimerStart
+TimerLowPowerHandler
+SpiDeInit
+SX126xIoDeInit
+SX126x
+printf
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+HAL_RCCEx_PeriphCLKConfig
+HAL_PWREx_ControlVoltageScaling
+HAL_RCC_GetHCLKFreq
+HAL_SYSTICK_Config
+HAL_SYSTICK_CLKSourceConfig
+HAL_NVIC_SetPriority
+HAL_Init
+GpioInit
+FifoInit
+UartInit
+UartConfig
+RtcInit
+SpiInit
+SX126xIoInit

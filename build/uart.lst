@@ -1,0 +1,709 @@
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"uart.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.UartInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	UartInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	UartInit:
+  27              	.LVL0:
+  28              	.LFB135:
+  29              		.file 1 "Core/Src/system/uart.c"
+   1:Core/Src/system/uart.c **** /*
+   2:Core/Src/system/uart.c ****  / _____)             _              | |
+   3:Core/Src/system/uart.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   4:Core/Src/system/uart.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   5:Core/Src/system/uart.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   6:Core/Src/system/uart.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   7:Core/Src/system/uart.c ****     (C)2013 Semtech
+   8:Core/Src/system/uart.c **** 
+   9:Core/Src/system/uart.c **** Description: Implements the generic UART driver
+  10:Core/Src/system/uart.c **** 
+  11:Core/Src/system/uart.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  12:Core/Src/system/uart.c **** 
+  13:Core/Src/system/uart.c **** Maintainer: Miguel Luis and Gregory Cristian
+  14:Core/Src/system/uart.c **** */
+  15:Core/Src/system/uart.c **** #include "board.h"
+  16:Core/Src/system/uart.c **** #include "uart-board.h"
+  17:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+  18:Core/Src/system/uart.c **** #include "uart-usb-board.h"
+  19:Core/Src/system/uart.c **** #endif
+  20:Core/Src/system/uart.c **** 
+  21:Core/Src/system/uart.c **** #include "uart.h"
+  22:Core/Src/system/uart.c **** 
+  23:Core/Src/system/uart.c **** /*!
+  24:Core/Src/system/uart.c ****  * Number of times the UartPutBuffer will try to send the buffer before
+  25:Core/Src/system/uart.c ****  * returning ERROR
+  26:Core/Src/system/uart.c ****  */
+  27:Core/Src/system/uart.c **** #define TX_BUFFER_RETRY_COUNT                       10
+  28:Core/Src/system/uart.c **** 
+  29:Core/Src/system/uart.c **** void UartInit( Uart_t *obj, uint8_t uartId, PinNames tx, PinNames rx )
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 2
+
+
+  30:Core/Src/system/uart.c **** {
+  30              		.loc 1 30 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 30 1 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  31:Core/Src/system/uart.c ****     if( obj->IsInitialized == false )
+  40              		.loc 1 31 5 is_stmt 1 view .LVU2
+  41              		.loc 1 31 12 is_stmt 0 view .LVU3
+  42 0002 4478     		ldrb	r4, [r0, #1]	@ zero_extendqisi2
+  43              		.loc 1 31 7 view .LVU4
+  44 0004 1CB9     		cbnz	r4, .L1
+  32:Core/Src/system/uart.c ****     {
+  33:Core/Src/system/uart.c ****         obj->IsInitialized = true;
+  45              		.loc 1 33 9 is_stmt 1 view .LVU5
+  46              		.loc 1 33 28 is_stmt 0 view .LVU6
+  47 0006 0124     		movs	r4, #1
+  48 0008 4470     		strb	r4, [r0, #1]
+  34:Core/Src/system/uart.c **** 
+  35:Core/Src/system/uart.c ****         if( uartId == UART_USB_CDC )
+  49              		.loc 1 35 9 is_stmt 1 view .LVU7
+  50              		.loc 1 35 11 is_stmt 0 view .LVU8
+  51 000a FF29     		cmp	r1, #255
+  52 000c 00D1     		bne	.L4
+  53              	.LVL1:
+  54              	.L1:
+  36:Core/Src/system/uart.c ****         {
+  37:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+  38:Core/Src/system/uart.c ****             UartUsbInit( obj, uartId, NC, NC );
+  39:Core/Src/system/uart.c **** #endif
+  40:Core/Src/system/uart.c ****         }
+  41:Core/Src/system/uart.c ****         else
+  42:Core/Src/system/uart.c ****         {
+  43:Core/Src/system/uart.c ****             UartMcuInit( obj, uartId, tx, rx );
+  44:Core/Src/system/uart.c ****         }
+  45:Core/Src/system/uart.c ****     }
+  46:Core/Src/system/uart.c **** }
+  55              		.loc 1 46 1 view .LVU9
+  56 000e 10BD     		pop	{r4, pc}
+  57              	.LVL2:
+  58              	.L4:
+  43:Core/Src/system/uart.c ****         }
+  59              		.loc 1 43 13 is_stmt 1 view .LVU10
+  60 0010 FFF7FEFF 		bl	UartMcuInit
+  61              	.LVL3:
+  62              		.loc 1 46 1 is_stmt 0 view .LVU11
+  63 0014 FBE7     		b	.L1
+  64              		.cfi_endproc
+  65              	.LFE135:
+  67              		.section	.rodata.UartConfig.str1.4,"aMS",%progbits,1
+  68              		.align	2
+  69              	.LC0:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 3
+
+
+  70 0000 436F7265 		.ascii	"Core/Src/system/uart.c\000"
+  70      2F537263 
+  70      2F737973 
+  70      74656D2F 
+  70      75617274 
+  71              		.section	.text.UartConfig,"ax",%progbits
+  72              		.align	1
+  73              		.global	UartConfig
+  74              		.syntax unified
+  75              		.thumb
+  76              		.thumb_func
+  77              		.fpu fpv4-sp-d16
+  79              	UartConfig:
+  80              	.LVL4:
+  81              	.LFB136:
+  47:Core/Src/system/uart.c **** 
+  48:Core/Src/system/uart.c **** void UartConfig( Uart_t *obj, UartMode_t mode, uint32_t baudrate, WordLength_t wordLength, StopBits
+  49:Core/Src/system/uart.c **** {
+  82              		.loc 1 49 1 is_stmt 1 view -0
+  83              		.cfi_startproc
+  84              		@ args = 12, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              		.loc 1 49 1 is_stmt 0 view .LVU13
+  87 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  88              	.LCFI1:
+  89              		.cfi_def_cfa_offset 20
+  90              		.cfi_offset 4, -20
+  91              		.cfi_offset 5, -16
+  92              		.cfi_offset 6, -12
+  93              		.cfi_offset 7, -8
+  94              		.cfi_offset 14, -4
+  95 0002 85B0     		sub	sp, sp, #20
+  96              	.LCFI2:
+  97              		.cfi_def_cfa_offset 40
+  98 0004 0446     		mov	r4, r0
+  99 0006 0F46     		mov	r7, r1
+ 100 0008 1646     		mov	r6, r2
+ 101 000a 1D46     		mov	r5, r3
+  50:Core/Src/system/uart.c ****     if( obj->IsInitialized == false )
+ 102              		.loc 1 50 5 is_stmt 1 view .LVU14
+ 103              		.loc 1 50 12 is_stmt 0 view .LVU15
+ 104 000c 4078     		ldrb	r0, [r0, #1]	@ zero_extendqisi2
+ 105              	.LVL5:
+ 106              		.loc 1 50 7 view .LVU16
+ 107 000e 20B1     		cbz	r0, .L9
+ 108              	.LVL6:
+ 109              	.L6:
+  51:Core/Src/system/uart.c ****     {
+  52:Core/Src/system/uart.c ****         // UartInit function must be called first.
+  53:Core/Src/system/uart.c ****         assert_param( FAIL );
+  54:Core/Src/system/uart.c ****     }
+  55:Core/Src/system/uart.c ****     if( obj->UartId == UART_USB_CDC )
+ 110              		.loc 1 55 5 is_stmt 1 view .LVU17
+ 111              		.loc 1 55 12 is_stmt 0 view .LVU18
+ 112 0010 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 113              		.loc 1 55 7 view .LVU19
+ 114 0012 FF28     		cmp	r0, #255
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 4
+
+
+ 115 0014 06D1     		bne	.L10
+ 116              	.L5:
+  56:Core/Src/system/uart.c ****     {
+  57:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+  58:Core/Src/system/uart.c ****         UartUsbConfig( obj, mode, baudrate, wordLength, stopBits, parity, flowCtrl );
+  59:Core/Src/system/uart.c **** #endif
+  60:Core/Src/system/uart.c ****     }
+  61:Core/Src/system/uart.c ****     else
+  62:Core/Src/system/uart.c ****     {
+  63:Core/Src/system/uart.c ****         UartMcuConfig( obj, mode, baudrate, wordLength, stopBits, parity, flowCtrl );
+  64:Core/Src/system/uart.c ****     }
+  65:Core/Src/system/uart.c **** }
+ 117              		.loc 1 65 1 view .LVU20
+ 118 0016 05B0     		add	sp, sp, #20
+ 119              	.LCFI3:
+ 120              		.cfi_remember_state
+ 121              		.cfi_def_cfa_offset 20
+ 122              		@ sp needed
+ 123 0018 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 124              	.LVL7:
+ 125              	.L9:
+ 126              	.LCFI4:
+ 127              		.cfi_restore_state
+  53:Core/Src/system/uart.c ****     }
+ 128              		.loc 1 53 9 is_stmt 1 view .LVU21
+ 129 001a 3521     		movs	r1, #53
+ 130              	.LVL8:
+  53:Core/Src/system/uart.c ****     }
+ 131              		.loc 1 53 9 is_stmt 0 view .LVU22
+ 132 001c 0948     		ldr	r0, .L11
+ 133 001e FFF7FEFF 		bl	assert_failed
+ 134              	.LVL9:
+  53:Core/Src/system/uart.c ****     }
+ 135              		.loc 1 53 9 view .LVU23
+ 136 0022 F5E7     		b	.L6
+ 137              	.L10:
+  63:Core/Src/system/uart.c ****     }
+ 138              		.loc 1 63 9 is_stmt 1 view .LVU24
+ 139 0024 9DF83030 		ldrb	r3, [sp, #48]	@ zero_extendqisi2
+ 140 0028 0293     		str	r3, [sp, #8]
+ 141 002a 9DF82C30 		ldrb	r3, [sp, #44]	@ zero_extendqisi2
+ 142 002e 0193     		str	r3, [sp, #4]
+ 143 0030 9DF82830 		ldrb	r3, [sp, #40]	@ zero_extendqisi2
+ 144 0034 0093     		str	r3, [sp]
+ 145 0036 2B46     		mov	r3, r5
+ 146 0038 3246     		mov	r2, r6
+ 147 003a 3946     		mov	r1, r7
+ 148 003c 2046     		mov	r0, r4
+ 149 003e FFF7FEFF 		bl	UartMcuConfig
+ 150              	.LVL10:
+ 151              		.loc 1 65 1 is_stmt 0 view .LVU25
+ 152 0042 E8E7     		b	.L5
+ 153              	.L12:
+ 154              		.align	2
+ 155              	.L11:
+ 156 0044 00000000 		.word	.LC0
+ 157              		.cfi_endproc
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 5
+
+
+ 158              	.LFE136:
+ 160              		.section	.text.UartDeInit,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	UartDeInit
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu fpv4-sp-d16
+ 168              	UartDeInit:
+ 169              	.LVL11:
+ 170              	.LFB137:
+  66:Core/Src/system/uart.c **** 
+  67:Core/Src/system/uart.c **** void UartDeInit( Uart_t *obj )
+  68:Core/Src/system/uart.c **** {
+ 171              		.loc 1 68 1 is_stmt 1 view -0
+ 172              		.cfi_startproc
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+ 175              		.loc 1 68 1 is_stmt 0 view .LVU27
+ 176 0000 08B5     		push	{r3, lr}
+ 177              	.LCFI5:
+ 178              		.cfi_def_cfa_offset 8
+ 179              		.cfi_offset 3, -8
+ 180              		.cfi_offset 14, -4
+  69:Core/Src/system/uart.c ****     obj->IsInitialized = false;
+ 181              		.loc 1 69 5 is_stmt 1 view .LVU28
+ 182              		.loc 1 69 24 is_stmt 0 view .LVU29
+ 183 0002 0023     		movs	r3, #0
+ 184 0004 4370     		strb	r3, [r0, #1]
+  70:Core/Src/system/uart.c ****     if( obj->UartId == UART_USB_CDC )
+ 185              		.loc 1 70 5 is_stmt 1 view .LVU30
+ 186              		.loc 1 70 12 is_stmt 0 view .LVU31
+ 187 0006 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 188              		.loc 1 70 7 view .LVU32
+ 189 0008 FF2B     		cmp	r3, #255
+ 190 000a 00D1     		bne	.L16
+ 191              	.LVL12:
+ 192              	.L13:
+  71:Core/Src/system/uart.c ****     {
+  72:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+  73:Core/Src/system/uart.c ****         UartUsbDeInit( obj );
+  74:Core/Src/system/uart.c **** #endif
+  75:Core/Src/system/uart.c ****     }
+  76:Core/Src/system/uart.c ****     else
+  77:Core/Src/system/uart.c ****     {
+  78:Core/Src/system/uart.c ****         UartMcuDeInit( obj );
+  79:Core/Src/system/uart.c ****     }
+  80:Core/Src/system/uart.c **** }
+ 193              		.loc 1 80 1 view .LVU33
+ 194 000c 08BD     		pop	{r3, pc}
+ 195              	.LVL13:
+ 196              	.L16:
+  78:Core/Src/system/uart.c ****     }
+ 197              		.loc 1 78 9 is_stmt 1 view .LVU34
+ 198 000e FFF7FEFF 		bl	UartMcuDeInit
+ 199              	.LVL14:
+ 200              		.loc 1 80 1 is_stmt 0 view .LVU35
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 6
+
+
+ 201 0012 FBE7     		b	.L13
+ 202              		.cfi_endproc
+ 203              	.LFE137:
+ 205              		.section	.text.UartPutChar,"ax",%progbits
+ 206              		.align	1
+ 207              		.global	UartPutChar
+ 208              		.syntax unified
+ 209              		.thumb
+ 210              		.thumb_func
+ 211              		.fpu fpv4-sp-d16
+ 213              	UartPutChar:
+ 214              	.LVL15:
+ 215              	.LFB138:
+  81:Core/Src/system/uart.c **** 
+  82:Core/Src/system/uart.c **** uint8_t UartPutChar( Uart_t *obj, uint8_t data )
+  83:Core/Src/system/uart.c **** {
+ 216              		.loc 1 83 1 is_stmt 1 view -0
+ 217              		.cfi_startproc
+ 218              		@ args = 0, pretend = 0, frame = 0
+ 219              		@ frame_needed = 0, uses_anonymous_args = 0
+ 220              		.loc 1 83 1 is_stmt 0 view .LVU37
+ 221 0000 08B5     		push	{r3, lr}
+ 222              	.LCFI6:
+ 223              		.cfi_def_cfa_offset 8
+ 224              		.cfi_offset 3, -8
+ 225              		.cfi_offset 14, -4
+ 226 0002 0346     		mov	r3, r0
+  84:Core/Src/system/uart.c ****     if( obj->UartId == UART_USB_CDC )
+ 227              		.loc 1 84 5 is_stmt 1 view .LVU38
+ 228              		.loc 1 84 12 is_stmt 0 view .LVU39
+ 229 0004 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 230              	.LVL16:
+ 231              		.loc 1 84 7 view .LVU40
+ 232 0006 FF28     		cmp	r0, #255
+ 233 0008 02D0     		beq	.L18
+  85:Core/Src/system/uart.c ****     {
+  86:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+  87:Core/Src/system/uart.c ****         return UartUsbPutChar( obj, data );
+  88:Core/Src/system/uart.c **** #else
+  89:Core/Src/system/uart.c ****         return 255; // Not supported
+  90:Core/Src/system/uart.c **** #endif
+  91:Core/Src/system/uart.c ****     }
+  92:Core/Src/system/uart.c ****     else
+  93:Core/Src/system/uart.c ****     {
+  94:Core/Src/system/uart.c ****         return UartMcuPutChar( obj, data );
+ 234              		.loc 1 94 9 is_stmt 1 view .LVU41
+ 235              		.loc 1 94 16 is_stmt 0 view .LVU42
+ 236 000a 1846     		mov	r0, r3
+ 237 000c FFF7FEFF 		bl	UartMcuPutChar
+ 238              	.LVL17:
+ 239              	.L18:
+  95:Core/Src/system/uart.c ****     }
+  96:Core/Src/system/uart.c **** }
+ 240              		.loc 1 96 1 view .LVU43
+ 241 0010 08BD     		pop	{r3, pc}
+ 242              		.cfi_endproc
+ 243              	.LFE138:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 7
+
+
+ 245              		.section	.text.UartGetChar,"ax",%progbits
+ 246              		.align	1
+ 247              		.global	UartGetChar
+ 248              		.syntax unified
+ 249              		.thumb
+ 250              		.thumb_func
+ 251              		.fpu fpv4-sp-d16
+ 253              	UartGetChar:
+ 254              	.LVL18:
+ 255              	.LFB139:
+  97:Core/Src/system/uart.c **** 
+  98:Core/Src/system/uart.c **** uint8_t UartGetChar( Uart_t *obj, uint8_t *data )
+  99:Core/Src/system/uart.c **** {
+ 256              		.loc 1 99 1 is_stmt 1 view -0
+ 257              		.cfi_startproc
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 260              		.loc 1 99 1 is_stmt 0 view .LVU45
+ 261 0000 08B5     		push	{r3, lr}
+ 262              	.LCFI7:
+ 263              		.cfi_def_cfa_offset 8
+ 264              		.cfi_offset 3, -8
+ 265              		.cfi_offset 14, -4
+ 266 0002 0346     		mov	r3, r0
+ 100:Core/Src/system/uart.c ****     if( obj->UartId == UART_USB_CDC )
+ 267              		.loc 1 100 5 is_stmt 1 view .LVU46
+ 268              		.loc 1 100 12 is_stmt 0 view .LVU47
+ 269 0004 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 270              	.LVL19:
+ 271              		.loc 1 100 7 view .LVU48
+ 272 0006 FF28     		cmp	r0, #255
+ 273 0008 02D0     		beq	.L21
+ 101:Core/Src/system/uart.c ****     {
+ 102:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+ 103:Core/Src/system/uart.c ****         return UartUsbGetChar( obj, data );
+ 104:Core/Src/system/uart.c **** #else
+ 105:Core/Src/system/uart.c ****         return 255; // Not supported
+ 106:Core/Src/system/uart.c **** #endif
+ 107:Core/Src/system/uart.c ****     }
+ 108:Core/Src/system/uart.c ****     else
+ 109:Core/Src/system/uart.c ****     {
+ 110:Core/Src/system/uart.c ****         return UartMcuGetChar( obj, data );
+ 274              		.loc 1 110 9 is_stmt 1 view .LVU49
+ 275              		.loc 1 110 16 is_stmt 0 view .LVU50
+ 276 000a 1846     		mov	r0, r3
+ 277 000c FFF7FEFF 		bl	UartMcuGetChar
+ 278              	.LVL20:
+ 279              	.L21:
+ 111:Core/Src/system/uart.c ****     }
+ 112:Core/Src/system/uart.c **** }
+ 280              		.loc 1 112 1 view .LVU51
+ 281 0010 08BD     		pop	{r3, pc}
+ 282              		.cfi_endproc
+ 283              	.LFE139:
+ 285              		.section	.text.UartPutBuffer,"ax",%progbits
+ 286              		.align	1
+ 287              		.global	UartPutBuffer
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 8
+
+
+ 288              		.syntax unified
+ 289              		.thumb
+ 290              		.thumb_func
+ 291              		.fpu fpv4-sp-d16
+ 293              	UartPutBuffer:
+ 294              	.LVL21:
+ 295              	.LFB140:
+ 113:Core/Src/system/uart.c **** 
+ 114:Core/Src/system/uart.c **** uint8_t UartPutBuffer( Uart_t *obj, uint8_t *buffer, uint16_t size )
+ 115:Core/Src/system/uart.c **** {
+ 296              		.loc 1 115 1 is_stmt 1 view -0
+ 297              		.cfi_startproc
+ 298              		@ args = 0, pretend = 0, frame = 0
+ 299              		@ frame_needed = 0, uses_anonymous_args = 0
+ 300              		.loc 1 115 1 is_stmt 0 view .LVU53
+ 301 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 302              	.LCFI8:
+ 303              		.cfi_def_cfa_offset 24
+ 304              		.cfi_offset 4, -24
+ 305              		.cfi_offset 5, -20
+ 306              		.cfi_offset 6, -16
+ 307              		.cfi_offset 7, -12
+ 308              		.cfi_offset 8, -8
+ 309              		.cfi_offset 14, -4
+ 310 0004 0646     		mov	r6, r0
+ 116:Core/Src/system/uart.c ****     if( obj->UartId == UART_USB_CDC )
+ 311              		.loc 1 116 5 is_stmt 1 view .LVU54
+ 312              		.loc 1 116 12 is_stmt 0 view .LVU55
+ 313 0006 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 314              	.LVL22:
+ 315              		.loc 1 116 7 view .LVU56
+ 316 0008 FF28     		cmp	r0, #255
+ 317 000a 0FD0     		beq	.L24
+ 318 000c 0F46     		mov	r7, r1
+ 319 000e 9046     		mov	r8, r2
+ 320              	.LBB2:
+ 117:Core/Src/system/uart.c ****     {
+ 118:Core/Src/system/uart.c **** #if defined( USE_USB_CDC )
+ 119:Core/Src/system/uart.c ****         return UartUsbPutBuffer( obj, buffer, size );
+ 120:Core/Src/system/uart.c **** #else
+ 121:Core/Src/system/uart.c ****         return 255; // Not supported
+ 122:Core/Src/system/uart.c **** #endif
+ 123:Core/Src/system/uart.c ****     }
+ 124:Core/Src/system/uart.c ****     else
+ 125:Core/Src/system/uart.c ****     {
+ 126:Core/Src/system/uart.c ****         uint8_t retryCount;
+ 127:Core/Src/system/uart.c ****         uint16_t i;
+ 128:Core/Src/system/uart.c **** 
+ 129:Core/Src/system/uart.c ****         for( i = 0; i < size; i++ )
+ 321              		.loc 1 129 16 view .LVU57
+ 322 0010 0025     		movs	r5, #0
+ 323              	.LVL23:
+ 324              	.L25:
+ 325              		.loc 1 129 21 is_stmt 1 discriminator 1 view .LVU58
+ 326              		.loc 1 129 9 is_stmt 0 discriminator 1 view .LVU59
+ 327 0012 4545     		cmp	r5, r8
+ 328 0014 0FD2     		bcs	.L31
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 9
+
+
+ 130:Core/Src/system/uart.c ****         {
+ 131:Core/Src/system/uart.c ****             retryCount = 0;
+ 329              		.loc 1 131 24 view .LVU60
+ 330 0016 0024     		movs	r4, #0
+ 331              	.L27:
+ 332              	.LVL24:
+ 132:Core/Src/system/uart.c ****             while( UartPutChar( obj, buffer[i] ) != 0 )
+ 333              		.loc 1 132 18 is_stmt 1 view .LVU61
+ 334              		.loc 1 132 20 is_stmt 0 view .LVU62
+ 335 0018 795D     		ldrb	r1, [r7, r5]	@ zero_extendqisi2
+ 336 001a 3046     		mov	r0, r6
+ 337 001c FFF7FEFF 		bl	UartPutChar
+ 338              	.LVL25:
+ 339              		.loc 1 132 18 view .LVU63
+ 340 0020 30B1     		cbz	r0, .L32
+ 133:Core/Src/system/uart.c ****             {
+ 134:Core/Src/system/uart.c ****                 retryCount++;
+ 341              		.loc 1 134 17 is_stmt 1 view .LVU64
+ 342              		.loc 1 134 27 is_stmt 0 view .LVU65
+ 343 0022 0134     		adds	r4, r4, #1
+ 344              	.LVL26:
+ 345              		.loc 1 134 27 view .LVU66
+ 346 0024 E4B2     		uxtb	r4, r4
+ 347              	.LVL27:
+ 135:Core/Src/system/uart.c **** 
+ 136:Core/Src/system/uart.c ****                 // Exit if something goes terribly wrong
+ 137:Core/Src/system/uart.c ****                 if( retryCount > TX_BUFFER_RETRY_COUNT )
+ 348              		.loc 1 137 17 is_stmt 1 view .LVU67
+ 349              		.loc 1 137 19 is_stmt 0 view .LVU68
+ 350 0026 0A2C     		cmp	r4, #10
+ 351 0028 F6D9     		bls	.L27
+ 138:Core/Src/system/uart.c ****                 {
+ 139:Core/Src/system/uart.c ****                     return 1; // Error
+ 352              		.loc 1 139 28 view .LVU69
+ 353 002a 0120     		movs	r0, #1
+ 354              	.LVL28:
+ 355              	.L24:
+ 356              		.loc 1 139 28 view .LVU70
+ 357              	.LBE2:
+ 140:Core/Src/system/uart.c ****                 }
+ 141:Core/Src/system/uart.c ****             }
+ 142:Core/Src/system/uart.c ****         }
+ 143:Core/Src/system/uart.c ****         return 0; // OK
+ 144:Core/Src/system/uart.c ****     }
+ 145:Core/Src/system/uart.c **** }
+ 358              		.loc 1 145 1 view .LVU71
+ 359 002c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 360              	.LVL29:
+ 361              	.L32:
+ 362              	.LBB3:
+ 129:Core/Src/system/uart.c ****         {
+ 363              		.loc 1 129 31 is_stmt 1 discriminator 2 view .LVU72
+ 129:Core/Src/system/uart.c ****         {
+ 364              		.loc 1 129 32 is_stmt 0 discriminator 2 view .LVU73
+ 365 0030 0135     		adds	r5, r5, #1
+ 366              	.LVL30:
+ 129:Core/Src/system/uart.c ****         {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 10
+
+
+ 367              		.loc 1 129 32 discriminator 2 view .LVU74
+ 368 0032 ADB2     		uxth	r5, r5
+ 369              	.LVL31:
+ 129:Core/Src/system/uart.c ****         {
+ 370              		.loc 1 129 32 discriminator 2 view .LVU75
+ 371 0034 EDE7     		b	.L25
+ 372              	.LVL32:
+ 373              	.L31:
+ 143:Core/Src/system/uart.c ****     }
+ 374              		.loc 1 143 16 view .LVU76
+ 375 0036 0020     		movs	r0, #0
+ 376 0038 F8E7     		b	.L24
+ 377              	.LBE3:
+ 378              		.cfi_endproc
+ 379              	.LFE140:
+ 381              		.section	.text.UartGetBuffer,"ax",%progbits
+ 382              		.align	1
+ 383              		.global	UartGetBuffer
+ 384              		.syntax unified
+ 385              		.thumb
+ 386              		.thumb_func
+ 387              		.fpu fpv4-sp-d16
+ 389              	UartGetBuffer:
+ 390              	.LVL33:
+ 391              	.LFB141:
+ 146:Core/Src/system/uart.c **** 
+ 147:Core/Src/system/uart.c **** uint8_t UartGetBuffer( Uart_t *obj, uint8_t *buffer, uint16_t size, uint16_t *nbReadBytes )
+ 148:Core/Src/system/uart.c **** {
+ 392              		.loc 1 148 1 is_stmt 1 view -0
+ 393              		.cfi_startproc
+ 394              		@ args = 0, pretend = 0, frame = 0
+ 395              		@ frame_needed = 0, uses_anonymous_args = 0
+ 396              		.loc 1 148 1 is_stmt 0 view .LVU78
+ 397 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 398              	.LCFI9:
+ 399              		.cfi_def_cfa_offset 24
+ 400              		.cfi_offset 4, -24
+ 401              		.cfi_offset 5, -20
+ 402              		.cfi_offset 6, -16
+ 403              		.cfi_offset 7, -12
+ 404              		.cfi_offset 8, -8
+ 405              		.cfi_offset 14, -4
+ 406 0004 0746     		mov	r7, r0
+ 407 0006 0E46     		mov	r6, r1
+ 408 0008 1546     		mov	r5, r2
+ 409 000a 9846     		mov	r8, r3
+ 149:Core/Src/system/uart.c ****     uint16_t localSize = 0;
+ 410              		.loc 1 149 5 is_stmt 1 view .LVU79
+ 411              	.LVL34:
+ 150:Core/Src/system/uart.c **** 
+ 151:Core/Src/system/uart.c ****     while( localSize < size )
+ 412              		.loc 1 151 5 view .LVU80
+ 149:Core/Src/system/uart.c ****     uint16_t localSize = 0;
+ 413              		.loc 1 149 14 is_stmt 0 view .LVU81
+ 414 000c 0024     		movs	r4, #0
+ 415              		.loc 1 151 10 view .LVU82
+ 416 000e 01E0     		b	.L34
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 11
+
+
+ 417              	.LVL35:
+ 418              	.L40:
+ 152:Core/Src/system/uart.c ****     {
+ 153:Core/Src/system/uart.c ****         if( UartGetChar( obj, buffer + localSize ) == 0 )
+ 154:Core/Src/system/uart.c ****         {
+ 155:Core/Src/system/uart.c ****             localSize++;
+ 419              		.loc 1 155 13 is_stmt 1 view .LVU83
+ 420              		.loc 1 155 22 is_stmt 0 view .LVU84
+ 421 0010 0134     		adds	r4, r4, #1
+ 422              	.LVL36:
+ 423              		.loc 1 155 22 view .LVU85
+ 424 0012 A4B2     		uxth	r4, r4
+ 425              	.LVL37:
+ 426              	.L34:
+ 151:Core/Src/system/uart.c ****     {
+ 427              		.loc 1 151 10 is_stmt 1 view .LVU86
+ 428 0014 AC42     		cmp	r4, r5
+ 429 0016 05D2     		bcs	.L35
+ 153:Core/Src/system/uart.c ****         {
+ 430              		.loc 1 153 9 view .LVU87
+ 153:Core/Src/system/uart.c ****         {
+ 431              		.loc 1 153 13 is_stmt 0 view .LVU88
+ 432 0018 3119     		adds	r1, r6, r4
+ 433 001a 3846     		mov	r0, r7
+ 434 001c FFF7FEFF 		bl	UartGetChar
+ 435              	.LVL38:
+ 153:Core/Src/system/uart.c ****         {
+ 436              		.loc 1 153 11 view .LVU89
+ 437 0020 0028     		cmp	r0, #0
+ 438 0022 F5D0     		beq	.L40
+ 439              	.L35:
+ 156:Core/Src/system/uart.c ****         }
+ 157:Core/Src/system/uart.c ****         else
+ 158:Core/Src/system/uart.c ****         {
+ 159:Core/Src/system/uart.c ****             break;
+ 160:Core/Src/system/uart.c ****         }
+ 161:Core/Src/system/uart.c ****     }
+ 162:Core/Src/system/uart.c ****     
+ 163:Core/Src/system/uart.c ****     *nbReadBytes = localSize;
+ 440              		.loc 1 163 5 is_stmt 1 view .LVU90
+ 441              		.loc 1 163 18 is_stmt 0 view .LVU91
+ 442 0024 A8F80040 		strh	r4, [r8]	@ movhi
+ 164:Core/Src/system/uart.c ****     
+ 165:Core/Src/system/uart.c ****     if( localSize == 0 )
+ 443              		.loc 1 165 5 is_stmt 1 view .LVU92
+ 444              		.loc 1 165 7 is_stmt 0 view .LVU93
+ 445 0028 14B1     		cbz	r4, .L38
+ 166:Core/Src/system/uart.c ****     {
+ 167:Core/Src/system/uart.c ****         return 1; // Empty
+ 168:Core/Src/system/uart.c ****     }
+ 169:Core/Src/system/uart.c ****     return 0; // OK
+ 446              		.loc 1 169 12 view .LVU94
+ 447 002a 0020     		movs	r0, #0
+ 448              	.L37:
+ 170:Core/Src/system/uart.c **** }
+ 449              		.loc 1 170 1 view .LVU95
+ 450 002c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 12
+
+
+ 451              	.LVL39:
+ 452              	.L38:
+ 167:Core/Src/system/uart.c ****     }
+ 453              		.loc 1 167 16 view .LVU96
+ 454 0030 0120     		movs	r0, #1
+ 455 0032 FBE7     		b	.L37
+ 456              		.cfi_endproc
+ 457              	.LFE141:
+ 459              		.text
+ 460              	.Letext0:
+ 461              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 462              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 463              		.file 4 "Core/Src/system/gpio.h"
+ 464              		.file 5 "Core/Src/system/fifo.h"
+ 465              		.file 6 "Core/Src/system/uart.h"
+ 466              		.file 7 "Core/Src/boards/NucleoL476/uart-board.h"
+ 467              		.file 8 "Core/Inc/stm32l4xx_hal_conf.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cchHVidb.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.c
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:18     .text.UartInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:26     .text.UartInit:00000000 UartInit
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:68     .rodata.UartConfig.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:72     .text.UartConfig:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:79     .text.UartConfig:00000000 UartConfig
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:156    .text.UartConfig:00000044 $d
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:161    .text.UartDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:168    .text.UartDeInit:00000000 UartDeInit
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:206    .text.UartPutChar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:213    .text.UartPutChar:00000000 UartPutChar
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:246    .text.UartGetChar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:253    .text.UartGetChar:00000000 UartGetChar
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:286    .text.UartPutBuffer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:293    .text.UartPutBuffer:00000000 UartPutBuffer
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:382    .text.UartGetBuffer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cchHVidb.s:389    .text.UartGetBuffer:00000000 UartGetBuffer
+
+UNDEFINED SYMBOLS
+UartMcuInit
+assert_failed
+UartMcuConfig
+UartMcuDeInit
+UartMcuPutChar
+UartMcuGetChar

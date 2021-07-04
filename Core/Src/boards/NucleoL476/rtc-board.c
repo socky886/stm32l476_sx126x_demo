@@ -707,12 +707,12 @@ static RtcCalendar_t RtcGetCalendar( void )
 /*!
  * \brief RTC IRQ Handler of the RTC Alarm
  */
-void RTC_Alarm_IRQHandler( void )
-{
-    HAL_RTC_AlarmIRQHandler( &RtcHandle );
-    HAL_RTC_DeactivateAlarm( &RtcHandle, RTC_ALARM_A );
-    RtcRecoverMcuStatus( );
-    RtcComputeWakeUpTime( );
-    BlockLowPowerDuringTask( false );
-    TimerIrqHandler( );
-}
+// void RTC_Alarm_IRQHandler( void )
+// {
+//     HAL_RTC_AlarmIRQHandler( &RtcHandle );
+//     HAL_RTC_DeactivateAlarm( &RtcHandle, RTC_ALARM_A );
+//     RtcRecoverMcuStatus( );
+//     RtcComputeWakeUpTime( );
+//     BlockLowPowerDuringTask( false );
+//     TimerIrqHandler( );
+// }

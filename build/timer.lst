@@ -1,0 +1,1956 @@
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"timer.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.TimerInsertTimer,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	TimerInsertTimer:
+  26              	.LVL0:
+  27              	.LFB137:
+  28              		.file 1 "Core/Src/system/timer.c"
+   1:Core/Src/system/timer.c **** /*
+   2:Core/Src/system/timer.c ****  / _____)             _              | |
+   3:Core/Src/system/timer.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   4:Core/Src/system/timer.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   5:Core/Src/system/timer.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   6:Core/Src/system/timer.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   7:Core/Src/system/timer.c ****     (C)2013 Semtech
+   8:Core/Src/system/timer.c **** 
+   9:Core/Src/system/timer.c **** Description: Timer objects and scheduling management
+  10:Core/Src/system/timer.c **** 
+  11:Core/Src/system/timer.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  12:Core/Src/system/timer.c **** 
+  13:Core/Src/system/timer.c **** Maintainer: Miguel Luis and Gregory Cristian
+  14:Core/Src/system/timer.c **** */
+  15:Core/Src/system/timer.c **** #include "board.h"
+  16:Core/Src/system/timer.c **** #include "rtc-board.h"
+  17:Core/Src/system/timer.c **** 
+  18:Core/Src/system/timer.c **** 
+  19:Core/Src/system/timer.c **** /*!
+  20:Core/Src/system/timer.c ****  * This flag is used to loop through the main several times in order to be sure
+  21:Core/Src/system/timer.c ****  * that all pending events have been processed.
+  22:Core/Src/system/timer.c ****  */
+  23:Core/Src/system/timer.c **** volatile uint8_t HasLoopedThroughMain = 0;
+  24:Core/Src/system/timer.c **** 
+  25:Core/Src/system/timer.c **** /*!
+  26:Core/Src/system/timer.c ****  * Timers list head pointer
+  27:Core/Src/system/timer.c ****  */
+  28:Core/Src/system/timer.c **** static TimerEvent_t *TimerListHead = NULL;
+  29:Core/Src/system/timer.c **** 
+  30:Core/Src/system/timer.c **** /*!
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 2
+
+
+  31:Core/Src/system/timer.c ****  * \brief Adds or replace the head timer of the list.
+  32:Core/Src/system/timer.c ****  *
+  33:Core/Src/system/timer.c ****  * \remark The list is automatically sorted. The list head always contains the
+  34:Core/Src/system/timer.c ****  *         next timer to expire.
+  35:Core/Src/system/timer.c ****  *
+  36:Core/Src/system/timer.c ****  * \param [IN]  obj Timer object to be become the new head
+  37:Core/Src/system/timer.c ****  * \param [IN]  remainingTime Remaining time of the previous head to be replaced
+  38:Core/Src/system/timer.c ****  */
+  39:Core/Src/system/timer.c **** static void TimerInsertNewHeadTimer( TimerEvent_t *obj, uint32_t remainingTime );
+  40:Core/Src/system/timer.c **** 
+  41:Core/Src/system/timer.c **** /*!
+  42:Core/Src/system/timer.c ****  * \brief Adds a timer to the list.
+  43:Core/Src/system/timer.c ****  *
+  44:Core/Src/system/timer.c ****  * \remark The list is automatically sorted. The list head always contains the
+  45:Core/Src/system/timer.c ****  *         next timer to expire.
+  46:Core/Src/system/timer.c ****  *
+  47:Core/Src/system/timer.c ****  * \param [IN]  obj Timer object to be added to the list
+  48:Core/Src/system/timer.c ****  * \param [IN]  remainingTime Remaining time of the running head after which the object may be adde
+  49:Core/Src/system/timer.c ****  */
+  50:Core/Src/system/timer.c **** static void TimerInsertTimer( TimerEvent_t *obj, uint32_t remainingTime );
+  51:Core/Src/system/timer.c **** 
+  52:Core/Src/system/timer.c **** /*!
+  53:Core/Src/system/timer.c ****  * \brief Sets a timeout with the duration "timestamp"
+  54:Core/Src/system/timer.c ****  *
+  55:Core/Src/system/timer.c ****  * \param [IN] timestamp Delay duration
+  56:Core/Src/system/timer.c ****  */
+  57:Core/Src/system/timer.c **** static void TimerSetTimeout( TimerEvent_t *obj );
+  58:Core/Src/system/timer.c **** 
+  59:Core/Src/system/timer.c **** /*!
+  60:Core/Src/system/timer.c ****  * \brief Check if the Object to be added is not already in the list
+  61:Core/Src/system/timer.c ****  *
+  62:Core/Src/system/timer.c ****  * \param [IN] timestamp Delay duration
+  63:Core/Src/system/timer.c ****  * \retval true (the object is already in the list) or false
+  64:Core/Src/system/timer.c ****  */
+  65:Core/Src/system/timer.c **** static bool TimerExists( TimerEvent_t *obj );
+  66:Core/Src/system/timer.c **** 
+  67:Core/Src/system/timer.c **** /*!
+  68:Core/Src/system/timer.c ****  * \brief Read the timer value of the currently running timer
+  69:Core/Src/system/timer.c ****  *
+  70:Core/Src/system/timer.c ****  * \retval value current timer value
+  71:Core/Src/system/timer.c ****  */
+  72:Core/Src/system/timer.c **** TimerTime_t TimerGetValue( void );
+  73:Core/Src/system/timer.c **** 
+  74:Core/Src/system/timer.c **** void TimerInit( TimerEvent_t *obj, void ( *callback )( void ) )
+  75:Core/Src/system/timer.c **** {
+  76:Core/Src/system/timer.c ****     obj->Timestamp = 0;
+  77:Core/Src/system/timer.c ****     obj->ReloadValue = 0;
+  78:Core/Src/system/timer.c ****     obj->IsRunning = false;
+  79:Core/Src/system/timer.c ****     obj->Callback = callback;
+  80:Core/Src/system/timer.c ****     obj->Next = NULL;
+  81:Core/Src/system/timer.c **** }
+  82:Core/Src/system/timer.c **** 
+  83:Core/Src/system/timer.c **** void TimerStart( TimerEvent_t *obj )
+  84:Core/Src/system/timer.c **** {
+  85:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
+  86:Core/Src/system/timer.c ****     uint32_t remainingTime = 0;
+  87:Core/Src/system/timer.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 3
+
+
+  88:Core/Src/system/timer.c ****     BoardDisableIrq( );
+  89:Core/Src/system/timer.c **** 
+  90:Core/Src/system/timer.c ****     if( ( obj == NULL ) || ( TimerExists( obj ) == true ) )
+  91:Core/Src/system/timer.c ****     {
+  92:Core/Src/system/timer.c ****         BoardEnableIrq( );
+  93:Core/Src/system/timer.c ****         return;
+  94:Core/Src/system/timer.c ****     }
+  95:Core/Src/system/timer.c **** 
+  96:Core/Src/system/timer.c ****     obj->Timestamp = obj->ReloadValue;
+  97:Core/Src/system/timer.c ****     obj->IsRunning = false;
+  98:Core/Src/system/timer.c **** 
+  99:Core/Src/system/timer.c ****     if( TimerListHead == NULL )
+ 100:Core/Src/system/timer.c ****     {
+ 101:Core/Src/system/timer.c ****         TimerInsertNewHeadTimer( obj, obj->Timestamp );
+ 102:Core/Src/system/timer.c ****     }
+ 103:Core/Src/system/timer.c ****     else
+ 104:Core/Src/system/timer.c ****     {
+ 105:Core/Src/system/timer.c ****         if( TimerListHead->IsRunning == true )
+ 106:Core/Src/system/timer.c ****         {
+ 107:Core/Src/system/timer.c ****             elapsedTime = TimerGetValue( );
+ 108:Core/Src/system/timer.c ****             if( elapsedTime > TimerListHead->Timestamp )
+ 109:Core/Src/system/timer.c ****             {
+ 110:Core/Src/system/timer.c ****                 elapsedTime = TimerListHead->Timestamp; // security but should never occur
+ 111:Core/Src/system/timer.c ****             }
+ 112:Core/Src/system/timer.c ****             remainingTime = TimerListHead->Timestamp - elapsedTime;
+ 113:Core/Src/system/timer.c ****         }
+ 114:Core/Src/system/timer.c ****         else
+ 115:Core/Src/system/timer.c ****         {
+ 116:Core/Src/system/timer.c ****             remainingTime = TimerListHead->Timestamp;
+ 117:Core/Src/system/timer.c ****         }
+ 118:Core/Src/system/timer.c **** 
+ 119:Core/Src/system/timer.c ****         if( obj->Timestamp < remainingTime )
+ 120:Core/Src/system/timer.c ****         {
+ 121:Core/Src/system/timer.c ****             TimerInsertNewHeadTimer( obj, remainingTime );
+ 122:Core/Src/system/timer.c ****         }
+ 123:Core/Src/system/timer.c ****         else
+ 124:Core/Src/system/timer.c ****         {
+ 125:Core/Src/system/timer.c ****              TimerInsertTimer( obj, remainingTime );
+ 126:Core/Src/system/timer.c ****         }
+ 127:Core/Src/system/timer.c ****     }
+ 128:Core/Src/system/timer.c ****     BoardEnableIrq( );
+ 129:Core/Src/system/timer.c **** }
+ 130:Core/Src/system/timer.c **** 
+ 131:Core/Src/system/timer.c **** static void TimerInsertTimer( TimerEvent_t *obj, uint32_t remainingTime )
+ 132:Core/Src/system/timer.c **** {
+  29              		.loc 1 132 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              		.loc 1 132 1 is_stmt 0 view .LVU1
+  35 0000 F0B4     		push	{r4, r5, r6, r7}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 4, -16
+  39              		.cfi_offset 5, -12
+  40              		.cfi_offset 6, -8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 4
+
+
+  41              		.cfi_offset 7, -4
+ 133:Core/Src/system/timer.c ****     uint32_t aggregatedTimestamp = 0;      // hold the sum of timestamps
+  42              		.loc 1 133 5 is_stmt 1 view .LVU2
+  43              	.LVL1:
+ 134:Core/Src/system/timer.c ****     uint32_t aggregatedTimestampNext = 0;  // hold the sum of timestamps up to the next event
+  44              		.loc 1 134 5 view .LVU3
+ 135:Core/Src/system/timer.c **** 
+ 136:Core/Src/system/timer.c ****     TimerEvent_t* prev = TimerListHead;
+  45              		.loc 1 136 5 view .LVU4
+  46              		.loc 1 136 19 is_stmt 0 view .LVU5
+  47 0002 154B     		ldr	r3, .L12
+  48 0004 1D68     		ldr	r5, [r3]
+  49              	.LVL2:
+ 137:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead->Next;
+  50              		.loc 1 137 5 is_stmt 1 view .LVU6
+  51              		.loc 1 137 19 is_stmt 0 view .LVU7
+  52 0006 2C69     		ldr	r4, [r5, #16]
+  53              	.LVL3:
+ 138:Core/Src/system/timer.c **** 
+ 139:Core/Src/system/timer.c ****     if( cur == NULL )
+  54              		.loc 1 139 5 is_stmt 1 view .LVU8
+  55              		.loc 1 139 7 is_stmt 0 view .LVU9
+  56 0008 14B1     		cbz	r4, .L10
+ 140:Core/Src/system/timer.c ****     { // obj comes just after the head
+ 141:Core/Src/system/timer.c ****         obj->Timestamp -= remainingTime;
+ 142:Core/Src/system/timer.c ****         prev->Next = obj;
+ 143:Core/Src/system/timer.c ****         obj->Next = NULL;
+ 144:Core/Src/system/timer.c ****     }
+ 145:Core/Src/system/timer.c ****     else
+ 146:Core/Src/system/timer.c ****     {
+ 147:Core/Src/system/timer.c ****         aggregatedTimestamp = remainingTime;
+  57              		.loc 1 147 9 is_stmt 1 view .LVU10
+  58              	.LVL4:
+ 148:Core/Src/system/timer.c ****         aggregatedTimestampNext = remainingTime + cur->Timestamp;
+  59              		.loc 1 148 9 view .LVU11
+  60              		.loc 1 148 54 is_stmt 0 view .LVU12
+  61 000a 2368     		ldr	r3, [r4]
+  62              		.loc 1 148 33 view .LVU13
+  63 000c 0B44     		add	r3, r3, r1
+  64              	.LVL5:
+ 149:Core/Src/system/timer.c **** 
+ 150:Core/Src/system/timer.c ****         while( prev != NULL )
+  65              		.loc 1 150 9 is_stmt 1 view .LVU14
+  66              		.loc 1 150 14 is_stmt 0 view .LVU15
+  67 000e 15E0     		b	.L4
+  68              	.LVL6:
+  69              	.L10:
+ 141:Core/Src/system/timer.c ****         prev->Next = obj;
+  70              		.loc 1 141 9 is_stmt 1 view .LVU16
+ 141:Core/Src/system/timer.c ****         prev->Next = obj;
+  71              		.loc 1 141 24 is_stmt 0 view .LVU17
+  72 0010 0368     		ldr	r3, [r0]
+  73 0012 5B1A     		subs	r3, r3, r1
+  74 0014 0360     		str	r3, [r0]
+ 142:Core/Src/system/timer.c ****         obj->Next = NULL;
+  75              		.loc 1 142 9 is_stmt 1 view .LVU18
+ 142:Core/Src/system/timer.c ****         obj->Next = NULL;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 5
+
+
+  76              		.loc 1 142 20 is_stmt 0 view .LVU19
+  77 0016 2861     		str	r0, [r5, #16]
+ 143:Core/Src/system/timer.c ****     }
+  78              		.loc 1 143 9 is_stmt 1 view .LVU20
+ 143:Core/Src/system/timer.c ****     }
+  79              		.loc 1 143 19 is_stmt 0 view .LVU21
+  80 0018 0023     		movs	r3, #0
+  81 001a 0361     		str	r3, [r0, #16]
+  82              	.LVL7:
+  83              	.L1:
+ 151:Core/Src/system/timer.c ****         {
+ 152:Core/Src/system/timer.c ****             if( aggregatedTimestampNext > obj->Timestamp )
+ 153:Core/Src/system/timer.c ****             {
+ 154:Core/Src/system/timer.c ****                 obj->Timestamp -= aggregatedTimestamp;
+ 155:Core/Src/system/timer.c ****                 if( cur != NULL )
+ 156:Core/Src/system/timer.c ****                 {
+ 157:Core/Src/system/timer.c ****                     cur->Timestamp -= obj->Timestamp;
+ 158:Core/Src/system/timer.c ****                 }
+ 159:Core/Src/system/timer.c ****                 prev->Next = obj;
+ 160:Core/Src/system/timer.c ****                 obj->Next = cur;
+ 161:Core/Src/system/timer.c ****                 break;
+ 162:Core/Src/system/timer.c ****             }
+ 163:Core/Src/system/timer.c ****             else
+ 164:Core/Src/system/timer.c ****             {
+ 165:Core/Src/system/timer.c ****                 prev = cur;
+ 166:Core/Src/system/timer.c ****                 cur = cur->Next;
+ 167:Core/Src/system/timer.c ****                 if( cur == NULL )
+ 168:Core/Src/system/timer.c ****                 { // obj comes at the end of the list
+ 169:Core/Src/system/timer.c ****                     aggregatedTimestamp = aggregatedTimestampNext;
+ 170:Core/Src/system/timer.c ****                     obj->Timestamp -= aggregatedTimestamp;
+ 171:Core/Src/system/timer.c ****                     prev->Next = obj;
+ 172:Core/Src/system/timer.c ****                     obj->Next = NULL;
+ 173:Core/Src/system/timer.c ****                     break;
+ 174:Core/Src/system/timer.c ****                 }
+ 175:Core/Src/system/timer.c ****                 else
+ 176:Core/Src/system/timer.c ****                 {
+ 177:Core/Src/system/timer.c ****                     aggregatedTimestamp = aggregatedTimestampNext;
+ 178:Core/Src/system/timer.c ****                     aggregatedTimestampNext = aggregatedTimestampNext + cur->Timestamp;
+ 179:Core/Src/system/timer.c ****                 }
+ 180:Core/Src/system/timer.c ****             }
+ 181:Core/Src/system/timer.c ****         }
+ 182:Core/Src/system/timer.c ****     }
+ 183:Core/Src/system/timer.c **** }
+  84              		.loc 1 183 1 view .LVU22
+  85 001c F0BC     		pop	{r4, r5, r6, r7}
+  86              	.LCFI1:
+  87              		.cfi_remember_state
+  88              		.cfi_restore 7
+  89              		.cfi_restore 6
+  90              		.cfi_restore 5
+  91              		.cfi_restore 4
+  92              		.cfi_def_cfa_offset 0
+  93 001e 7047     		bx	lr
+  94              	.LVL8:
+  95              	.L11:
+  96              	.LCFI2:
+  97              		.cfi_restore_state
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 6
+
+
+ 154:Core/Src/system/timer.c ****                 if( cur != NULL )
+  98              		.loc 1 154 17 is_stmt 1 view .LVU23
+ 154:Core/Src/system/timer.c ****                 if( cur != NULL )
+  99              		.loc 1 154 32 is_stmt 0 view .LVU24
+ 100 0020 761A     		subs	r6, r6, r1
+ 101 0022 0660     		str	r6, [r0]
+ 155:Core/Src/system/timer.c ****                 {
+ 102              		.loc 1 155 17 is_stmt 1 view .LVU25
+ 155:Core/Src/system/timer.c ****                 {
+ 103              		.loc 1 155 19 is_stmt 0 view .LVU26
+ 104 0024 14B1     		cbz	r4, .L6
+ 157:Core/Src/system/timer.c ****                 }
+ 105              		.loc 1 157 21 is_stmt 1 view .LVU27
+ 157:Core/Src/system/timer.c ****                 }
+ 106              		.loc 1 157 36 is_stmt 0 view .LVU28
+ 107 0026 2368     		ldr	r3, [r4]
+ 108              	.LVL9:
+ 157:Core/Src/system/timer.c ****                 }
+ 109              		.loc 1 157 36 view .LVU29
+ 110 0028 9E1B     		subs	r6, r3, r6
+ 111 002a 2660     		str	r6, [r4]
+ 112              	.L6:
+ 159:Core/Src/system/timer.c ****                 obj->Next = cur;
+ 113              		.loc 1 159 17 is_stmt 1 view .LVU30
+ 159:Core/Src/system/timer.c ****                 obj->Next = cur;
+ 114              		.loc 1 159 28 is_stmt 0 view .LVU31
+ 115 002c 2861     		str	r0, [r5, #16]
+ 160:Core/Src/system/timer.c ****                 break;
+ 116              		.loc 1 160 17 is_stmt 1 view .LVU32
+ 160:Core/Src/system/timer.c ****                 break;
+ 117              		.loc 1 160 27 is_stmt 0 view .LVU33
+ 118 002e 0461     		str	r4, [r0, #16]
+ 161:Core/Src/system/timer.c ****             }
+ 119              		.loc 1 161 17 is_stmt 1 view .LVU34
+ 120 0030 F4E7     		b	.L1
+ 121              	.LVL10:
+ 122              	.L7:
+ 177:Core/Src/system/timer.c ****                     aggregatedTimestampNext = aggregatedTimestampNext + cur->Timestamp;
+ 123              		.loc 1 177 21 view .LVU35
+ 178:Core/Src/system/timer.c ****                 }
+ 124              		.loc 1 178 21 view .LVU36
+ 178:Core/Src/system/timer.c ****                 }
+ 125              		.loc 1 178 76 is_stmt 0 view .LVU37
+ 126 0032 1768     		ldr	r7, [r2]
+ 127              	.LVL11:
+ 165:Core/Src/system/timer.c ****                 cur = cur->Next;
+ 128              		.loc 1 165 22 view .LVU38
+ 129 0034 2546     		mov	r5, r4
+ 166:Core/Src/system/timer.c ****                 if( cur == NULL )
+ 130              		.loc 1 166 21 view .LVU39
+ 131 0036 1446     		mov	r4, r2
+ 132              	.LVL12:
+ 177:Core/Src/system/timer.c ****                     aggregatedTimestampNext = aggregatedTimestampNext + cur->Timestamp;
+ 133              		.loc 1 177 41 view .LVU40
+ 134 0038 1946     		mov	r1, r3
+ 178:Core/Src/system/timer.c ****                 }
+ 135              		.loc 1 178 45 view .LVU41
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 7
+
+
+ 136 003a 3B44     		add	r3, r3, r7
+ 137              	.LVL13:
+ 138              	.L4:
+ 150:Core/Src/system/timer.c ****         {
+ 139              		.loc 1 150 14 is_stmt 1 view .LVU42
+ 140 003c 002D     		cmp	r5, #0
+ 141 003e EDD0     		beq	.L1
+ 152:Core/Src/system/timer.c ****             {
+ 142              		.loc 1 152 13 view .LVU43
+ 152:Core/Src/system/timer.c ****             {
+ 143              		.loc 1 152 46 is_stmt 0 view .LVU44
+ 144 0040 0668     		ldr	r6, [r0]
+ 152:Core/Src/system/timer.c ****             {
+ 145              		.loc 1 152 15 view .LVU45
+ 146 0042 9E42     		cmp	r6, r3
+ 147 0044 ECD3     		bcc	.L11
+ 165:Core/Src/system/timer.c ****                 cur = cur->Next;
+ 148              		.loc 1 165 17 is_stmt 1 view .LVU46
+ 149              	.LVL14:
+ 166:Core/Src/system/timer.c ****                 if( cur == NULL )
+ 150              		.loc 1 166 17 view .LVU47
+ 166:Core/Src/system/timer.c ****                 if( cur == NULL )
+ 151              		.loc 1 166 21 is_stmt 0 view .LVU48
+ 152 0046 2269     		ldr	r2, [r4, #16]
+ 153              	.LVL15:
+ 167:Core/Src/system/timer.c ****                 { // obj comes at the end of the list
+ 154              		.loc 1 167 17 is_stmt 1 view .LVU49
+ 167:Core/Src/system/timer.c ****                 { // obj comes at the end of the list
+ 155              		.loc 1 167 19 is_stmt 0 view .LVU50
+ 156 0048 002A     		cmp	r2, #0
+ 157 004a F2D1     		bne	.L7
+ 169:Core/Src/system/timer.c ****                     obj->Timestamp -= aggregatedTimestamp;
+ 158              		.loc 1 169 21 is_stmt 1 view .LVU51
+ 159              	.LVL16:
+ 170:Core/Src/system/timer.c ****                     prev->Next = obj;
+ 160              		.loc 1 170 21 view .LVU52
+ 170:Core/Src/system/timer.c ****                     prev->Next = obj;
+ 161              		.loc 1 170 36 is_stmt 0 view .LVU53
+ 162 004c F31A     		subs	r3, r6, r3
+ 163              	.LVL17:
+ 170:Core/Src/system/timer.c ****                     prev->Next = obj;
+ 164              		.loc 1 170 36 view .LVU54
+ 165 004e 0360     		str	r3, [r0]
+ 171:Core/Src/system/timer.c ****                     obj->Next = NULL;
+ 166              		.loc 1 171 21 is_stmt 1 view .LVU55
+ 171:Core/Src/system/timer.c ****                     obj->Next = NULL;
+ 167              		.loc 1 171 32 is_stmt 0 view .LVU56
+ 168 0050 2061     		str	r0, [r4, #16]
+ 172:Core/Src/system/timer.c ****                     break;
+ 169              		.loc 1 172 21 is_stmt 1 view .LVU57
+ 172:Core/Src/system/timer.c ****                     break;
+ 170              		.loc 1 172 31 is_stmt 0 view .LVU58
+ 171 0052 0023     		movs	r3, #0
+ 172 0054 0361     		str	r3, [r0, #16]
+ 173:Core/Src/system/timer.c ****                 }
+ 173              		.loc 1 173 21 is_stmt 1 view .LVU59
+ 174 0056 E1E7     		b	.L1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 8
+
+
+ 175              	.L13:
+ 176              		.align	2
+ 177              	.L12:
+ 178 0058 00000000 		.word	.LANCHOR0
+ 179              		.cfi_endproc
+ 180              	.LFE137:
+ 182              		.section	.text.TimerExists,"ax",%progbits
+ 183              		.align	1
+ 184              		.syntax unified
+ 185              		.thumb
+ 186              		.thumb_func
+ 187              		.fpu fpv4-sp-d16
+ 189              	TimerExists:
+ 190              	.LVL18:
+ 191              	.LFB141:
+ 184:Core/Src/system/timer.c **** 
+ 185:Core/Src/system/timer.c **** static void TimerInsertNewHeadTimer( TimerEvent_t *obj, uint32_t remainingTime )
+ 186:Core/Src/system/timer.c **** {
+ 187:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 188:Core/Src/system/timer.c **** 
+ 189:Core/Src/system/timer.c ****     if( cur != NULL )
+ 190:Core/Src/system/timer.c ****     {
+ 191:Core/Src/system/timer.c ****         cur->Timestamp = remainingTime - obj->Timestamp;
+ 192:Core/Src/system/timer.c ****         cur->IsRunning = false;
+ 193:Core/Src/system/timer.c ****     }
+ 194:Core/Src/system/timer.c **** 
+ 195:Core/Src/system/timer.c ****     obj->Next = cur;
+ 196:Core/Src/system/timer.c ****     obj->IsRunning = true;
+ 197:Core/Src/system/timer.c ****     TimerListHead = obj;
+ 198:Core/Src/system/timer.c ****     TimerSetTimeout( TimerListHead );
+ 199:Core/Src/system/timer.c **** }
+ 200:Core/Src/system/timer.c **** 
+ 201:Core/Src/system/timer.c **** void TimerIrqHandler( void )
+ 202:Core/Src/system/timer.c **** {
+ 203:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
+ 204:Core/Src/system/timer.c **** 
+ 205:Core/Src/system/timer.c ****     // Early out when TimerListHead is null to prevent null pointer
+ 206:Core/Src/system/timer.c ****     if ( TimerListHead == NULL )
+ 207:Core/Src/system/timer.c ****     {
+ 208:Core/Src/system/timer.c ****         return;
+ 209:Core/Src/system/timer.c ****     }
+ 210:Core/Src/system/timer.c **** 
+ 211:Core/Src/system/timer.c ****     elapsedTime = TimerGetValue( );
+ 212:Core/Src/system/timer.c **** 
+ 213:Core/Src/system/timer.c ****     if( elapsedTime >= TimerListHead->Timestamp )
+ 214:Core/Src/system/timer.c ****     {
+ 215:Core/Src/system/timer.c ****         TimerListHead->Timestamp = 0;
+ 216:Core/Src/system/timer.c ****     }
+ 217:Core/Src/system/timer.c ****     else
+ 218:Core/Src/system/timer.c ****     {
+ 219:Core/Src/system/timer.c ****         TimerListHead->Timestamp -= elapsedTime;
+ 220:Core/Src/system/timer.c ****     }
+ 221:Core/Src/system/timer.c **** 
+ 222:Core/Src/system/timer.c ****     TimerListHead->IsRunning = false;
+ 223:Core/Src/system/timer.c **** 
+ 224:Core/Src/system/timer.c ****     while( ( TimerListHead != NULL ) && ( TimerListHead->Timestamp == 0 ) )
+ 225:Core/Src/system/timer.c ****     {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 9
+
+
+ 226:Core/Src/system/timer.c ****         TimerEvent_t* elapsedTimer = TimerListHead;
+ 227:Core/Src/system/timer.c ****         TimerListHead = TimerListHead->Next;
+ 228:Core/Src/system/timer.c **** 
+ 229:Core/Src/system/timer.c ****         if( elapsedTimer->Callback != NULL )
+ 230:Core/Src/system/timer.c ****         {
+ 231:Core/Src/system/timer.c ****             elapsedTimer->Callback( );
+ 232:Core/Src/system/timer.c ****         }
+ 233:Core/Src/system/timer.c ****     }
+ 234:Core/Src/system/timer.c **** 
+ 235:Core/Src/system/timer.c ****     // start the next TimerListHead if it exists
+ 236:Core/Src/system/timer.c ****     if( TimerListHead != NULL )
+ 237:Core/Src/system/timer.c ****     {
+ 238:Core/Src/system/timer.c ****         if( TimerListHead->IsRunning != true )
+ 239:Core/Src/system/timer.c ****         {
+ 240:Core/Src/system/timer.c ****             TimerListHead->IsRunning = true;
+ 241:Core/Src/system/timer.c ****             TimerSetTimeout( TimerListHead );
+ 242:Core/Src/system/timer.c ****         }
+ 243:Core/Src/system/timer.c ****     }
+ 244:Core/Src/system/timer.c **** }
+ 245:Core/Src/system/timer.c **** 
+ 246:Core/Src/system/timer.c **** void TimerStop( TimerEvent_t *obj )
+ 247:Core/Src/system/timer.c **** {
+ 248:Core/Src/system/timer.c ****     BoardDisableIrq( );
+ 249:Core/Src/system/timer.c **** 
+ 250:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
+ 251:Core/Src/system/timer.c ****     uint32_t remainingTime = 0;
+ 252:Core/Src/system/timer.c **** 
+ 253:Core/Src/system/timer.c ****     TimerEvent_t* prev = TimerListHead;
+ 254:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 255:Core/Src/system/timer.c **** 
+ 256:Core/Src/system/timer.c ****     // List is empty or the Obj to stop does not exist
+ 257:Core/Src/system/timer.c ****     if( ( TimerListHead == NULL ) || ( obj == NULL ) )
+ 258:Core/Src/system/timer.c ****     {
+ 259:Core/Src/system/timer.c ****         BoardEnableIrq( );
+ 260:Core/Src/system/timer.c ****         return;
+ 261:Core/Src/system/timer.c ****     }
+ 262:Core/Src/system/timer.c **** 
+ 263:Core/Src/system/timer.c ****     if( TimerListHead == obj ) // Stop the Head
+ 264:Core/Src/system/timer.c ****     {
+ 265:Core/Src/system/timer.c ****         if( TimerListHead->IsRunning == true ) // The head is already running
+ 266:Core/Src/system/timer.c ****         {
+ 267:Core/Src/system/timer.c ****             elapsedTime = TimerGetValue( );
+ 268:Core/Src/system/timer.c ****             if( elapsedTime > obj->Timestamp )
+ 269:Core/Src/system/timer.c ****             {
+ 270:Core/Src/system/timer.c ****                 elapsedTime = obj->Timestamp;
+ 271:Core/Src/system/timer.c ****             }
+ 272:Core/Src/system/timer.c **** 
+ 273:Core/Src/system/timer.c ****             remainingTime = obj->Timestamp - elapsedTime;
+ 274:Core/Src/system/timer.c **** 
+ 275:Core/Src/system/timer.c ****             if( TimerListHead->Next != NULL )
+ 276:Core/Src/system/timer.c ****             {
+ 277:Core/Src/system/timer.c ****                 TimerListHead->IsRunning = false;
+ 278:Core/Src/system/timer.c ****                 TimerListHead = TimerListHead->Next;
+ 279:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 280:Core/Src/system/timer.c ****                 TimerListHead->IsRunning = true;
+ 281:Core/Src/system/timer.c ****                 TimerSetTimeout( TimerListHead );
+ 282:Core/Src/system/timer.c ****             }
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 10
+
+
+ 283:Core/Src/system/timer.c ****             else
+ 284:Core/Src/system/timer.c ****             {
+ 285:Core/Src/system/timer.c ****                 TimerListHead = NULL;
+ 286:Core/Src/system/timer.c ****             }
+ 287:Core/Src/system/timer.c ****         }
+ 288:Core/Src/system/timer.c ****         else // Stop the head before it is started
+ 289:Core/Src/system/timer.c ****         {
+ 290:Core/Src/system/timer.c ****             if( TimerListHead->Next != NULL )
+ 291:Core/Src/system/timer.c ****             {
+ 292:Core/Src/system/timer.c ****                 remainingTime = obj->Timestamp;
+ 293:Core/Src/system/timer.c ****                 TimerListHead = TimerListHead->Next;
+ 294:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 295:Core/Src/system/timer.c ****             }
+ 296:Core/Src/system/timer.c ****             else
+ 297:Core/Src/system/timer.c ****             {
+ 298:Core/Src/system/timer.c ****                 TimerListHead = NULL;
+ 299:Core/Src/system/timer.c ****             }
+ 300:Core/Src/system/timer.c ****         }
+ 301:Core/Src/system/timer.c ****     }
+ 302:Core/Src/system/timer.c ****     else // Stop an object within the list
+ 303:Core/Src/system/timer.c ****     {
+ 304:Core/Src/system/timer.c ****         remainingTime = obj->Timestamp;
+ 305:Core/Src/system/timer.c **** 
+ 306:Core/Src/system/timer.c ****         while( cur != NULL )
+ 307:Core/Src/system/timer.c ****         {
+ 308:Core/Src/system/timer.c ****             if( cur == obj )
+ 309:Core/Src/system/timer.c ****             {
+ 310:Core/Src/system/timer.c ****                 if( cur->Next != NULL )
+ 311:Core/Src/system/timer.c ****                 {
+ 312:Core/Src/system/timer.c ****                     cur = cur->Next;
+ 313:Core/Src/system/timer.c ****                     prev->Next = cur;
+ 314:Core/Src/system/timer.c ****                     cur->Timestamp += remainingTime;
+ 315:Core/Src/system/timer.c ****                 }
+ 316:Core/Src/system/timer.c ****                 else
+ 317:Core/Src/system/timer.c ****                 {
+ 318:Core/Src/system/timer.c ****                     cur = NULL;
+ 319:Core/Src/system/timer.c ****                     prev->Next = cur;
+ 320:Core/Src/system/timer.c ****                 }
+ 321:Core/Src/system/timer.c ****                 break;
+ 322:Core/Src/system/timer.c ****             }
+ 323:Core/Src/system/timer.c ****             else
+ 324:Core/Src/system/timer.c ****             {
+ 325:Core/Src/system/timer.c ****                 prev = cur;
+ 326:Core/Src/system/timer.c ****                 cur = cur->Next;
+ 327:Core/Src/system/timer.c ****             }
+ 328:Core/Src/system/timer.c ****         }
+ 329:Core/Src/system/timer.c ****     }
+ 330:Core/Src/system/timer.c ****     BoardEnableIrq( );
+ 331:Core/Src/system/timer.c **** }
+ 332:Core/Src/system/timer.c **** 
+ 333:Core/Src/system/timer.c **** static bool TimerExists( TimerEvent_t *obj )
+ 334:Core/Src/system/timer.c **** {
+ 192              		.loc 1 334 1 view -0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 11
+
+
+ 335:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 197              		.loc 1 335 5 view .LVU61
+ 198              		.loc 1 335 19 is_stmt 0 view .LVU62
+ 199 0000 054B     		ldr	r3, .L21
+ 200 0002 1B68     		ldr	r3, [r3]
+ 201              	.LVL19:
+ 336:Core/Src/system/timer.c **** 
+ 337:Core/Src/system/timer.c ****     while( cur != NULL )
+ 202              		.loc 1 337 5 is_stmt 1 view .LVU63
+ 203              		.loc 1 337 10 is_stmt 0 view .LVU64
+ 204 0004 00E0     		b	.L15
+ 205              	.L20:
+ 338:Core/Src/system/timer.c ****     {
+ 339:Core/Src/system/timer.c ****         if( cur == obj )
+ 340:Core/Src/system/timer.c ****         {
+ 341:Core/Src/system/timer.c ****             return true;
+ 342:Core/Src/system/timer.c ****         }
+ 343:Core/Src/system/timer.c ****         cur = cur->Next;
+ 206              		.loc 1 343 9 is_stmt 1 view .LVU65
+ 207              		.loc 1 343 13 is_stmt 0 view .LVU66
+ 208 0006 1B69     		ldr	r3, [r3, #16]
+ 209              	.LVL20:
+ 210              	.L15:
+ 337:Core/Src/system/timer.c ****     {
+ 211              		.loc 1 337 10 is_stmt 1 view .LVU67
+ 212 0008 1BB1     		cbz	r3, .L19
+ 339:Core/Src/system/timer.c ****         {
+ 213              		.loc 1 339 9 view .LVU68
+ 339:Core/Src/system/timer.c ****         {
+ 214              		.loc 1 339 11 is_stmt 0 view .LVU69
+ 215 000a 8342     		cmp	r3, r0
+ 216 000c FBD1     		bne	.L20
+ 341:Core/Src/system/timer.c ****         }
+ 217              		.loc 1 341 20 view .LVU70
+ 218 000e 0120     		movs	r0, #1
+ 219              	.LVL21:
+ 344:Core/Src/system/timer.c ****     }
+ 345:Core/Src/system/timer.c ****     return false;
+ 346:Core/Src/system/timer.c **** }
+ 220              		.loc 1 346 1 view .LVU71
+ 221 0010 7047     		bx	lr
+ 222              	.LVL22:
+ 223              	.L19:
+ 345:Core/Src/system/timer.c **** }
+ 224              		.loc 1 345 12 view .LVU72
+ 225 0012 0020     		movs	r0, #0
+ 226              	.LVL23:
+ 345:Core/Src/system/timer.c **** }
+ 227              		.loc 1 345 12 view .LVU73
+ 228 0014 7047     		bx	lr
+ 229              	.L22:
+ 230 0016 00BF     		.align	2
+ 231              	.L21:
+ 232 0018 00000000 		.word	.LANCHOR0
+ 233              		.cfi_endproc
+ 234              	.LFE141:
+ 236              		.section	.text.TimerSetTimeout,"ax",%progbits
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 12
+
+
+ 237              		.align	1
+ 238              		.syntax unified
+ 239              		.thumb
+ 240              		.thumb_func
+ 241              		.fpu fpv4-sp-d16
+ 243              	TimerSetTimeout:
+ 244              	.LVL24:
+ 245              	.LFB148:
+ 347:Core/Src/system/timer.c **** 
+ 348:Core/Src/system/timer.c **** void TimerReset( TimerEvent_t *obj )
+ 349:Core/Src/system/timer.c **** {
+ 350:Core/Src/system/timer.c ****     TimerStop( obj );
+ 351:Core/Src/system/timer.c ****     TimerStart( obj );
+ 352:Core/Src/system/timer.c **** }
+ 353:Core/Src/system/timer.c **** 
+ 354:Core/Src/system/timer.c **** void TimerSetValue( TimerEvent_t *obj, uint32_t value )
+ 355:Core/Src/system/timer.c **** {
+ 356:Core/Src/system/timer.c ****     TimerStop( obj );
+ 357:Core/Src/system/timer.c ****     obj->Timestamp = value;
+ 358:Core/Src/system/timer.c ****     obj->ReloadValue = value;
+ 359:Core/Src/system/timer.c **** }
+ 360:Core/Src/system/timer.c **** 
+ 361:Core/Src/system/timer.c **** TimerTime_t TimerGetValue( void )
+ 362:Core/Src/system/timer.c **** {
+ 363:Core/Src/system/timer.c ****     return RtcGetElapsedAlarmTime( );
+ 364:Core/Src/system/timer.c **** }
+ 365:Core/Src/system/timer.c **** 
+ 366:Core/Src/system/timer.c **** TimerTime_t TimerGetCurrentTime( void )
+ 367:Core/Src/system/timer.c **** {
+ 368:Core/Src/system/timer.c ****     return RtcGetTimerValue( );
+ 369:Core/Src/system/timer.c **** }
+ 370:Core/Src/system/timer.c **** 
+ 371:Core/Src/system/timer.c **** TimerTime_t TimerGetElapsedTime( TimerTime_t savedTime )
+ 372:Core/Src/system/timer.c **** {
+ 373:Core/Src/system/timer.c ****     return RtcComputeElapsedTime( savedTime );
+ 374:Core/Src/system/timer.c **** }
+ 375:Core/Src/system/timer.c **** 
+ 376:Core/Src/system/timer.c **** TimerTime_t TimerGetFutureTime( TimerTime_t eventInFuture )
+ 377:Core/Src/system/timer.c **** {
+ 378:Core/Src/system/timer.c ****     return RtcComputeFutureEventTime( eventInFuture );
+ 379:Core/Src/system/timer.c **** }
+ 380:Core/Src/system/timer.c **** 
+ 381:Core/Src/system/timer.c **** static void TimerSetTimeout( TimerEvent_t *obj )
+ 382:Core/Src/system/timer.c **** {
+ 246              		.loc 1 382 1 is_stmt 1 view -0
+ 247              		.cfi_startproc
+ 248              		@ args = 0, pretend = 0, frame = 0
+ 249              		@ frame_needed = 0, uses_anonymous_args = 0
+ 250              		.loc 1 382 1 is_stmt 0 view .LVU75
+ 251 0000 10B5     		push	{r4, lr}
+ 252              	.LCFI3:
+ 253              		.cfi_def_cfa_offset 8
+ 254              		.cfi_offset 4, -8
+ 255              		.cfi_offset 14, -4
+ 256 0002 0446     		mov	r4, r0
+ 383:Core/Src/system/timer.c ****     HasLoopedThroughMain = 0;
+ 257              		.loc 1 383 5 is_stmt 1 view .LVU76
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 13
+
+
+ 258              		.loc 1 383 26 is_stmt 0 view .LVU77
+ 259 0004 044B     		ldr	r3, .L25
+ 260 0006 0022     		movs	r2, #0
+ 261 0008 1A70     		strb	r2, [r3]
+ 384:Core/Src/system/timer.c ****     obj->Timestamp = RtcGetAdjustedTimeoutValue( obj->Timestamp );
+ 262              		.loc 1 384 5 is_stmt 1 view .LVU78
+ 263              		.loc 1 384 22 is_stmt 0 view .LVU79
+ 264 000a 0068     		ldr	r0, [r0]
+ 265              	.LVL25:
+ 266              		.loc 1 384 22 view .LVU80
+ 267 000c FFF7FEFF 		bl	RtcGetAdjustedTimeoutValue
+ 268              	.LVL26:
+ 269              		.loc 1 384 20 view .LVU81
+ 270 0010 2060     		str	r0, [r4]
+ 385:Core/Src/system/timer.c ****     RtcSetTimeout( obj->Timestamp );
+ 271              		.loc 1 385 5 is_stmt 1 view .LVU82
+ 272 0012 FFF7FEFF 		bl	RtcSetTimeout
+ 273              	.LVL27:
+ 386:Core/Src/system/timer.c **** }
+ 274              		.loc 1 386 1 is_stmt 0 view .LVU83
+ 275 0016 10BD     		pop	{r4, pc}
+ 276              	.LVL28:
+ 277              	.L26:
+ 278              		.loc 1 386 1 view .LVU84
+ 279              		.align	2
+ 280              	.L25:
+ 281 0018 00000000 		.word	.LANCHOR1
+ 282              		.cfi_endproc
+ 283              	.LFE148:
+ 285              		.section	.text.TimerInsertNewHeadTimer,"ax",%progbits
+ 286              		.align	1
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.fpu fpv4-sp-d16
+ 292              	TimerInsertNewHeadTimer:
+ 293              	.LVL29:
+ 294              	.LFB138:
+ 186:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 295              		.loc 1 186 1 is_stmt 1 view -0
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 299              		.loc 1 186 1 is_stmt 0 view .LVU86
+ 300 0000 08B5     		push	{r3, lr}
+ 301              	.LCFI4:
+ 302              		.cfi_def_cfa_offset 8
+ 303              		.cfi_offset 3, -8
+ 304              		.cfi_offset 14, -4
+ 187:Core/Src/system/timer.c **** 
+ 305              		.loc 1 187 5 is_stmt 1 view .LVU87
+ 187:Core/Src/system/timer.c **** 
+ 306              		.loc 1 187 19 is_stmt 0 view .LVU88
+ 307 0002 084B     		ldr	r3, .L30
+ 308 0004 1B68     		ldr	r3, [r3]
+ 309              	.LVL30:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 14
+
+
+ 189:Core/Src/system/timer.c ****     {
+ 310              		.loc 1 189 5 is_stmt 1 view .LVU89
+ 189:Core/Src/system/timer.c ****     {
+ 311              		.loc 1 189 7 is_stmt 0 view .LVU90
+ 312 0006 23B1     		cbz	r3, .L28
+ 191:Core/Src/system/timer.c ****         cur->IsRunning = false;
+ 313              		.loc 1 191 9 is_stmt 1 view .LVU91
+ 191:Core/Src/system/timer.c ****         cur->IsRunning = false;
+ 314              		.loc 1 191 45 is_stmt 0 view .LVU92
+ 315 0008 0268     		ldr	r2, [r0]
+ 191:Core/Src/system/timer.c ****         cur->IsRunning = false;
+ 316              		.loc 1 191 40 view .LVU93
+ 317 000a 891A     		subs	r1, r1, r2
+ 318              	.LVL31:
+ 191:Core/Src/system/timer.c ****         cur->IsRunning = false;
+ 319              		.loc 1 191 24 view .LVU94
+ 320 000c 1960     		str	r1, [r3]
+ 192:Core/Src/system/timer.c ****     }
+ 321              		.loc 1 192 9 is_stmt 1 view .LVU95
+ 192:Core/Src/system/timer.c ****     }
+ 322              		.loc 1 192 24 is_stmt 0 view .LVU96
+ 323 000e 0022     		movs	r2, #0
+ 324 0010 1A72     		strb	r2, [r3, #8]
+ 325              	.L28:
+ 195:Core/Src/system/timer.c ****     obj->IsRunning = true;
+ 326              		.loc 1 195 5 is_stmt 1 view .LVU97
+ 195:Core/Src/system/timer.c ****     obj->IsRunning = true;
+ 327              		.loc 1 195 15 is_stmt 0 view .LVU98
+ 328 0012 0361     		str	r3, [r0, #16]
+ 196:Core/Src/system/timer.c ****     TimerListHead = obj;
+ 329              		.loc 1 196 5 is_stmt 1 view .LVU99
+ 196:Core/Src/system/timer.c ****     TimerListHead = obj;
+ 330              		.loc 1 196 20 is_stmt 0 view .LVU100
+ 331 0014 0123     		movs	r3, #1
+ 332              	.LVL32:
+ 196:Core/Src/system/timer.c ****     TimerListHead = obj;
+ 333              		.loc 1 196 20 view .LVU101
+ 334 0016 0372     		strb	r3, [r0, #8]
+ 197:Core/Src/system/timer.c ****     TimerSetTimeout( TimerListHead );
+ 335              		.loc 1 197 5 is_stmt 1 view .LVU102
+ 197:Core/Src/system/timer.c ****     TimerSetTimeout( TimerListHead );
+ 336              		.loc 1 197 19 is_stmt 0 view .LVU103
+ 337 0018 024B     		ldr	r3, .L30
+ 338 001a 1860     		str	r0, [r3]
+ 339              	.LVL33:
+ 198:Core/Src/system/timer.c **** }
+ 340              		.loc 1 198 5 is_stmt 1 view .LVU104
+ 341 001c FFF7FEFF 		bl	TimerSetTimeout
+ 342              	.LVL34:
+ 199:Core/Src/system/timer.c **** 
+ 343              		.loc 1 199 1 is_stmt 0 view .LVU105
+ 344 0020 08BD     		pop	{r3, pc}
+ 345              	.L31:
+ 346 0022 00BF     		.align	2
+ 347              	.L30:
+ 348 0024 00000000 		.word	.LANCHOR0
+ 349              		.cfi_endproc
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 15
+
+
+ 350              	.LFE138:
+ 352              		.section	.text.TimerInit,"ax",%progbits
+ 353              		.align	1
+ 354              		.global	TimerInit
+ 355              		.syntax unified
+ 356              		.thumb
+ 357              		.thumb_func
+ 358              		.fpu fpv4-sp-d16
+ 360              	TimerInit:
+ 361              	.LVL35:
+ 362              	.LFB135:
+  75:Core/Src/system/timer.c ****     obj->Timestamp = 0;
+ 363              		.loc 1 75 1 is_stmt 1 view -0
+ 364              		.cfi_startproc
+ 365              		@ args = 0, pretend = 0, frame = 0
+ 366              		@ frame_needed = 0, uses_anonymous_args = 0
+ 367              		@ link register save eliminated.
+  76:Core/Src/system/timer.c ****     obj->ReloadValue = 0;
+ 368              		.loc 1 76 5 view .LVU107
+  76:Core/Src/system/timer.c ****     obj->ReloadValue = 0;
+ 369              		.loc 1 76 20 is_stmt 0 view .LVU108
+ 370 0000 0023     		movs	r3, #0
+ 371 0002 0360     		str	r3, [r0]
+  77:Core/Src/system/timer.c ****     obj->IsRunning = false;
+ 372              		.loc 1 77 5 is_stmt 1 view .LVU109
+  77:Core/Src/system/timer.c ****     obj->IsRunning = false;
+ 373              		.loc 1 77 22 is_stmt 0 view .LVU110
+ 374 0004 4360     		str	r3, [r0, #4]
+  78:Core/Src/system/timer.c ****     obj->Callback = callback;
+ 375              		.loc 1 78 5 is_stmt 1 view .LVU111
+  78:Core/Src/system/timer.c ****     obj->Callback = callback;
+ 376              		.loc 1 78 20 is_stmt 0 view .LVU112
+ 377 0006 0372     		strb	r3, [r0, #8]
+  79:Core/Src/system/timer.c ****     obj->Next = NULL;
+ 378              		.loc 1 79 5 is_stmt 1 view .LVU113
+  79:Core/Src/system/timer.c ****     obj->Next = NULL;
+ 379              		.loc 1 79 19 is_stmt 0 view .LVU114
+ 380 0008 C160     		str	r1, [r0, #12]
+  80:Core/Src/system/timer.c **** }
+ 381              		.loc 1 80 5 is_stmt 1 view .LVU115
+  80:Core/Src/system/timer.c **** }
+ 382              		.loc 1 80 15 is_stmt 0 view .LVU116
+ 383 000a 0361     		str	r3, [r0, #16]
+  81:Core/Src/system/timer.c **** 
+ 384              		.loc 1 81 1 view .LVU117
+ 385 000c 7047     		bx	lr
+ 386              		.cfi_endproc
+ 387              	.LFE135:
+ 389              		.section	.text.TimerGetValue,"ax",%progbits
+ 390              		.align	1
+ 391              		.global	TimerGetValue
+ 392              		.syntax unified
+ 393              		.thumb
+ 394              		.thumb_func
+ 395              		.fpu fpv4-sp-d16
+ 397              	TimerGetValue:
+ 398              	.LFB144:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 16
+
+
+ 362:Core/Src/system/timer.c ****     return RtcGetElapsedAlarmTime( );
+ 399              		.loc 1 362 1 is_stmt 1 view -0
+ 400              		.cfi_startproc
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403 0000 08B5     		push	{r3, lr}
+ 404              	.LCFI5:
+ 405              		.cfi_def_cfa_offset 8
+ 406              		.cfi_offset 3, -8
+ 407              		.cfi_offset 14, -4
+ 363:Core/Src/system/timer.c **** }
+ 408              		.loc 1 363 5 view .LVU119
+ 363:Core/Src/system/timer.c **** }
+ 409              		.loc 1 363 12 is_stmt 0 view .LVU120
+ 410 0002 FFF7FEFF 		bl	RtcGetElapsedAlarmTime
+ 411              	.LVL36:
+ 364:Core/Src/system/timer.c **** 
+ 412              		.loc 1 364 1 view .LVU121
+ 413 0006 08BD     		pop	{r3, pc}
+ 414              		.cfi_endproc
+ 415              	.LFE144:
+ 417              		.section	.text.TimerStart,"ax",%progbits
+ 418              		.align	1
+ 419              		.global	TimerStart
+ 420              		.syntax unified
+ 421              		.thumb
+ 422              		.thumb_func
+ 423              		.fpu fpv4-sp-d16
+ 425              	TimerStart:
+ 426              	.LVL37:
+ 427              	.LFB136:
+  84:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
+ 428              		.loc 1 84 1 is_stmt 1 view -0
+ 429              		.cfi_startproc
+ 430              		@ args = 0, pretend = 0, frame = 0
+ 431              		@ frame_needed = 0, uses_anonymous_args = 0
+  84:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
+ 432              		.loc 1 84 1 is_stmt 0 view .LVU123
+ 433 0000 10B5     		push	{r4, lr}
+ 434              	.LCFI6:
+ 435              		.cfi_def_cfa_offset 8
+ 436              		.cfi_offset 4, -8
+ 437              		.cfi_offset 14, -4
+ 438 0002 0446     		mov	r4, r0
+  85:Core/Src/system/timer.c ****     uint32_t remainingTime = 0;
+ 439              		.loc 1 85 5 is_stmt 1 view .LVU124
+ 440              	.LVL38:
+  86:Core/Src/system/timer.c **** 
+ 441              		.loc 1 86 5 view .LVU125
+  88:Core/Src/system/timer.c **** 
+ 442              		.loc 1 88 5 view .LVU126
+ 443 0004 FFF7FEFF 		bl	BoardDisableIrq
+ 444              	.LVL39:
+  90:Core/Src/system/timer.c ****     {
+ 445              		.loc 1 90 5 view .LVU127
+  90:Core/Src/system/timer.c ****     {
+ 446              		.loc 1 90 7 is_stmt 0 view .LVU128
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 17
+
+
+ 447 0008 B4B1     		cbz	r4, .L36
+  90:Core/Src/system/timer.c ****     {
+ 448              		.loc 1 90 30 discriminator 1 view .LVU129
+ 449 000a 2046     		mov	r0, r4
+ 450 000c FFF7FEFF 		bl	TimerExists
+ 451              	.LVL40:
+  90:Core/Src/system/timer.c ****     {
+ 452              		.loc 1 90 25 discriminator 1 view .LVU130
+ 453 0010 90B9     		cbnz	r0, .L36
+  96:Core/Src/system/timer.c ****     obj->IsRunning = false;
+ 454              		.loc 1 96 5 is_stmt 1 view .LVU131
+  96:Core/Src/system/timer.c ****     obj->IsRunning = false;
+ 455              		.loc 1 96 25 is_stmt 0 view .LVU132
+ 456 0012 6168     		ldr	r1, [r4, #4]
+  96:Core/Src/system/timer.c ****     obj->IsRunning = false;
+ 457              		.loc 1 96 20 view .LVU133
+ 458 0014 2160     		str	r1, [r4]
+  97:Core/Src/system/timer.c **** 
+ 459              		.loc 1 97 5 is_stmt 1 view .LVU134
+  97:Core/Src/system/timer.c **** 
+ 460              		.loc 1 97 20 is_stmt 0 view .LVU135
+ 461 0016 0023     		movs	r3, #0
+ 462 0018 2372     		strb	r3, [r4, #8]
+  99:Core/Src/system/timer.c ****     {
+ 463              		.loc 1 99 5 is_stmt 1 view .LVU136
+  99:Core/Src/system/timer.c ****     {
+ 464              		.loc 1 99 23 is_stmt 0 view .LVU137
+ 465 001a 124B     		ldr	r3, .L49
+ 466 001c 1B68     		ldr	r3, [r3]
+  99:Core/Src/system/timer.c ****     {
+ 467              		.loc 1 99 7 view .LVU138
+ 468 001e 73B1     		cbz	r3, .L47
+ 105:Core/Src/system/timer.c ****         {
+ 469              		.loc 1 105 9 is_stmt 1 view .LVU139
+ 105:Core/Src/system/timer.c ****         {
+ 470              		.loc 1 105 26 is_stmt 0 view .LVU140
+ 471 0020 1A7A     		ldrb	r2, [r3, #8]	@ zero_extendqisi2
+ 105:Core/Src/system/timer.c ****         {
+ 472              		.loc 1 105 11 view .LVU141
+ 473 0022 82B9     		cbnz	r2, .L48
+ 116:Core/Src/system/timer.c ****         }
+ 474              		.loc 1 116 13 is_stmt 1 view .LVU142
+ 116:Core/Src/system/timer.c ****         }
+ 475              		.loc 1 116 27 is_stmt 0 view .LVU143
+ 476 0024 1968     		ldr	r1, [r3]
+ 477              	.LVL41:
+ 478              	.L43:
+ 119:Core/Src/system/timer.c ****         {
+ 479              		.loc 1 119 9 is_stmt 1 view .LVU144
+ 119:Core/Src/system/timer.c ****         {
+ 480              		.loc 1 119 16 is_stmt 0 view .LVU145
+ 481 0026 2368     		ldr	r3, [r4]
+ 119:Core/Src/system/timer.c ****         {
+ 482              		.loc 1 119 11 view .LVU146
+ 483 0028 8B42     		cmp	r3, r1
+ 484 002a 16D2     		bcs	.L44
+ 121:Core/Src/system/timer.c ****         }
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 18
+
+
+ 485              		.loc 1 121 13 is_stmt 1 view .LVU147
+ 486 002c 2046     		mov	r0, r4
+ 487 002e FFF7FEFF 		bl	TimerInsertNewHeadTimer
+ 488              	.LVL42:
+ 489              	.L40:
+ 128:Core/Src/system/timer.c **** }
+ 490              		.loc 1 128 5 view .LVU148
+ 491 0032 FFF7FEFF 		bl	BoardEnableIrq
+ 492              	.LVL43:
+ 493              	.L35:
+ 129:Core/Src/system/timer.c **** 
+ 494              		.loc 1 129 1 is_stmt 0 view .LVU149
+ 495 0036 10BD     		pop	{r4, pc}
+ 496              	.LVL44:
+ 497              	.L36:
+  92:Core/Src/system/timer.c ****         return;
+ 498              		.loc 1 92 9 is_stmt 1 view .LVU150
+ 499 0038 FFF7FEFF 		bl	BoardEnableIrq
+ 500              	.LVL45:
+  93:Core/Src/system/timer.c ****     }
+ 501              		.loc 1 93 9 view .LVU151
+ 502 003c FBE7     		b	.L35
+ 503              	.L47:
+ 101:Core/Src/system/timer.c ****     }
+ 504              		.loc 1 101 9 view .LVU152
+ 505 003e 2046     		mov	r0, r4
+ 506 0040 FFF7FEFF 		bl	TimerInsertNewHeadTimer
+ 507              	.LVL46:
+ 508 0044 F5E7     		b	.L40
+ 509              	.L48:
+ 107:Core/Src/system/timer.c ****             if( elapsedTime > TimerListHead->Timestamp )
+ 510              		.loc 1 107 13 view .LVU153
+ 107:Core/Src/system/timer.c ****             if( elapsedTime > TimerListHead->Timestamp )
+ 511              		.loc 1 107 27 is_stmt 0 view .LVU154
+ 512 0046 FFF7FEFF 		bl	TimerGetValue
+ 513              	.LVL47:
+ 108:Core/Src/system/timer.c ****             {
+ 514              		.loc 1 108 13 is_stmt 1 view .LVU155
+ 108:Core/Src/system/timer.c ****             {
+ 515              		.loc 1 108 44 is_stmt 0 view .LVU156
+ 516 004a 064B     		ldr	r3, .L49
+ 517 004c 1B68     		ldr	r3, [r3]
+ 518 004e 1968     		ldr	r1, [r3]
+ 108:Core/Src/system/timer.c ****             {
+ 519              		.loc 1 108 15 view .LVU157
+ 520 0050 8142     		cmp	r1, r0
+ 521 0052 00D2     		bcs	.L42
+ 110:Core/Src/system/timer.c ****             }
+ 522              		.loc 1 110 29 view .LVU158
+ 523 0054 0846     		mov	r0, r1
+ 524              	.LVL48:
+ 525              	.L42:
+ 112:Core/Src/system/timer.c ****         }
+ 526              		.loc 1 112 13 is_stmt 1 view .LVU159
+ 112:Core/Src/system/timer.c ****         }
+ 527              		.loc 1 112 27 is_stmt 0 view .LVU160
+ 528 0056 091A     		subs	r1, r1, r0
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 19
+
+
+ 529              	.LVL49:
+ 112:Core/Src/system/timer.c ****         }
+ 530              		.loc 1 112 27 view .LVU161
+ 531 0058 E5E7     		b	.L43
+ 532              	.LVL50:
+ 533              	.L44:
+ 125:Core/Src/system/timer.c ****         }
+ 534              		.loc 1 125 14 is_stmt 1 view .LVU162
+ 535 005a 2046     		mov	r0, r4
+ 536 005c FFF7FEFF 		bl	TimerInsertTimer
+ 537              	.LVL51:
+ 125:Core/Src/system/timer.c ****         }
+ 538              		.loc 1 125 14 is_stmt 0 view .LVU163
+ 539 0060 E7E7     		b	.L40
+ 540              	.L50:
+ 541 0062 00BF     		.align	2
+ 542              	.L49:
+ 543 0064 00000000 		.word	.LANCHOR0
+ 544              		.cfi_endproc
+ 545              	.LFE136:
+ 547              		.section	.text.TimerIrqHandler,"ax",%progbits
+ 548              		.align	1
+ 549              		.global	TimerIrqHandler
+ 550              		.syntax unified
+ 551              		.thumb
+ 552              		.thumb_func
+ 553              		.fpu fpv4-sp-d16
+ 555              	TimerIrqHandler:
+ 556              	.LFB139:
+ 202:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
+ 557              		.loc 1 202 1 is_stmt 1 view -0
+ 558              		.cfi_startproc
+ 559              		@ args = 0, pretend = 0, frame = 0
+ 560              		@ frame_needed = 0, uses_anonymous_args = 0
+ 561 0000 08B5     		push	{r3, lr}
+ 562              	.LCFI7:
+ 563              		.cfi_def_cfa_offset 8
+ 564              		.cfi_offset 3, -8
+ 565              		.cfi_offset 14, -4
+ 203:Core/Src/system/timer.c **** 
+ 566              		.loc 1 203 5 view .LVU165
+ 567              	.LVL52:
+ 206:Core/Src/system/timer.c ****     {
+ 568              		.loc 1 206 5 view .LVU166
+ 206:Core/Src/system/timer.c ****     {
+ 569              		.loc 1 206 24 is_stmt 0 view .LVU167
+ 570 0002 134B     		ldr	r3, .L61
+ 571 0004 1B68     		ldr	r3, [r3]
+ 206:Core/Src/system/timer.c ****     {
+ 572              		.loc 1 206 8 view .LVU168
+ 573 0006 EBB1     		cbz	r3, .L51
+ 211:Core/Src/system/timer.c **** 
+ 574              		.loc 1 211 5 is_stmt 1 view .LVU169
+ 211:Core/Src/system/timer.c **** 
+ 575              		.loc 1 211 19 is_stmt 0 view .LVU170
+ 576 0008 FFF7FEFF 		bl	TimerGetValue
+ 577              	.LVL53:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 20
+
+
+ 213:Core/Src/system/timer.c ****     {
+ 578              		.loc 1 213 5 is_stmt 1 view .LVU171
+ 213:Core/Src/system/timer.c ****     {
+ 579              		.loc 1 213 37 is_stmt 0 view .LVU172
+ 580 000c 104B     		ldr	r3, .L61
+ 581 000e 1B68     		ldr	r3, [r3]
+ 582 0010 1A68     		ldr	r2, [r3]
+ 213:Core/Src/system/timer.c ****     {
+ 583              		.loc 1 213 7 view .LVU173
+ 584 0012 8242     		cmp	r2, r0
+ 585 0014 10D8     		bhi	.L53
+ 215:Core/Src/system/timer.c ****     }
+ 586              		.loc 1 215 9 is_stmt 1 view .LVU174
+ 215:Core/Src/system/timer.c ****     }
+ 587              		.loc 1 215 34 is_stmt 0 view .LVU175
+ 588 0016 0022     		movs	r2, #0
+ 589 0018 1A60     		str	r2, [r3]
+ 590              	.LVL54:
+ 591              	.L54:
+ 222:Core/Src/system/timer.c **** 
+ 592              		.loc 1 222 5 is_stmt 1 view .LVU176
+ 222:Core/Src/system/timer.c **** 
+ 593              		.loc 1 222 30 is_stmt 0 view .LVU177
+ 594 001a 0022     		movs	r2, #0
+ 595 001c 1A72     		strb	r2, [r3, #8]
+ 224:Core/Src/system/timer.c ****     {
+ 596              		.loc 1 224 5 is_stmt 1 view .LVU178
+ 597              	.L56:
+ 224:Core/Src/system/timer.c ****     {
+ 598              		.loc 1 224 10 view .LVU179
+ 224:Core/Src/system/timer.c ****     {
+ 599              		.loc 1 224 28 is_stmt 0 view .LVU180
+ 600 001e 0C4B     		ldr	r3, .L61
+ 601 0020 1868     		ldr	r0, [r3]
+ 224:Core/Src/system/timer.c ****     {
+ 602              		.loc 1 224 10 view .LVU181
+ 603 0022 60B1     		cbz	r0, .L57
+ 224:Core/Src/system/timer.c ****     {
+ 604              		.loc 1 224 56 discriminator 1 view .LVU182
+ 605 0024 0368     		ldr	r3, [r0]
+ 224:Core/Src/system/timer.c ****     {
+ 606              		.loc 1 224 38 discriminator 1 view .LVU183
+ 607 0026 53B9     		cbnz	r3, .L57
+ 608              	.LBB2:
+ 226:Core/Src/system/timer.c ****         TimerListHead = TimerListHead->Next;
+ 609              		.loc 1 226 9 is_stmt 1 view .LVU184
+ 610              	.LVL55:
+ 227:Core/Src/system/timer.c **** 
+ 611              		.loc 1 227 9 view .LVU185
+ 227:Core/Src/system/timer.c **** 
+ 612              		.loc 1 227 38 is_stmt 0 view .LVU186
+ 613 0028 0269     		ldr	r2, [r0, #16]
+ 227:Core/Src/system/timer.c **** 
+ 614              		.loc 1 227 23 view .LVU187
+ 615 002a 094B     		ldr	r3, .L61
+ 616 002c 1A60     		str	r2, [r3]
+ 229:Core/Src/system/timer.c ****         {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 21
+
+
+ 617              		.loc 1 229 9 is_stmt 1 view .LVU188
+ 229:Core/Src/system/timer.c ****         {
+ 618              		.loc 1 229 25 is_stmt 0 view .LVU189
+ 619 002e C368     		ldr	r3, [r0, #12]
+ 229:Core/Src/system/timer.c ****         {
+ 620              		.loc 1 229 11 view .LVU190
+ 621 0030 002B     		cmp	r3, #0
+ 622 0032 F4D0     		beq	.L56
+ 231:Core/Src/system/timer.c ****         }
+ 623              		.loc 1 231 13 is_stmt 1 view .LVU191
+ 624 0034 9847     		blx	r3
+ 625              	.LVL56:
+ 231:Core/Src/system/timer.c ****         }
+ 626              		.loc 1 231 13 is_stmt 0 view .LVU192
+ 627 0036 F2E7     		b	.L56
+ 628              	.LVL57:
+ 629              	.L53:
+ 231:Core/Src/system/timer.c ****         }
+ 630              		.loc 1 231 13 view .LVU193
+ 631              	.LBE2:
+ 219:Core/Src/system/timer.c ****     }
+ 632              		.loc 1 219 9 is_stmt 1 view .LVU194
+ 219:Core/Src/system/timer.c ****     }
+ 633              		.loc 1 219 34 is_stmt 0 view .LVU195
+ 634 0038 101A     		subs	r0, r2, r0
+ 635              	.LVL58:
+ 219:Core/Src/system/timer.c ****     }
+ 636              		.loc 1 219 34 view .LVU196
+ 637 003a 1860     		str	r0, [r3]
+ 638 003c EDE7     		b	.L54
+ 639              	.L57:
+ 236:Core/Src/system/timer.c ****     {
+ 640              		.loc 1 236 5 is_stmt 1 view .LVU197
+ 236:Core/Src/system/timer.c ****     {
+ 641              		.loc 1 236 7 is_stmt 0 view .LVU198
+ 642 003e 08B1     		cbz	r0, .L51
+ 238:Core/Src/system/timer.c ****         {
+ 643              		.loc 1 238 9 is_stmt 1 view .LVU199
+ 238:Core/Src/system/timer.c ****         {
+ 644              		.loc 1 238 26 is_stmt 0 view .LVU200
+ 645 0040 037A     		ldrb	r3, [r0, #8]	@ zero_extendqisi2
+ 238:Core/Src/system/timer.c ****         {
+ 646              		.loc 1 238 11 view .LVU201
+ 647 0042 03B1     		cbz	r3, .L60
+ 648              	.L51:
+ 244:Core/Src/system/timer.c **** 
+ 649              		.loc 1 244 1 view .LVU202
+ 650 0044 08BD     		pop	{r3, pc}
+ 651              	.L60:
+ 240:Core/Src/system/timer.c ****             TimerSetTimeout( TimerListHead );
+ 652              		.loc 1 240 13 is_stmt 1 view .LVU203
+ 240:Core/Src/system/timer.c ****             TimerSetTimeout( TimerListHead );
+ 653              		.loc 1 240 38 is_stmt 0 view .LVU204
+ 654 0046 0123     		movs	r3, #1
+ 655 0048 0372     		strb	r3, [r0, #8]
+ 241:Core/Src/system/timer.c ****         }
+ 656              		.loc 1 241 13 is_stmt 1 view .LVU205
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 22
+
+
+ 657 004a FFF7FEFF 		bl	TimerSetTimeout
+ 658              	.LVL59:
+ 659 004e F9E7     		b	.L51
+ 660              	.L62:
+ 661              		.align	2
+ 662              	.L61:
+ 663 0050 00000000 		.word	.LANCHOR0
+ 664              		.cfi_endproc
+ 665              	.LFE139:
+ 667              		.section	.text.TimerStop,"ax",%progbits
+ 668              		.align	1
+ 669              		.global	TimerStop
+ 670              		.syntax unified
+ 671              		.thumb
+ 672              		.thumb_func
+ 673              		.fpu fpv4-sp-d16
+ 675              	TimerStop:
+ 676              	.LVL60:
+ 677              	.LFB140:
+ 247:Core/Src/system/timer.c ****     BoardDisableIrq( );
+ 678              		.loc 1 247 1 view -0
+ 679              		.cfi_startproc
+ 680              		@ args = 0, pretend = 0, frame = 0
+ 681              		@ frame_needed = 0, uses_anonymous_args = 0
+ 247:Core/Src/system/timer.c ****     BoardDisableIrq( );
+ 682              		.loc 1 247 1 is_stmt 0 view .LVU207
+ 683 0000 10B5     		push	{r4, lr}
+ 684              	.LCFI8:
+ 685              		.cfi_def_cfa_offset 8
+ 686              		.cfi_offset 4, -8
+ 687              		.cfi_offset 14, -4
+ 688 0002 0446     		mov	r4, r0
+ 248:Core/Src/system/timer.c **** 
+ 689              		.loc 1 248 5 is_stmt 1 view .LVU208
+ 690 0004 FFF7FEFF 		bl	BoardDisableIrq
+ 691              	.LVL61:
+ 250:Core/Src/system/timer.c ****     uint32_t remainingTime = 0;
+ 692              		.loc 1 250 5 view .LVU209
+ 251:Core/Src/system/timer.c **** 
+ 693              		.loc 1 251 5 view .LVU210
+ 253:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 694              		.loc 1 253 5 view .LVU211
+ 253:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
+ 695              		.loc 1 253 19 is_stmt 0 view .LVU212
+ 696 0008 234B     		ldr	r3, .L82
+ 697 000a 1A68     		ldr	r2, [r3]
+ 698              	.LVL62:
+ 254:Core/Src/system/timer.c **** 
+ 699              		.loc 1 254 5 is_stmt 1 view .LVU213
+ 257:Core/Src/system/timer.c ****     {
+ 700              		.loc 1 257 5 view .LVU214
+ 257:Core/Src/system/timer.c ****     {
+ 701              		.loc 1 257 7 is_stmt 0 view .LVU215
+ 702 000c 5AB1     		cbz	r2, .L64
+ 257:Core/Src/system/timer.c ****     {
+ 703              		.loc 1 257 35 discriminator 1 view .LVU216
+ 704 000e 54B1     		cbz	r4, .L64
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 23
+
+
+ 263:Core/Src/system/timer.c ****     {
+ 705              		.loc 1 263 5 is_stmt 1 view .LVU217
+ 263:Core/Src/system/timer.c ****     {
+ 706              		.loc 1 263 7 is_stmt 0 view .LVU218
+ 707 0010 A242     		cmp	r2, r4
+ 708 0012 0BD0     		beq	.L79
+ 304:Core/Src/system/timer.c **** 
+ 709              		.loc 1 304 9 is_stmt 1 view .LVU219
+ 304:Core/Src/system/timer.c **** 
+ 710              		.loc 1 304 23 is_stmt 0 view .LVU220
+ 711 0014 2168     		ldr	r1, [r4]
+ 712              	.LVL63:
+ 306:Core/Src/system/timer.c ****         {
+ 713              		.loc 1 306 9 is_stmt 1 view .LVU221
+ 254:Core/Src/system/timer.c **** 
+ 714              		.loc 1 254 19 is_stmt 0 view .LVU222
+ 715 0016 1346     		mov	r3, r2
+ 716              	.LVL64:
+ 717              	.L73:
+ 306:Core/Src/system/timer.c ****         {
+ 718              		.loc 1 306 14 is_stmt 1 view .LVU223
+ 719 0018 002B     		cmp	r3, #0
+ 720 001a 37D0     		beq	.L71
+ 308:Core/Src/system/timer.c ****             {
+ 721              		.loc 1 308 13 view .LVU224
+ 308:Core/Src/system/timer.c ****             {
+ 722              		.loc 1 308 15 is_stmt 0 view .LVU225
+ 723 001c A342     		cmp	r3, r4
+ 724 001e 2FD0     		beq	.L80
+ 325:Core/Src/system/timer.c ****                 cur = cur->Next;
+ 725              		.loc 1 325 17 is_stmt 1 view .LVU226
+ 726              	.LVL65:
+ 326:Core/Src/system/timer.c ****             }
+ 727              		.loc 1 326 17 view .LVU227
+ 325:Core/Src/system/timer.c ****                 cur = cur->Next;
+ 728              		.loc 1 325 22 is_stmt 0 view .LVU228
+ 729 0020 1A46     		mov	r2, r3
+ 326:Core/Src/system/timer.c ****             }
+ 730              		.loc 1 326 21 view .LVU229
+ 731 0022 1B69     		ldr	r3, [r3, #16]
+ 732              	.LVL66:
+ 326:Core/Src/system/timer.c ****             }
+ 733              		.loc 1 326 21 view .LVU230
+ 734 0024 F8E7     		b	.L73
+ 735              	.LVL67:
+ 736              	.L64:
+ 259:Core/Src/system/timer.c ****         return;
+ 737              		.loc 1 259 9 is_stmt 1 view .LVU231
+ 738 0026 FFF7FEFF 		bl	BoardEnableIrq
+ 739              	.LVL68:
+ 260:Core/Src/system/timer.c ****     }
+ 740              		.loc 1 260 9 view .LVU232
+ 741 002a 31E0     		b	.L63
+ 742              	.LVL69:
+ 743              	.L79:
+ 265:Core/Src/system/timer.c ****         {
+ 744              		.loc 1 265 9 view .LVU233
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 24
+
+
+ 265:Core/Src/system/timer.c ****         {
+ 745              		.loc 1 265 26 is_stmt 0 view .LVU234
+ 746 002c 137A     		ldrb	r3, [r2, #8]	@ zero_extendqisi2
+ 265:Core/Src/system/timer.c ****         {
+ 747              		.loc 1 265 11 view .LVU235
+ 748 002e 43B9     		cbnz	r3, .L81
+ 290:Core/Src/system/timer.c ****             {
+ 749              		.loc 1 290 13 is_stmt 1 view .LVU236
+ 290:Core/Src/system/timer.c ****             {
+ 750              		.loc 1 290 30 is_stmt 0 view .LVU237
+ 751 0030 1369     		ldr	r3, [r2, #16]
+ 290:Core/Src/system/timer.c ****             {
+ 752              		.loc 1 290 15 view .LVU238
+ 753 0032 0BB3     		cbz	r3, .L72
+ 292:Core/Src/system/timer.c ****                 TimerListHead = TimerListHead->Next;
+ 754              		.loc 1 292 17 is_stmt 1 view .LVU239
+ 292:Core/Src/system/timer.c ****                 TimerListHead = TimerListHead->Next;
+ 755              		.loc 1 292 31 is_stmt 0 view .LVU240
+ 756 0034 2168     		ldr	r1, [r4]
+ 757              	.LVL70:
+ 293:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 758              		.loc 1 293 17 is_stmt 1 view .LVU241
+ 293:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 759              		.loc 1 293 31 is_stmt 0 view .LVU242
+ 760 0036 184A     		ldr	r2, .L82
+ 761              	.LVL71:
+ 293:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 762              		.loc 1 293 31 view .LVU243
+ 763 0038 1360     		str	r3, [r2]
+ 764              	.LVL72:
+ 294:Core/Src/system/timer.c ****             }
+ 765              		.loc 1 294 17 is_stmt 1 view .LVU244
+ 294:Core/Src/system/timer.c ****             }
+ 766              		.loc 1 294 42 is_stmt 0 view .LVU245
+ 767 003a 1A68     		ldr	r2, [r3]
+ 768 003c 0A44     		add	r2, r2, r1
+ 769 003e 1A60     		str	r2, [r3]
+ 770 0040 24E0     		b	.L71
+ 771              	.LVL73:
+ 772              	.L81:
+ 267:Core/Src/system/timer.c ****             if( elapsedTime > obj->Timestamp )
+ 773              		.loc 1 267 13 is_stmt 1 view .LVU246
+ 267:Core/Src/system/timer.c ****             if( elapsedTime > obj->Timestamp )
+ 774              		.loc 1 267 27 is_stmt 0 view .LVU247
+ 775 0042 FFF7FEFF 		bl	TimerGetValue
+ 776              	.LVL74:
+ 268:Core/Src/system/timer.c ****             {
+ 777              		.loc 1 268 13 is_stmt 1 view .LVU248
+ 268:Core/Src/system/timer.c ****             {
+ 778              		.loc 1 268 34 is_stmt 0 view .LVU249
+ 779 0046 2368     		ldr	r3, [r4]
+ 268:Core/Src/system/timer.c ****             {
+ 780              		.loc 1 268 15 view .LVU250
+ 781 0048 8342     		cmp	r3, r0
+ 782 004a 00D2     		bcs	.L69
+ 270:Core/Src/system/timer.c ****             }
+ 783              		.loc 1 270 29 view .LVU251
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 25
+
+
+ 784 004c 1846     		mov	r0, r3
+ 785              	.LVL75:
+ 786              	.L69:
+ 273:Core/Src/system/timer.c **** 
+ 787              		.loc 1 273 13 is_stmt 1 view .LVU252
+ 273:Core/Src/system/timer.c **** 
+ 788              		.loc 1 273 27 is_stmt 0 view .LVU253
+ 789 004e 1B1A     		subs	r3, r3, r0
+ 790              	.LVL76:
+ 275:Core/Src/system/timer.c ****             {
+ 791              		.loc 1 275 13 is_stmt 1 view .LVU254
+ 275:Core/Src/system/timer.c ****             {
+ 792              		.loc 1 275 30 is_stmt 0 view .LVU255
+ 793 0050 114A     		ldr	r2, .L82
+ 794 0052 1268     		ldr	r2, [r2]
+ 795 0054 1069     		ldr	r0, [r2, #16]
+ 796              	.LVL77:
+ 275:Core/Src/system/timer.c ****             {
+ 797              		.loc 1 275 15 view .LVU256
+ 798 0056 58B1     		cbz	r0, .L70
+ 277:Core/Src/system/timer.c ****                 TimerListHead = TimerListHead->Next;
+ 799              		.loc 1 277 17 is_stmt 1 view .LVU257
+ 277:Core/Src/system/timer.c ****                 TimerListHead = TimerListHead->Next;
+ 800              		.loc 1 277 42 is_stmt 0 view .LVU258
+ 801 0058 0021     		movs	r1, #0
+ 802 005a 1172     		strb	r1, [r2, #8]
+ 278:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 803              		.loc 1 278 17 is_stmt 1 view .LVU259
+ 278:Core/Src/system/timer.c ****                 TimerListHead->Timestamp += remainingTime;
+ 804              		.loc 1 278 31 is_stmt 0 view .LVU260
+ 805 005c 0E4A     		ldr	r2, .L82
+ 806 005e 1060     		str	r0, [r2]
+ 279:Core/Src/system/timer.c ****                 TimerListHead->IsRunning = true;
+ 807              		.loc 1 279 17 is_stmt 1 view .LVU261
+ 279:Core/Src/system/timer.c ****                 TimerListHead->IsRunning = true;
+ 808              		.loc 1 279 42 is_stmt 0 view .LVU262
+ 809 0060 0268     		ldr	r2, [r0]
+ 810 0062 1344     		add	r3, r3, r2
+ 811              	.LVL78:
+ 279:Core/Src/system/timer.c ****                 TimerListHead->IsRunning = true;
+ 812              		.loc 1 279 42 view .LVU263
+ 813 0064 0360     		str	r3, [r0]
+ 280:Core/Src/system/timer.c ****                 TimerSetTimeout( TimerListHead );
+ 814              		.loc 1 280 17 is_stmt 1 view .LVU264
+ 280:Core/Src/system/timer.c ****                 TimerSetTimeout( TimerListHead );
+ 815              		.loc 1 280 42 is_stmt 0 view .LVU265
+ 816 0066 0123     		movs	r3, #1
+ 817 0068 0372     		strb	r3, [r0, #8]
+ 281:Core/Src/system/timer.c ****             }
+ 818              		.loc 1 281 17 is_stmt 1 view .LVU266
+ 819 006a FFF7FEFF 		bl	TimerSetTimeout
+ 820              	.LVL79:
+ 821 006e 0DE0     		b	.L71
+ 822              	.LVL80:
+ 823              	.L70:
+ 285:Core/Src/system/timer.c ****             }
+ 824              		.loc 1 285 17 view .LVU267
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 26
+
+
+ 285:Core/Src/system/timer.c ****             }
+ 825              		.loc 1 285 31 is_stmt 0 view .LVU268
+ 826 0070 094B     		ldr	r3, .L82
+ 827              	.LVL81:
+ 285:Core/Src/system/timer.c ****             }
+ 828              		.loc 1 285 31 view .LVU269
+ 829 0072 0022     		movs	r2, #0
+ 830 0074 1A60     		str	r2, [r3]
+ 831 0076 09E0     		b	.L71
+ 832              	.LVL82:
+ 833              	.L72:
+ 298:Core/Src/system/timer.c ****             }
+ 834              		.loc 1 298 17 is_stmt 1 view .LVU270
+ 298:Core/Src/system/timer.c ****             }
+ 835              		.loc 1 298 31 is_stmt 0 view .LVU271
+ 836 0078 074B     		ldr	r3, .L82
+ 837 007a 0022     		movs	r2, #0
+ 838              	.LVL83:
+ 298:Core/Src/system/timer.c ****             }
+ 839              		.loc 1 298 31 view .LVU272
+ 840 007c 1A60     		str	r2, [r3]
+ 841              	.LVL84:
+ 298:Core/Src/system/timer.c ****             }
+ 842              		.loc 1 298 31 view .LVU273
+ 843 007e 05E0     		b	.L71
+ 844              	.LVL85:
+ 845              	.L80:
+ 310:Core/Src/system/timer.c ****                 {
+ 846              		.loc 1 310 17 is_stmt 1 view .LVU274
+ 310:Core/Src/system/timer.c ****                 {
+ 847              		.loc 1 310 24 is_stmt 0 view .LVU275
+ 848 0080 1B69     		ldr	r3, [r3, #16]
+ 849              	.LVL86:
+ 310:Core/Src/system/timer.c ****                 {
+ 850              		.loc 1 310 19 view .LVU276
+ 851 0082 33B1     		cbz	r3, .L75
+ 312:Core/Src/system/timer.c ****                     prev->Next = cur;
+ 852              		.loc 1 312 21 is_stmt 1 view .LVU277
+ 853              	.LVL87:
+ 313:Core/Src/system/timer.c ****                     cur->Timestamp += remainingTime;
+ 854              		.loc 1 313 21 view .LVU278
+ 313:Core/Src/system/timer.c ****                     cur->Timestamp += remainingTime;
+ 855              		.loc 1 313 32 is_stmt 0 view .LVU279
+ 856 0084 1361     		str	r3, [r2, #16]
+ 314:Core/Src/system/timer.c ****                 }
+ 857              		.loc 1 314 21 is_stmt 1 view .LVU280
+ 314:Core/Src/system/timer.c ****                 }
+ 858              		.loc 1 314 36 is_stmt 0 view .LVU281
+ 859 0086 1A68     		ldr	r2, [r3]
+ 860              	.LVL88:
+ 314:Core/Src/system/timer.c ****                 }
+ 861              		.loc 1 314 36 view .LVU282
+ 862 0088 0A44     		add	r2, r2, r1
+ 863 008a 1A60     		str	r2, [r3]
+ 864              	.LVL89:
+ 865              	.L71:
+ 330:Core/Src/system/timer.c **** }
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 27
+
+
+ 866              		.loc 1 330 5 is_stmt 1 view .LVU283
+ 867 008c FFF7FEFF 		bl	BoardEnableIrq
+ 868              	.LVL90:
+ 869              	.L63:
+ 331:Core/Src/system/timer.c **** 
+ 870              		.loc 1 331 1 is_stmt 0 view .LVU284
+ 871 0090 10BD     		pop	{r4, pc}
+ 872              	.LVL91:
+ 873              	.L75:
+ 318:Core/Src/system/timer.c ****                     prev->Next = cur;
+ 874              		.loc 1 318 21 is_stmt 1 view .LVU285
+ 319:Core/Src/system/timer.c ****                 }
+ 875              		.loc 1 319 21 view .LVU286
+ 319:Core/Src/system/timer.c ****                 }
+ 876              		.loc 1 319 32 is_stmt 0 view .LVU287
+ 877 0092 0023     		movs	r3, #0
+ 878 0094 1361     		str	r3, [r2, #16]
+ 879 0096 F9E7     		b	.L71
+ 880              	.L83:
+ 881              		.align	2
+ 882              	.L82:
+ 883 0098 00000000 		.word	.LANCHOR0
+ 884              		.cfi_endproc
+ 885              	.LFE140:
+ 887              		.section	.text.TimerReset,"ax",%progbits
+ 888              		.align	1
+ 889              		.global	TimerReset
+ 890              		.syntax unified
+ 891              		.thumb
+ 892              		.thumb_func
+ 893              		.fpu fpv4-sp-d16
+ 895              	TimerReset:
+ 896              	.LVL92:
+ 897              	.LFB142:
+ 349:Core/Src/system/timer.c ****     TimerStop( obj );
+ 898              		.loc 1 349 1 is_stmt 1 view -0
+ 899              		.cfi_startproc
+ 900              		@ args = 0, pretend = 0, frame = 0
+ 901              		@ frame_needed = 0, uses_anonymous_args = 0
+ 349:Core/Src/system/timer.c ****     TimerStop( obj );
+ 902              		.loc 1 349 1 is_stmt 0 view .LVU289
+ 903 0000 10B5     		push	{r4, lr}
+ 904              	.LCFI9:
+ 905              		.cfi_def_cfa_offset 8
+ 906              		.cfi_offset 4, -8
+ 907              		.cfi_offset 14, -4
+ 908 0002 0446     		mov	r4, r0
+ 350:Core/Src/system/timer.c ****     TimerStart( obj );
+ 909              		.loc 1 350 5 is_stmt 1 view .LVU290
+ 910 0004 FFF7FEFF 		bl	TimerStop
+ 911              	.LVL93:
+ 351:Core/Src/system/timer.c **** }
+ 912              		.loc 1 351 5 view .LVU291
+ 913 0008 2046     		mov	r0, r4
+ 914 000a FFF7FEFF 		bl	TimerStart
+ 915              	.LVL94:
+ 352:Core/Src/system/timer.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 28
+
+
+ 916              		.loc 1 352 1 is_stmt 0 view .LVU292
+ 917 000e 10BD     		pop	{r4, pc}
+ 352:Core/Src/system/timer.c **** 
+ 918              		.loc 1 352 1 view .LVU293
+ 919              		.cfi_endproc
+ 920              	.LFE142:
+ 922              		.section	.text.TimerSetValue,"ax",%progbits
+ 923              		.align	1
+ 924              		.global	TimerSetValue
+ 925              		.syntax unified
+ 926              		.thumb
+ 927              		.thumb_func
+ 928              		.fpu fpv4-sp-d16
+ 930              	TimerSetValue:
+ 931              	.LVL95:
+ 932              	.LFB143:
+ 355:Core/Src/system/timer.c ****     TimerStop( obj );
+ 933              		.loc 1 355 1 is_stmt 1 view -0
+ 934              		.cfi_startproc
+ 935              		@ args = 0, pretend = 0, frame = 0
+ 936              		@ frame_needed = 0, uses_anonymous_args = 0
+ 355:Core/Src/system/timer.c ****     TimerStop( obj );
+ 937              		.loc 1 355 1 is_stmt 0 view .LVU295
+ 938 0000 38B5     		push	{r3, r4, r5, lr}
+ 939              	.LCFI10:
+ 940              		.cfi_def_cfa_offset 16
+ 941              		.cfi_offset 3, -16
+ 942              		.cfi_offset 4, -12
+ 943              		.cfi_offset 5, -8
+ 944              		.cfi_offset 14, -4
+ 945 0002 0446     		mov	r4, r0
+ 946 0004 0D46     		mov	r5, r1
+ 356:Core/Src/system/timer.c ****     obj->Timestamp = value;
+ 947              		.loc 1 356 5 is_stmt 1 view .LVU296
+ 948 0006 FFF7FEFF 		bl	TimerStop
+ 949              	.LVL96:
+ 357:Core/Src/system/timer.c ****     obj->ReloadValue = value;
+ 950              		.loc 1 357 5 view .LVU297
+ 357:Core/Src/system/timer.c ****     obj->ReloadValue = value;
+ 951              		.loc 1 357 20 is_stmt 0 view .LVU298
+ 952 000a 2560     		str	r5, [r4]
+ 358:Core/Src/system/timer.c **** }
+ 953              		.loc 1 358 5 is_stmt 1 view .LVU299
+ 358:Core/Src/system/timer.c **** }
+ 954              		.loc 1 358 22 is_stmt 0 view .LVU300
+ 955 000c 6560     		str	r5, [r4, #4]
+ 359:Core/Src/system/timer.c **** 
+ 956              		.loc 1 359 1 view .LVU301
+ 957 000e 38BD     		pop	{r3, r4, r5, pc}
+ 359:Core/Src/system/timer.c **** 
+ 958              		.loc 1 359 1 view .LVU302
+ 959              		.cfi_endproc
+ 960              	.LFE143:
+ 962              		.section	.text.TimerGetCurrentTime,"ax",%progbits
+ 963              		.align	1
+ 964              		.global	TimerGetCurrentTime
+ 965              		.syntax unified
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 29
+
+
+ 966              		.thumb
+ 967              		.thumb_func
+ 968              		.fpu fpv4-sp-d16
+ 970              	TimerGetCurrentTime:
+ 971              	.LFB145:
+ 367:Core/Src/system/timer.c ****     return RtcGetTimerValue( );
+ 972              		.loc 1 367 1 is_stmt 1 view -0
+ 973              		.cfi_startproc
+ 974              		@ args = 0, pretend = 0, frame = 0
+ 975              		@ frame_needed = 0, uses_anonymous_args = 0
+ 976 0000 08B5     		push	{r3, lr}
+ 977              	.LCFI11:
+ 978              		.cfi_def_cfa_offset 8
+ 979              		.cfi_offset 3, -8
+ 980              		.cfi_offset 14, -4
+ 368:Core/Src/system/timer.c **** }
+ 981              		.loc 1 368 5 view .LVU304
+ 368:Core/Src/system/timer.c **** }
+ 982              		.loc 1 368 12 is_stmt 0 view .LVU305
+ 983 0002 FFF7FEFF 		bl	RtcGetTimerValue
+ 984              	.LVL97:
+ 369:Core/Src/system/timer.c **** 
+ 985              		.loc 1 369 1 view .LVU306
+ 986 0006 08BD     		pop	{r3, pc}
+ 987              		.cfi_endproc
+ 988              	.LFE145:
+ 990              		.section	.text.TimerGetElapsedTime,"ax",%progbits
+ 991              		.align	1
+ 992              		.global	TimerGetElapsedTime
+ 993              		.syntax unified
+ 994              		.thumb
+ 995              		.thumb_func
+ 996              		.fpu fpv4-sp-d16
+ 998              	TimerGetElapsedTime:
+ 999              	.LVL98:
+ 1000              	.LFB146:
+ 372:Core/Src/system/timer.c ****     return RtcComputeElapsedTime( savedTime );
+ 1001              		.loc 1 372 1 is_stmt 1 view -0
+ 1002              		.cfi_startproc
+ 1003              		@ args = 0, pretend = 0, frame = 0
+ 1004              		@ frame_needed = 0, uses_anonymous_args = 0
+ 372:Core/Src/system/timer.c ****     return RtcComputeElapsedTime( savedTime );
+ 1005              		.loc 1 372 1 is_stmt 0 view .LVU308
+ 1006 0000 08B5     		push	{r3, lr}
+ 1007              	.LCFI12:
+ 1008              		.cfi_def_cfa_offset 8
+ 1009              		.cfi_offset 3, -8
+ 1010              		.cfi_offset 14, -4
+ 373:Core/Src/system/timer.c **** }
+ 1011              		.loc 1 373 5 is_stmt 1 view .LVU309
+ 373:Core/Src/system/timer.c **** }
+ 1012              		.loc 1 373 12 is_stmt 0 view .LVU310
+ 1013 0002 FFF7FEFF 		bl	RtcComputeElapsedTime
+ 1014              	.LVL99:
+ 374:Core/Src/system/timer.c **** 
+ 1015              		.loc 1 374 1 view .LVU311
+ 1016 0006 08BD     		pop	{r3, pc}
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 30
+
+
+ 1017              		.cfi_endproc
+ 1018              	.LFE146:
+ 1020              		.section	.text.TimerGetFutureTime,"ax",%progbits
+ 1021              		.align	1
+ 1022              		.global	TimerGetFutureTime
+ 1023              		.syntax unified
+ 1024              		.thumb
+ 1025              		.thumb_func
+ 1026              		.fpu fpv4-sp-d16
+ 1028              	TimerGetFutureTime:
+ 1029              	.LVL100:
+ 1030              	.LFB147:
+ 377:Core/Src/system/timer.c ****     return RtcComputeFutureEventTime( eventInFuture );
+ 1031              		.loc 1 377 1 is_stmt 1 view -0
+ 1032              		.cfi_startproc
+ 1033              		@ args = 0, pretend = 0, frame = 0
+ 1034              		@ frame_needed = 0, uses_anonymous_args = 0
+ 377:Core/Src/system/timer.c ****     return RtcComputeFutureEventTime( eventInFuture );
+ 1035              		.loc 1 377 1 is_stmt 0 view .LVU313
+ 1036 0000 08B5     		push	{r3, lr}
+ 1037              	.LCFI13:
+ 1038              		.cfi_def_cfa_offset 8
+ 1039              		.cfi_offset 3, -8
+ 1040              		.cfi_offset 14, -4
+ 378:Core/Src/system/timer.c **** }
+ 1041              		.loc 1 378 5 is_stmt 1 view .LVU314
+ 378:Core/Src/system/timer.c **** }
+ 1042              		.loc 1 378 12 is_stmt 0 view .LVU315
+ 1043 0002 FFF7FEFF 		bl	RtcComputeFutureEventTime
+ 1044              	.LVL101:
+ 379:Core/Src/system/timer.c **** 
+ 1045              		.loc 1 379 1 view .LVU316
+ 1046 0006 08BD     		pop	{r3, pc}
+ 1047              		.cfi_endproc
+ 1048              	.LFE147:
+ 1050              		.section	.text.TimerLowPowerHandler,"ax",%progbits
+ 1051              		.align	1
+ 1052              		.global	TimerLowPowerHandler
+ 1053              		.syntax unified
+ 1054              		.thumb
+ 1055              		.thumb_func
+ 1056              		.fpu fpv4-sp-d16
+ 1058              	TimerLowPowerHandler:
+ 1059              	.LFB149:
+ 387:Core/Src/system/timer.c **** 
+ 388:Core/Src/system/timer.c **** void TimerLowPowerHandler( void )
+ 389:Core/Src/system/timer.c **** {
+ 1060              		.loc 1 389 1 is_stmt 1 view -0
+ 1061              		.cfi_startproc
+ 1062              		@ args = 0, pretend = 0, frame = 0
+ 1063              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1064 0000 08B5     		push	{r3, lr}
+ 1065              	.LCFI14:
+ 1066              		.cfi_def_cfa_offset 8
+ 1067              		.cfi_offset 3, -8
+ 1068              		.cfi_offset 14, -4
+ 390:Core/Src/system/timer.c ****     if( ( TimerListHead != NULL ) && ( TimerListHead->IsRunning == true ) )
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 31
+
+
+ 1069              		.loc 1 390 5 view .LVU318
+ 1070              		.loc 1 390 25 is_stmt 0 view .LVU319
+ 1071 0002 0D4B     		ldr	r3, .L98
+ 1072 0004 1B68     		ldr	r3, [r3]
+ 1073              		.loc 1 390 7 view .LVU320
+ 1074 0006 5BB1     		cbz	r3, .L94
+ 1075              		.loc 1 390 53 discriminator 1 view .LVU321
+ 1076 0008 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 1077              		.loc 1 390 35 discriminator 1 view .LVU322
+ 1078 000a 4BB1     		cbz	r3, .L94
+ 391:Core/Src/system/timer.c ****     {
+ 392:Core/Src/system/timer.c ****         if( HasLoopedThroughMain < 5 )
+ 1079              		.loc 1 392 9 is_stmt 1 view .LVU323
+ 1080              		.loc 1 392 34 is_stmt 0 view .LVU324
+ 1081 000c 0B4B     		ldr	r3, .L98+4
+ 1082 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1083 0010 DBB2     		uxtb	r3, r3
+ 1084              		.loc 1 392 11 view .LVU325
+ 1085 0012 042B     		cmp	r3, #4
+ 1086 0014 05D8     		bhi	.L96
+ 393:Core/Src/system/timer.c ****         {
+ 394:Core/Src/system/timer.c ****             HasLoopedThroughMain++;
+ 1087              		.loc 1 394 13 is_stmt 1 view .LVU326
+ 1088              		.loc 1 394 33 is_stmt 0 view .LVU327
+ 1089 0016 094A     		ldr	r2, .L98+4
+ 1090 0018 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1091 001a 0133     		adds	r3, r3, #1
+ 1092 001c DBB2     		uxtb	r3, r3
+ 1093 001e 1370     		strb	r3, [r2]
+ 1094              	.L94:
+ 395:Core/Src/system/timer.c ****         }
+ 396:Core/Src/system/timer.c ****         else
+ 397:Core/Src/system/timer.c ****         {
+ 398:Core/Src/system/timer.c ****             HasLoopedThroughMain = 0;
+ 399:Core/Src/system/timer.c ****             if( GetBoardPowerSource( ) == BATTERY_POWER )
+ 400:Core/Src/system/timer.c ****             {
+ 401:Core/Src/system/timer.c ****                 RtcEnterLowPowerStopMode( );
+ 402:Core/Src/system/timer.c ****             }
+ 403:Core/Src/system/timer.c ****         }
+ 404:Core/Src/system/timer.c ****     }
+ 405:Core/Src/system/timer.c **** }
+ 1095              		.loc 1 405 1 view .LVU328
+ 1096 0020 08BD     		pop	{r3, pc}
+ 1097              	.L96:
+ 398:Core/Src/system/timer.c ****             if( GetBoardPowerSource( ) == BATTERY_POWER )
+ 1098              		.loc 1 398 13 is_stmt 1 view .LVU329
+ 398:Core/Src/system/timer.c ****             if( GetBoardPowerSource( ) == BATTERY_POWER )
+ 1099              		.loc 1 398 34 is_stmt 0 view .LVU330
+ 1100 0022 064B     		ldr	r3, .L98+4
+ 1101 0024 0022     		movs	r2, #0
+ 1102 0026 1A70     		strb	r2, [r3]
+ 399:Core/Src/system/timer.c ****             {
+ 1103              		.loc 1 399 13 is_stmt 1 view .LVU331
+ 399:Core/Src/system/timer.c ****             {
+ 1104              		.loc 1 399 17 is_stmt 0 view .LVU332
+ 1105 0028 FFF7FEFF 		bl	GetBoardPowerSource
+ 1106              	.LVL102:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 32
+
+
+ 399:Core/Src/system/timer.c ****             {
+ 1107              		.loc 1 399 15 view .LVU333
+ 1108 002c 0128     		cmp	r0, #1
+ 1109 002e F7D1     		bne	.L94
+ 401:Core/Src/system/timer.c ****             }
+ 1110              		.loc 1 401 17 is_stmt 1 view .LVU334
+ 1111 0030 FFF7FEFF 		bl	RtcEnterLowPowerStopMode
+ 1112              	.LVL103:
+ 1113              		.loc 1 405 1 is_stmt 0 view .LVU335
+ 1114 0034 F4E7     		b	.L94
+ 1115              	.L99:
+ 1116 0036 00BF     		.align	2
+ 1117              	.L98:
+ 1118 0038 00000000 		.word	.LANCHOR0
+ 1119 003c 00000000 		.word	.LANCHOR1
+ 1120              		.cfi_endproc
+ 1121              	.LFE149:
+ 1123              		.global	HasLoopedThroughMain
+ 1124              		.section	.bss.HasLoopedThroughMain,"aw",%nobits
+ 1125              		.set	.LANCHOR1,. + 0
+ 1128              	HasLoopedThroughMain:
+ 1129 0000 00       		.space	1
+ 1130              		.section	.bss.TimerListHead,"aw",%nobits
+ 1131              		.align	2
+ 1132              		.set	.LANCHOR0,. + 0
+ 1135              	TimerListHead:
+ 1136 0000 00000000 		.space	4
+ 1137              		.text
+ 1138              	.Letext0:
+ 1139              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1140              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1141              		.file 4 "Core/Src/system/timer.h"
+ 1142              		.file 5 "Core/Src/boards/NucleoL476/board.h"
+ 1143              		.file 6 "Core/Src/boards/NucleoL476/rtc-board.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer.c
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:18     .text.TimerInsertTimer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:25     .text.TimerInsertTimer:00000000 TimerInsertTimer
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:178    .text.TimerInsertTimer:00000058 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:183    .text.TimerExists:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:189    .text.TimerExists:00000000 TimerExists
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:232    .text.TimerExists:00000018 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:237    .text.TimerSetTimeout:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:243    .text.TimerSetTimeout:00000000 TimerSetTimeout
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:281    .text.TimerSetTimeout:00000018 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:286    .text.TimerInsertNewHeadTimer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:292    .text.TimerInsertNewHeadTimer:00000000 TimerInsertNewHeadTimer
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:348    .text.TimerInsertNewHeadTimer:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:353    .text.TimerInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:360    .text.TimerInit:00000000 TimerInit
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:390    .text.TimerGetValue:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:397    .text.TimerGetValue:00000000 TimerGetValue
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:418    .text.TimerStart:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:425    .text.TimerStart:00000000 TimerStart
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:543    .text.TimerStart:00000064 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:548    .text.TimerIrqHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:555    .text.TimerIrqHandler:00000000 TimerIrqHandler
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:663    .text.TimerIrqHandler:00000050 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:668    .text.TimerStop:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:675    .text.TimerStop:00000000 TimerStop
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:883    .text.TimerStop:00000098 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:888    .text.TimerReset:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:895    .text.TimerReset:00000000 TimerReset
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:923    .text.TimerSetValue:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:930    .text.TimerSetValue:00000000 TimerSetValue
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:963    .text.TimerGetCurrentTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:970    .text.TimerGetCurrentTime:00000000 TimerGetCurrentTime
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:991    .text.TimerGetElapsedTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:998    .text.TimerGetElapsedTime:00000000 TimerGetElapsedTime
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1021   .text.TimerGetFutureTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1028   .text.TimerGetFutureTime:00000000 TimerGetFutureTime
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1051   .text.TimerLowPowerHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1058   .text.TimerLowPowerHandler:00000000 TimerLowPowerHandler
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1118   .text.TimerLowPowerHandler:00000038 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1128   .bss.HasLoopedThroughMain:00000000 HasLoopedThroughMain
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1129   .bss.HasLoopedThroughMain:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1131   .bss.TimerListHead:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccCI6EDg.s:1135   .bss.TimerListHead:00000000 TimerListHead
+
+UNDEFINED SYMBOLS
+RtcGetAdjustedTimeoutValue
+RtcSetTimeout
+RtcGetElapsedAlarmTime
+BoardDisableIrq
+BoardEnableIrq
+RtcGetTimerValue
+RtcComputeElapsedTime
+RtcComputeFutureEventTime
+GetBoardPowerSource
+RtcEnterLowPowerStopMode

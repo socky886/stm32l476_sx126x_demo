@@ -1,0 +1,2698 @@
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"app_sx126x.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.OnTxDone,"ax",%progbits
+  18              		.align	1
+  19              		.global	OnTxDone
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	OnTxDone:
+  27              	.LFB143:
+  28              		.file 1 "Core/Src/app_sx126x.c"
+   1:Core/Src/app_sx126x.c **** #include "app_sx126x.h"
+   2:Core/Src/app_sx126x.c **** /*
+   3:Core/Src/app_sx126x.c ****  / _____)             _              | |
+   4:Core/Src/app_sx126x.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   5:Core/Src/app_sx126x.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   6:Core/Src/app_sx126x.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   7:Core/Src/app_sx126x.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   8:Core/Src/app_sx126x.c ****     (C)2013 Semtech
+   9:Core/Src/app_sx126x.c **** 
+  10:Core/Src/app_sx126x.c **** Description: Ping-Pong implementation
+  11:Core/Src/app_sx126x.c **** 
+  12:Core/Src/app_sx126x.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  13:Core/Src/app_sx126x.c **** 
+  14:Core/Src/app_sx126x.c **** Maintainer: Miguel Luis and Gregory Cristian
+  15:Core/Src/app_sx126x.c **** */
+  16:Core/Src/app_sx126x.c **** #include <string.h>
+  17:Core/Src/app_sx126x.c **** #include <stdio.h>
+  18:Core/Src/app_sx126x.c **** #include "board.h"
+  19:Core/Src/app_sx126x.c **** #include "radio.h"
+  20:Core/Src/app_sx126x.c **** 
+  21:Core/Src/app_sx126x.c **** #define USE_MODEM_FSK
+  22:Core/Src/app_sx126x.c **** // #define USE_TCXO
+  23:Core/Src/app_sx126x.c **** 
+  24:Core/Src/app_sx126x.c **** 
+  25:Core/Src/app_sx126x.c **** // #define RF_FREQUENCY                               855800000// 868000000//490000000 // Hz
+  26:Core/Src/app_sx126x.c **** #define RF_FREQUENCY                               433000000// 868000000//490000000 // Hz
+  27:Core/Src/app_sx126x.c **** // #define RF_FREQUENCY                               868000000// 868000000//490000000 // Hz
+  28:Core/Src/app_sx126x.c **** 
+  29:Core/Src/app_sx126x.c **** #define TX_OUTPUT_POWER                             14//22        // dBm
+  30:Core/Src/app_sx126x.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 2
+
+
+  31:Core/Src/app_sx126x.c **** #if defined( USE_MODEM_LORA )
+  32:Core/Src/app_sx126x.c **** 
+  33:Core/Src/app_sx126x.c **** #define LORA_BANDWIDTH                              0         // [0: 125 kHz,
+  34:Core/Src/app_sx126x.c ****                                                               //  1: 250 kHz,
+  35:Core/Src/app_sx126x.c ****                                                               //  2: 500 kHz,
+  36:Core/Src/app_sx126x.c ****                                                               //  3: Reserved]
+  37:Core/Src/app_sx126x.c **** #define LORA_SPREADING_FACTOR                       10        // [SF7..SF12]
+  38:Core/Src/app_sx126x.c **** #define LORA_CODINGRATE                             1         // [1: 4/5,
+  39:Core/Src/app_sx126x.c ****                                                               //  2: 4/6,
+  40:Core/Src/app_sx126x.c ****                                                               //  3: 4/7,
+  41:Core/Src/app_sx126x.c ****                                                               //  4: 4/8]
+  42:Core/Src/app_sx126x.c **** #define LORA_PREAMBLE_LENGTH                        8         // Same for Tx and Rx
+  43:Core/Src/app_sx126x.c **** #define LORA_SYMBOL_TIMEOUT                         0         // Symbols
+  44:Core/Src/app_sx126x.c **** #define LORA_FIX_LENGTH_PAYLOAD_ON                  false
+  45:Core/Src/app_sx126x.c **** #define LORA_IQ_INVERSION_ON                        false
+  46:Core/Src/app_sx126x.c **** 
+  47:Core/Src/app_sx126x.c **** #elif defined( USE_MODEM_FSK )
+  48:Core/Src/app_sx126x.c **** 
+  49:Core/Src/app_sx126x.c **** 
+  50:Core/Src/app_sx126x.c **** // #define FSK_FDEV                                    50000      // Hz 
+  51:Core/Src/app_sx126x.c **** // #define FSK_DATARATE                                38400      // bps
+  52:Core/Src/app_sx126x.c **** #define FSK_FDEV                                    5000      // Hz 
+  53:Core/Src/app_sx126x.c **** #define FSK_DATARATE                                20000      // bps
+  54:Core/Src/app_sx126x.c **** #define FSK_BANDWIDTH                               50000     // Hz >> DSB in sx126x
+  55:Core/Src/app_sx126x.c **** #define FSK_AFC_BANDWIDTH                           83333     // Hz
+  56:Core/Src/app_sx126x.c **** #define FSK_PREAMBLE_LENGTH                         2          // 16 bits Same for Tx and Rx
+  57:Core/Src/app_sx126x.c **** #define FSK_FIX_LENGTH_PAYLOAD_ON                   true
+  58:Core/Src/app_sx126x.c **** #define FSK_FIX_PAYLOAD_LEN													10
+  59:Core/Src/app_sx126x.c **** #define FSK_SYNCWORD_LEN														2          // 3 bytes 
+  60:Core/Src/app_sx126x.c **** #define FSK_CRC_ON																	false
+  61:Core/Src/app_sx126x.c **** 
+  62:Core/Src/app_sx126x.c **** // #define FSK_FDEV                                    5000      // Hz 
+  63:Core/Src/app_sx126x.c **** // #define FSK_DATARATE                                20000      // bps
+  64:Core/Src/app_sx126x.c **** // #define FSK_BANDWIDTH                               50000     // Hz >> DSB in sx126x
+  65:Core/Src/app_sx126x.c **** // #define FSK_AFC_BANDWIDTH                           83333     // Hz
+  66:Core/Src/app_sx126x.c **** // #define FSK_PREAMBLE_LENGTH                         8          // 16 bits Same for Tx and Rx
+  67:Core/Src/app_sx126x.c **** // #define FSK_FIX_LENGTH_PAYLOAD_ON                   false
+  68:Core/Src/app_sx126x.c **** // #define FSK_FIX_PAYLOAD_LEN													20
+  69:Core/Src/app_sx126x.c **** // #define FSK_SYNCWORD_LEN														2          // 3 bytes 
+  70:Core/Src/app_sx126x.c **** // #define FSK_CRC_ON																	false
+  71:Core/Src/app_sx126x.c **** 
+  72:Core/Src/app_sx126x.c **** 
+  73:Core/Src/app_sx126x.c **** #else
+  74:Core/Src/app_sx126x.c ****     #error "Please define a modem in the compiler options."
+  75:Core/Src/app_sx126x.c **** #endif
+  76:Core/Src/app_sx126x.c **** 
+  77:Core/Src/app_sx126x.c **** typedef enum
+  78:Core/Src/app_sx126x.c **** {
+  79:Core/Src/app_sx126x.c ****     LOWPOWER,
+  80:Core/Src/app_sx126x.c ****     RX,
+  81:Core/Src/app_sx126x.c ****     RX_TIMEOUT,
+  82:Core/Src/app_sx126x.c ****     RX_ERROR,
+  83:Core/Src/app_sx126x.c ****     TX,
+  84:Core/Src/app_sx126x.c ****     TX_TIMEOUT,
+  85:Core/Src/app_sx126x.c **** }States_t;
+  86:Core/Src/app_sx126x.c **** 
+  87:Core/Src/app_sx126x.c **** typedef enum
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 3
+
+
+  88:Core/Src/app_sx126x.c **** {
+  89:Core/Src/app_sx126x.c **** 	FSK_TEST_INIT,
+  90:Core/Src/app_sx126x.c **** 	FSK_TEST_START,
+  91:Core/Src/app_sx126x.c **** 	FSK_TSET_INPROCESS,
+  92:Core/Src/app_sx126x.c **** 	FSK_TEST_DONE
+  93:Core/Src/app_sx126x.c **** }Fsk_test_state_t;
+  94:Core/Src/app_sx126x.c **** 
+  95:Core/Src/app_sx126x.c **** #define RX_TIMEOUT_VALUE                            1000
+  96:Core/Src/app_sx126x.c **** #define BUFFER_SIZE                                 64 // Define the payload size here
+  97:Core/Src/app_sx126x.c **** 
+  98:Core/Src/app_sx126x.c **** const uint8_t PingMsg[] = "PING";
+  99:Core/Src/app_sx126x.c **** const uint8_t PongMsg[] = "PONG";
+ 100:Core/Src/app_sx126x.c **** 
+ 101:Core/Src/app_sx126x.c **** uint16_t BufferSize = BUFFER_SIZE;
+ 102:Core/Src/app_sx126x.c **** uint8_t Buffer[BUFFER_SIZE];
+ 103:Core/Src/app_sx126x.c **** 
+ 104:Core/Src/app_sx126x.c **** uint8_t xorbuf[]={0xff,0xe1 ,0x1d ,0x9a ,0xed ,0x85 ,0x33 ,0x24 ,0xea ,0x7a ,0xd2 ,0x39 ,0x70 ,0x97
+ 105:Core/Src/app_sx126x.c **** States_t State = LOWPOWER;
+ 106:Core/Src/app_sx126x.c **** 
+ 107:Core/Src/app_sx126x.c **** int8_t RssiValue = 0;
+ 108:Core/Src/app_sx126x.c **** int8_t SnrValue = 0;
+ 109:Core/Src/app_sx126x.c **** 
+ 110:Core/Src/app_sx126x.c **** TimerEvent_t fsk_tst_timer;
+ 111:Core/Src/app_sx126x.c **** static volatile Fsk_test_state_t fsk_state = FSK_TEST_INIT;
+ 112:Core/Src/app_sx126x.c **** #define TST_PKT_NUM			1000
+ 113:Core/Src/app_sx126x.c **** static volatile uint32_t pkt_send = 0;
+ 114:Core/Src/app_sx126x.c **** static volatile uint32_t pkt_rx_num = 0;
+ 115:Core/Src/app_sx126x.c **** 
+ 116:Core/Src/app_sx126x.c **** /*!
+ 117:Core/Src/app_sx126x.c ****  * Radio events function pointer
+ 118:Core/Src/app_sx126x.c ****  */
+ 119:Core/Src/app_sx126x.c **** static RadioEvents_t RadioEvents;
+ 120:Core/Src/app_sx126x.c **** 
+ 121:Core/Src/app_sx126x.c **** /*!
+ 122:Core/Src/app_sx126x.c ****  * \brief Function to be executed on Radio Tx Done event
+ 123:Core/Src/app_sx126x.c ****  */
+ 124:Core/Src/app_sx126x.c **** void OnTxDone( void );
+ 125:Core/Src/app_sx126x.c **** 
+ 126:Core/Src/app_sx126x.c **** /*!
+ 127:Core/Src/app_sx126x.c ****  * \brief Function to be executed on Radio Rx Done event
+ 128:Core/Src/app_sx126x.c ****  */
+ 129:Core/Src/app_sx126x.c **** void OnRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr );
+ 130:Core/Src/app_sx126x.c **** 
+ 131:Core/Src/app_sx126x.c **** /*!
+ 132:Core/Src/app_sx126x.c ****  * \brief Function executed on Radio Tx Timeout event
+ 133:Core/Src/app_sx126x.c ****  */
+ 134:Core/Src/app_sx126x.c **** void OnTxTimeout( void );
+ 135:Core/Src/app_sx126x.c **** 
+ 136:Core/Src/app_sx126x.c **** /*!
+ 137:Core/Src/app_sx126x.c ****  * \brief Function executed on Radio Rx Timeout event
+ 138:Core/Src/app_sx126x.c ****  */
+ 139:Core/Src/app_sx126x.c **** void OnRxTimeout( void );
+ 140:Core/Src/app_sx126x.c **** 
+ 141:Core/Src/app_sx126x.c **** /*!
+ 142:Core/Src/app_sx126x.c ****  * \brief Function executed on Radio Rx Error event
+ 143:Core/Src/app_sx126x.c ****  */
+ 144:Core/Src/app_sx126x.c **** void OnRxError( void );
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 4
+
+
+ 145:Core/Src/app_sx126x.c **** 
+ 146:Core/Src/app_sx126x.c **** 
+ 147:Core/Src/app_sx126x.c **** void GenTriggerPulse( void )
+ 148:Core/Src/app_sx126x.c **** {
+ 149:Core/Src/app_sx126x.c **** 	GpioWrite(&Led2, 0);
+ 150:Core/Src/app_sx126x.c **** 	DelayMs(1);
+ 151:Core/Src/app_sx126x.c **** 	GpioWrite(&Led2, 1);
+ 152:Core/Src/app_sx126x.c **** 	DelayMs(1);
+ 153:Core/Src/app_sx126x.c **** 	GpioWrite(&Led2, 0);
+ 154:Core/Src/app_sx126x.c **** #if 0
+ 155:Core/Src/app_sx126x.c **** 	if(pkt_send < TST_PKT_NUM)
+ 156:Core/Src/app_sx126x.c **** 	{
+ 157:Core/Src/app_sx126x.c **** 		TimerStart(&fsk_tst_timer);
+ 158:Core/Src/app_sx126x.c **** 		pkt_send++;
+ 159:Core/Src/app_sx126x.c **** 		fsk_state = FSK_TSET_INPROCESS;
+ 160:Core/Src/app_sx126x.c **** 		//printf("PKT_Send: %d\n",pkt_send);
+ 161:Core/Src/app_sx126x.c **** 	}
+ 162:Core/Src/app_sx126x.c **** 	else
+ 163:Core/Src/app_sx126x.c **** 		fsk_state = FSK_TEST_DONE;
+ 164:Core/Src/app_sx126x.c **** #endif
+ 165:Core/Src/app_sx126x.c **** }
+ 166:Core/Src/app_sx126x.c **** /**
+ 167:Core/Src/app_sx126x.c ****  * @brief sx126x init
+ 168:Core/Src/app_sx126x.c ****  * 
+ 169:Core/Src/app_sx126x.c ****  */
+ 170:Core/Src/app_sx126x.c **** void sx126x_init(void)
+ 171:Core/Src/app_sx126x.c **** {
+ 172:Core/Src/app_sx126x.c **** bool isMaster = true;
+ 173:Core/Src/app_sx126x.c ****     uint8_t i;
+ 174:Core/Src/app_sx126x.c **** 
+ 175:Core/Src/app_sx126x.c ****     // Target board initialization
+ 176:Core/Src/app_sx126x.c ****     BoardInitMcu();
+ 177:Core/Src/app_sx126x.c ****     BoardInitPeriph();
+ 178:Core/Src/app_sx126x.c **** 
+ 179:Core/Src/app_sx126x.c ****     //Init the timer for fsk test
+ 180:Core/Src/app_sx126x.c ****     TimerInit(&fsk_tst_timer, GenTriggerPulse);
+ 181:Core/Src/app_sx126x.c ****     TimerSetValue(&fsk_tst_timer, 20);
+ 182:Core/Src/app_sx126x.c **** 
+ 183:Core/Src/app_sx126x.c ****     // Radio initialization
+ 184:Core/Src/app_sx126x.c ****     RadioEvents.TxDone = OnTxDone;
+ 185:Core/Src/app_sx126x.c ****     RadioEvents.RxDone = OnRxDone;
+ 186:Core/Src/app_sx126x.c ****     RadioEvents.TxTimeout = OnTxTimeout;
+ 187:Core/Src/app_sx126x.c ****     RadioEvents.RxTimeout = OnRxTimeout;
+ 188:Core/Src/app_sx126x.c ****     RadioEvents.RxError = OnRxError;
+ 189:Core/Src/app_sx126x.c **** 
+ 190:Core/Src/app_sx126x.c ****     Radio.Init(&RadioEvents);
+ 191:Core/Src/app_sx126x.c **** 
+ 192:Core/Src/app_sx126x.c ****     Radio.SetChannel(RF_FREQUENCY);
+ 193:Core/Src/app_sx126x.c **** 
+ 194:Core/Src/app_sx126x.c **** #if defined(USE_MODEM_LORA)
+ 195:Core/Src/app_sx126x.c **** 
+ 196:Core/Src/app_sx126x.c ****     Radio.SetTxConfig(MODEM_LORA, TX_OUTPUT_POWER, 0, LORA_BANDWIDTH,
+ 197:Core/Src/app_sx126x.c ****                       LORA_SPREADING_FACTOR, LORA_CODINGRATE,
+ 198:Core/Src/app_sx126x.c ****                       LORA_PREAMBLE_LENGTH, LORA_FIX_LENGTH_PAYLOAD_ON,
+ 199:Core/Src/app_sx126x.c ****                       true, 0, 0, LORA_IQ_INVERSION_ON, 3000);
+ 200:Core/Src/app_sx126x.c **** 
+ 201:Core/Src/app_sx126x.c ****     Radio.SetRxConfig(MODEM_LORA, LORA_BANDWIDTH, LORA_SPREADING_FACTOR,
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 5
+
+
+ 202:Core/Src/app_sx126x.c ****                       LORA_CODINGRATE, 0, LORA_PREAMBLE_LENGTH,
+ 203:Core/Src/app_sx126x.c ****                       LORA_SYMBOL_TIMEOUT, LORA_FIX_LENGTH_PAYLOAD_ON,
+ 204:Core/Src/app_sx126x.c ****                       0, true, 0, 0, LORA_IQ_INVERSION_ON, true);
+ 205:Core/Src/app_sx126x.c ****     Radio.Rx(0);
+ 206:Core/Src/app_sx126x.c **** #elif defined(USE_MODEM_FSK)
+ 207:Core/Src/app_sx126x.c **** 
+ 208:Core/Src/app_sx126x.c ****     Radio.SetTxConfig(MODEM_FSK, TX_OUTPUT_POWER, FSK_FDEV, 0,
+ 209:Core/Src/app_sx126x.c ****                       FSK_DATARATE, 0,
+ 210:Core/Src/app_sx126x.c ****                       FSK_PREAMBLE_LENGTH, FSK_FIX_LENGTH_PAYLOAD_ON,
+ 211:Core/Src/app_sx126x.c ****                       true, 0, 0, 0, 3000);
+ 212:Core/Src/app_sx126x.c **** 
+ 213:Core/Src/app_sx126x.c ****     // Radio.SetRxConfig(MODEM_FSK, FSK_BANDWIDTH, FSK_DATARATE,
+ 214:Core/Src/app_sx126x.c ****     //                   0, FSK_AFC_BANDWIDTH, FSK_PREAMBLE_LENGTH,
+ 215:Core/Src/app_sx126x.c ****     //                   0, FSK_FIX_LENGTH_PAYLOAD_ON, FSK_FIX_PAYLOAD_LEN, FSK_CRC_ON,
+ 216:Core/Src/app_sx126x.c ****     //                   0, 0, false, true);
+ 217:Core/Src/app_sx126x.c **** 
+ 218:Core/Src/app_sx126x.c ****     Radio.SetRxConfig(MODEM_FSK, FSK_BANDWIDTH, FSK_DATARATE,
+ 219:Core/Src/app_sx126x.c ****                       0, FSK_AFC_BANDWIDTH, FSK_PREAMBLE_LENGTH,
+ 220:Core/Src/app_sx126x.c ****                       0, FSK_FIX_LENGTH_PAYLOAD_ON, FSK_FIX_PAYLOAD_LEN, FSK_CRC_ON,
+ 221:Core/Src/app_sx126x.c ****                       0, 0, false, true);
+ 222:Core/Src/app_sx126x.c ****     Radio.RxBoosted(0);
+ 223:Core/Src/app_sx126x.c ****     //fsk_state = FSK_TEST_START;
+ 224:Core/Src/app_sx126x.c ****     //TimerStart(&fsk_tst_timer);
+ 225:Core/Src/app_sx126x.c ****     GenTriggerPulse();
+ 226:Core/Src/app_sx126x.c **** 
+ 227:Core/Src/app_sx126x.c **** #elif defined(USE_MODEM_GFSK)
+ 228:Core/Src/app_sx126x.c **** 
+ 229:Core/Src/app_sx126x.c ****     SX126xSetStandby(STDBY_RC);
+ 230:Core/Src/app_sx126x.c **** 
+ 231:Core/Src/app_sx126x.c ****     ModulationParams_t modulationParams;
+ 232:Core/Src/app_sx126x.c ****     modulationParams.PacketType = PACKET_TYPE_GFSK;
+ 233:Core/Src/app_sx126x.c ****     modulationParams.Params.Gfsk.BitRate = 38400;
+ 234:Core/Src/app_sx126x.c ****     modulationParams.Params.Gfsk.Bandwidth = RX_BW_117300;
+ 235:Core/Src/app_sx126x.c ****     modulationParams.Params.Gfsk.Fdev = 50000;
+ 236:Core/Src/app_sx126x.c ****     modulationParams.Params.Gfsk.ModulationShaping = MOD_SHAPING_G_BT_03;
+ 237:Core/Src/app_sx126x.c ****     SX126xSetModulationParams(&modulationParams);
+ 238:Core/Src/app_sx126x.c **** 
+ 239:Core/Src/app_sx126x.c ****     PacketParams_t packetParams;
+ 240:Core/Src/app_sx126x.c ****     packetParams.PacketType = PACKET_TYPE_GFSK;
+ 241:Core/Src/app_sx126x.c ****     packetParams.Params.Gfsk.PayloadLength = 52;
+ 242:Core/Src/app_sx126x.c ****     packetParams.Params.Gfsk.PreambleMinDetect = 10;
+ 243:Core/Src/app_sx126x.c ****     packetParams.Params.Gfsk.CrcLength = RADIO_CRC_OFF;
+ 244:Core/Src/app_sx126x.c ****     packetParams.Params.Gfsk.SyncWordLength = 1;
+ 245:Core/Src/app_sx126x.c ****     SX126xSetPacketParams(&packetParams);
+ 246:Core/Src/app_sx126x.c ****     uint8_t testsyncwd = 0xC1;
+ 247:Core/Src/app_sx126x.c ****     SX126xSetSyncWord(&testsyncwd /*SyncWords*/);
+ 248:Core/Src/app_sx126x.c ****     Radio.Rx(0);
+ 249:Core/Src/app_sx126x.c **** 
+ 250:Core/Src/app_sx126x.c **** #else
+ 251:Core/Src/app_sx126x.c **** #error "Please define a frequency band in the compiler options."
+ 252:Core/Src/app_sx126x.c **** #endif
+ 253:Core/Src/app_sx126x.c **** }
+ 254:Core/Src/app_sx126x.c **** /**
+ 255:Core/Src/app_sx126x.c ****  * @brief sx126x tx packet
+ 256:Core/Src/app_sx126x.c ****  * 
+ 257:Core/Src/app_sx126x.c ****  * @param p 
+ 258:Core/Src/app_sx126x.c ****  * @param len 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 6
+
+
+ 259:Core/Src/app_sx126x.c ****  */
+ 260:Core/Src/app_sx126x.c **** void sx126x_tx_packet(unsigned char *p,unsigned char len)
+ 261:Core/Src/app_sx126x.c **** {
+ 262:Core/Src/app_sx126x.c ****     uint16_t irqRegs;
+ 263:Core/Src/app_sx126x.c ****     int i;
+ 264:Core/Src/app_sx126x.c ****     // Buffer[0]=11^0xff;
+ 265:Core/Src/app_sx126x.c ****     // Buffer[0]=10;
+ 266:Core/Src/app_sx126x.c ****     // for (i = 1; i <= 10; i++)
+ 267:Core/Src/app_sx126x.c ****     // {
+ 268:Core/Src/app_sx126x.c ****     //     // Buffer[i]='A'+i;
+ 269:Core/Src/app_sx126x.c ****     //     // Buffer[i]=0x10+i;
+ 270:Core/Src/app_sx126x.c ****     //     // Buffer[i]=Buffer[i]^xorbuf[i];
+ 271:Core/Src/app_sx126x.c **** 
+ 272:Core/Src/app_sx126x.c ****     // }
+ 273:Core/Src/app_sx126x.c ****     for ( i = 0; i < 7; i++)
+ 274:Core/Src/app_sx126x.c ****     {
+ 275:Core/Src/app_sx126x.c ****         Buffer[i]=0x12+0x10*(i);
+ 276:Core/Src/app_sx126x.c ****         // printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
+ 277:Core/Src/app_sx126x.c ****     }
+ 278:Core/Src/app_sx126x.c ****     
+ 279:Core/Src/app_sx126x.c ****     BufferSize=7;
+ 280:Core/Src/app_sx126x.c ****     Radio.Standby();
+ 281:Core/Src/app_sx126x.c ****     
+ 282:Core/Src/app_sx126x.c ****     DelayMs(2);
+ 283:Core/Src/app_sx126x.c ****     irqRegs=SX126xGetIrqStatus();
+ 284:Core/Src/app_sx126x.c ****     SX126xClearIrqStatus(irqRegs);
+ 285:Core/Src/app_sx126x.c ****     Radio.Send( Buffer, BufferSize );
+ 286:Core/Src/app_sx126x.c ****     i=0;
+ 287:Core/Src/app_sx126x.c ****     while (1)
+ 288:Core/Src/app_sx126x.c ****     {
+ 289:Core/Src/app_sx126x.c ****         irqRegs=SX126xGetIrqStatus();
+ 290:Core/Src/app_sx126x.c ****         // printf("the Irq status is 0x%04x\n",irqRegs);
+ 291:Core/Src/app_sx126x.c ****         if((irqRegs&IRQ_TX_DONE) ==IRQ_TX_DONE)
+ 292:Core/Src/app_sx126x.c ****         {
+ 293:Core/Src/app_sx126x.c ****             printf("transmit finished\n");
+ 294:Core/Src/app_sx126x.c ****             GpioToggle(&Led1);
+ 295:Core/Src/app_sx126x.c ****             break;
+ 296:Core/Src/app_sx126x.c ****         }
+ 297:Core/Src/app_sx126x.c ****         else
+ 298:Core/Src/app_sx126x.c ****         {
+ 299:Core/Src/app_sx126x.c ****             // printf("--------\n");
+ 300:Core/Src/app_sx126x.c ****             i++;
+ 301:Core/Src/app_sx126x.c ****             HAL_Delay(10);
+ 302:Core/Src/app_sx126x.c ****             if(i>=200)
+ 303:Core/Src/app_sx126x.c ****             {
+ 304:Core/Src/app_sx126x.c ****                 printf("transmit timeout\n");
+ 305:Core/Src/app_sx126x.c ****                 break;
+ 306:Core/Src/app_sx126x.c ****             }
+ 307:Core/Src/app_sx126x.c ****         }
+ 308:Core/Src/app_sx126x.c ****     }
+ 309:Core/Src/app_sx126x.c **** 
+ 310:Core/Src/app_sx126x.c **** 
+ 311:Core/Src/app_sx126x.c **** }
+ 312:Core/Src/app_sx126x.c **** /**
+ 313:Core/Src/app_sx126x.c ****  * @brief sx126x rx packet
+ 314:Core/Src/app_sx126x.c ****  * 
+ 315:Core/Src/app_sx126x.c ****  */
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 7
+
+
+ 316:Core/Src/app_sx126x.c **** void sx126x_rx_packet(void)
+ 317:Core/Src/app_sx126x.c **** {
+ 318:Core/Src/app_sx126x.c ****     printf("#TST_Start\n");
+ 319:Core/Src/app_sx126x.c ****     while (1)
+ 320:Core/Src/app_sx126x.c ****     {
+ 321:Core/Src/app_sx126x.c ****         //TimerLowPowerHandler( );
+ 322:Core/Src/app_sx126x.c ****         Radio.IrqProcess();
+ 323:Core/Src/app_sx126x.c ****     }
+ 324:Core/Src/app_sx126x.c **** }
+ 325:Core/Src/app_sx126x.c **** /**
+ 326:Core/Src/app_sx126x.c ****  * @brief 
+ 327:Core/Src/app_sx126x.c ****  * 
+ 328:Core/Src/app_sx126x.c ****  */
+ 329:Core/Src/app_sx126x.c **** void register_test(void)
+ 330:Core/Src/app_sx126x.c **** {
+ 331:Core/Src/app_sx126x.c ****     //write register
+ 332:Core/Src/app_sx126x.c ****     char xx[20];
+ 333:Core/Src/app_sx126x.c ****     int a;
+ 334:Core/Src/app_sx126x.c ****     printf("register write and read test\n");
+ 335:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C0, 0x12);
+ 336:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C1, 0x34);
+ 337:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C2, 0x56);
+ 338:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C3, 0x78);
+ 339:Core/Src/app_sx126x.c **** 
+ 340:Core/Src/app_sx126x.c ****     a=SX126xReadRegister(0x06C0);
+ 341:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 0 is 0x%02x\n",a);
+ 342:Core/Src/app_sx126x.c ****     printf(xx);
+ 343:Core/Src/app_sx126x.c **** 
+ 344:Core/Src/app_sx126x.c ****     a=SX126xReadRegister(0x06C1);
+ 345:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 1 is 0x%02x\n",a);
+ 346:Core/Src/app_sx126x.c ****     printf(xx);
+ 347:Core/Src/app_sx126x.c **** 
+ 348:Core/Src/app_sx126x.c ****     a=SX126xReadRegister(0x06C2);
+ 349:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 2 is 0x%02x\n",a);
+ 350:Core/Src/app_sx126x.c ****     printf(xx);
+ 351:Core/Src/app_sx126x.c **** 
+ 352:Core/Src/app_sx126x.c ****     a=SX126xReadRegister(0x06C3);
+ 353:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 3 is 0x%02x\n",a);
+ 354:Core/Src/app_sx126x.c ****     printf(xx);
+ 355:Core/Src/app_sx126x.c **** }
+ 356:Core/Src/app_sx126x.c **** 
+ 357:Core/Src/app_sx126x.c **** /**
+ 358:Core/Src/app_sx126x.c ****  * @brief receive packet
+ 359:Core/Src/app_sx126x.c ****  * 
+ 360:Core/Src/app_sx126x.c ****  */
+ 361:Core/Src/app_sx126x.c **** void packet_rx(void)
+ 362:Core/Src/app_sx126x.c **** {
+ 363:Core/Src/app_sx126x.c ****     int i;
+ 364:Core/Src/app_sx126x.c ****     uint16_t irqRegs = SX126xGetIrqStatus();
+ 365:Core/Src/app_sx126x.c ****     uint8_t rxbuf[255];
+ 366:Core/Src/app_sx126x.c ****     
+ 367:Core/Src/app_sx126x.c ****     uint8_t size=0;
+ 368:Core/Src/app_sx126x.c ****     PacketStatus_t radiopkstatus;
+ 369:Core/Src/app_sx126x.c ****     SX126xClearIrqStatus(irqRegs);
+ 370:Core/Src/app_sx126x.c ****     // Radio.Rx(0);
+ 371:Core/Src/app_sx126x.c ****     Radio.RxBoosted(0);
+ 372:Core/Src/app_sx126x.c ****     i=0;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 8
+
+
+ 373:Core/Src/app_sx126x.c ****     while (1)
+ 374:Core/Src/app_sx126x.c ****     {
+ 375:Core/Src/app_sx126x.c ****         irqRegs = SX126xGetIrqStatus();
+ 376:Core/Src/app_sx126x.c **** 
+ 377:Core/Src/app_sx126x.c ****         // printf("the Irq status is 0x%04x\n",irqRegs);
+ 378:Core/Src/app_sx126x.c ****         if((irqRegs&IRQ_RX_DONE)==IRQ_RX_DONE)
+ 379:Core/Src/app_sx126x.c ****         {
+ 380:Core/Src/app_sx126x.c ****             printf("receive packet successfully\n");
+ 381:Core/Src/app_sx126x.c ****             GpioToggle(&Led2);
+ 382:Core/Src/app_sx126x.c **** 
+ 383:Core/Src/app_sx126x.c ****             SX126xGetPayload( rxbuf, &size , 255 );
+ 384:Core/Src/app_sx126x.c ****             printf("the receive length is %d\n",size);
+ 385:Core/Src/app_sx126x.c ****             // size=20;
+ 386:Core/Src/app_sx126x.c ****             for (i = 0; i < size; i++)
+ 387:Core/Src/app_sx126x.c ****             {
+ 388:Core/Src/app_sx126x.c ****                 // rxbuf[i]=rxbuf[i]^xorbuf[i];
+ 389:Core/Src/app_sx126x.c ****                 printf("0x%02x ,",rxbuf[i]);
+ 390:Core/Src/app_sx126x.c ****                 // printf("%c ",rxbuf[i]);
+ 391:Core/Src/app_sx126x.c ****             }
+ 392:Core/Src/app_sx126x.c ****             // printf("\nthe crc is :");
+ 393:Core/Src/app_sx126x.c ****             // printf("0x%02x ,",rxbuf[11]);
+ 394:Core/Src/app_sx126x.c ****             // printf("0x%02x ,",rxbuf[12]);
+ 395:Core/Src/app_sx126x.c ****             printf("\n");
+ 396:Core/Src/app_sx126x.c ****             SX126xGetPacketStatus(&radiopkstatus);
+ 397:Core/Src/app_sx126x.c ****             printf("the rssi is %d\n", radiopkstatus.Params.Gfsk.RssiAvg);
+ 398:Core/Src/app_sx126x.c **** 
+ 399:Core/Src/app_sx126x.c ****             break;
+ 400:Core/Src/app_sx126x.c ****         }
+ 401:Core/Src/app_sx126x.c ****         else
+ 402:Core/Src/app_sx126x.c ****         {
+ 403:Core/Src/app_sx126x.c ****             i++;
+ 404:Core/Src/app_sx126x.c ****             HAL_Delay(1);
+ 405:Core/Src/app_sx126x.c ****             if(i>=100)
+ 406:Core/Src/app_sx126x.c ****             {
+ 407:Core/Src/app_sx126x.c ****                 printf("receive timeout\n");
+ 408:Core/Src/app_sx126x.c ****                 break;
+ 409:Core/Src/app_sx126x.c ****             }
+ 410:Core/Src/app_sx126x.c ****         }
+ 411:Core/Src/app_sx126x.c ****     }
+ 412:Core/Src/app_sx126x.c ****     Radio.Standby();
+ 413:Core/Src/app_sx126x.c ****     HAL_Delay(10);
+ 414:Core/Src/app_sx126x.c **** }
+ 415:Core/Src/app_sx126x.c **** 
+ 416:Core/Src/app_sx126x.c **** /**
+ 417:Core/Src/app_sx126x.c ****  * @brief crc16 for IBM
+ 418:Core/Src/app_sx126x.c ****  * which can get the same result as si4463
+ 419:Core/Src/app_sx126x.c ****  * the important factor is not reverse,start from the MSB
+ 420:Core/Src/app_sx126x.c ****  * @param data
+ 421:Core/Src/app_sx126x.c ****  * @param length 
+ 422:Core/Src/app_sx126x.c ****  * @return unsigned int 
+ 423:Core/Src/app_sx126x.c ****  */
+ 424:Core/Src/app_sx126x.c **** unsigned int crc16(unsigned char *data, unsigned char length)
+ 425:Core/Src/app_sx126x.c **** {
+ 426:Core/Src/app_sx126x.c ****   int j;
+ 427:Core/Src/app_sx126x.c ****   // unsigned int reg_crc = 0xFFFF;
+ 428:Core/Src/app_sx126x.c ****   unsigned int reg_crc = 0x0000;
+ 429:Core/Src/app_sx126x.c ****   // unsigned int reg_crc = 0x4230;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 9
+
+
+ 430:Core/Src/app_sx126x.c ****   while (length--)
+ 431:Core/Src/app_sx126x.c ****   {
+ 432:Core/Src/app_sx126x.c **** 
+ 433:Core/Src/app_sx126x.c ****     reg_crc ^= (*data++<<8);
+ 434:Core/Src/app_sx126x.c ****     for (j = 0; j < 8; j++)
+ 435:Core/Src/app_sx126x.c ****     {
+ 436:Core/Src/app_sx126x.c ****       if (reg_crc & 0x8000)
+ 437:Core/Src/app_sx126x.c ****       {
+ 438:Core/Src/app_sx126x.c ****         // reg_crc = (reg_crc >> 1) ^ 0xA001;
+ 439:Core/Src/app_sx126x.c ****         reg_crc = (reg_crc << 1) ^ 0x8005;
+ 440:Core/Src/app_sx126x.c ****       }
+ 441:Core/Src/app_sx126x.c ****       else
+ 442:Core/Src/app_sx126x.c ****       {
+ 443:Core/Src/app_sx126x.c ****         reg_crc = reg_crc << 1;
+ 444:Core/Src/app_sx126x.c ****       }
+ 445:Core/Src/app_sx126x.c ****     }
+ 446:Core/Src/app_sx126x.c ****   }
+ 447:Core/Src/app_sx126x.c ****   reg_crc&=0xffff;
+ 448:Core/Src/app_sx126x.c ****   return reg_crc;
+ 449:Core/Src/app_sx126x.c **** }
+ 450:Core/Src/app_sx126x.c **** 
+ 451:Core/Src/app_sx126x.c **** 
+ 452:Core/Src/app_sx126x.c **** /**
+ 453:Core/Src/app_sx126x.c ****  * Main application entry point.
+ 454:Core/Src/app_sx126x.c ****  */
+ 455:Core/Src/app_sx126x.c **** int main1( void )
+ 456:Core/Src/app_sx126x.c **** {
+ 457:Core/Src/app_sx126x.c ****     bool isMaster = true;
+ 458:Core/Src/app_sx126x.c ****     uint8_t i;
+ 459:Core/Src/app_sx126x.c **** 
+ 460:Core/Src/app_sx126x.c ****     // Target board initialization
+ 461:Core/Src/app_sx126x.c ****     BoardInitMcu( );
+ 462:Core/Src/app_sx126x.c ****     BoardInitPeriph( );
+ 463:Core/Src/app_sx126x.c **** 	
+ 464:Core/Src/app_sx126x.c **** 	  //Init the timer for fsk test
+ 465:Core/Src/app_sx126x.c **** 	  TimerInit(&fsk_tst_timer,GenTriggerPulse);
+ 466:Core/Src/app_sx126x.c **** 		TimerSetValue(&fsk_tst_timer,20);
+ 467:Core/Src/app_sx126x.c **** 
+ 468:Core/Src/app_sx126x.c ****     // Radio initialization
+ 469:Core/Src/app_sx126x.c ****     RadioEvents.TxDone = OnTxDone;
+ 470:Core/Src/app_sx126x.c ****     RadioEvents.RxDone = OnRxDone;
+ 471:Core/Src/app_sx126x.c ****     RadioEvents.TxTimeout = OnTxTimeout;
+ 472:Core/Src/app_sx126x.c ****     RadioEvents.RxTimeout = OnRxTimeout;
+ 473:Core/Src/app_sx126x.c ****     RadioEvents.RxError = OnRxError;
+ 474:Core/Src/app_sx126x.c **** 
+ 475:Core/Src/app_sx126x.c ****     Radio.Init( &RadioEvents );
+ 476:Core/Src/app_sx126x.c **** 
+ 477:Core/Src/app_sx126x.c ****     Radio.SetChannel( RF_FREQUENCY );
+ 478:Core/Src/app_sx126x.c **** 
+ 479:Core/Src/app_sx126x.c **** #if defined( USE_MODEM_LORA )
+ 480:Core/Src/app_sx126x.c **** 
+ 481:Core/Src/app_sx126x.c ****     Radio.SetTxConfig( MODEM_LORA, TX_OUTPUT_POWER, 0, LORA_BANDWIDTH,
+ 482:Core/Src/app_sx126x.c ****                                    LORA_SPREADING_FACTOR, LORA_CODINGRATE,
+ 483:Core/Src/app_sx126x.c ****                                    LORA_PREAMBLE_LENGTH, LORA_FIX_LENGTH_PAYLOAD_ON,
+ 484:Core/Src/app_sx126x.c ****                                    true, 0, 0, LORA_IQ_INVERSION_ON, 3000 );
+ 485:Core/Src/app_sx126x.c **** 
+ 486:Core/Src/app_sx126x.c ****     Radio.SetRxConfig( MODEM_LORA, LORA_BANDWIDTH, LORA_SPREADING_FACTOR,
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 10
+
+
+ 487:Core/Src/app_sx126x.c ****                                    LORA_CODINGRATE, 0, LORA_PREAMBLE_LENGTH,
+ 488:Core/Src/app_sx126x.c ****                                    LORA_SYMBOL_TIMEOUT, LORA_FIX_LENGTH_PAYLOAD_ON,
+ 489:Core/Src/app_sx126x.c ****                                    0, true, 0, 0, LORA_IQ_INVERSION_ON, true );
+ 490:Core/Src/app_sx126x.c **** 		Radio.Rx( 0 );
+ 491:Core/Src/app_sx126x.c **** #elif defined( USE_MODEM_FSK )
+ 492:Core/Src/app_sx126x.c **** 
+ 493:Core/Src/app_sx126x.c ****     Radio.SetTxConfig( MODEM_FSK, TX_OUTPUT_POWER, FSK_FDEV, 0,
+ 494:Core/Src/app_sx126x.c ****                                   FSK_DATARATE, 0,
+ 495:Core/Src/app_sx126x.c ****                                   FSK_PREAMBLE_LENGTH, FSK_FIX_LENGTH_PAYLOAD_ON,
+ 496:Core/Src/app_sx126x.c ****                                   true, 0, 0, 0, 3000 );
+ 497:Core/Src/app_sx126x.c **** 																														
+ 498:Core/Src/app_sx126x.c **** 	
+ 499:Core/Src/app_sx126x.c ****     Radio.SetRxConfig( MODEM_FSK, FSK_BANDWIDTH, FSK_DATARATE,
+ 500:Core/Src/app_sx126x.c ****                                   0, FSK_AFC_BANDWIDTH, FSK_PREAMBLE_LENGTH,
+ 501:Core/Src/app_sx126x.c ****                                   0, FSK_FIX_LENGTH_PAYLOAD_ON, FSK_FIX_PAYLOAD_LEN, FSK_CRC_ON,
+ 502:Core/Src/app_sx126x.c ****                                   0, 0,false, true );
+ 503:Core/Src/app_sx126x.c **** 		Radio.RxBoosted(0);
+ 504:Core/Src/app_sx126x.c **** 		//fsk_state = FSK_TEST_START;
+ 505:Core/Src/app_sx126x.c **** 		//TimerStart(&fsk_tst_timer);
+ 506:Core/Src/app_sx126x.c ****     GenTriggerPulse();
+ 507:Core/Src/app_sx126x.c **** 
+ 508:Core/Src/app_sx126x.c **** #elif defined( USE_MODEM_GFSK )
+ 509:Core/Src/app_sx126x.c **** 
+ 510:Core/Src/app_sx126x.c **** 		SX126xSetStandby(STDBY_RC);
+ 511:Core/Src/app_sx126x.c **** 	
+ 512:Core/Src/app_sx126x.c **** 		ModulationParams_t modulationParams;
+ 513:Core/Src/app_sx126x.c **** 		modulationParams.PacketType = PACKET_TYPE_GFSK;
+ 514:Core/Src/app_sx126x.c **** 		modulationParams.Params.Gfsk.BitRate = 38400;
+ 515:Core/Src/app_sx126x.c **** 		modulationParams.Params.Gfsk.Bandwidth = RX_BW_117300;
+ 516:Core/Src/app_sx126x.c **** 		modulationParams.Params.Gfsk.Fdev = 50000;
+ 517:Core/Src/app_sx126x.c **** 		modulationParams.Params.Gfsk.ModulationShaping = MOD_SHAPING_G_BT_03;
+ 518:Core/Src/app_sx126x.c **** 		SX126xSetModulationParams(&modulationParams);
+ 519:Core/Src/app_sx126x.c **** 		
+ 520:Core/Src/app_sx126x.c **** 		PacketParams_t packetParams;
+ 521:Core/Src/app_sx126x.c **** 		packetParams.PacketType = PACKET_TYPE_GFSK;
+ 522:Core/Src/app_sx126x.c **** 		packetParams.Params.Gfsk.PayloadLength = 52;
+ 523:Core/Src/app_sx126x.c **** 		packetParams.Params.Gfsk.PreambleMinDetect = 10;
+ 524:Core/Src/app_sx126x.c **** 		packetParams.Params.Gfsk.CrcLength = RADIO_CRC_OFF;
+ 525:Core/Src/app_sx126x.c **** 		packetParams.Params.Gfsk.SyncWordLength = 1;
+ 526:Core/Src/app_sx126x.c **** 		SX126xSetPacketParams(&packetParams);
+ 527:Core/Src/app_sx126x.c **** 		uint8_t testsyncwd = 0xC1;
+ 528:Core/Src/app_sx126x.c **** 		SX126xSetSyncWord(&testsyncwd/*SyncWords*/);
+ 529:Core/Src/app_sx126x.c **** 		Radio.Rx(0);
+ 530:Core/Src/app_sx126x.c **** 	  
+ 531:Core/Src/app_sx126x.c **** 		
+ 532:Core/Src/app_sx126x.c **** #else
+ 533:Core/Src/app_sx126x.c ****     #error "Please define a frequency band in the compiler options."
+ 534:Core/Src/app_sx126x.c **** #endif
+ 535:Core/Src/app_sx126x.c **** 
+ 536:Core/Src/app_sx126x.c **** 		printf("#TST_Start\n");
+ 537:Core/Src/app_sx126x.c **** 		while(1)
+ 538:Core/Src/app_sx126x.c **** 		{
+ 539:Core/Src/app_sx126x.c **** 			//TimerLowPowerHandler( );
+ 540:Core/Src/app_sx126x.c **** 			Radio.IrqProcess( );
+ 541:Core/Src/app_sx126x.c **** 		}
+ 542:Core/Src/app_sx126x.c **** 
+ 543:Core/Src/app_sx126x.c **** #if 0
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 11
+
+
+ 544:Core/Src/app_sx126x.c ****     while( 1 )
+ 545:Core/Src/app_sx126x.c ****     {
+ 546:Core/Src/app_sx126x.c ****         switch( State )
+ 547:Core/Src/app_sx126x.c ****         {
+ 548:Core/Src/app_sx126x.c ****         case RX:
+ 549:Core/Src/app_sx126x.c ****             if( isMaster == true )
+ 550:Core/Src/app_sx126x.c ****             {
+ 551:Core/Src/app_sx126x.c ****                 if( BufferSize > 0 )
+ 552:Core/Src/app_sx126x.c ****                 {
+ 553:Core/Src/app_sx126x.c ****                     if( strncmp( ( const char* )Buffer, ( const char* )PongMsg, 4 ) == 0 )
+ 554:Core/Src/app_sx126x.c ****                     {
+ 555:Core/Src/app_sx126x.c ****                         // Indicates on a LED that the received frame is a PONG
+ 556:Core/Src/app_sx126x.c ****                         GpioToggle( &Led1 );
+ 557:Core/Src/app_sx126x.c **** 
+ 558:Core/Src/app_sx126x.c ****                         // Send the next PING frame
+ 559:Core/Src/app_sx126x.c ****                         Buffer[0] = 'P';
+ 560:Core/Src/app_sx126x.c ****                         Buffer[1] = 'I';
+ 561:Core/Src/app_sx126x.c ****                         Buffer[2] = 'N';
+ 562:Core/Src/app_sx126x.c ****                         Buffer[3] = 'G';
+ 563:Core/Src/app_sx126x.c ****                         // We fill the buffer with numbers for the payload
+ 564:Core/Src/app_sx126x.c ****                         for( i = 4; i < BufferSize; i++ )
+ 565:Core/Src/app_sx126x.c ****                         {
+ 566:Core/Src/app_sx126x.c ****                             Buffer[i] = i - 4;
+ 567:Core/Src/app_sx126x.c ****                         }
+ 568:Core/Src/app_sx126x.c ****                         DelayMs( 1 );
+ 569:Core/Src/app_sx126x.c ****                         Radio.Send( Buffer, BufferSize );
+ 570:Core/Src/app_sx126x.c ****                     }
+ 571:Core/Src/app_sx126x.c ****                     else if( strncmp( ( const char* )Buffer, ( const char* )PingMsg, 4 ) == 0 )
+ 572:Core/Src/app_sx126x.c ****                     { // A master already exists then become a slave
+ 573:Core/Src/app_sx126x.c ****                         isMaster = false;
+ 574:Core/Src/app_sx126x.c ****                         GpioToggle( &Led2 ); // Set LED off
+ 575:Core/Src/app_sx126x.c ****                         Radio.Rx( RX_TIMEOUT_VALUE );
+ 576:Core/Src/app_sx126x.c ****                     }
+ 577:Core/Src/app_sx126x.c ****                     else // valid reception but neither a PING or a PONG message
+ 578:Core/Src/app_sx126x.c ****                     {    // Set device as master ans start again
+ 579:Core/Src/app_sx126x.c ****                         isMaster = true;
+ 580:Core/Src/app_sx126x.c ****                         Radio.Rx( RX_TIMEOUT_VALUE );
+ 581:Core/Src/app_sx126x.c ****                     }
+ 582:Core/Src/app_sx126x.c ****                 }
+ 583:Core/Src/app_sx126x.c ****             }
+ 584:Core/Src/app_sx126x.c ****             else
+ 585:Core/Src/app_sx126x.c ****             {
+ 586:Core/Src/app_sx126x.c ****                 if( BufferSize > 0 )
+ 587:Core/Src/app_sx126x.c ****                 {
+ 588:Core/Src/app_sx126x.c ****                     if( strncmp( ( const char* )Buffer, ( const char* )PingMsg, 4 ) == 0 )
+ 589:Core/Src/app_sx126x.c ****                     {
+ 590:Core/Src/app_sx126x.c ****                         // Indicates on a LED that the received frame is a PING
+ 591:Core/Src/app_sx126x.c ****                         GpioToggle( &Led1 );
+ 592:Core/Src/app_sx126x.c **** 
+ 593:Core/Src/app_sx126x.c ****                         // Send the reply to the PONG string
+ 594:Core/Src/app_sx126x.c ****                         Buffer[0] = 'P';
+ 595:Core/Src/app_sx126x.c ****                         Buffer[1] = 'O';
+ 596:Core/Src/app_sx126x.c ****                         Buffer[2] = 'N';
+ 597:Core/Src/app_sx126x.c ****                         Buffer[3] = 'G';
+ 598:Core/Src/app_sx126x.c ****                         // We fill the buffer with numbers for the payload
+ 599:Core/Src/app_sx126x.c ****                         for( i = 4; i < BufferSize; i++ )
+ 600:Core/Src/app_sx126x.c ****                         {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 12
+
+
+ 601:Core/Src/app_sx126x.c ****                             Buffer[i] = i - 4;
+ 602:Core/Src/app_sx126x.c ****                         }
+ 603:Core/Src/app_sx126x.c ****                         DelayMs( 1 );
+ 604:Core/Src/app_sx126x.c ****                         Radio.Send( Buffer, BufferSize );
+ 605:Core/Src/app_sx126x.c ****                     }
+ 606:Core/Src/app_sx126x.c ****                     else // valid reception but not a PING as expected
+ 607:Core/Src/app_sx126x.c ****                     {    // Set device as master and start again
+ 608:Core/Src/app_sx126x.c ****                         isMaster = true;
+ 609:Core/Src/app_sx126x.c ****                         Radio.Rx( RX_TIMEOUT_VALUE );
+ 610:Core/Src/app_sx126x.c ****                     }
+ 611:Core/Src/app_sx126x.c ****                 }
+ 612:Core/Src/app_sx126x.c ****             }
+ 613:Core/Src/app_sx126x.c ****             State = LOWPOWER;
+ 614:Core/Src/app_sx126x.c ****             break;
+ 615:Core/Src/app_sx126x.c ****         case TX:
+ 616:Core/Src/app_sx126x.c ****             // Indicates on a LED that we have sent a PING [Master]
+ 617:Core/Src/app_sx126x.c ****             // Indicates on a LED that we have sent a PONG [Slave]
+ 618:Core/Src/app_sx126x.c ****             GpioToggle( &Led2 );
+ 619:Core/Src/app_sx126x.c ****             Radio.Rx( RX_TIMEOUT_VALUE );
+ 620:Core/Src/app_sx126x.c ****             State = LOWPOWER;
+ 621:Core/Src/app_sx126x.c ****             break;
+ 622:Core/Src/app_sx126x.c ****         case RX_TIMEOUT:
+ 623:Core/Src/app_sx126x.c ****         case RX_ERROR:
+ 624:Core/Src/app_sx126x.c ****             if( isMaster == true )
+ 625:Core/Src/app_sx126x.c ****             {
+ 626:Core/Src/app_sx126x.c ****                 // Send the next PING frame
+ 627:Core/Src/app_sx126x.c ****                 Buffer[0] = 'P';
+ 628:Core/Src/app_sx126x.c ****                 Buffer[1] = 'I';
+ 629:Core/Src/app_sx126x.c ****                 Buffer[2] = 'N';
+ 630:Core/Src/app_sx126x.c ****                 Buffer[3] = 'G';
+ 631:Core/Src/app_sx126x.c ****                 for( i = 4; i < BufferSize; i++ )
+ 632:Core/Src/app_sx126x.c ****                 {
+ 633:Core/Src/app_sx126x.c ****                     Buffer[i] = i - 4;
+ 634:Core/Src/app_sx126x.c ****                 }
+ 635:Core/Src/app_sx126x.c ****                 DelayMs( 1 );
+ 636:Core/Src/app_sx126x.c ****                 Radio.Send( Buffer, BufferSize );
+ 637:Core/Src/app_sx126x.c ****             }
+ 638:Core/Src/app_sx126x.c ****             else
+ 639:Core/Src/app_sx126x.c ****             {
+ 640:Core/Src/app_sx126x.c ****                 Radio.Rx( RX_TIMEOUT_VALUE );
+ 641:Core/Src/app_sx126x.c ****             }
+ 642:Core/Src/app_sx126x.c ****             State = LOWPOWER;
+ 643:Core/Src/app_sx126x.c ****             break;
+ 644:Core/Src/app_sx126x.c ****         case TX_TIMEOUT:
+ 645:Core/Src/app_sx126x.c ****             Radio.Rx( RX_TIMEOUT_VALUE );
+ 646:Core/Src/app_sx126x.c ****             State = LOWPOWER;
+ 647:Core/Src/app_sx126x.c ****             break;
+ 648:Core/Src/app_sx126x.c ****         case LOWPOWER:
+ 649:Core/Src/app_sx126x.c ****         default:
+ 650:Core/Src/app_sx126x.c ****             // Set low power
+ 651:Core/Src/app_sx126x.c ****             break;
+ 652:Core/Src/app_sx126x.c ****         }
+ 653:Core/Src/app_sx126x.c **** 
+ 654:Core/Src/app_sx126x.c ****         TimerLowPowerHandler( );
+ 655:Core/Src/app_sx126x.c ****         // Process Radio IRQ
+ 656:Core/Src/app_sx126x.c ****         Radio.IrqProcess( );
+ 657:Core/Src/app_sx126x.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 13
+
+
+ 658:Core/Src/app_sx126x.c ****     }
+ 659:Core/Src/app_sx126x.c **** #endif
+ 660:Core/Src/app_sx126x.c **** }
+ 661:Core/Src/app_sx126x.c **** 
+ 662:Core/Src/app_sx126x.c **** void OnTxDone( void )
+ 663:Core/Src/app_sx126x.c **** {
+  29              		.loc 1 663 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+ 664:Core/Src/app_sx126x.c ****     Radio.Sleep( );
+  38              		.loc 1 664 5 view .LVU1
+  39              		.loc 1 664 10 is_stmt 0 view .LVU2
+  40 0002 034B     		ldr	r3, .L3
+  41 0004 DB6A     		ldr	r3, [r3, #44]
+  42              		.loc 1 664 5 view .LVU3
+  43 0006 9847     		blx	r3
+  44              	.LVL0:
+ 665:Core/Src/app_sx126x.c ****     State = TX;
+  45              		.loc 1 665 5 is_stmt 1 view .LVU4
+  46              		.loc 1 665 11 is_stmt 0 view .LVU5
+  47 0008 024B     		ldr	r3, .L3+4
+  48 000a 0422     		movs	r2, #4
+  49 000c 1A70     		strb	r2, [r3]
+ 666:Core/Src/app_sx126x.c **** }
+  50              		.loc 1 666 1 view .LVU6
+  51 000e 08BD     		pop	{r3, pc}
+  52              	.L4:
+  53              		.align	2
+  54              	.L3:
+  55 0010 00000000 		.word	Radio
+  56 0014 00000000 		.word	.LANCHOR0
+  57              		.cfi_endproc
+  58              	.LFE143:
+  60              		.section	.text.OnTxTimeout,"ax",%progbits
+  61              		.align	1
+  62              		.global	OnTxTimeout
+  63              		.syntax unified
+  64              		.thumb
+  65              		.thumb_func
+  66              		.fpu fpv4-sp-d16
+  68              	OnTxTimeout:
+  69              	.LFB146:
+ 667:Core/Src/app_sx126x.c **** void DUMP(uint8_t* payload, uint16_t len)
+ 668:Core/Src/app_sx126x.c **** {
+ 669:Core/Src/app_sx126x.c **** 	printf("payload recieved\n");
+ 670:Core/Src/app_sx126x.c **** 	uint16_t i = 0;
+ 671:Core/Src/app_sx126x.c **** 	for(i = 0; i< len; i++)
+ 672:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 673:Core/Src/app_sx126x.c **** 	printf("\n");
+ 674:Core/Src/app_sx126x.c **** }
+ 675:Core/Src/app_sx126x.c **** 
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 14
+
+
+ 676:Core/Src/app_sx126x.c **** void OnRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr )
+ 677:Core/Src/app_sx126x.c **** {
+ 678:Core/Src/app_sx126x.c **** #if 0
+ 679:Core/Src/app_sx126x.c ****     Radio.Sleep( );
+ 680:Core/Src/app_sx126x.c ****     BufferSize = size;
+ 681:Core/Src/app_sx126x.c ****     memcpy( Buffer, payload, BufferSize );
+ 682:Core/Src/app_sx126x.c ****     RssiValue = rssi;
+ 683:Core/Src/app_sx126x.c ****     SnrValue = snr;
+ 684:Core/Src/app_sx126x.c ****     State = RX;
+ 685:Core/Src/app_sx126x.c **** #endif
+ 686:Core/Src/app_sx126x.c **** 		printf("RX done\r\n");
+ 687:Core/Src/app_sx126x.c ****     DUMP(payload, size);
+ 688:Core/Src/app_sx126x.c **** 	  //pkt_rx_num++;
+ 689:Core/Src/app_sx126x.c **** 	  //printf("#PKT: %d, RSSI: %d\n",++pkt_rx_num,rssi);
+ 690:Core/Src/app_sx126x.c **** 		State = RX;
+ 691:Core/Src/app_sx126x.c **** 	  Radio.Rx(0);
+ 692:Core/Src/app_sx126x.c **** }
+ 693:Core/Src/app_sx126x.c **** 
+ 694:Core/Src/app_sx126x.c **** void OnTxTimeout( void )
+ 695:Core/Src/app_sx126x.c **** {
+  70              		.loc 1 695 1 is_stmt 1 view -0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74 0000 08B5     		push	{r3, lr}
+  75              	.LCFI1:
+  76              		.cfi_def_cfa_offset 8
+  77              		.cfi_offset 3, -8
+  78              		.cfi_offset 14, -4
+ 696:Core/Src/app_sx126x.c ****     Radio.Sleep( );
+  79              		.loc 1 696 5 view .LVU8
+  80              		.loc 1 696 10 is_stmt 0 view .LVU9
+  81 0002 034B     		ldr	r3, .L7
+  82 0004 DB6A     		ldr	r3, [r3, #44]
+  83              		.loc 1 696 5 view .LVU10
+  84 0006 9847     		blx	r3
+  85              	.LVL1:
+ 697:Core/Src/app_sx126x.c ****     State = TX_TIMEOUT;
+  86              		.loc 1 697 5 is_stmt 1 view .LVU11
+  87              		.loc 1 697 11 is_stmt 0 view .LVU12
+  88 0008 024B     		ldr	r3, .L7+4
+  89 000a 0522     		movs	r2, #5
+  90 000c 1A70     		strb	r2, [r3]
+ 698:Core/Src/app_sx126x.c **** }
+  91              		.loc 1 698 1 view .LVU13
+  92 000e 08BD     		pop	{r3, pc}
+  93              	.L8:
+  94              		.align	2
+  95              	.L7:
+  96 0010 00000000 		.word	Radio
+  97 0014 00000000 		.word	.LANCHOR0
+  98              		.cfi_endproc
+  99              	.LFE146:
+ 101              		.section	.text.GenTriggerPulse,"ax",%progbits
+ 102              		.align	1
+ 103              		.global	GenTriggerPulse
+ 104              		.syntax unified
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 15
+
+
+ 105              		.thumb
+ 106              		.thumb_func
+ 107              		.fpu fpv4-sp-d16
+ 109              	GenTriggerPulse:
+ 110              	.LFB135:
+ 148:Core/Src/app_sx126x.c **** 	GpioWrite(&Led2, 0);
+ 111              		.loc 1 148 1 is_stmt 1 view -0
+ 112              		.cfi_startproc
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115 0000 10B5     		push	{r4, lr}
+ 116              	.LCFI2:
+ 117              		.cfi_def_cfa_offset 8
+ 118              		.cfi_offset 4, -8
+ 119              		.cfi_offset 14, -4
+ 149:Core/Src/app_sx126x.c **** 	DelayMs(1);
+ 120              		.loc 1 149 2 view .LVU15
+ 121 0002 0A4C     		ldr	r4, .L11
+ 122 0004 0021     		movs	r1, #0
+ 123 0006 2046     		mov	r0, r4
+ 124 0008 FFF7FEFF 		bl	GpioWrite
+ 125              	.LVL2:
+ 150:Core/Src/app_sx126x.c **** 	GpioWrite(&Led2, 1);
+ 126              		.loc 1 150 2 view .LVU16
+ 127 000c 0120     		movs	r0, #1
+ 128 000e FFF7FEFF 		bl	DelayMs
+ 129              	.LVL3:
+ 151:Core/Src/app_sx126x.c **** 	DelayMs(1);
+ 130              		.loc 1 151 2 view .LVU17
+ 131 0012 0121     		movs	r1, #1
+ 132 0014 2046     		mov	r0, r4
+ 133 0016 FFF7FEFF 		bl	GpioWrite
+ 134              	.LVL4:
+ 152:Core/Src/app_sx126x.c **** 	GpioWrite(&Led2, 0);
+ 135              		.loc 1 152 2 view .LVU18
+ 136 001a 0120     		movs	r0, #1
+ 137 001c FFF7FEFF 		bl	DelayMs
+ 138              	.LVL5:
+ 153:Core/Src/app_sx126x.c **** #if 0
+ 139              		.loc 1 153 2 view .LVU19
+ 140 0020 0021     		movs	r1, #0
+ 141 0022 2046     		mov	r0, r4
+ 142 0024 FFF7FEFF 		bl	GpioWrite
+ 143              	.LVL6:
+ 165:Core/Src/app_sx126x.c **** /**
+ 144              		.loc 1 165 1 is_stmt 0 view .LVU20
+ 145 0028 10BD     		pop	{r4, pc}
+ 146              	.L12:
+ 147 002a 00BF     		.align	2
+ 148              	.L11:
+ 149 002c 00000000 		.word	Led2
+ 150              		.cfi_endproc
+ 151              	.LFE135:
+ 153              		.section	.rodata.OnRxTimeout.str1.4,"aMS",%progbits,1
+ 154              		.align	2
+ 155              	.LC0:
+ 156 0000 52782074 		.ascii	"Rx timeout\000"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 16
+
+
+ 156      696D656F 
+ 156      757400
+ 157              		.section	.text.OnRxTimeout,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	OnRxTimeout
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.fpu fpv4-sp-d16
+ 165              	OnRxTimeout:
+ 166              	.LFB147:
+ 699:Core/Src/app_sx126x.c **** 
+ 700:Core/Src/app_sx126x.c **** void OnRxTimeout( void )
+ 701:Core/Src/app_sx126x.c **** {
+ 167              		.loc 1 701 1 is_stmt 1 view -0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171 0000 08B5     		push	{r3, lr}
+ 172              	.LCFI3:
+ 173              		.cfi_def_cfa_offset 8
+ 174              		.cfi_offset 3, -8
+ 175              		.cfi_offset 14, -4
+ 702:Core/Src/app_sx126x.c **** #if 0
+ 703:Core/Src/app_sx126x.c ****     Radio.Sleep( );
+ 704:Core/Src/app_sx126x.c ****     State = RX_TIMEOUT;
+ 705:Core/Src/app_sx126x.c **** #endif
+ 706:Core/Src/app_sx126x.c **** 		 printf("Rx timeout\n");
+ 176              		.loc 1 706 4 view .LVU22
+ 177 0002 0448     		ldr	r0, .L15
+ 178 0004 FFF7FEFF 		bl	puts
+ 179              	.LVL7:
+ 707:Core/Src/app_sx126x.c **** 	 Radio.Rx(0);
+ 180              		.loc 1 707 3 view .LVU23
+ 181              		.loc 1 707 8 is_stmt 0 view .LVU24
+ 182 0008 034B     		ldr	r3, .L15+4
+ 183 000a 5B6B     		ldr	r3, [r3, #52]
+ 184              		.loc 1 707 3 view .LVU25
+ 185 000c 0020     		movs	r0, #0
+ 186 000e 9847     		blx	r3
+ 187              	.LVL8:
+ 708:Core/Src/app_sx126x.c **** }
+ 188              		.loc 1 708 1 view .LVU26
+ 189 0010 08BD     		pop	{r3, pc}
+ 190              	.L16:
+ 191 0012 00BF     		.align	2
+ 192              	.L15:
+ 193 0014 00000000 		.word	.LC0
+ 194 0018 00000000 		.word	Radio
+ 195              		.cfi_endproc
+ 196              	.LFE147:
+ 198              		.section	.rodata.OnRxError.str1.4,"aMS",%progbits,1
+ 199              		.align	2
+ 200              	.LC1:
+ 201 0000 52782065 		.ascii	"Rx error\000"
+ 201      72726F72 
+ 201      00
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 17
+
+
+ 202              		.section	.text.OnRxError,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	OnRxError
+ 205              		.syntax unified
+ 206              		.thumb
+ 207              		.thumb_func
+ 208              		.fpu fpv4-sp-d16
+ 210              	OnRxError:
+ 211              	.LFB148:
+ 709:Core/Src/app_sx126x.c **** 
+ 710:Core/Src/app_sx126x.c **** void OnRxError( void )
+ 711:Core/Src/app_sx126x.c **** {
+ 212              		.loc 1 711 1 is_stmt 1 view -0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216 0000 08B5     		push	{r3, lr}
+ 217              	.LCFI4:
+ 218              		.cfi_def_cfa_offset 8
+ 219              		.cfi_offset 3, -8
+ 220              		.cfi_offset 14, -4
+ 712:Core/Src/app_sx126x.c **** #if 0
+ 713:Core/Src/app_sx126x.c ****     Radio.Sleep( );
+ 714:Core/Src/app_sx126x.c ****     State = RX_ERROR;
+ 715:Core/Src/app_sx126x.c **** #endif
+ 716:Core/Src/app_sx126x.c **** 	 printf("Rx error\n");
+ 221              		.loc 1 716 3 view .LVU28
+ 222 0002 0448     		ldr	r0, .L19
+ 223 0004 FFF7FEFF 		bl	puts
+ 224              	.LVL9:
+ 717:Core/Src/app_sx126x.c **** 	 Radio.Rx(0);
+ 225              		.loc 1 717 3 view .LVU29
+ 226              		.loc 1 717 8 is_stmt 0 view .LVU30
+ 227 0008 034B     		ldr	r3, .L19+4
+ 228 000a 5B6B     		ldr	r3, [r3, #52]
+ 229              		.loc 1 717 3 view .LVU31
+ 230 000c 0020     		movs	r0, #0
+ 231 000e 9847     		blx	r3
+ 232              	.LVL10:
+ 718:Core/Src/app_sx126x.c **** }
+ 233              		.loc 1 718 1 view .LVU32
+ 234 0010 08BD     		pop	{r3, pc}
+ 235              	.L20:
+ 236 0012 00BF     		.align	2
+ 237              	.L19:
+ 238 0014 00000000 		.word	.LC1
+ 239 0018 00000000 		.word	Radio
+ 240              		.cfi_endproc
+ 241              	.LFE148:
+ 243              		.section	.text.sx126x_init,"ax",%progbits
+ 244              		.align	1
+ 245              		.global	sx126x_init
+ 246              		.syntax unified
+ 247              		.thumb
+ 248              		.thumb_func
+ 249              		.fpu fpv4-sp-d16
+ 251              	sx126x_init:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 18
+
+
+ 252              	.LFB136:
+ 171:Core/Src/app_sx126x.c **** bool isMaster = true;
+ 253              		.loc 1 171 1 is_stmt 1 view -0
+ 254              		.cfi_startproc
+ 255              		@ args = 0, pretend = 0, frame = 0
+ 256              		@ frame_needed = 0, uses_anonymous_args = 0
+ 257 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 258              	.LCFI5:
+ 259              		.cfi_def_cfa_offset 28
+ 260              		.cfi_offset 4, -28
+ 261              		.cfi_offset 5, -24
+ 262              		.cfi_offset 6, -20
+ 263              		.cfi_offset 7, -16
+ 264              		.cfi_offset 8, -12
+ 265              		.cfi_offset 9, -8
+ 266              		.cfi_offset 14, -4
+ 267 0004 8BB0     		sub	sp, sp, #44
+ 268              	.LCFI6:
+ 269              		.cfi_def_cfa_offset 72
+ 172:Core/Src/app_sx126x.c ****     uint8_t i;
+ 270              		.loc 1 172 1 view .LVU34
+ 271              	.LVL11:
+ 173:Core/Src/app_sx126x.c **** 
+ 272              		.loc 1 173 5 view .LVU35
+ 176:Core/Src/app_sx126x.c ****     BoardInitPeriph();
+ 273              		.loc 1 176 5 view .LVU36
+ 274 0006 FFF7FEFF 		bl	BoardInitMcu
+ 275              	.LVL12:
+ 177:Core/Src/app_sx126x.c **** 
+ 276              		.loc 1 177 5 view .LVU37
+ 277 000a FFF7FEFF 		bl	BoardInitPeriph
+ 278              	.LVL13:
+ 180:Core/Src/app_sx126x.c ****     TimerSetValue(&fsk_tst_timer, 20);
+ 279              		.loc 1 180 5 view .LVU38
+ 280 000e 284C     		ldr	r4, .L23
+ 281 0010 2849     		ldr	r1, .L23+4
+ 282 0012 2046     		mov	r0, r4
+ 283 0014 FFF7FEFF 		bl	TimerInit
+ 284              	.LVL14:
+ 181:Core/Src/app_sx126x.c **** 
+ 285              		.loc 1 181 5 view .LVU39
+ 286 0018 1421     		movs	r1, #20
+ 287 001a 2046     		mov	r0, r4
+ 288 001c FFF7FEFF 		bl	TimerSetValue
+ 289              	.LVL15:
+ 184:Core/Src/app_sx126x.c ****     RadioEvents.RxDone = OnRxDone;
+ 290              		.loc 1 184 5 view .LVU40
+ 184:Core/Src/app_sx126x.c ****     RadioEvents.RxDone = OnRxDone;
+ 291              		.loc 1 184 24 is_stmt 0 view .LVU41
+ 292 0020 2548     		ldr	r0, .L23+8
+ 293 0022 264B     		ldr	r3, .L23+12
+ 294 0024 0360     		str	r3, [r0]
+ 185:Core/Src/app_sx126x.c ****     RadioEvents.TxTimeout = OnTxTimeout;
+ 295              		.loc 1 185 5 is_stmt 1 view .LVU42
+ 185:Core/Src/app_sx126x.c ****     RadioEvents.TxTimeout = OnTxTimeout;
+ 296              		.loc 1 185 24 is_stmt 0 view .LVU43
+ 297 0026 264B     		ldr	r3, .L23+16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 19
+
+
+ 298 0028 8360     		str	r3, [r0, #8]
+ 186:Core/Src/app_sx126x.c ****     RadioEvents.RxTimeout = OnRxTimeout;
+ 299              		.loc 1 186 5 is_stmt 1 view .LVU44
+ 186:Core/Src/app_sx126x.c ****     RadioEvents.RxTimeout = OnRxTimeout;
+ 300              		.loc 1 186 27 is_stmt 0 view .LVU45
+ 301 002a 264B     		ldr	r3, .L23+20
+ 302 002c 4360     		str	r3, [r0, #4]
+ 187:Core/Src/app_sx126x.c ****     RadioEvents.RxError = OnRxError;
+ 303              		.loc 1 187 5 is_stmt 1 view .LVU46
+ 187:Core/Src/app_sx126x.c ****     RadioEvents.RxError = OnRxError;
+ 304              		.loc 1 187 27 is_stmt 0 view .LVU47
+ 305 002e 264B     		ldr	r3, .L23+24
+ 306 0030 C360     		str	r3, [r0, #12]
+ 188:Core/Src/app_sx126x.c **** 
+ 307              		.loc 1 188 5 is_stmt 1 view .LVU48
+ 188:Core/Src/app_sx126x.c **** 
+ 308              		.loc 1 188 25 is_stmt 0 view .LVU49
+ 309 0032 264B     		ldr	r3, .L23+28
+ 310 0034 0361     		str	r3, [r0, #16]
+ 190:Core/Src/app_sx126x.c **** 
+ 311              		.loc 1 190 5 is_stmt 1 view .LVU50
+ 190:Core/Src/app_sx126x.c **** 
+ 312              		.loc 1 190 10 is_stmt 0 view .LVU51
+ 313 0036 264D     		ldr	r5, .L23+32
+ 314 0038 2B68     		ldr	r3, [r5]
+ 190:Core/Src/app_sx126x.c **** 
+ 315              		.loc 1 190 5 view .LVU52
+ 316 003a 9847     		blx	r3
+ 317              	.LVL16:
+ 192:Core/Src/app_sx126x.c **** 
+ 318              		.loc 1 192 5 is_stmt 1 view .LVU53
+ 192:Core/Src/app_sx126x.c **** 
+ 319              		.loc 1 192 10 is_stmt 0 view .LVU54
+ 320 003c EB68     		ldr	r3, [r5, #12]
+ 192:Core/Src/app_sx126x.c **** 
+ 321              		.loc 1 192 5 view .LVU55
+ 322 003e 2548     		ldr	r0, .L23+36
+ 323 0040 9847     		blx	r3
+ 324              	.LVL17:
+ 208:Core/Src/app_sx126x.c ****                       FSK_DATARATE, 0,
+ 325              		.loc 1 208 5 is_stmt 1 view .LVU56
+ 326 0042 40F6B833 		movw	r3, #3000
+ 327 0046 0893     		str	r3, [sp, #32]
+ 328 0048 0024     		movs	r4, #0
+ 329 004a 0794     		str	r4, [sp, #28]
+ 330 004c 0694     		str	r4, [sp, #24]
+ 331 004e 0594     		str	r4, [sp, #20]
+ 332 0050 0126     		movs	r6, #1
+ 333 0052 0496     		str	r6, [sp, #16]
+ 334 0054 0396     		str	r6, [sp, #12]
+ 335 0056 4FF00208 		mov	r8, #2
+ 336 005a CDF80880 		str	r8, [sp, #8]
+ 337 005e 0194     		str	r4, [sp, #4]
+ 338 0060 44F62069 		movw	r9, #20000
+ 339 0064 CDF80090 		str	r9, [sp]
+ 340 0068 2346     		mov	r3, r4
+ 341 006a 41F28832 		movw	r2, #5000
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 20
+
+
+ 342 006e 0E21     		movs	r1, #14
+ 343 0070 2046     		mov	r0, r4
+ 344 0072 EF69     		ldr	r7, [r5, #28]
+ 345 0074 B847     		blx	r7
+ 346              	.LVL18:
+ 218:Core/Src/app_sx126x.c ****                       0, FSK_AFC_BANDWIDTH, FSK_PREAMBLE_LENGTH,
+ 347              		.loc 1 218 5 view .LVU57
+ 348 0076 0996     		str	r6, [sp, #36]
+ 349 0078 0894     		str	r4, [sp, #32]
+ 350 007a 0794     		str	r4, [sp, #28]
+ 351 007c 0694     		str	r4, [sp, #24]
+ 352 007e 0594     		str	r4, [sp, #20]
+ 353 0080 0A23     		movs	r3, #10
+ 354 0082 0493     		str	r3, [sp, #16]
+ 355 0084 0396     		str	r6, [sp, #12]
+ 356 0086 0294     		str	r4, [sp, #8]
+ 357 0088 CDF80480 		str	r8, [sp, #4]
+ 358 008c 124B     		ldr	r3, .L23+40
+ 359 008e 0093     		str	r3, [sp]
+ 360 0090 2346     		mov	r3, r4
+ 361 0092 4A46     		mov	r2, r9
+ 362 0094 4CF25031 		movw	r1, #50000
+ 363 0098 2046     		mov	r0, r4
+ 364 009a AE69     		ldr	r6, [r5, #24]
+ 365 009c B047     		blx	r6
+ 366              	.LVL19:
+ 222:Core/Src/app_sx126x.c ****     //fsk_state = FSK_TEST_START;
+ 367              		.loc 1 222 5 view .LVU58
+ 222:Core/Src/app_sx126x.c ****     //fsk_state = FSK_TEST_START;
+ 368              		.loc 1 222 10 is_stmt 0 view .LVU59
+ 369 009e 6B6E     		ldr	r3, [r5, #100]
+ 222:Core/Src/app_sx126x.c ****     //fsk_state = FSK_TEST_START;
+ 370              		.loc 1 222 5 view .LVU60
+ 371 00a0 2046     		mov	r0, r4
+ 372 00a2 9847     		blx	r3
+ 373              	.LVL20:
+ 225:Core/Src/app_sx126x.c **** 
+ 374              		.loc 1 225 5 is_stmt 1 view .LVU61
+ 375 00a4 FFF7FEFF 		bl	GenTriggerPulse
+ 376              	.LVL21:
+ 253:Core/Src/app_sx126x.c **** /**
+ 377              		.loc 1 253 1 is_stmt 0 view .LVU62
+ 378 00a8 0BB0     		add	sp, sp, #44
+ 379              	.LCFI7:
+ 380              		.cfi_def_cfa_offset 28
+ 381              		@ sp needed
+ 382 00aa BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 383              	.L24:
+ 384 00ae 00BF     		.align	2
+ 385              	.L23:
+ 386 00b0 00000000 		.word	.LANCHOR1
+ 387 00b4 00000000 		.word	GenTriggerPulse
+ 388 00b8 00000000 		.word	.LANCHOR2
+ 389 00bc 00000000 		.word	OnTxDone
+ 390 00c0 00000000 		.word	OnRxDone
+ 391 00c4 00000000 		.word	OnTxTimeout
+ 392 00c8 00000000 		.word	OnRxTimeout
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 21
+
+
+ 393 00cc 00000000 		.word	OnRxError
+ 394 00d0 00000000 		.word	Radio
+ 395 00d4 400ECF19 		.word	433000000
+ 396 00d8 85450100 		.word	83333
+ 397              		.cfi_endproc
+ 398              	.LFE136:
+ 400              		.section	.rodata.sx126x_tx_packet.str1.4,"aMS",%progbits,1
+ 401              		.align	2
+ 402              	.LC2:
+ 403 0000 7472616E 		.ascii	"transmit finished\000"
+ 403      736D6974 
+ 403      2066696E 
+ 403      69736865 
+ 403      6400
+ 404 0012 0000     		.align	2
+ 405              	.LC3:
+ 406 0014 7472616E 		.ascii	"transmit timeout\000"
+ 406      736D6974 
+ 406      2074696D 
+ 406      656F7574 
+ 406      00
+ 407              		.section	.text.sx126x_tx_packet,"ax",%progbits
+ 408              		.align	1
+ 409              		.global	sx126x_tx_packet
+ 410              		.syntax unified
+ 411              		.thumb
+ 412              		.thumb_func
+ 413              		.fpu fpv4-sp-d16
+ 415              	sx126x_tx_packet:
+ 416              	.LVL22:
+ 417              	.LFB137:
+ 261:Core/Src/app_sx126x.c ****     uint16_t irqRegs;
+ 418              		.loc 1 261 1 is_stmt 1 view -0
+ 419              		.cfi_startproc
+ 420              		@ args = 0, pretend = 0, frame = 0
+ 421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261:Core/Src/app_sx126x.c ****     uint16_t irqRegs;
+ 422              		.loc 1 261 1 is_stmt 0 view .LVU64
+ 423 0000 38B5     		push	{r3, r4, r5, lr}
+ 424              	.LCFI8:
+ 425              		.cfi_def_cfa_offset 16
+ 426              		.cfi_offset 3, -16
+ 427              		.cfi_offset 4, -12
+ 428              		.cfi_offset 5, -8
+ 429              		.cfi_offset 14, -4
+ 262:Core/Src/app_sx126x.c ****     int i;
+ 430              		.loc 1 262 5 is_stmt 1 view .LVU65
+ 263:Core/Src/app_sx126x.c ****     // Buffer[0]=11^0xff;
+ 431              		.loc 1 263 5 view .LVU66
+ 273:Core/Src/app_sx126x.c ****     {
+ 432              		.loc 1 273 5 view .LVU67
+ 433              	.LVL23:
+ 273:Core/Src/app_sx126x.c ****     {
+ 434              		.loc 1 273 13 is_stmt 0 view .LVU68
+ 435 0002 0023     		movs	r3, #0
+ 436              	.LVL24:
+ 437              	.L26:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 22
+
+
+ 273:Core/Src/app_sx126x.c ****     {
+ 438              		.loc 1 273 18 is_stmt 1 discriminator 1 view .LVU69
+ 273:Core/Src/app_sx126x.c ****     {
+ 439              		.loc 1 273 5 is_stmt 0 discriminator 1 view .LVU70
+ 440 0004 062B     		cmp	r3, #6
+ 441 0006 05DC     		bgt	.L32
+ 275:Core/Src/app_sx126x.c ****         // printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
+ 442              		.loc 1 275 9 is_stmt 1 discriminator 3 view .LVU71
+ 275:Core/Src/app_sx126x.c ****         // printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
+ 443              		.loc 1 275 23 is_stmt 0 discriminator 3 view .LVU72
+ 444 0008 1A01     		lsls	r2, r3, #4
+ 445 000a 1232     		adds	r2, r2, #18
+ 275:Core/Src/app_sx126x.c ****         // printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
+ 446              		.loc 1 275 18 discriminator 3 view .LVU73
+ 447 000c 1549     		ldr	r1, .L34
+ 448 000e CA54     		strb	r2, [r1, r3]
+ 273:Core/Src/app_sx126x.c ****     {
+ 449              		.loc 1 273 25 is_stmt 1 discriminator 3 view .LVU74
+ 273:Core/Src/app_sx126x.c ****     {
+ 450              		.loc 1 273 26 is_stmt 0 discriminator 3 view .LVU75
+ 451 0010 0133     		adds	r3, r3, #1
+ 452              	.LVL25:
+ 273:Core/Src/app_sx126x.c ****     {
+ 453              		.loc 1 273 26 discriminator 3 view .LVU76
+ 454 0012 F7E7     		b	.L26
+ 455              	.L32:
+ 279:Core/Src/app_sx126x.c ****     Radio.Standby();
+ 456              		.loc 1 279 5 is_stmt 1 view .LVU77
+ 279:Core/Src/app_sx126x.c ****     Radio.Standby();
+ 457              		.loc 1 279 15 is_stmt 0 view .LVU78
+ 458 0014 144C     		ldr	r4, .L34+4
+ 459 0016 0723     		movs	r3, #7
+ 460              	.LVL26:
+ 279:Core/Src/app_sx126x.c ****     Radio.Standby();
+ 461              		.loc 1 279 15 view .LVU79
+ 462 0018 2380     		strh	r3, [r4]	@ movhi
+ 280:Core/Src/app_sx126x.c ****     
+ 463              		.loc 1 280 5 is_stmt 1 view .LVU80
+ 280:Core/Src/app_sx126x.c ****     
+ 464              		.loc 1 280 10 is_stmt 0 view .LVU81
+ 465 001a 144D     		ldr	r5, .L34+8
+ 466 001c 2B6B     		ldr	r3, [r5, #48]
+ 280:Core/Src/app_sx126x.c ****     
+ 467              		.loc 1 280 5 view .LVU82
+ 468 001e 9847     		blx	r3
+ 469              	.LVL27:
+ 282:Core/Src/app_sx126x.c ****     irqRegs=SX126xGetIrqStatus();
+ 470              		.loc 1 282 5 is_stmt 1 view .LVU83
+ 471 0020 0220     		movs	r0, #2
+ 472 0022 FFF7FEFF 		bl	DelayMs
+ 473              	.LVL28:
+ 283:Core/Src/app_sx126x.c ****     SX126xClearIrqStatus(irqRegs);
+ 474              		.loc 1 283 5 view .LVU84
+ 283:Core/Src/app_sx126x.c ****     SX126xClearIrqStatus(irqRegs);
+ 475              		.loc 1 283 13 is_stmt 0 view .LVU85
+ 476 0026 FFF7FEFF 		bl	SX126xGetIrqStatus
+ 477              	.LVL29:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 23
+
+
+ 284:Core/Src/app_sx126x.c ****     Radio.Send( Buffer, BufferSize );
+ 478              		.loc 1 284 5 is_stmt 1 view .LVU86
+ 479 002a FFF7FEFF 		bl	SX126xClearIrqStatus
+ 480              	.LVL30:
+ 285:Core/Src/app_sx126x.c ****     i=0;
+ 481              		.loc 1 285 5 view .LVU87
+ 285:Core/Src/app_sx126x.c ****     i=0;
+ 482              		.loc 1 285 10 is_stmt 0 view .LVU88
+ 483 002e AB6A     		ldr	r3, [r5, #40]
+ 285:Core/Src/app_sx126x.c ****     i=0;
+ 484              		.loc 1 285 5 view .LVU89
+ 485 0030 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 486 0032 0C48     		ldr	r0, .L34
+ 487 0034 9847     		blx	r3
+ 488              	.LVL31:
+ 286:Core/Src/app_sx126x.c ****     while (1)
+ 489              		.loc 1 286 5 is_stmt 1 view .LVU90
+ 286:Core/Src/app_sx126x.c ****     while (1)
+ 490              		.loc 1 286 6 is_stmt 0 view .LVU91
+ 491 0036 0024     		movs	r4, #0
+ 492              	.LVL32:
+ 493              	.L30:
+ 287:Core/Src/app_sx126x.c ****     {
+ 494              		.loc 1 287 5 is_stmt 1 view .LVU92
+ 289:Core/Src/app_sx126x.c ****         // printf("the Irq status is 0x%04x\n",irqRegs);
+ 495              		.loc 1 289 9 view .LVU93
+ 289:Core/Src/app_sx126x.c ****         // printf("the Irq status is 0x%04x\n",irqRegs);
+ 496              		.loc 1 289 17 is_stmt 0 view .LVU94
+ 497 0038 FFF7FEFF 		bl	SX126xGetIrqStatus
+ 498              	.LVL33:
+ 291:Core/Src/app_sx126x.c ****         {
+ 499              		.loc 1 291 9 is_stmt 1 view .LVU95
+ 291:Core/Src/app_sx126x.c ****         {
+ 500              		.loc 1 291 11 is_stmt 0 view .LVU96
+ 501 003c 10F0010F 		tst	r0, #1
+ 502 0040 09D1     		bne	.L33
+ 300:Core/Src/app_sx126x.c ****             HAL_Delay(10);
+ 503              		.loc 1 300 13 is_stmt 1 view .LVU97
+ 300:Core/Src/app_sx126x.c ****             HAL_Delay(10);
+ 504              		.loc 1 300 14 is_stmt 0 view .LVU98
+ 505 0042 0134     		adds	r4, r4, #1
+ 506              	.LVL34:
+ 301:Core/Src/app_sx126x.c ****             if(i>=200)
+ 507              		.loc 1 301 13 is_stmt 1 view .LVU99
+ 508 0044 0A20     		movs	r0, #10
+ 509              	.LVL35:
+ 301:Core/Src/app_sx126x.c ****             if(i>=200)
+ 510              		.loc 1 301 13 is_stmt 0 view .LVU100
+ 511 0046 FFF7FEFF 		bl	HAL_Delay
+ 512              	.LVL36:
+ 302:Core/Src/app_sx126x.c ****             {
+ 513              		.loc 1 302 13 is_stmt 1 view .LVU101
+ 302:Core/Src/app_sx126x.c ****             {
+ 514              		.loc 1 302 15 is_stmt 0 view .LVU102
+ 515 004a C72C     		cmp	r4, #199
+ 516 004c F4DD     		ble	.L30
+ 304:Core/Src/app_sx126x.c ****                 break;
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 24
+
+
+ 517              		.loc 1 304 17 is_stmt 1 view .LVU103
+ 518 004e 0848     		ldr	r0, .L34+12
+ 519 0050 FFF7FEFF 		bl	puts
+ 520              	.LVL37:
+ 305:Core/Src/app_sx126x.c ****             }
+ 521              		.loc 1 305 17 view .LVU104
+ 311:Core/Src/app_sx126x.c **** /**
+ 522              		.loc 1 311 1 is_stmt 0 view .LVU105
+ 523 0054 05E0     		b	.L25
+ 524              	.LVL38:
+ 525              	.L33:
+ 293:Core/Src/app_sx126x.c ****             GpioToggle(&Led1);
+ 526              		.loc 1 293 13 is_stmt 1 view .LVU106
+ 527 0056 0748     		ldr	r0, .L34+16
+ 528              	.LVL39:
+ 293:Core/Src/app_sx126x.c ****             GpioToggle(&Led1);
+ 529              		.loc 1 293 13 is_stmt 0 view .LVU107
+ 530 0058 FFF7FEFF 		bl	puts
+ 531              	.LVL40:
+ 294:Core/Src/app_sx126x.c ****             break;
+ 532              		.loc 1 294 13 is_stmt 1 view .LVU108
+ 533 005c 0648     		ldr	r0, .L34+20
+ 534 005e FFF7FEFF 		bl	GpioToggle
+ 535              	.LVL41:
+ 295:Core/Src/app_sx126x.c ****         }
+ 536              		.loc 1 295 13 view .LVU109
+ 537              	.L25:
+ 311:Core/Src/app_sx126x.c **** /**
+ 538              		.loc 1 311 1 is_stmt 0 view .LVU110
+ 539 0062 38BD     		pop	{r3, r4, r5, pc}
+ 540              	.LVL42:
+ 541              	.L35:
+ 311:Core/Src/app_sx126x.c **** /**
+ 542              		.loc 1 311 1 view .LVU111
+ 543              		.align	2
+ 544              	.L34:
+ 545 0064 00000000 		.word	.LANCHOR3
+ 546 0068 00000000 		.word	.LANCHOR4
+ 547 006c 00000000 		.word	Radio
+ 548 0070 14000000 		.word	.LC3
+ 549 0074 00000000 		.word	.LC2
+ 550 0078 00000000 		.word	Led1
+ 551              		.cfi_endproc
+ 552              	.LFE137:
+ 554              		.section	.rodata.sx126x_rx_packet.str1.4,"aMS",%progbits,1
+ 555              		.align	2
+ 556              	.LC4:
+ 557 0000 23545354 		.ascii	"#TST_Start\000"
+ 557      5F537461 
+ 557      727400
+ 558              		.section	.text.sx126x_rx_packet,"ax",%progbits
+ 559              		.align	1
+ 560              		.global	sx126x_rx_packet
+ 561              		.syntax unified
+ 562              		.thumb
+ 563              		.thumb_func
+ 564              		.fpu fpv4-sp-d16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 25
+
+
+ 566              	sx126x_rx_packet:
+ 567              	.LFB138:
+ 317:Core/Src/app_sx126x.c ****     printf("#TST_Start\n");
+ 568              		.loc 1 317 1 is_stmt 1 view -0
+ 569              		.cfi_startproc
+ 570              		@ Volatile: function does not return.
+ 571              		@ args = 0, pretend = 0, frame = 0
+ 572              		@ frame_needed = 0, uses_anonymous_args = 0
+ 573 0000 08B5     		push	{r3, lr}
+ 574              	.LCFI9:
+ 575              		.cfi_def_cfa_offset 8
+ 576              		.cfi_offset 3, -8
+ 577              		.cfi_offset 14, -4
+ 318:Core/Src/app_sx126x.c ****     while (1)
+ 578              		.loc 1 318 5 view .LVU113
+ 579 0002 0348     		ldr	r0, .L39
+ 580 0004 FFF7FEFF 		bl	puts
+ 581              	.LVL43:
+ 582              	.L37:
+ 319:Core/Src/app_sx126x.c ****     {
+ 583              		.loc 1 319 5 discriminator 1 view .LVU114
+ 322:Core/Src/app_sx126x.c ****     }
+ 584              		.loc 1 322 9 discriminator 1 view .LVU115
+ 322:Core/Src/app_sx126x.c ****     }
+ 585              		.loc 1 322 14 is_stmt 0 discriminator 1 view .LVU116
+ 586 0008 024B     		ldr	r3, .L39+4
+ 587 000a 1B6E     		ldr	r3, [r3, #96]
+ 322:Core/Src/app_sx126x.c ****     }
+ 588              		.loc 1 322 9 discriminator 1 view .LVU117
+ 589 000c 9847     		blx	r3
+ 590              	.LVL44:
+ 319:Core/Src/app_sx126x.c ****     {
+ 591              		.loc 1 319 11 is_stmt 1 discriminator 1 view .LVU118
+ 592 000e FBE7     		b	.L37
+ 593              	.L40:
+ 594              		.align	2
+ 595              	.L39:
+ 596 0010 00000000 		.word	.LC4
+ 597 0014 00000000 		.word	Radio
+ 598              		.cfi_endproc
+ 599              	.LFE138:
+ 601              		.section	.rodata.register_test.str1.4,"aMS",%progbits,1
+ 602              		.align	2
+ 603              	.LC5:
+ 604 0000 72656769 		.ascii	"register write and read test\000"
+ 604      73746572 
+ 604      20777269 
+ 604      74652061 
+ 604      6E642072 
+ 605 001d 000000   		.align	2
+ 606              	.LC6:
+ 607 0020 74686520 		.ascii	"the sync 0 is 0x%02x\012\000"
+ 607      73796E63 
+ 607      20302069 
+ 607      73203078 
+ 607      25303278 
+ 608 0036 0000     		.align	2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 26
+
+
+ 609              	.LC7:
+ 610 0038 74686520 		.ascii	"the sync 1 is 0x%02x\012\000"
+ 610      73796E63 
+ 610      20312069 
+ 610      73203078 
+ 610      25303278 
+ 611 004e 0000     		.align	2
+ 612              	.LC8:
+ 613 0050 74686520 		.ascii	"the sync 2 is 0x%02x\012\000"
+ 613      73796E63 
+ 613      20322069 
+ 613      73203078 
+ 613      25303278 
+ 614 0066 0000     		.align	2
+ 615              	.LC9:
+ 616 0068 74686520 		.ascii	"the sync 3 is 0x%02x\012\000"
+ 616      73796E63 
+ 616      20332069 
+ 616      73203078 
+ 616      25303278 
+ 617              		.section	.text.register_test,"ax",%progbits
+ 618              		.align	1
+ 619              		.global	register_test
+ 620              		.syntax unified
+ 621              		.thumb
+ 622              		.thumb_func
+ 623              		.fpu fpv4-sp-d16
+ 625              	register_test:
+ 626              	.LFB139:
+ 330:Core/Src/app_sx126x.c ****     //write register
+ 627              		.loc 1 330 1 view -0
+ 628              		.cfi_startproc
+ 629              		@ args = 0, pretend = 0, frame = 24
+ 630              		@ frame_needed = 0, uses_anonymous_args = 0
+ 631 0000 00B5     		push	{lr}
+ 632              	.LCFI10:
+ 633              		.cfi_def_cfa_offset 4
+ 634              		.cfi_offset 14, -4
+ 635 0002 87B0     		sub	sp, sp, #28
+ 636              	.LCFI11:
+ 637              		.cfi_def_cfa_offset 32
+ 332:Core/Src/app_sx126x.c ****     int a;
+ 638              		.loc 1 332 5 view .LVU120
+ 333:Core/Src/app_sx126x.c ****     printf("register write and read test\n");
+ 639              		.loc 1 333 5 view .LVU121
+ 334:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C0, 0x12);
+ 640              		.loc 1 334 5 view .LVU122
+ 641 0004 2448     		ldr	r0, .L43
+ 642 0006 FFF7FEFF 		bl	puts
+ 643              	.LVL45:
+ 335:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C1, 0x34);
+ 644              		.loc 1 335 5 view .LVU123
+ 645 000a 1221     		movs	r1, #18
+ 646 000c 4FF4D860 		mov	r0, #1728
+ 647 0010 FFF7FEFF 		bl	SX126xWriteRegister
+ 648              	.LVL46:
+ 336:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C2, 0x56);
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 27
+
+
+ 649              		.loc 1 336 5 view .LVU124
+ 650 0014 3421     		movs	r1, #52
+ 651 0016 40F2C160 		movw	r0, #1729
+ 652 001a FFF7FEFF 		bl	SX126xWriteRegister
+ 653              	.LVL47:
+ 337:Core/Src/app_sx126x.c ****     SX126xWriteRegister(0x06C3, 0x78);
+ 654              		.loc 1 337 5 view .LVU125
+ 655 001e 5621     		movs	r1, #86
+ 656 0020 40F2C260 		movw	r0, #1730
+ 657 0024 FFF7FEFF 		bl	SX126xWriteRegister
+ 658              	.LVL48:
+ 338:Core/Src/app_sx126x.c **** 
+ 659              		.loc 1 338 5 view .LVU126
+ 660 0028 7821     		movs	r1, #120
+ 661 002a 40F2C360 		movw	r0, #1731
+ 662 002e FFF7FEFF 		bl	SX126xWriteRegister
+ 663              	.LVL49:
+ 340:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 0 is 0x%02x\n",a);
+ 664              		.loc 1 340 5 view .LVU127
+ 340:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 0 is 0x%02x\n",a);
+ 665              		.loc 1 340 7 is_stmt 0 view .LVU128
+ 666 0032 4FF4D860 		mov	r0, #1728
+ 667 0036 FFF7FEFF 		bl	SX126xReadRegister
+ 668              	.LVL50:
+ 669 003a 0246     		mov	r2, r0
+ 670              	.LVL51:
+ 341:Core/Src/app_sx126x.c ****     printf(xx);
+ 671              		.loc 1 341 5 is_stmt 1 view .LVU129
+ 672 003c 1749     		ldr	r1, .L43+4
+ 673 003e 01A8     		add	r0, sp, #4
+ 674              	.LVL52:
+ 341:Core/Src/app_sx126x.c ****     printf(xx);
+ 675              		.loc 1 341 5 is_stmt 0 view .LVU130
+ 676 0040 FFF7FEFF 		bl	sprintf
+ 677              	.LVL53:
+ 342:Core/Src/app_sx126x.c **** 
+ 678              		.loc 1 342 5 is_stmt 1 view .LVU131
+ 679 0044 01A8     		add	r0, sp, #4
+ 680 0046 FFF7FEFF 		bl	printf
+ 681              	.LVL54:
+ 344:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 1 is 0x%02x\n",a);
+ 682              		.loc 1 344 5 view .LVU132
+ 344:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 1 is 0x%02x\n",a);
+ 683              		.loc 1 344 7 is_stmt 0 view .LVU133
+ 684 004a 40F2C160 		movw	r0, #1729
+ 685 004e FFF7FEFF 		bl	SX126xReadRegister
+ 686              	.LVL55:
+ 687 0052 0246     		mov	r2, r0
+ 688              	.LVL56:
+ 345:Core/Src/app_sx126x.c ****     printf(xx);
+ 689              		.loc 1 345 5 is_stmt 1 view .LVU134
+ 690 0054 1249     		ldr	r1, .L43+8
+ 691 0056 01A8     		add	r0, sp, #4
+ 692              	.LVL57:
+ 345:Core/Src/app_sx126x.c ****     printf(xx);
+ 693              		.loc 1 345 5 is_stmt 0 view .LVU135
+ 694 0058 FFF7FEFF 		bl	sprintf
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 28
+
+
+ 695              	.LVL58:
+ 346:Core/Src/app_sx126x.c **** 
+ 696              		.loc 1 346 5 is_stmt 1 view .LVU136
+ 697 005c 01A8     		add	r0, sp, #4
+ 698 005e FFF7FEFF 		bl	printf
+ 699              	.LVL59:
+ 348:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 2 is 0x%02x\n",a);
+ 700              		.loc 1 348 5 view .LVU137
+ 348:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 2 is 0x%02x\n",a);
+ 701              		.loc 1 348 7 is_stmt 0 view .LVU138
+ 702 0062 40F2C260 		movw	r0, #1730
+ 703 0066 FFF7FEFF 		bl	SX126xReadRegister
+ 704              	.LVL60:
+ 705 006a 0246     		mov	r2, r0
+ 706              	.LVL61:
+ 349:Core/Src/app_sx126x.c ****     printf(xx);
+ 707              		.loc 1 349 5 is_stmt 1 view .LVU139
+ 708 006c 0D49     		ldr	r1, .L43+12
+ 709 006e 01A8     		add	r0, sp, #4
+ 710              	.LVL62:
+ 349:Core/Src/app_sx126x.c ****     printf(xx);
+ 711              		.loc 1 349 5 is_stmt 0 view .LVU140
+ 712 0070 FFF7FEFF 		bl	sprintf
+ 713              	.LVL63:
+ 350:Core/Src/app_sx126x.c **** 
+ 714              		.loc 1 350 5 is_stmt 1 view .LVU141
+ 715 0074 01A8     		add	r0, sp, #4
+ 716 0076 FFF7FEFF 		bl	printf
+ 717              	.LVL64:
+ 352:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 3 is 0x%02x\n",a);
+ 718              		.loc 1 352 5 view .LVU142
+ 352:Core/Src/app_sx126x.c ****     sprintf(xx,"the sync 3 is 0x%02x\n",a);
+ 719              		.loc 1 352 7 is_stmt 0 view .LVU143
+ 720 007a 40F2C360 		movw	r0, #1731
+ 721 007e FFF7FEFF 		bl	SX126xReadRegister
+ 722              	.LVL65:
+ 723 0082 0246     		mov	r2, r0
+ 724              	.LVL66:
+ 353:Core/Src/app_sx126x.c ****     printf(xx);
+ 725              		.loc 1 353 5 is_stmt 1 view .LVU144
+ 726 0084 0849     		ldr	r1, .L43+16
+ 727 0086 01A8     		add	r0, sp, #4
+ 728              	.LVL67:
+ 353:Core/Src/app_sx126x.c ****     printf(xx);
+ 729              		.loc 1 353 5 is_stmt 0 view .LVU145
+ 730 0088 FFF7FEFF 		bl	sprintf
+ 731              	.LVL68:
+ 354:Core/Src/app_sx126x.c **** }
+ 732              		.loc 1 354 5 is_stmt 1 view .LVU146
+ 733 008c 01A8     		add	r0, sp, #4
+ 734 008e FFF7FEFF 		bl	printf
+ 735              	.LVL69:
+ 355:Core/Src/app_sx126x.c **** 
+ 736              		.loc 1 355 1 is_stmt 0 view .LVU147
+ 737 0092 07B0     		add	sp, sp, #28
+ 738              	.LCFI12:
+ 739              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 29
+
+
+ 740              		@ sp needed
+ 741 0094 5DF804FB 		ldr	pc, [sp], #4
+ 742              	.L44:
+ 743              		.align	2
+ 744              	.L43:
+ 745 0098 00000000 		.word	.LC5
+ 746 009c 20000000 		.word	.LC6
+ 747 00a0 38000000 		.word	.LC7
+ 748 00a4 50000000 		.word	.LC8
+ 749 00a8 68000000 		.word	.LC9
+ 750              		.cfi_endproc
+ 751              	.LFE139:
+ 753              		.section	.rodata.packet_rx.str1.4,"aMS",%progbits,1
+ 754              		.align	2
+ 755              	.LC10:
+ 756 0000 72656365 		.ascii	"receive packet successfully\000"
+ 756      69766520 
+ 756      7061636B 
+ 756      65742073 
+ 756      75636365 
+ 757              		.align	2
+ 758              	.LC11:
+ 759 001c 74686520 		.ascii	"the receive length is %d\012\000"
+ 759      72656365 
+ 759      69766520 
+ 759      6C656E67 
+ 759      74682069 
+ 760 0036 0000     		.align	2
+ 761              	.LC12:
+ 762 0038 30782530 		.ascii	"0x%02x ,\000"
+ 762      3278202C 
+ 762      00
+ 763 0041 000000   		.align	2
+ 764              	.LC13:
+ 765 0044 74686520 		.ascii	"the rssi is %d\012\000"
+ 765      72737369 
+ 765      20697320 
+ 765      25640A00 
+ 766              		.align	2
+ 767              	.LC14:
+ 768 0054 72656365 		.ascii	"receive timeout\000"
+ 768      69766520 
+ 768      74696D65 
+ 768      6F757400 
+ 769              		.section	.text.packet_rx,"ax",%progbits
+ 770              		.align	1
+ 771              		.global	packet_rx
+ 772              		.syntax unified
+ 773              		.thumb
+ 774              		.thumb_func
+ 775              		.fpu fpv4-sp-d16
+ 777              	packet_rx:
+ 778              	.LFB140:
+ 362:Core/Src/app_sx126x.c ****     int i;
+ 779              		.loc 1 362 1 is_stmt 1 view -0
+ 780              		.cfi_startproc
+ 781              		@ args = 0, pretend = 0, frame = 280
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 30
+
+
+ 782              		@ frame_needed = 0, uses_anonymous_args = 0
+ 783 0000 10B5     		push	{r4, lr}
+ 784              	.LCFI13:
+ 785              		.cfi_def_cfa_offset 8
+ 786              		.cfi_offset 4, -8
+ 787              		.cfi_offset 14, -4
+ 788 0002 C6B0     		sub	sp, sp, #280
+ 789              	.LCFI14:
+ 790              		.cfi_def_cfa_offset 288
+ 363:Core/Src/app_sx126x.c ****     uint16_t irqRegs = SX126xGetIrqStatus();
+ 791              		.loc 1 363 5 view .LVU149
+ 364:Core/Src/app_sx126x.c ****     uint8_t rxbuf[255];
+ 792              		.loc 1 364 5 view .LVU150
+ 364:Core/Src/app_sx126x.c ****     uint8_t rxbuf[255];
+ 793              		.loc 1 364 24 is_stmt 0 view .LVU151
+ 794 0004 FFF7FEFF 		bl	SX126xGetIrqStatus
+ 795              	.LVL70:
+ 365:Core/Src/app_sx126x.c ****     
+ 796              		.loc 1 365 5 is_stmt 1 view .LVU152
+ 367:Core/Src/app_sx126x.c ****     PacketStatus_t radiopkstatus;
+ 797              		.loc 1 367 5 view .LVU153
+ 367:Core/Src/app_sx126x.c ****     PacketStatus_t radiopkstatus;
+ 798              		.loc 1 367 13 is_stmt 0 view .LVU154
+ 799 0008 0024     		movs	r4, #0
+ 800 000a 8DF81740 		strb	r4, [sp, #23]
+ 368:Core/Src/app_sx126x.c ****     SX126xClearIrqStatus(irqRegs);
+ 801              		.loc 1 368 5 is_stmt 1 view .LVU155
+ 369:Core/Src/app_sx126x.c ****     // Radio.Rx(0);
+ 802              		.loc 1 369 5 view .LVU156
+ 803 000e FFF7FEFF 		bl	SX126xClearIrqStatus
+ 804              	.LVL71:
+ 371:Core/Src/app_sx126x.c ****     i=0;
+ 805              		.loc 1 371 5 view .LVU157
+ 371:Core/Src/app_sx126x.c ****     i=0;
+ 806              		.loc 1 371 10 is_stmt 0 view .LVU158
+ 807 0012 214B     		ldr	r3, .L53
+ 808 0014 5B6E     		ldr	r3, [r3, #100]
+ 371:Core/Src/app_sx126x.c ****     i=0;
+ 809              		.loc 1 371 5 view .LVU159
+ 810 0016 2046     		mov	r0, r4
+ 811 0018 9847     		blx	r3
+ 812              	.LVL72:
+ 372:Core/Src/app_sx126x.c ****     while (1)
+ 813              		.loc 1 372 5 is_stmt 1 view .LVU160
+ 814              	.L50:
+ 373:Core/Src/app_sx126x.c ****     {
+ 815              		.loc 1 373 5 view .LVU161
+ 375:Core/Src/app_sx126x.c **** 
+ 816              		.loc 1 375 9 view .LVU162
+ 375:Core/Src/app_sx126x.c **** 
+ 817              		.loc 1 375 19 is_stmt 0 view .LVU163
+ 818 001a FFF7FEFF 		bl	SX126xGetIrqStatus
+ 819              	.LVL73:
+ 378:Core/Src/app_sx126x.c ****         {
+ 820              		.loc 1 378 9 is_stmt 1 view .LVU164
+ 378:Core/Src/app_sx126x.c ****         {
+ 821              		.loc 1 378 11 is_stmt 0 view .LVU165
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 31
+
+
+ 822 001e 10F0020F 		tst	r0, #2
+ 823 0022 09D1     		bne	.L52
+ 403:Core/Src/app_sx126x.c ****             HAL_Delay(1);
+ 824              		.loc 1 403 13 is_stmt 1 view .LVU166
+ 403:Core/Src/app_sx126x.c ****             HAL_Delay(1);
+ 825              		.loc 1 403 14 is_stmt 0 view .LVU167
+ 826 0024 0134     		adds	r4, r4, #1
+ 827              	.LVL74:
+ 404:Core/Src/app_sx126x.c ****             if(i>=100)
+ 828              		.loc 1 404 13 is_stmt 1 view .LVU168
+ 829 0026 0120     		movs	r0, #1
+ 830              	.LVL75:
+ 404:Core/Src/app_sx126x.c ****             if(i>=100)
+ 831              		.loc 1 404 13 is_stmt 0 view .LVU169
+ 832 0028 FFF7FEFF 		bl	HAL_Delay
+ 833              	.LVL76:
+ 405:Core/Src/app_sx126x.c ****             {
+ 834              		.loc 1 405 13 is_stmt 1 view .LVU170
+ 405:Core/Src/app_sx126x.c ****             {
+ 835              		.loc 1 405 15 is_stmt 0 view .LVU171
+ 836 002c 632C     		cmp	r4, #99
+ 837 002e F4DD     		ble	.L50
+ 407:Core/Src/app_sx126x.c ****                 break;
+ 838              		.loc 1 407 17 is_stmt 1 view .LVU172
+ 839 0030 1A48     		ldr	r0, .L53+4
+ 840 0032 FFF7FEFF 		bl	puts
+ 841              	.LVL77:
+ 408:Core/Src/app_sx126x.c ****             }
+ 842              		.loc 1 408 17 view .LVU173
+ 843 0036 27E0     		b	.L49
+ 844              	.LVL78:
+ 845              	.L52:
+ 380:Core/Src/app_sx126x.c ****             GpioToggle(&Led2);
+ 846              		.loc 1 380 13 view .LVU174
+ 847 0038 1948     		ldr	r0, .L53+8
+ 848              	.LVL79:
+ 380:Core/Src/app_sx126x.c ****             GpioToggle(&Led2);
+ 849              		.loc 1 380 13 is_stmt 0 view .LVU175
+ 850 003a FFF7FEFF 		bl	puts
+ 851              	.LVL80:
+ 381:Core/Src/app_sx126x.c **** 
+ 852              		.loc 1 381 13 is_stmt 1 view .LVU176
+ 853 003e 1948     		ldr	r0, .L53+12
+ 854 0040 FFF7FEFF 		bl	GpioToggle
+ 855              	.LVL81:
+ 383:Core/Src/app_sx126x.c ****             printf("the receive length is %d\n",size);
+ 856              		.loc 1 383 13 view .LVU177
+ 857 0044 FF22     		movs	r2, #255
+ 858 0046 0DF11701 		add	r1, sp, #23
+ 859 004a 06A8     		add	r0, sp, #24
+ 860 004c FFF7FEFF 		bl	SX126xGetPayload
+ 861              	.LVL82:
+ 384:Core/Src/app_sx126x.c ****             // size=20;
+ 862              		.loc 1 384 13 view .LVU178
+ 863 0050 9DF81710 		ldrb	r1, [sp, #23]	@ zero_extendqisi2
+ 864 0054 1448     		ldr	r0, .L53+16
+ 865 0056 FFF7FEFF 		bl	printf
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 32
+
+
+ 866              	.LVL83:
+ 386:Core/Src/app_sx126x.c ****             {
+ 867              		.loc 1 386 13 view .LVU179
+ 386:Core/Src/app_sx126x.c ****             {
+ 868              		.loc 1 386 20 is_stmt 0 view .LVU180
+ 869 005a 0024     		movs	r4, #0
+ 386:Core/Src/app_sx126x.c ****             {
+ 870              		.loc 1 386 13 view .LVU181
+ 871 005c 05E0     		b	.L47
+ 872              	.LVL84:
+ 873              	.L48:
+ 389:Core/Src/app_sx126x.c ****                 // printf("%c ",rxbuf[i]);
+ 874              		.loc 1 389 17 is_stmt 1 discriminator 3 view .LVU182
+ 875 005e 06AB     		add	r3, sp, #24
+ 876 0060 195D     		ldrb	r1, [r3, r4]	@ zero_extendqisi2
+ 877 0062 1248     		ldr	r0, .L53+20
+ 878 0064 FFF7FEFF 		bl	printf
+ 879              	.LVL85:
+ 386:Core/Src/app_sx126x.c ****             {
+ 880              		.loc 1 386 35 discriminator 3 view .LVU183
+ 386:Core/Src/app_sx126x.c ****             {
+ 881              		.loc 1 386 36 is_stmt 0 discriminator 3 view .LVU184
+ 882 0068 0134     		adds	r4, r4, #1
+ 883              	.LVL86:
+ 884              	.L47:
+ 386:Core/Src/app_sx126x.c ****             {
+ 885              		.loc 1 386 25 is_stmt 1 discriminator 1 view .LVU185
+ 386:Core/Src/app_sx126x.c ****             {
+ 886              		.loc 1 386 27 is_stmt 0 discriminator 1 view .LVU186
+ 887 006a 9DF81730 		ldrb	r3, [sp, #23]	@ zero_extendqisi2
+ 386:Core/Src/app_sx126x.c ****             {
+ 888              		.loc 1 386 13 discriminator 1 view .LVU187
+ 889 006e A342     		cmp	r3, r4
+ 890 0070 F5DC     		bgt	.L48
+ 395:Core/Src/app_sx126x.c ****             SX126xGetPacketStatus(&radiopkstatus);
+ 891              		.loc 1 395 13 is_stmt 1 view .LVU188
+ 892 0072 0A20     		movs	r0, #10
+ 893 0074 FFF7FEFF 		bl	putchar
+ 894              	.LVL87:
+ 396:Core/Src/app_sx126x.c ****             printf("the rssi is %d\n", radiopkstatus.Params.Gfsk.RssiAvg);
+ 895              		.loc 1 396 13 view .LVU189
+ 896 0078 6846     		mov	r0, sp
+ 897 007a FFF7FEFF 		bl	SX126xGetPacketStatus
+ 898              	.LVL88:
+ 397:Core/Src/app_sx126x.c **** 
+ 899              		.loc 1 397 13 view .LVU190
+ 900 007e 9DF90510 		ldrsb	r1, [sp, #5]
+ 901 0082 0B48     		ldr	r0, .L53+24
+ 902 0084 FFF7FEFF 		bl	printf
+ 903              	.LVL89:
+ 399:Core/Src/app_sx126x.c ****         }
+ 904              		.loc 1 399 13 view .LVU191
+ 905              	.L49:
+ 412:Core/Src/app_sx126x.c ****     HAL_Delay(10);
+ 906              		.loc 1 412 5 view .LVU192
+ 412:Core/Src/app_sx126x.c ****     HAL_Delay(10);
+ 907              		.loc 1 412 10 is_stmt 0 view .LVU193
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 33
+
+
+ 908 0088 034B     		ldr	r3, .L53
+ 909 008a 1B6B     		ldr	r3, [r3, #48]
+ 412:Core/Src/app_sx126x.c ****     HAL_Delay(10);
+ 910              		.loc 1 412 5 view .LVU194
+ 911 008c 9847     		blx	r3
+ 912              	.LVL90:
+ 413:Core/Src/app_sx126x.c **** }
+ 913              		.loc 1 413 5 is_stmt 1 view .LVU195
+ 914 008e 0A20     		movs	r0, #10
+ 915 0090 FFF7FEFF 		bl	HAL_Delay
+ 916              	.LVL91:
+ 414:Core/Src/app_sx126x.c **** 
+ 917              		.loc 1 414 1 is_stmt 0 view .LVU196
+ 918 0094 46B0     		add	sp, sp, #280
+ 919              	.LCFI15:
+ 920              		.cfi_def_cfa_offset 8
+ 921              		@ sp needed
+ 922 0096 10BD     		pop	{r4, pc}
+ 923              	.LVL92:
+ 924              	.L54:
+ 414:Core/Src/app_sx126x.c **** 
+ 925              		.loc 1 414 1 view .LVU197
+ 926              		.align	2
+ 927              	.L53:
+ 928 0098 00000000 		.word	Radio
+ 929 009c 54000000 		.word	.LC14
+ 930 00a0 00000000 		.word	.LC10
+ 931 00a4 00000000 		.word	Led2
+ 932 00a8 1C000000 		.word	.LC11
+ 933 00ac 38000000 		.word	.LC12
+ 934 00b0 44000000 		.word	.LC13
+ 935              		.cfi_endproc
+ 936              	.LFE140:
+ 938              		.section	.text.crc16,"ax",%progbits
+ 939              		.align	1
+ 940              		.global	crc16
+ 941              		.syntax unified
+ 942              		.thumb
+ 943              		.thumb_func
+ 944              		.fpu fpv4-sp-d16
+ 946              	crc16:
+ 947              	.LVL93:
+ 948              	.LFB141:
+ 425:Core/Src/app_sx126x.c ****   int j;
+ 949              		.loc 1 425 1 is_stmt 1 view -0
+ 950              		.cfi_startproc
+ 951              		@ args = 0, pretend = 0, frame = 0
+ 952              		@ frame_needed = 0, uses_anonymous_args = 0
+ 953              		@ link register save eliminated.
+ 425:Core/Src/app_sx126x.c ****   int j;
+ 954              		.loc 1 425 1 is_stmt 0 view .LVU199
+ 955 0000 8446     		mov	ip, r0
+ 426:Core/Src/app_sx126x.c ****   // unsigned int reg_crc = 0xFFFF;
+ 956              		.loc 1 426 3 is_stmt 1 view .LVU200
+ 428:Core/Src/app_sx126x.c ****   // unsigned int reg_crc = 0x4230;
+ 957              		.loc 1 428 3 view .LVU201
+ 958              	.LVL94:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 34
+
+
+ 430:Core/Src/app_sx126x.c ****   {
+ 959              		.loc 1 430 3 view .LVU202
+ 428:Core/Src/app_sx126x.c ****   // unsigned int reg_crc = 0x4230;
+ 960              		.loc 1 428 16 is_stmt 0 view .LVU203
+ 961 0002 0023     		movs	r3, #0
+ 962              	.LVL95:
+ 963              	.L56:
+ 430:Core/Src/app_sx126x.c ****   {
+ 964              		.loc 1 430 9 is_stmt 1 view .LVU204
+ 965 0004 0A46     		mov	r2, r1
+ 430:Core/Src/app_sx126x.c ****   {
+ 966              		.loc 1 430 16 is_stmt 0 view .LVU205
+ 967 0006 0139     		subs	r1, r1, #1
+ 968              	.LVL96:
+ 430:Core/Src/app_sx126x.c ****   {
+ 969              		.loc 1 430 16 view .LVU206
+ 970 0008 C9B2     		uxtb	r1, r1
+ 971              	.LVL97:
+ 430:Core/Src/app_sx126x.c ****   {
+ 972              		.loc 1 430 9 view .LVU207
+ 973 000a 8AB1     		cbz	r2, .L62
+ 433:Core/Src/app_sx126x.c ****     for (j = 0; j < 8; j++)
+ 974              		.loc 1 433 5 is_stmt 1 view .LVU208
+ 975              	.LVL98:
+ 433:Core/Src/app_sx126x.c ****     for (j = 0; j < 8; j++)
+ 976              		.loc 1 433 17 is_stmt 0 view .LVU209
+ 977 000c 1CF8012B 		ldrb	r2, [ip], #1	@ zero_extendqisi2
+ 978              	.LVL99:
+ 433:Core/Src/app_sx126x.c ****     for (j = 0; j < 8; j++)
+ 979              		.loc 1 433 13 view .LVU210
+ 980 0010 83EA0223 		eor	r3, r3, r2, lsl #8
+ 981              	.LVL100:
+ 434:Core/Src/app_sx126x.c ****     {
+ 982              		.loc 1 434 5 is_stmt 1 view .LVU211
+ 434:Core/Src/app_sx126x.c ****     {
+ 983              		.loc 1 434 12 is_stmt 0 view .LVU212
+ 984 0014 0022     		movs	r2, #0
+ 434:Core/Src/app_sx126x.c ****     {
+ 985              		.loc 1 434 5 view .LVU213
+ 986 0016 01E0     		b	.L57
+ 987              	.LVL101:
+ 988              	.L58:
+ 443:Core/Src/app_sx126x.c ****       }
+ 989              		.loc 1 443 9 is_stmt 1 view .LVU214
+ 443:Core/Src/app_sx126x.c ****       }
+ 990              		.loc 1 443 17 is_stmt 0 view .LVU215
+ 991 0018 5B00     		lsls	r3, r3, #1
+ 992              	.LVL102:
+ 993              	.L59:
+ 434:Core/Src/app_sx126x.c ****     {
+ 994              		.loc 1 434 24 is_stmt 1 discriminator 2 view .LVU216
+ 434:Core/Src/app_sx126x.c ****     {
+ 995              		.loc 1 434 25 is_stmt 0 discriminator 2 view .LVU217
+ 996 001a 0132     		adds	r2, r2, #1
+ 997              	.LVL103:
+ 998              	.L57:
+ 434:Core/Src/app_sx126x.c ****     {
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 35
+
+
+ 999              		.loc 1 434 17 is_stmt 1 discriminator 1 view .LVU218
+ 434:Core/Src/app_sx126x.c ****     {
+ 1000              		.loc 1 434 5 is_stmt 0 discriminator 1 view .LVU219
+ 1001 001c 072A     		cmp	r2, #7
+ 1002 001e F1DC     		bgt	.L56
+ 436:Core/Src/app_sx126x.c ****       {
+ 1003              		.loc 1 436 7 is_stmt 1 view .LVU220
+ 436:Core/Src/app_sx126x.c ****       {
+ 1004              		.loc 1 436 10 is_stmt 0 view .LVU221
+ 1005 0020 13F4004F 		tst	r3, #32768
+ 1006 0024 F8D0     		beq	.L58
+ 439:Core/Src/app_sx126x.c ****       }
+ 1007              		.loc 1 439 9 is_stmt 1 view .LVU222
+ 439:Core/Src/app_sx126x.c ****       }
+ 1008              		.loc 1 439 17 is_stmt 0 view .LVU223
+ 1009 0026 48F20500 		movw	r0, #32773
+ 1010 002a 80EA4303 		eor	r3, r0, r3, lsl #1
+ 1011              	.LVL104:
+ 439:Core/Src/app_sx126x.c ****       }
+ 1012              		.loc 1 439 17 view .LVU224
+ 1013 002e F4E7     		b	.L59
+ 1014              	.LVL105:
+ 1015              	.L62:
+ 447:Core/Src/app_sx126x.c ****   return reg_crc;
+ 1016              		.loc 1 447 3 is_stmt 1 view .LVU225
+ 448:Core/Src/app_sx126x.c **** }
+ 1017              		.loc 1 448 3 view .LVU226
+ 449:Core/Src/app_sx126x.c **** 
+ 1018              		.loc 1 449 1 is_stmt 0 view .LVU227
+ 1019 0030 98B2     		uxth	r0, r3
+ 1020              	.LVL106:
+ 449:Core/Src/app_sx126x.c **** 
+ 1021              		.loc 1 449 1 view .LVU228
+ 1022 0032 7047     		bx	lr
+ 1023              		.cfi_endproc
+ 1024              	.LFE141:
+ 1026              		.section	.text.main1,"ax",%progbits
+ 1027              		.align	1
+ 1028              		.global	main1
+ 1029              		.syntax unified
+ 1030              		.thumb
+ 1031              		.thumb_func
+ 1032              		.fpu fpv4-sp-d16
+ 1034              	main1:
+ 1035              	.LFB142:
+ 456:Core/Src/app_sx126x.c ****     bool isMaster = true;
+ 1036              		.loc 1 456 1 is_stmt 1 view -0
+ 1037              		.cfi_startproc
+ 1038              		@ args = 0, pretend = 0, frame = 0
+ 1039              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1040 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 1041              	.LCFI16:
+ 1042              		.cfi_def_cfa_offset 28
+ 1043              		.cfi_offset 4, -28
+ 1044              		.cfi_offset 5, -24
+ 1045              		.cfi_offset 6, -20
+ 1046              		.cfi_offset 7, -16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 36
+
+
+ 1047              		.cfi_offset 8, -12
+ 1048              		.cfi_offset 9, -8
+ 1049              		.cfi_offset 14, -4
+ 1050 0004 8BB0     		sub	sp, sp, #44
+ 1051              	.LCFI17:
+ 1052              		.cfi_def_cfa_offset 72
+ 457:Core/Src/app_sx126x.c ****     uint8_t i;
+ 1053              		.loc 1 457 5 view .LVU230
+ 1054              	.LVL107:
+ 458:Core/Src/app_sx126x.c **** 
+ 1055              		.loc 1 458 5 view .LVU231
+ 461:Core/Src/app_sx126x.c ****     BoardInitPeriph( );
+ 1056              		.loc 1 461 5 view .LVU232
+ 1057 0006 FFF7FEFF 		bl	BoardInitMcu
+ 1058              	.LVL108:
+ 462:Core/Src/app_sx126x.c **** 	
+ 1059              		.loc 1 462 5 view .LVU233
+ 1060 000a FFF7FEFF 		bl	BoardInitPeriph
+ 1061              	.LVL109:
+ 465:Core/Src/app_sx126x.c **** 		TimerSetValue(&fsk_tst_timer,20);
+ 1062              		.loc 1 465 4 view .LVU234
+ 1063 000e 2A4C     		ldr	r4, .L66
+ 1064 0010 2A49     		ldr	r1, .L66+4
+ 1065 0012 2046     		mov	r0, r4
+ 1066 0014 FFF7FEFF 		bl	TimerInit
+ 1067              	.LVL110:
+ 466:Core/Src/app_sx126x.c **** 
+ 1068              		.loc 1 466 3 view .LVU235
+ 1069 0018 1421     		movs	r1, #20
+ 1070 001a 2046     		mov	r0, r4
+ 1071 001c FFF7FEFF 		bl	TimerSetValue
+ 1072              	.LVL111:
+ 469:Core/Src/app_sx126x.c ****     RadioEvents.RxDone = OnRxDone;
+ 1073              		.loc 1 469 5 view .LVU236
+ 469:Core/Src/app_sx126x.c ****     RadioEvents.RxDone = OnRxDone;
+ 1074              		.loc 1 469 24 is_stmt 0 view .LVU237
+ 1075 0020 2748     		ldr	r0, .L66+8
+ 1076 0022 284B     		ldr	r3, .L66+12
+ 1077 0024 0360     		str	r3, [r0]
+ 470:Core/Src/app_sx126x.c ****     RadioEvents.TxTimeout = OnTxTimeout;
+ 1078              		.loc 1 470 5 is_stmt 1 view .LVU238
+ 470:Core/Src/app_sx126x.c ****     RadioEvents.TxTimeout = OnTxTimeout;
+ 1079              		.loc 1 470 24 is_stmt 0 view .LVU239
+ 1080 0026 284B     		ldr	r3, .L66+16
+ 1081 0028 8360     		str	r3, [r0, #8]
+ 471:Core/Src/app_sx126x.c ****     RadioEvents.RxTimeout = OnRxTimeout;
+ 1082              		.loc 1 471 5 is_stmt 1 view .LVU240
+ 471:Core/Src/app_sx126x.c ****     RadioEvents.RxTimeout = OnRxTimeout;
+ 1083              		.loc 1 471 27 is_stmt 0 view .LVU241
+ 1084 002a 284B     		ldr	r3, .L66+20
+ 1085 002c 4360     		str	r3, [r0, #4]
+ 472:Core/Src/app_sx126x.c ****     RadioEvents.RxError = OnRxError;
+ 1086              		.loc 1 472 5 is_stmt 1 view .LVU242
+ 472:Core/Src/app_sx126x.c ****     RadioEvents.RxError = OnRxError;
+ 1087              		.loc 1 472 27 is_stmt 0 view .LVU243
+ 1088 002e 284B     		ldr	r3, .L66+24
+ 1089 0030 C360     		str	r3, [r0, #12]
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 37
+
+
+ 473:Core/Src/app_sx126x.c **** 
+ 1090              		.loc 1 473 5 is_stmt 1 view .LVU244
+ 473:Core/Src/app_sx126x.c **** 
+ 1091              		.loc 1 473 25 is_stmt 0 view .LVU245
+ 1092 0032 284B     		ldr	r3, .L66+28
+ 1093 0034 0361     		str	r3, [r0, #16]
+ 475:Core/Src/app_sx126x.c **** 
+ 1094              		.loc 1 475 5 is_stmt 1 view .LVU246
+ 475:Core/Src/app_sx126x.c **** 
+ 1095              		.loc 1 475 10 is_stmt 0 view .LVU247
+ 1096 0036 284D     		ldr	r5, .L66+32
+ 1097 0038 2B68     		ldr	r3, [r5]
+ 475:Core/Src/app_sx126x.c **** 
+ 1098              		.loc 1 475 5 view .LVU248
+ 1099 003a 9847     		blx	r3
+ 1100              	.LVL112:
+ 477:Core/Src/app_sx126x.c **** 
+ 1101              		.loc 1 477 5 is_stmt 1 view .LVU249
+ 477:Core/Src/app_sx126x.c **** 
+ 1102              		.loc 1 477 10 is_stmt 0 view .LVU250
+ 1103 003c EB68     		ldr	r3, [r5, #12]
+ 477:Core/Src/app_sx126x.c **** 
+ 1104              		.loc 1 477 5 view .LVU251
+ 1105 003e 2748     		ldr	r0, .L66+36
+ 1106 0040 9847     		blx	r3
+ 1107              	.LVL113:
+ 493:Core/Src/app_sx126x.c ****                                   FSK_DATARATE, 0,
+ 1108              		.loc 1 493 5 is_stmt 1 view .LVU252
+ 1109 0042 40F6B833 		movw	r3, #3000
+ 1110 0046 0893     		str	r3, [sp, #32]
+ 1111 0048 0024     		movs	r4, #0
+ 1112 004a 0794     		str	r4, [sp, #28]
+ 1113 004c 0694     		str	r4, [sp, #24]
+ 1114 004e 0594     		str	r4, [sp, #20]
+ 1115 0050 0126     		movs	r6, #1
+ 1116 0052 0496     		str	r6, [sp, #16]
+ 1117 0054 0396     		str	r6, [sp, #12]
+ 1118 0056 4FF00208 		mov	r8, #2
+ 1119 005a CDF80880 		str	r8, [sp, #8]
+ 1120 005e 0194     		str	r4, [sp, #4]
+ 1121 0060 44F62069 		movw	r9, #20000
+ 1122 0064 CDF80090 		str	r9, [sp]
+ 1123 0068 2346     		mov	r3, r4
+ 1124 006a 41F28832 		movw	r2, #5000
+ 1125 006e 0E21     		movs	r1, #14
+ 1126 0070 2046     		mov	r0, r4
+ 1127 0072 EF69     		ldr	r7, [r5, #28]
+ 1128 0074 B847     		blx	r7
+ 1129              	.LVL114:
+ 499:Core/Src/app_sx126x.c ****                                   0, FSK_AFC_BANDWIDTH, FSK_PREAMBLE_LENGTH,
+ 1130              		.loc 1 499 5 view .LVU253
+ 1131 0076 0996     		str	r6, [sp, #36]
+ 1132 0078 0894     		str	r4, [sp, #32]
+ 1133 007a 0794     		str	r4, [sp, #28]
+ 1134 007c 0694     		str	r4, [sp, #24]
+ 1135 007e 0594     		str	r4, [sp, #20]
+ 1136 0080 0A23     		movs	r3, #10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 38
+
+
+ 1137 0082 0493     		str	r3, [sp, #16]
+ 1138 0084 0396     		str	r6, [sp, #12]
+ 1139 0086 0294     		str	r4, [sp, #8]
+ 1140 0088 CDF80480 		str	r8, [sp, #4]
+ 1141 008c 144B     		ldr	r3, .L66+40
+ 1142 008e 0093     		str	r3, [sp]
+ 1143 0090 2346     		mov	r3, r4
+ 1144 0092 4A46     		mov	r2, r9
+ 1145 0094 4CF25031 		movw	r1, #50000
+ 1146 0098 2046     		mov	r0, r4
+ 1147 009a AE69     		ldr	r6, [r5, #24]
+ 1148 009c B047     		blx	r6
+ 1149              	.LVL115:
+ 503:Core/Src/app_sx126x.c **** 		//fsk_state = FSK_TEST_START;
+ 1150              		.loc 1 503 3 view .LVU254
+ 503:Core/Src/app_sx126x.c **** 		//fsk_state = FSK_TEST_START;
+ 1151              		.loc 1 503 8 is_stmt 0 view .LVU255
+ 1152 009e 6B6E     		ldr	r3, [r5, #100]
+ 503:Core/Src/app_sx126x.c **** 		//fsk_state = FSK_TEST_START;
+ 1153              		.loc 1 503 3 view .LVU256
+ 1154 00a0 2046     		mov	r0, r4
+ 1155 00a2 9847     		blx	r3
+ 1156              	.LVL116:
+ 506:Core/Src/app_sx126x.c **** 
+ 1157              		.loc 1 506 5 is_stmt 1 view .LVU257
+ 1158 00a4 FFF7FEFF 		bl	GenTriggerPulse
+ 1159              	.LVL117:
+ 536:Core/Src/app_sx126x.c **** 		while(1)
+ 1160              		.loc 1 536 3 view .LVU258
+ 1161 00a8 0E48     		ldr	r0, .L66+44
+ 1162 00aa FFF7FEFF 		bl	puts
+ 1163              	.LVL118:
+ 1164              	.L64:
+ 537:Core/Src/app_sx126x.c **** 		{
+ 1165              		.loc 1 537 3 discriminator 1 view .LVU259
+ 540:Core/Src/app_sx126x.c **** 		}
+ 1166              		.loc 1 540 4 discriminator 1 view .LVU260
+ 540:Core/Src/app_sx126x.c **** 		}
+ 1167              		.loc 1 540 9 is_stmt 0 discriminator 1 view .LVU261
+ 1168 00ae 0A4B     		ldr	r3, .L66+32
+ 1169 00b0 1B6E     		ldr	r3, [r3, #96]
+ 540:Core/Src/app_sx126x.c **** 		}
+ 1170              		.loc 1 540 4 discriminator 1 view .LVU262
+ 1171 00b2 9847     		blx	r3
+ 1172              	.LVL119:
+ 537:Core/Src/app_sx126x.c **** 		{
+ 1173              		.loc 1 537 8 is_stmt 1 discriminator 1 view .LVU263
+ 1174 00b4 FBE7     		b	.L64
+ 1175              	.L67:
+ 1176 00b6 00BF     		.align	2
+ 1177              	.L66:
+ 1178 00b8 00000000 		.word	.LANCHOR1
+ 1179 00bc 00000000 		.word	GenTriggerPulse
+ 1180 00c0 00000000 		.word	.LANCHOR2
+ 1181 00c4 00000000 		.word	OnTxDone
+ 1182 00c8 00000000 		.word	OnRxDone
+ 1183 00cc 00000000 		.word	OnTxTimeout
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 39
+
+
+ 1184 00d0 00000000 		.word	OnRxTimeout
+ 1185 00d4 00000000 		.word	OnRxError
+ 1186 00d8 00000000 		.word	Radio
+ 1187 00dc 400ECF19 		.word	433000000
+ 1188 00e0 85450100 		.word	83333
+ 1189 00e4 00000000 		.word	.LC4
+ 1190              		.cfi_endproc
+ 1191              	.LFE142:
+ 1193              		.section	.rodata.DUMP.str1.4,"aMS",%progbits,1
+ 1194              		.align	2
+ 1195              	.LC15:
+ 1196 0000 7061796C 		.ascii	"payload recieved\000"
+ 1196      6F616420 
+ 1196      72656369 
+ 1196      65766564 
+ 1196      00
+ 1197 0011 000000   		.align	2
+ 1198              	.LC16:
+ 1199 0014 25303278 		.ascii	"%02x \000"
+ 1199      2000
+ 1200              		.section	.text.DUMP,"ax",%progbits
+ 1201              		.align	1
+ 1202              		.global	DUMP
+ 1203              		.syntax unified
+ 1204              		.thumb
+ 1205              		.thumb_func
+ 1206              		.fpu fpv4-sp-d16
+ 1208              	DUMP:
+ 1209              	.LVL120:
+ 1210              	.LFB144:
+ 668:Core/Src/app_sx126x.c **** 	printf("payload recieved\n");
+ 1211              		.loc 1 668 1 view -0
+ 1212              		.cfi_startproc
+ 1213              		@ args = 0, pretend = 0, frame = 0
+ 1214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 668:Core/Src/app_sx126x.c **** 	printf("payload recieved\n");
+ 1215              		.loc 1 668 1 is_stmt 0 view .LVU265
+ 1216 0000 70B5     		push	{r4, r5, r6, lr}
+ 1217              	.LCFI18:
+ 1218              		.cfi_def_cfa_offset 16
+ 1219              		.cfi_offset 4, -16
+ 1220              		.cfi_offset 5, -12
+ 1221              		.cfi_offset 6, -8
+ 1222              		.cfi_offset 14, -4
+ 1223 0002 0446     		mov	r4, r0
+ 1224 0004 0E46     		mov	r6, r1
+ 669:Core/Src/app_sx126x.c **** 	uint16_t i = 0;
+ 1225              		.loc 1 669 2 is_stmt 1 view .LVU266
+ 1226 0006 0948     		ldr	r0, .L72
+ 1227              	.LVL121:
+ 669:Core/Src/app_sx126x.c **** 	uint16_t i = 0;
+ 1228              		.loc 1 669 2 is_stmt 0 view .LVU267
+ 1229 0008 FFF7FEFF 		bl	puts
+ 1230              	.LVL122:
+ 670:Core/Src/app_sx126x.c **** 	for(i = 0; i< len; i++)
+ 1231              		.loc 1 670 2 is_stmt 1 view .LVU268
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 40
+
+
+ 1232              		.loc 1 671 2 view .LVU269
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1233              		.loc 1 671 8 is_stmt 0 view .LVU270
+ 1234 000c 0025     		movs	r5, #0
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1235              		.loc 1 671 2 view .LVU271
+ 1236 000e 06E0     		b	.L69
+ 1237              	.LVL123:
+ 1238              	.L70:
+ 672:Core/Src/app_sx126x.c **** 	printf("\n");
+ 1239              		.loc 1 672 3 is_stmt 1 discriminator 3 view .LVU272
+ 672:Core/Src/app_sx126x.c **** 	printf("\n");
+ 1240              		.loc 1 672 3 is_stmt 0 discriminator 3 view .LVU273
+ 1241 0010 14F8011B 		ldrb	r1, [r4], #1	@ zero_extendqisi2
+ 1242              	.LVL124:
+ 672:Core/Src/app_sx126x.c **** 	printf("\n");
+ 1243              		.loc 1 672 3 discriminator 3 view .LVU274
+ 1244 0014 0648     		ldr	r0, .L72+4
+ 1245 0016 FFF7FEFF 		bl	printf
+ 1246              	.LVL125:
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1247              		.loc 1 671 21 is_stmt 1 discriminator 3 view .LVU275
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1248              		.loc 1 671 22 is_stmt 0 discriminator 3 view .LVU276
+ 1249 001a 0135     		adds	r5, r5, #1
+ 1250              	.LVL126:
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1251              		.loc 1 671 22 discriminator 3 view .LVU277
+ 1252 001c ADB2     		uxth	r5, r5
+ 1253              	.LVL127:
+ 1254              	.L69:
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1255              		.loc 1 671 13 is_stmt 1 discriminator 1 view .LVU278
+ 671:Core/Src/app_sx126x.c **** 		printf("%02x ",*payload++);
+ 1256              		.loc 1 671 2 is_stmt 0 discriminator 1 view .LVU279
+ 1257 001e B542     		cmp	r5, r6
+ 1258 0020 F6D3     		bcc	.L70
+ 673:Core/Src/app_sx126x.c **** }
+ 1259              		.loc 1 673 2 is_stmt 1 view .LVU280
+ 1260 0022 0A20     		movs	r0, #10
+ 1261 0024 FFF7FEFF 		bl	putchar
+ 1262              	.LVL128:
+ 674:Core/Src/app_sx126x.c **** 
+ 1263              		.loc 1 674 1 is_stmt 0 view .LVU281
+ 1264 0028 70BD     		pop	{r4, r5, r6, pc}
+ 1265              	.LVL129:
+ 1266              	.L73:
+ 674:Core/Src/app_sx126x.c **** 
+ 1267              		.loc 1 674 1 view .LVU282
+ 1268 002a 00BF     		.align	2
+ 1269              	.L72:
+ 1270 002c 00000000 		.word	.LC15
+ 1271 0030 14000000 		.word	.LC16
+ 1272              		.cfi_endproc
+ 1273              	.LFE144:
+ 1275              		.section	.rodata.OnRxDone.str1.4,"aMS",%progbits,1
+ 1276              		.align	2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 41
+
+
+ 1277              	.LC17:
+ 1278 0000 52582064 		.ascii	"RX done\015\000"
+ 1278      6F6E650D 
+ 1278      00
+ 1279              		.section	.text.OnRxDone,"ax",%progbits
+ 1280              		.align	1
+ 1281              		.global	OnRxDone
+ 1282              		.syntax unified
+ 1283              		.thumb
+ 1284              		.thumb_func
+ 1285              		.fpu fpv4-sp-d16
+ 1287              	OnRxDone:
+ 1288              	.LVL130:
+ 1289              	.LFB145:
+ 677:Core/Src/app_sx126x.c **** #if 0
+ 1290              		.loc 1 677 1 is_stmt 1 view -0
+ 1291              		.cfi_startproc
+ 1292              		@ args = 0, pretend = 0, frame = 0
+ 1293              		@ frame_needed = 0, uses_anonymous_args = 0
+ 677:Core/Src/app_sx126x.c **** #if 0
+ 1294              		.loc 1 677 1 is_stmt 0 view .LVU284
+ 1295 0000 38B5     		push	{r3, r4, r5, lr}
+ 1296              	.LCFI19:
+ 1297              		.cfi_def_cfa_offset 16
+ 1298              		.cfi_offset 3, -16
+ 1299              		.cfi_offset 4, -12
+ 1300              		.cfi_offset 5, -8
+ 1301              		.cfi_offset 14, -4
+ 1302 0002 0446     		mov	r4, r0
+ 1303 0004 0D46     		mov	r5, r1
+ 686:Core/Src/app_sx126x.c ****     DUMP(payload, size);
+ 1304              		.loc 1 686 3 is_stmt 1 view .LVU285
+ 1305 0006 0748     		ldr	r0, .L76
+ 1306              	.LVL131:
+ 686:Core/Src/app_sx126x.c ****     DUMP(payload, size);
+ 1307              		.loc 1 686 3 is_stmt 0 view .LVU286
+ 1308 0008 FFF7FEFF 		bl	puts
+ 1309              	.LVL132:
+ 687:Core/Src/app_sx126x.c **** 	  //pkt_rx_num++;
+ 1310              		.loc 1 687 5 is_stmt 1 view .LVU287
+ 1311 000c 2946     		mov	r1, r5
+ 1312 000e 2046     		mov	r0, r4
+ 1313 0010 FFF7FEFF 		bl	DUMP
+ 1314              	.LVL133:
+ 690:Core/Src/app_sx126x.c **** 	  Radio.Rx(0);
+ 1315              		.loc 1 690 3 view .LVU288
+ 690:Core/Src/app_sx126x.c **** 	  Radio.Rx(0);
+ 1316              		.loc 1 690 9 is_stmt 0 view .LVU289
+ 1317 0014 044B     		ldr	r3, .L76+4
+ 1318 0016 0122     		movs	r2, #1
+ 1319 0018 1A70     		strb	r2, [r3]
+ 691:Core/Src/app_sx126x.c **** }
+ 1320              		.loc 1 691 4 is_stmt 1 view .LVU290
+ 691:Core/Src/app_sx126x.c **** }
+ 1321              		.loc 1 691 9 is_stmt 0 view .LVU291
+ 1322 001a 044B     		ldr	r3, .L76+8
+ 1323 001c 5B6B     		ldr	r3, [r3, #52]
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 42
+
+
+ 691:Core/Src/app_sx126x.c **** }
+ 1324              		.loc 1 691 4 view .LVU292
+ 1325 001e 0020     		movs	r0, #0
+ 1326 0020 9847     		blx	r3
+ 1327              	.LVL134:
+ 692:Core/Src/app_sx126x.c **** 
+ 1328              		.loc 1 692 1 view .LVU293
+ 1329 0022 38BD     		pop	{r3, r4, r5, pc}
+ 1330              	.LVL135:
+ 1331              	.L77:
+ 692:Core/Src/app_sx126x.c **** 
+ 1332              		.loc 1 692 1 view .LVU294
+ 1333              		.align	2
+ 1334              	.L76:
+ 1335 0024 00000000 		.word	.LC17
+ 1336 0028 00000000 		.word	.LANCHOR0
+ 1337 002c 00000000 		.word	Radio
+ 1338              		.cfi_endproc
+ 1339              	.LFE145:
+ 1341              		.global	fsk_tst_timer
+ 1342              		.global	SnrValue
+ 1343              		.global	RssiValue
+ 1344              		.global	State
+ 1345              		.global	xorbuf
+ 1346              		.global	Buffer
+ 1347              		.global	BufferSize
+ 1348              		.global	PongMsg
+ 1349              		.global	PingMsg
+ 1350              		.section	.bss.Buffer,"aw",%nobits
+ 1351              		.align	2
+ 1352              		.set	.LANCHOR3,. + 0
+ 1355              	Buffer:
+ 1356 0000 00000000 		.space	64
+ 1356      00000000 
+ 1356      00000000 
+ 1356      00000000 
+ 1356      00000000 
+ 1357              		.section	.bss.RadioEvents,"aw",%nobits
+ 1358              		.align	2
+ 1359              		.set	.LANCHOR2,. + 0
+ 1362              	RadioEvents:
+ 1363 0000 00000000 		.space	28
+ 1363      00000000 
+ 1363      00000000 
+ 1363      00000000 
+ 1363      00000000 
+ 1364              		.section	.bss.RssiValue,"aw",%nobits
+ 1367              	RssiValue:
+ 1368 0000 00       		.space	1
+ 1369              		.section	.bss.SnrValue,"aw",%nobits
+ 1372              	SnrValue:
+ 1373 0000 00       		.space	1
+ 1374              		.section	.bss.State,"aw",%nobits
+ 1375              		.set	.LANCHOR0,. + 0
+ 1378              	State:
+ 1379 0000 00       		.space	1
+ 1380              		.section	.bss.fsk_state,"aw",%nobits
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 43
+
+
+ 1383              	fsk_state:
+ 1384 0000 00       		.space	1
+ 1385              		.section	.bss.fsk_tst_timer,"aw",%nobits
+ 1386              		.align	2
+ 1387              		.set	.LANCHOR1,. + 0
+ 1390              	fsk_tst_timer:
+ 1391 0000 00000000 		.space	20
+ 1391      00000000 
+ 1391      00000000 
+ 1391      00000000 
+ 1391      00000000 
+ 1392              		.section	.bss.pkt_rx_num,"aw",%nobits
+ 1393              		.align	2
+ 1396              	pkt_rx_num:
+ 1397 0000 00000000 		.space	4
+ 1398              		.section	.bss.pkt_send,"aw",%nobits
+ 1399              		.align	2
+ 1402              	pkt_send:
+ 1403 0000 00000000 		.space	4
+ 1404              		.section	.data.BufferSize,"aw"
+ 1405              		.align	1
+ 1406              		.set	.LANCHOR4,. + 0
+ 1409              	BufferSize:
+ 1410 0000 4000     		.short	64
+ 1411              		.section	.data.xorbuf,"aw"
+ 1412              		.align	2
+ 1415              	xorbuf:
+ 1416 0000 FFE11D9A 		.ascii	"\377\341\035\232\355\2053$\352z\3229p\227W\012T}-\330"
+ 1416      ED853324 
+ 1416      EA7AD239 
+ 1416      7097570A 
+ 1416      547D2DD8 
+ 1417 0014 6D0DBA8F 		.ascii	"m\015\272\217gY\307\242\2774\312\0300S\223\337\222\354"
+ 1417      6759C7A2 
+ 1417      BF34CA18 
+ 1417      305393DF 
+ 1417      92EC
+ 1418 0026 A7158ADC 		.ascii	"\247\025\212\334\364\206UN\030!@\304\304\325\306\221"
+ 1418      F486554E 
+ 1418      182140C4 
+ 1418      C4D5C691 
+ 1419 0036 8ACDE7   		.ascii	"\212\315\347"
+ 1420              		.section	.rodata.PingMsg,"a"
+ 1421              		.align	2
+ 1424              	PingMsg:
+ 1425 0000 50494E47 		.ascii	"PING\000"
+ 1425      00
+ 1426              		.section	.rodata.PongMsg,"a"
+ 1427              		.align	2
+ 1430              	PongMsg:
+ 1431 0000 504F4E47 		.ascii	"PONG\000"
+ 1431      00
+ 1432              		.text
+ 1433              	.Letext0:
+ 1434              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1435              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1436              		.file 4 "Core/Src/system/timer.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 44
+
+
+ 1437              		.file 5 "Core/Src/system/gpio.h"
+ 1438              		.file 6 "Core/Src/radio/radio.h"
+ 1439              		.file 7 "Core/Src/radio/sx126x/sx126x.h"
+ 1440              		.file 8 "Core/Src/boards/NucleoL476/board.h"
+ 1441              		.file 9 "<built-in>"
+ 1442              		.file 10 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\in
+ 1443              		.file 11 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h"
+ 1444              		.file 12 "Core/Src/boards/NucleoL476/sx126x-board.h"
+ 1445              		.file 13 "Core/Src/system/delay.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 45
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 app_sx126x.c
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:18     .text.OnTxDone:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:26     .text.OnTxDone:00000000 OnTxDone
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:55     .text.OnTxDone:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:61     .text.OnTxTimeout:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:68     .text.OnTxTimeout:00000000 OnTxTimeout
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:96     .text.OnTxTimeout:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:102    .text.GenTriggerPulse:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:109    .text.GenTriggerPulse:00000000 GenTriggerPulse
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:149    .text.GenTriggerPulse:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:154    .rodata.OnRxTimeout.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:158    .text.OnRxTimeout:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:165    .text.OnRxTimeout:00000000 OnRxTimeout
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:193    .text.OnRxTimeout:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:199    .rodata.OnRxError.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:203    .text.OnRxError:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:210    .text.OnRxError:00000000 OnRxError
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:238    .text.OnRxError:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:244    .text.sx126x_init:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:251    .text.sx126x_init:00000000 sx126x_init
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:386    .text.sx126x_init:000000b0 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1287   .text.OnRxDone:00000000 OnRxDone
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:401    .rodata.sx126x_tx_packet.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:408    .text.sx126x_tx_packet:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:415    .text.sx126x_tx_packet:00000000 sx126x_tx_packet
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:545    .text.sx126x_tx_packet:00000064 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:555    .rodata.sx126x_rx_packet.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:559    .text.sx126x_rx_packet:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:566    .text.sx126x_rx_packet:00000000 sx126x_rx_packet
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:596    .text.sx126x_rx_packet:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:602    .rodata.register_test.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:618    .text.register_test:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:625    .text.register_test:00000000 register_test
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:745    .text.register_test:00000098 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:754    .rodata.packet_rx.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:770    .text.packet_rx:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:777    .text.packet_rx:00000000 packet_rx
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:928    .text.packet_rx:00000098 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:939    .text.crc16:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:946    .text.crc16:00000000 crc16
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1027   .text.main1:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1034   .text.main1:00000000 main1
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1178   .text.main1:000000b8 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1194   .rodata.DUMP.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1201   .text.DUMP:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1208   .text.DUMP:00000000 DUMP
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1270   .text.DUMP:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1276   .rodata.OnRxDone.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1280   .text.OnRxDone:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1335   .text.OnRxDone:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1390   .bss.fsk_tst_timer:00000000 fsk_tst_timer
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1372   .bss.SnrValue:00000000 SnrValue
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1367   .bss.RssiValue:00000000 RssiValue
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1378   .bss.State:00000000 State
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1415   .data.xorbuf:00000000 xorbuf
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1355   .bss.Buffer:00000000 Buffer
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s 			page 46
+
+
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1409   .data.BufferSize:00000000 BufferSize
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1430   .rodata.PongMsg:00000000 PongMsg
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1424   .rodata.PingMsg:00000000 PingMsg
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1351   .bss.Buffer:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1358   .bss.RadioEvents:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1362   .bss.RadioEvents:00000000 RadioEvents
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1368   .bss.RssiValue:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1373   .bss.SnrValue:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1379   .bss.State:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1383   .bss.fsk_state:00000000 fsk_state
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1384   .bss.fsk_state:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1386   .bss.fsk_tst_timer:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1393   .bss.pkt_rx_num:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1396   .bss.pkt_rx_num:00000000 pkt_rx_num
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1399   .bss.pkt_send:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1402   .bss.pkt_send:00000000 pkt_send
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1405   .data.BufferSize:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1412   .data.xorbuf:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1421   .rodata.PingMsg:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccJhSVOL.s:1427   .rodata.PongMsg:00000000 $d
+
+UNDEFINED SYMBOLS
+Radio
+GpioWrite
+DelayMs
+Led2
+puts
+BoardInitMcu
+BoardInitPeriph
+TimerInit
+TimerSetValue
+SX126xGetIrqStatus
+SX126xClearIrqStatus
+HAL_Delay
+GpioToggle
+Led1
+SX126xWriteRegister
+SX126xReadRegister
+sprintf
+printf
+SX126xGetPayload
+putchar
+SX126xGetPacketStatus

@@ -1,0 +1,1412 @@
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"uart-board.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.UartMcuInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	UartMcuInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	UartMcuInit:
+  27              	.LVL0:
+  28              	.LFB135:
+  29              		.file 1 "Core/Src/boards/NucleoL476/uart-board.c"
+   1:Core/Src/boards/NucleoL476/uart-board.c **** /*
+   2:Core/Src/boards/NucleoL476/uart-board.c ****   ______                              _
+   3:Core/Src/boards/NucleoL476/uart-board.c ****  / _____)             _              | |
+   4:Core/Src/boards/NucleoL476/uart-board.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   5:Core/Src/boards/NucleoL476/uart-board.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   6:Core/Src/boards/NucleoL476/uart-board.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   7:Core/Src/boards/NucleoL476/uart-board.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   8:Core/Src/boards/NucleoL476/uart-board.c ****     (C)2016 Semtech
+   9:Core/Src/boards/NucleoL476/uart-board.c **** 
+  10:Core/Src/boards/NucleoL476/uart-board.c **** Description: Board UART driver implementation
+  11:Core/Src/boards/NucleoL476/uart-board.c **** 
+  12:Core/Src/boards/NucleoL476/uart-board.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  13:Core/Src/boards/NucleoL476/uart-board.c **** 
+  14:Core/Src/boards/NucleoL476/uart-board.c **** Maintainer: Miguel Luis and Gregory Cristian
+  15:Core/Src/boards/NucleoL476/uart-board.c **** */
+  16:Core/Src/boards/NucleoL476/uart-board.c **** #include "board.h"
+  17:Core/Src/boards/NucleoL476/uart-board.c **** 
+  18:Core/Src/boards/NucleoL476/uart-board.c **** #include "uart-board.h"
+  19:Core/Src/boards/NucleoL476/uart-board.c **** 
+  20:Core/Src/boards/NucleoL476/uart-board.c **** UART_HandleTypeDef UartHandle;
+  21:Core/Src/boards/NucleoL476/uart-board.c **** uint8_t RxData = 0;
+  22:Core/Src/boards/NucleoL476/uart-board.c **** uint8_t TxData = 0;
+  23:Core/Src/boards/NucleoL476/uart-board.c **** 
+  24:Core/Src/boards/NucleoL476/uart-board.c **** void UartMcuInit( Uart_t *obj, uint8_t uartId, PinNames tx, PinNames rx )
+  25:Core/Src/boards/NucleoL476/uart-board.c **** {
+  30              		.loc 1 25 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 2
+
+
+  34              		.loc 1 25 1 is_stmt 0 view .LVU1
+  35 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 20
+  38              		.cfi_offset 4, -20
+  39              		.cfi_offset 5, -16
+  40              		.cfi_offset 6, -12
+  41              		.cfi_offset 7, -8
+  42              		.cfi_offset 14, -4
+  43 0002 85B0     		sub	sp, sp, #20
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 40
+  46 0004 0446     		mov	r4, r0
+  47 0006 0E46     		mov	r6, r1
+  48 0008 1146     		mov	r1, r2
+  49              	.LVL1:
+  50              		.loc 1 25 1 view .LVU2
+  51 000a 1D46     		mov	r5, r3
+  26:Core/Src/boards/NucleoL476/uart-board.c ****     obj->UartId = uartId;
+  52              		.loc 1 26 5 is_stmt 1 view .LVU3
+  53              		.loc 1 26 17 is_stmt 0 view .LVU4
+  54 000c 00F8046B 		strb	r6, [r0], #4
+  55              	.LVL2:
+  27:Core/Src/boards/NucleoL476/uart-board.c **** 
+  28:Core/Src/boards/NucleoL476/uart-board.c ****     __HAL_RCC_USART2_FORCE_RESET( );
+  56              		.loc 1 28 5 is_stmt 1 view .LVU5
+  57 0010 124A     		ldr	r2, .L3
+  58              	.LVL3:
+  59              		.loc 1 28 5 is_stmt 0 view .LVU6
+  60 0012 936B     		ldr	r3, [r2, #56]
+  61              	.LVL4:
+  62              		.loc 1 28 5 view .LVU7
+  63 0014 43F40033 		orr	r3, r3, #131072
+  64 0018 9363     		str	r3, [r2, #56]
+  29:Core/Src/boards/NucleoL476/uart-board.c ****     __HAL_RCC_USART2_RELEASE_RESET( );
+  65              		.loc 1 29 5 is_stmt 1 view .LVU8
+  66 001a 936B     		ldr	r3, [r2, #56]
+  67 001c 23F40033 		bic	r3, r3, #131072
+  68 0020 9363     		str	r3, [r2, #56]
+  30:Core/Src/boards/NucleoL476/uart-board.c ****     __HAL_RCC_USART2_CLK_ENABLE( );
+  69              		.loc 1 30 5 view .LVU9
+  70              	.LBB2:
+  71              		.loc 1 30 5 view .LVU10
+  72              		.loc 1 30 5 view .LVU11
+  73 0022 936D     		ldr	r3, [r2, #88]
+  74 0024 43F40033 		orr	r3, r3, #131072
+  75 0028 9365     		str	r3, [r2, #88]
+  76              		.loc 1 30 5 view .LVU12
+  77 002a 936D     		ldr	r3, [r2, #88]
+  78 002c 03F40033 		and	r3, r3, #131072
+  79 0030 0393     		str	r3, [sp, #12]
+  80              		.loc 1 30 5 view .LVU13
+  81 0032 039B     		ldr	r3, [sp, #12]
+  82              	.LBE2:
+  83              		.loc 1 30 5 view .LVU14
+  31:Core/Src/boards/NucleoL476/uart-board.c **** 
+  32:Core/Src/boards/NucleoL476/uart-board.c ****     GpioInit( &obj->Tx, tx, PIN_ALTERNATE_FCT, PIN_PUSH_PULL, PIN_PULL_UP, GPIO_AF7_USART2 );
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 3
+
+
+  84              		.loc 1 32 5 view .LVU15
+  85 0034 0727     		movs	r7, #7
+  86 0036 0197     		str	r7, [sp, #4]
+  87 0038 0126     		movs	r6, #1
+  88 003a 0096     		str	r6, [sp]
+  89 003c 0023     		movs	r3, #0
+  90 003e 0222     		movs	r2, #2
+  91 0040 FFF7FEFF 		bl	GpioInit
+  92              	.LVL5:
+  33:Core/Src/boards/NucleoL476/uart-board.c ****     GpioInit( &obj->Rx, rx, PIN_ALTERNATE_FCT, PIN_PUSH_PULL, PIN_PULL_UP, GPIO_AF7_USART2 );
+  93              		.loc 1 33 5 view .LVU16
+  94 0044 0197     		str	r7, [sp, #4]
+  95 0046 0096     		str	r6, [sp]
+  96 0048 0023     		movs	r3, #0
+  97 004a 0222     		movs	r2, #2
+  98 004c 2946     		mov	r1, r5
+  99 004e 04F11000 		add	r0, r4, #16
+ 100 0052 FFF7FEFF 		bl	GpioInit
+ 101              	.LVL6:
+  34:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 102              		.loc 1 34 1 is_stmt 0 view .LVU17
+ 103 0056 05B0     		add	sp, sp, #20
+ 104              	.LCFI2:
+ 105              		.cfi_def_cfa_offset 20
+ 106              		@ sp needed
+ 107 0058 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 108              	.LVL7:
+ 109              	.L4:
+ 110              		.loc 1 34 1 view .LVU18
+ 111 005a 00BF     		.align	2
+ 112              	.L3:
+ 113 005c 00100240 		.word	1073876992
+ 114              		.cfi_endproc
+ 115              	.LFE135:
+ 117              		.section	.rodata.UartMcuConfig.str1.4,"aMS",%progbits,1
+ 118              		.align	2
+ 119              	.LC0:
+ 120 0000 436F7265 		.ascii	"Core/Src/boards/NucleoL476/uart-board.c\000"
+ 120      2F537263 
+ 120      2F626F61 
+ 120      7264732F 
+ 120      4E75636C 
+ 121              		.section	.text.UartMcuConfig,"ax",%progbits
+ 122              		.align	1
+ 123              		.global	UartMcuConfig
+ 124              		.syntax unified
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.fpu fpv4-sp-d16
+ 129              	UartMcuConfig:
+ 130              	.LVL8:
+ 131              	.LFB136:
+  35:Core/Src/boards/NucleoL476/uart-board.c **** 
+  36:Core/Src/boards/NucleoL476/uart-board.c **** void UartMcuConfig( Uart_t *obj, UartMode_t mode, uint32_t baudrate, WordLength_t wordLength, StopB
+  37:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 132              		.loc 1 37 1 is_stmt 1 view -0
+ 133              		.cfi_startproc
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 4
+
+
+ 134              		@ args = 12, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		.loc 1 37 1 is_stmt 0 view .LVU20
+ 137 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 138              	.LCFI3:
+ 139              		.cfi_def_cfa_offset 24
+ 140              		.cfi_offset 3, -24
+ 141              		.cfi_offset 4, -20
+ 142              		.cfi_offset 5, -16
+ 143              		.cfi_offset 6, -12
+ 144              		.cfi_offset 7, -8
+ 145              		.cfi_offset 14, -4
+ 146 0002 1C46     		mov	r4, r3
+ 147 0004 9DF81C60 		ldrb	r6, [sp, #28]	@ zero_extendqisi2
+ 148 0008 9DF82050 		ldrb	r5, [sp, #32]	@ zero_extendqisi2
+  38:Core/Src/boards/NucleoL476/uart-board.c ****     UartHandle.Instance = USART2;
+ 149              		.loc 1 38 5 is_stmt 1 view .LVU21
+ 150              		.loc 1 38 25 is_stmt 0 view .LVU22
+ 151 000c 474B     		ldr	r3, .L35
+ 152              	.LVL9:
+ 153              		.loc 1 38 25 view .LVU23
+ 154 000e 484F     		ldr	r7, .L35+4
+ 155 0010 1F60     		str	r7, [r3]
+  39:Core/Src/boards/NucleoL476/uart-board.c ****     UartHandle.Init.BaudRate = baudrate;
+ 156              		.loc 1 39 5 is_stmt 1 view .LVU24
+ 157              		.loc 1 39 30 is_stmt 0 view .LVU25
+ 158 0012 5A60     		str	r2, [r3, #4]
+  40:Core/Src/boards/NucleoL476/uart-board.c **** 
+  41:Core/Src/boards/NucleoL476/uart-board.c ****     if( mode == TX_ONLY )
+ 159              		.loc 1 41 5 is_stmt 1 view .LVU26
+ 160              		.loc 1 41 7 is_stmt 0 view .LVU27
+ 161 0014 0029     		cmp	r1, #0
+ 162 0016 35D1     		bne	.L6
+  42:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  43:Core/Src/boards/NucleoL476/uart-board.c ****         if( obj->FifoTx.Data == NULL )
+ 163              		.loc 1 43 9 is_stmt 1 view .LVU28
+ 164              		.loc 1 43 24 is_stmt 0 view .LVU29
+ 165 0018 036A     		ldr	r3, [r0, #32]
+ 166              		.loc 1 43 11 view .LVU30
+ 167 001a 002B     		cmp	r3, #0
+ 168 001c 2DD0     		beq	.L27
+ 169              	.LVL10:
+ 170              	.L7:
+  44:Core/Src/boards/NucleoL476/uart-board.c ****         {
+  45:Core/Src/boards/NucleoL476/uart-board.c ****             assert_param( FAIL );
+  46:Core/Src/boards/NucleoL476/uart-board.c ****         }
+  47:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.Mode = UART_MODE_TX;
+ 171              		.loc 1 47 9 is_stmt 1 view .LVU31
+ 172              		.loc 1 47 30 is_stmt 0 view .LVU32
+ 173 001e 434B     		ldr	r3, .L35
+ 174 0020 0822     		movs	r2, #8
+ 175 0022 5A61     		str	r2, [r3, #20]
+ 176              	.L8:
+  48:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  49:Core/Src/boards/NucleoL476/uart-board.c ****     else if( mode == RX_ONLY )
+  50:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  51:Core/Src/boards/NucleoL476/uart-board.c ****         if( obj->FifoRx.Data == NULL )
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 5
+
+
+  52:Core/Src/boards/NucleoL476/uart-board.c ****         {
+  53:Core/Src/boards/NucleoL476/uart-board.c ****             assert_param( FAIL );
+  54:Core/Src/boards/NucleoL476/uart-board.c ****         }
+  55:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.Mode = UART_MODE_RX;
+  56:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  57:Core/Src/boards/NucleoL476/uart-board.c ****     else if( mode == RX_TX )
+  58:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  59:Core/Src/boards/NucleoL476/uart-board.c ****         if( ( obj->FifoTx.Data == NULL ) || ( obj->FifoRx.Data == NULL ) )
+  60:Core/Src/boards/NucleoL476/uart-board.c ****         {
+  61:Core/Src/boards/NucleoL476/uart-board.c ****             assert_param( FAIL );
+  62:Core/Src/boards/NucleoL476/uart-board.c ****         }
+  63:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.Mode = UART_MODE_TX_RX;
+  64:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  65:Core/Src/boards/NucleoL476/uart-board.c ****     else
+  66:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  67:Core/Src/boards/NucleoL476/uart-board.c ****        assert_param( FAIL );
+  68:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  69:Core/Src/boards/NucleoL476/uart-board.c **** 
+  70:Core/Src/boards/NucleoL476/uart-board.c ****     if( wordLength == UART_8_BIT )
+ 177              		.loc 1 70 5 is_stmt 1 view .LVU33
+ 178              		.loc 1 70 7 is_stmt 0 view .LVU34
+ 179 0024 002C     		cmp	r4, #0
+ 180 0026 4ED1     		bne	.L14
+  71:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  72:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
+ 181              		.loc 1 72 9 is_stmt 1 view .LVU35
+ 182              		.loc 1 72 36 is_stmt 0 view .LVU36
+ 183 0028 404B     		ldr	r3, .L35
+ 184 002a 0022     		movs	r2, #0
+ 185 002c 9A60     		str	r2, [r3, #8]
+ 186              	.L15:
+  73:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  74:Core/Src/boards/NucleoL476/uart-board.c ****     else if( wordLength == UART_9_BIT )
+  75:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  76:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.WordLength = UART_WORDLENGTH_9B;
+  77:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  78:Core/Src/boards/NucleoL476/uart-board.c **** 
+  79:Core/Src/boards/NucleoL476/uart-board.c ****     switch( stopBits )
+ 187              		.loc 1 79 5 is_stmt 1 view .LVU37
+ 188 002e 9DF81830 		ldrb	r3, [sp, #24]	@ zero_extendqisi2
+ 189 0032 022B     		cmp	r3, #2
+ 190 0034 4ED0     		beq	.L28
+  80:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  81:Core/Src/boards/NucleoL476/uart-board.c ****     case UART_2_STOP_BIT:
+  82:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.StopBits = UART_STOPBITS_2;
+  83:Core/Src/boards/NucleoL476/uart-board.c ****         break;
+  84:Core/Src/boards/NucleoL476/uart-board.c ****     case UART_1_STOP_BIT:
+  85:Core/Src/boards/NucleoL476/uart-board.c ****     default:
+  86:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.StopBits = UART_STOPBITS_1;
+ 191              		.loc 1 86 9 view .LVU38
+ 192              		.loc 1 86 34 is_stmt 0 view .LVU39
+ 193 0036 3D4B     		ldr	r3, .L35
+ 194 0038 0022     		movs	r2, #0
+ 195 003a DA60     		str	r2, [r3, #12]
+  87:Core/Src/boards/NucleoL476/uart-board.c ****         break;
+ 196              		.loc 1 87 9 is_stmt 1 view .LVU40
+ 197              	.L17:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 6
+
+
+  88:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  89:Core/Src/boards/NucleoL476/uart-board.c **** 
+  90:Core/Src/boards/NucleoL476/uart-board.c ****     if( parity == NO_PARITY )
+ 198              		.loc 1 90 5 view .LVU41
+ 199              		.loc 1 90 7 is_stmt 0 view .LVU42
+ 200 003c 002E     		cmp	r6, #0
+ 201 003e 4ED1     		bne	.L18
+  91:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  92:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.Parity = UART_PARITY_NONE;
+ 202              		.loc 1 92 9 is_stmt 1 view .LVU43
+ 203              		.loc 1 92 32 is_stmt 0 view .LVU44
+ 204 0040 3A4B     		ldr	r3, .L35
+ 205 0042 0022     		movs	r2, #0
+ 206 0044 1A61     		str	r2, [r3, #16]
+ 207              	.L19:
+  93:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  94:Core/Src/boards/NucleoL476/uart-board.c ****     else if( parity == EVEN_PARITY )
+  95:Core/Src/boards/NucleoL476/uart-board.c ****     {
+  96:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.Parity = UART_PARITY_EVEN;
+  97:Core/Src/boards/NucleoL476/uart-board.c ****     }
+  98:Core/Src/boards/NucleoL476/uart-board.c ****     else
+  99:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 100:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.Parity = UART_PARITY_ODD;
+ 101:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 102:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 103:Core/Src/boards/NucleoL476/uart-board.c ****     if( flowCtrl == NO_FLOW_CTRL )
+ 208              		.loc 1 103 5 is_stmt 1 view .LVU45
+ 209              		.loc 1 103 7 is_stmt 0 view .LVU46
+ 210 0046 002D     		cmp	r5, #0
+ 211 0048 55D1     		bne	.L21
+ 104:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 105:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 212              		.loc 1 105 9 is_stmt 1 view .LVU47
+ 213              		.loc 1 105 35 is_stmt 0 view .LVU48
+ 214 004a 384B     		ldr	r3, .L35
+ 215 004c 0022     		movs	r2, #0
+ 216 004e 9A61     		str	r2, [r3, #24]
+ 217              	.L22:
+ 106:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 107:Core/Src/boards/NucleoL476/uart-board.c ****     else if( flowCtrl == RTS_FLOW_CTRL )
+ 108:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 109:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.HwFlowCtl = UART_HWCONTROL_RTS;
+ 110:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 111:Core/Src/boards/NucleoL476/uart-board.c ****     else if( flowCtrl == CTS_FLOW_CTRL )
+ 112:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 113:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.HwFlowCtl = UART_HWCONTROL_CTS;
+ 114:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 115:Core/Src/boards/NucleoL476/uart-board.c ****     else if( flowCtrl == RTS_CTS_FLOW_CTRL )
+ 116:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 117:Core/Src/boards/NucleoL476/uart-board.c ****         UartHandle.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
+ 118:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 119:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 120:Core/Src/boards/NucleoL476/uart-board.c ****     UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
+ 218              		.loc 1 120 5 is_stmt 1 view .LVU49
+ 219              		.loc 1 120 34 is_stmt 0 view .LVU50
+ 220 0050 3648     		ldr	r0, .L35
+ 221 0052 0023     		movs	r3, #0
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 7
+
+
+ 222 0054 C361     		str	r3, [r0, #28]
+ 121:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 122:Core/Src/boards/NucleoL476/uart-board.c ****     if( HAL_UART_Init( &UartHandle ) != HAL_OK )
+ 223              		.loc 1 122 5 is_stmt 1 view .LVU51
+ 224              		.loc 1 122 9 is_stmt 0 view .LVU52
+ 225 0056 FFF7FEFF 		bl	HAL_UART_Init
+ 226              	.LVL11:
+ 227              		.loc 1 122 7 view .LVU53
+ 228 005a 0028     		cmp	r0, #0
+ 229 005c 60D1     		bne	.L29
+ 230              	.L25:
+ 123:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 124:Core/Src/boards/NucleoL476/uart-board.c ****         assert_param( FAIL );
+ 125:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 126:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 127:Core/Src/boards/NucleoL476/uart-board.c ****     HAL_NVIC_SetPriority( USART2_IRQn, 1, 0 );
+ 231              		.loc 1 127 5 is_stmt 1 view .LVU54
+ 232 005e 0022     		movs	r2, #0
+ 233 0060 0121     		movs	r1, #1
+ 234 0062 2620     		movs	r0, #38
+ 235 0064 FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 236              	.LVL12:
+ 128:Core/Src/boards/NucleoL476/uart-board.c ****     HAL_NVIC_EnableIRQ( USART2_IRQn );
+ 237              		.loc 1 128 5 view .LVU55
+ 238 0068 2620     		movs	r0, #38
+ 239 006a FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
+ 240              	.LVL13:
+ 129:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 130:Core/Src/boards/NucleoL476/uart-board.c ****     /* Enable the UART Data Register not empty Interrupt */
+ 131:Core/Src/boards/NucleoL476/uart-board.c ****     HAL_UART_Receive_IT( &UartHandle, &RxData, 1 );
+ 241              		.loc 1 131 5 view .LVU56
+ 242 006e 0122     		movs	r2, #1
+ 243 0070 3049     		ldr	r1, .L35+8
+ 244 0072 2E48     		ldr	r0, .L35
+ 245 0074 FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 246              	.LVL14:
+ 132:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 247              		.loc 1 132 1 is_stmt 0 view .LVU57
+ 248 0078 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 249              	.LVL15:
+ 250              	.L27:
+  45:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 251              		.loc 1 45 13 is_stmt 1 view .LVU58
+ 252 007a 2D21     		movs	r1, #45
+ 253              	.LVL16:
+  45:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 254              		.loc 1 45 13 is_stmt 0 view .LVU59
+ 255 007c 2E48     		ldr	r0, .L35+12
+ 256              	.LVL17:
+  45:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 257              		.loc 1 45 13 view .LVU60
+ 258 007e FFF7FEFF 		bl	assert_failed
+ 259              	.LVL18:
+  45:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 260              		.loc 1 45 13 view .LVU61
+ 261 0082 CCE7     		b	.L7
+ 262              	.LVL19:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 8
+
+
+ 263              	.L6:
+  49:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 264              		.loc 1 49 10 is_stmt 1 view .LVU62
+  49:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 265              		.loc 1 49 12 is_stmt 0 view .LVU63
+ 266 0084 0129     		cmp	r1, #1
+ 267 0086 09D0     		beq	.L30
+  57:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 268              		.loc 1 57 10 is_stmt 1 view .LVU64
+  57:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 269              		.loc 1 57 12 is_stmt 0 view .LVU65
+ 270 0088 0229     		cmp	r1, #2
+ 271 008a 17D1     		bne	.L11
+  59:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 272              		.loc 1 59 9 is_stmt 1 view .LVU66
+  59:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 273              		.loc 1 59 26 is_stmt 0 view .LVU67
+ 274 008c 036A     		ldr	r3, [r0, #32]
+  59:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 275              		.loc 1 59 11 view .LVU68
+ 276 008e 83B1     		cbz	r3, .L12
+  59:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 277              		.loc 1 59 58 discriminator 1 view .LVU69
+ 278 0090 C36A     		ldr	r3, [r0, #44]
+  59:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 279              		.loc 1 59 42 discriminator 1 view .LVU70
+ 280 0092 73B1     		cbz	r3, .L12
+ 281              	.LVL20:
+ 282              	.L13:
+  63:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 283              		.loc 1 63 9 is_stmt 1 view .LVU71
+  63:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 284              		.loc 1 63 30 is_stmt 0 view .LVU72
+ 285 0094 254B     		ldr	r3, .L35
+ 286 0096 0C22     		movs	r2, #12
+ 287 0098 5A61     		str	r2, [r3, #20]
+ 288 009a C3E7     		b	.L8
+ 289              	.LVL21:
+ 290              	.L30:
+  51:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 291              		.loc 1 51 9 is_stmt 1 view .LVU73
+  51:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 292              		.loc 1 51 24 is_stmt 0 view .LVU74
+ 293 009c C36A     		ldr	r3, [r0, #44]
+  51:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 294              		.loc 1 51 11 view .LVU75
+ 295 009e 1BB1     		cbz	r3, .L31
+ 296              	.LVL22:
+ 297              	.L10:
+  55:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 298              		.loc 1 55 9 is_stmt 1 view .LVU76
+  55:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 299              		.loc 1 55 30 is_stmt 0 view .LVU77
+ 300 00a0 224B     		ldr	r3, .L35
+ 301 00a2 0422     		movs	r2, #4
+ 302 00a4 5A61     		str	r2, [r3, #20]
+ 303 00a6 BDE7     		b	.L8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 9
+
+
+ 304              	.LVL23:
+ 305              	.L31:
+  53:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 306              		.loc 1 53 13 is_stmt 1 view .LVU78
+ 307 00a8 3521     		movs	r1, #53
+ 308              	.LVL24:
+  53:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 309              		.loc 1 53 13 is_stmt 0 view .LVU79
+ 310 00aa 2348     		ldr	r0, .L35+12
+ 311              	.LVL25:
+  53:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 312              		.loc 1 53 13 view .LVU80
+ 313 00ac FFF7FEFF 		bl	assert_failed
+ 314              	.LVL26:
+  53:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 315              		.loc 1 53 13 view .LVU81
+ 316 00b0 F6E7     		b	.L10
+ 317              	.LVL27:
+ 318              	.L12:
+  61:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 319              		.loc 1 61 13 is_stmt 1 view .LVU82
+ 320 00b2 3D21     		movs	r1, #61
+ 321              	.LVL28:
+  61:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 322              		.loc 1 61 13 is_stmt 0 view .LVU83
+ 323 00b4 2048     		ldr	r0, .L35+12
+ 324              	.LVL29:
+  61:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 325              		.loc 1 61 13 view .LVU84
+ 326 00b6 FFF7FEFF 		bl	assert_failed
+ 327              	.LVL30:
+  61:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 328              		.loc 1 61 13 view .LVU85
+ 329 00ba EBE7     		b	.L13
+ 330              	.LVL31:
+ 331              	.L11:
+  67:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 332              		.loc 1 67 8 is_stmt 1 view .LVU86
+ 333 00bc 4321     		movs	r1, #67
+ 334              	.LVL32:
+  67:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 335              		.loc 1 67 8 is_stmt 0 view .LVU87
+ 336 00be 1E48     		ldr	r0, .L35+12
+ 337              	.LVL33:
+  67:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 338              		.loc 1 67 8 view .LVU88
+ 339 00c0 FFF7FEFF 		bl	assert_failed
+ 340              	.LVL34:
+  67:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 341              		.loc 1 67 8 view .LVU89
+ 342 00c4 AEE7     		b	.L8
+ 343              	.L14:
+  74:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 344              		.loc 1 74 10 is_stmt 1 view .LVU90
+  74:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 345              		.loc 1 74 12 is_stmt 0 view .LVU91
+ 346 00c6 012C     		cmp	r4, #1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 10
+
+
+ 347 00c8 B1D1     		bne	.L15
+  76:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 348              		.loc 1 76 9 is_stmt 1 view .LVU92
+  76:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 349              		.loc 1 76 36 is_stmt 0 view .LVU93
+ 350 00ca 184B     		ldr	r3, .L35
+ 351 00cc 4FF48052 		mov	r2, #4096
+ 352 00d0 9A60     		str	r2, [r3, #8]
+ 353 00d2 ACE7     		b	.L15
+ 354              	.L28:
+  82:Core/Src/boards/NucleoL476/uart-board.c ****         break;
+ 355              		.loc 1 82 9 is_stmt 1 view .LVU94
+  82:Core/Src/boards/NucleoL476/uart-board.c ****         break;
+ 356              		.loc 1 82 34 is_stmt 0 view .LVU95
+ 357 00d4 154B     		ldr	r3, .L35
+ 358 00d6 4FF40052 		mov	r2, #8192
+ 359 00da DA60     		str	r2, [r3, #12]
+  83:Core/Src/boards/NucleoL476/uart-board.c ****     case UART_1_STOP_BIT:
+ 360              		.loc 1 83 9 is_stmt 1 view .LVU96
+ 361 00dc AEE7     		b	.L17
+ 362              	.L18:
+  94:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 363              		.loc 1 94 10 view .LVU97
+  94:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 364              		.loc 1 94 12 is_stmt 0 view .LVU98
+ 365 00de 012E     		cmp	r6, #1
+ 366 00e0 04D0     		beq	.L32
+ 100:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 367              		.loc 1 100 9 is_stmt 1 view .LVU99
+ 100:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 368              		.loc 1 100 32 is_stmt 0 view .LVU100
+ 369 00e2 124B     		ldr	r3, .L35
+ 370 00e4 4FF4C062 		mov	r2, #1536
+ 371 00e8 1A61     		str	r2, [r3, #16]
+ 372 00ea ACE7     		b	.L19
+ 373              	.L32:
+  96:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 374              		.loc 1 96 9 is_stmt 1 view .LVU101
+  96:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 375              		.loc 1 96 32 is_stmt 0 view .LVU102
+ 376 00ec 0F4B     		ldr	r3, .L35
+ 377 00ee 4FF48062 		mov	r2, #1024
+ 378 00f2 1A61     		str	r2, [r3, #16]
+ 379 00f4 A7E7     		b	.L19
+ 380              	.L21:
+ 107:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 381              		.loc 1 107 10 is_stmt 1 view .LVU103
+ 107:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 382              		.loc 1 107 12 is_stmt 0 view .LVU104
+ 383 00f6 012D     		cmp	r5, #1
+ 384 00f8 08D0     		beq	.L33
+ 111:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 385              		.loc 1 111 10 is_stmt 1 view .LVU105
+ 111:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 386              		.loc 1 111 12 is_stmt 0 view .LVU106
+ 387 00fa 022D     		cmp	r5, #2
+ 388 00fc 0BD0     		beq	.L34
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 11
+
+
+ 115:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 389              		.loc 1 115 10 is_stmt 1 view .LVU107
+ 115:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 390              		.loc 1 115 12 is_stmt 0 view .LVU108
+ 391 00fe 032D     		cmp	r5, #3
+ 392 0100 A6D1     		bne	.L22
+ 117:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 393              		.loc 1 117 9 is_stmt 1 view .LVU109
+ 117:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 394              		.loc 1 117 35 is_stmt 0 view .LVU110
+ 395 0102 0A4B     		ldr	r3, .L35
+ 396 0104 4FF44072 		mov	r2, #768
+ 397 0108 9A61     		str	r2, [r3, #24]
+ 398 010a A1E7     		b	.L22
+ 399              	.L33:
+ 109:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 400              		.loc 1 109 9 is_stmt 1 view .LVU111
+ 109:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 401              		.loc 1 109 35 is_stmt 0 view .LVU112
+ 402 010c 074B     		ldr	r3, .L35
+ 403 010e 4FF48072 		mov	r2, #256
+ 404 0112 9A61     		str	r2, [r3, #24]
+ 405 0114 9CE7     		b	.L22
+ 406              	.L34:
+ 113:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 407              		.loc 1 113 9 is_stmt 1 view .LVU113
+ 113:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 408              		.loc 1 113 35 is_stmt 0 view .LVU114
+ 409 0116 054B     		ldr	r3, .L35
+ 410 0118 4FF40072 		mov	r2, #512
+ 411 011c 9A61     		str	r2, [r3, #24]
+ 412 011e 97E7     		b	.L22
+ 413              	.L29:
+ 124:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 414              		.loc 1 124 9 is_stmt 1 view .LVU115
+ 415 0120 7C21     		movs	r1, #124
+ 416 0122 0548     		ldr	r0, .L35+12
+ 417 0124 FFF7FEFF 		bl	assert_failed
+ 418              	.LVL35:
+ 419 0128 99E7     		b	.L25
+ 420              	.L36:
+ 421 012a 00BF     		.align	2
+ 422              	.L35:
+ 423 012c 00000000 		.word	.LANCHOR0
+ 424 0130 00440040 		.word	1073759232
+ 425 0134 00000000 		.word	.LANCHOR1
+ 426 0138 00000000 		.word	.LC0
+ 427              		.cfi_endproc
+ 428              	.LFE136:
+ 430              		.section	.text.UartMcuDeInit,"ax",%progbits
+ 431              		.align	1
+ 432              		.global	UartMcuDeInit
+ 433              		.syntax unified
+ 434              		.thumb
+ 435              		.thumb_func
+ 436              		.fpu fpv4-sp-d16
+ 438              	UartMcuDeInit:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 12
+
+
+ 439              	.LVL36:
+ 440              	.LFB137:
+ 133:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 134:Core/Src/boards/NucleoL476/uart-board.c **** void UartMcuDeInit( Uart_t *obj )
+ 135:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 441              		.loc 1 135 1 view -0
+ 442              		.cfi_startproc
+ 443              		@ args = 0, pretend = 0, frame = 0
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		.loc 1 135 1 is_stmt 0 view .LVU117
+ 446 0000 30B5     		push	{r4, r5, lr}
+ 447              	.LCFI4:
+ 448              		.cfi_def_cfa_offset 12
+ 449              		.cfi_offset 4, -12
+ 450              		.cfi_offset 5, -8
+ 451              		.cfi_offset 14, -4
+ 452 0002 83B0     		sub	sp, sp, #12
+ 453              	.LCFI5:
+ 454              		.cfi_def_cfa_offset 24
+ 455 0004 0446     		mov	r4, r0
+ 136:Core/Src/boards/NucleoL476/uart-board.c ****     __HAL_RCC_USART2_FORCE_RESET( );
+ 456              		.loc 1 136 5 is_stmt 1 view .LVU118
+ 457 0006 104B     		ldr	r3, .L39
+ 458 0008 9A6B     		ldr	r2, [r3, #56]
+ 459 000a 42F40032 		orr	r2, r2, #131072
+ 460 000e 9A63     		str	r2, [r3, #56]
+ 137:Core/Src/boards/NucleoL476/uart-board.c ****     __HAL_RCC_USART2_RELEASE_RESET( );
+ 461              		.loc 1 137 5 view .LVU119
+ 462 0010 9A6B     		ldr	r2, [r3, #56]
+ 463 0012 22F40032 		bic	r2, r2, #131072
+ 464 0016 9A63     		str	r2, [r3, #56]
+ 138:Core/Src/boards/NucleoL476/uart-board.c ****     __HAL_RCC_USART2_CLK_DISABLE( );
+ 465              		.loc 1 138 5 view .LVU120
+ 466 0018 9A6D     		ldr	r2, [r3, #88]
+ 467 001a 22F40032 		bic	r2, r2, #131072
+ 468 001e 9A65     		str	r2, [r3, #88]
+ 139:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 140:Core/Src/boards/NucleoL476/uart-board.c ****     GpioInit( &obj->Tx, obj->Tx.pin, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 469              		.loc 1 140 5 view .LVU121
+ 470 0020 0025     		movs	r5, #0
+ 471 0022 0195     		str	r5, [sp, #4]
+ 472 0024 0095     		str	r5, [sp]
+ 473 0026 2B46     		mov	r3, r5
+ 474 0028 0322     		movs	r2, #3
+ 475 002a 10F9041F 		ldrsb	r1, [r0, #4]!
+ 476              	.LVL37:
+ 477              		.loc 1 140 5 is_stmt 0 view .LVU122
+ 478 002e FFF7FEFF 		bl	GpioInit
+ 479              	.LVL38:
+ 141:Core/Src/boards/NucleoL476/uart-board.c ****     GpioInit( &obj->Rx, obj->Rx.pin, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+ 480              		.loc 1 141 5 is_stmt 1 view .LVU123
+ 481 0032 2046     		mov	r0, r4
+ 482 0034 0195     		str	r5, [sp, #4]
+ 483 0036 0095     		str	r5, [sp]
+ 484 0038 2B46     		mov	r3, r5
+ 485 003a 0322     		movs	r2, #3
+ 486 003c 10F9101F 		ldrsb	r1, [r0, #16]!
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 13
+
+
+ 487 0040 FFF7FEFF 		bl	GpioInit
+ 488              	.LVL39:
+ 142:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 489              		.loc 1 142 1 is_stmt 0 view .LVU124
+ 490 0044 03B0     		add	sp, sp, #12
+ 491              	.LCFI6:
+ 492              		.cfi_def_cfa_offset 12
+ 493              		@ sp needed
+ 494 0046 30BD     		pop	{r4, r5, pc}
+ 495              	.LVL40:
+ 496              	.L40:
+ 497              		.loc 1 142 1 view .LVU125
+ 498              		.align	2
+ 499              	.L39:
+ 500 0048 00100240 		.word	1073876992
+ 501              		.cfi_endproc
+ 502              	.LFE137:
+ 504              		.section	.text.UartMcuPutChar,"ax",%progbits
+ 505              		.align	1
+ 506              		.global	UartMcuPutChar
+ 507              		.syntax unified
+ 508              		.thumb
+ 509              		.thumb_func
+ 510              		.fpu fpv4-sp-d16
+ 512              	UartMcuPutChar:
+ 513              	.LVL41:
+ 514              	.LFB138:
+ 143:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 144:Core/Src/boards/NucleoL476/uart-board.c **** uint8_t UartMcuPutChar( Uart_t *obj, uint8_t data )
+ 145:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 515              		.loc 1 145 1 is_stmt 1 view -0
+ 516              		.cfi_startproc
+ 517              		@ args = 0, pretend = 0, frame = 0
+ 518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 519              		.loc 1 145 1 is_stmt 0 view .LVU127
+ 520 0000 38B5     		push	{r3, r4, r5, lr}
+ 521              	.LCFI7:
+ 522              		.cfi_def_cfa_offset 16
+ 523              		.cfi_offset 3, -16
+ 524              		.cfi_offset 4, -12
+ 525              		.cfi_offset 5, -8
+ 526              		.cfi_offset 14, -4
+ 527 0002 0446     		mov	r4, r0
+ 528 0004 0D46     		mov	r5, r1
+ 146:Core/Src/boards/NucleoL476/uart-board.c ****     BoardDisableIrq( );
+ 529              		.loc 1 146 5 is_stmt 1 view .LVU128
+ 530 0006 FFF7FEFF 		bl	BoardDisableIrq
+ 531              	.LVL42:
+ 147:Core/Src/boards/NucleoL476/uart-board.c ****     TxData = data;
+ 532              		.loc 1 147 5 view .LVU129
+ 533              		.loc 1 147 12 is_stmt 0 view .LVU130
+ 534 000a 0D4B     		ldr	r3, .L46
+ 535 000c 1D70     		strb	r5, [r3]
+ 148:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 149:Core/Src/boards/NucleoL476/uart-board.c ****     if( IsFifoFull( &obj->FifoTx ) == false )
+ 536              		.loc 1 149 5 is_stmt 1 view .LVU131
+ 537              		.loc 1 149 9 is_stmt 0 view .LVU132
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 14
+
+
+ 538 000e 1C34     		adds	r4, r4, #28
+ 539              	.LVL43:
+ 540              		.loc 1 149 9 view .LVU133
+ 541 0010 2046     		mov	r0, r4
+ 542 0012 FFF7FEFF 		bl	IsFifoFull
+ 543              	.LVL44:
+ 544              		.loc 1 149 7 view .LVU134
+ 545 0016 18B1     		cbz	r0, .L45
+ 150:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 151:Core/Src/boards/NucleoL476/uart-board.c ****         FifoPush( &obj->FifoTx, TxData );
+ 152:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 153:Core/Src/boards/NucleoL476/uart-board.c ****         // Trig UART Tx interrupt to start sending the FIFO contents.
+ 154:Core/Src/boards/NucleoL476/uart-board.c ****         __HAL_UART_ENABLE_IT( &UartHandle, UART_IT_TC );
+ 155:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 156:Core/Src/boards/NucleoL476/uart-board.c ****         BoardEnableIrq( );
+ 157:Core/Src/boards/NucleoL476/uart-board.c ****         return 0; // OK
+ 158:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 159:Core/Src/boards/NucleoL476/uart-board.c ****     BoardEnableIrq( );
+ 546              		.loc 1 159 5 is_stmt 1 view .LVU135
+ 547 0018 FFF7FEFF 		bl	BoardEnableIrq
+ 548              	.LVL45:
+ 160:Core/Src/boards/NucleoL476/uart-board.c ****     return 1; // Busy
+ 549              		.loc 1 160 5 view .LVU136
+ 550              		.loc 1 160 12 is_stmt 0 view .LVU137
+ 551 001c 0120     		movs	r0, #1
+ 552              	.L43:
+ 161:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 553              		.loc 1 161 1 view .LVU138
+ 554 001e 38BD     		pop	{r3, r4, r5, pc}
+ 555              	.LVL46:
+ 556              	.L45:
+ 151:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 557              		.loc 1 151 9 is_stmt 1 view .LVU139
+ 558 0020 074B     		ldr	r3, .L46
+ 559 0022 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 560 0024 2046     		mov	r0, r4
+ 561 0026 FFF7FEFF 		bl	FifoPush
+ 562              	.LVL47:
+ 154:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 563              		.loc 1 154 9 view .LVU140
+ 564 002a 064B     		ldr	r3, .L46+4
+ 565 002c 1A68     		ldr	r2, [r3]
+ 566 002e 1368     		ldr	r3, [r2]
+ 567 0030 43F04003 		orr	r3, r3, #64
+ 568 0034 1360     		str	r3, [r2]
+ 156:Core/Src/boards/NucleoL476/uart-board.c ****         return 0; // OK
+ 569              		.loc 1 156 9 view .LVU141
+ 570 0036 FFF7FEFF 		bl	BoardEnableIrq
+ 571              	.LVL48:
+ 157:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 572              		.loc 1 157 9 view .LVU142
+ 157:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 573              		.loc 1 157 16 is_stmt 0 view .LVU143
+ 574 003a 0020     		movs	r0, #0
+ 575 003c EFE7     		b	.L43
+ 576              	.L47:
+ 577 003e 00BF     		.align	2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 15
+
+
+ 578              	.L46:
+ 579 0040 00000000 		.word	.LANCHOR2
+ 580 0044 00000000 		.word	.LANCHOR0
+ 581              		.cfi_endproc
+ 582              	.LFE138:
+ 584              		.section	.text.UartMcuGetChar,"ax",%progbits
+ 585              		.align	1
+ 586              		.global	UartMcuGetChar
+ 587              		.syntax unified
+ 588              		.thumb
+ 589              		.thumb_func
+ 590              		.fpu fpv4-sp-d16
+ 592              	UartMcuGetChar:
+ 593              	.LVL49:
+ 594              	.LFB139:
+ 162:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 163:Core/Src/boards/NucleoL476/uart-board.c **** uint8_t UartMcuGetChar( Uart_t *obj, uint8_t *data )
+ 164:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 595              		.loc 1 164 1 is_stmt 1 view -0
+ 596              		.cfi_startproc
+ 597              		@ args = 0, pretend = 0, frame = 0
+ 598              		@ frame_needed = 0, uses_anonymous_args = 0
+ 599              		.loc 1 164 1 is_stmt 0 view .LVU145
+ 600 0000 38B5     		push	{r3, r4, r5, lr}
+ 601              	.LCFI8:
+ 602              		.cfi_def_cfa_offset 16
+ 603              		.cfi_offset 3, -16
+ 604              		.cfi_offset 4, -12
+ 605              		.cfi_offset 5, -8
+ 606              		.cfi_offset 14, -4
+ 607 0002 0446     		mov	r4, r0
+ 608 0004 0D46     		mov	r5, r1
+ 165:Core/Src/boards/NucleoL476/uart-board.c ****     BoardDisableIrq( );
+ 609              		.loc 1 165 5 is_stmt 1 view .LVU146
+ 610 0006 FFF7FEFF 		bl	BoardDisableIrq
+ 611              	.LVL50:
+ 166:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 167:Core/Src/boards/NucleoL476/uart-board.c ****     if( IsFifoEmpty( &obj->FifoRx ) == false )
+ 612              		.loc 1 167 5 view .LVU147
+ 613              		.loc 1 167 9 is_stmt 0 view .LVU148
+ 614 000a 2834     		adds	r4, r4, #40
+ 615              	.LVL51:
+ 616              		.loc 1 167 9 view .LVU149
+ 617 000c 2046     		mov	r0, r4
+ 618 000e FFF7FEFF 		bl	IsFifoEmpty
+ 619              	.LVL52:
+ 620              		.loc 1 167 7 view .LVU150
+ 621 0012 18B1     		cbz	r0, .L52
+ 168:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 169:Core/Src/boards/NucleoL476/uart-board.c ****         *data = FifoPop( &obj->FifoRx );
+ 170:Core/Src/boards/NucleoL476/uart-board.c ****         BoardEnableIrq( );
+ 171:Core/Src/boards/NucleoL476/uart-board.c ****         return 0;
+ 172:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 173:Core/Src/boards/NucleoL476/uart-board.c ****     BoardEnableIrq( );
+ 622              		.loc 1 173 5 is_stmt 1 view .LVU151
+ 623 0014 FFF7FEFF 		bl	BoardEnableIrq
+ 624              	.LVL53:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 16
+
+
+ 174:Core/Src/boards/NucleoL476/uart-board.c ****     return 1;
+ 625              		.loc 1 174 5 view .LVU152
+ 626              		.loc 1 174 12 is_stmt 0 view .LVU153
+ 627 0018 0120     		movs	r0, #1
+ 628              	.L50:
+ 175:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 629              		.loc 1 175 1 view .LVU154
+ 630 001a 38BD     		pop	{r3, r4, r5, pc}
+ 631              	.LVL54:
+ 632              	.L52:
+ 169:Core/Src/boards/NucleoL476/uart-board.c ****         BoardEnableIrq( );
+ 633              		.loc 1 169 9 is_stmt 1 view .LVU155
+ 169:Core/Src/boards/NucleoL476/uart-board.c ****         BoardEnableIrq( );
+ 634              		.loc 1 169 17 is_stmt 0 view .LVU156
+ 635 001c 2046     		mov	r0, r4
+ 636 001e FFF7FEFF 		bl	FifoPop
+ 637              	.LVL55:
+ 169:Core/Src/boards/NucleoL476/uart-board.c ****         BoardEnableIrq( );
+ 638              		.loc 1 169 15 view .LVU157
+ 639 0022 2870     		strb	r0, [r5]
+ 170:Core/Src/boards/NucleoL476/uart-board.c ****         return 0;
+ 640              		.loc 1 170 9 is_stmt 1 view .LVU158
+ 641 0024 FFF7FEFF 		bl	BoardEnableIrq
+ 642              	.LVL56:
+ 171:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 643              		.loc 1 171 9 view .LVU159
+ 171:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 644              		.loc 1 171 16 is_stmt 0 view .LVU160
+ 645 0028 0020     		movs	r0, #0
+ 646 002a F6E7     		b	.L50
+ 647              		.cfi_endproc
+ 648              	.LFE139:
+ 650              		.section	.text.HAL_UART_TxCpltCallback,"ax",%progbits
+ 651              		.align	1
+ 652              		.global	HAL_UART_TxCpltCallback
+ 653              		.syntax unified
+ 654              		.thumb
+ 655              		.thumb_func
+ 656              		.fpu fpv4-sp-d16
+ 658              	HAL_UART_TxCpltCallback:
+ 659              	.LVL57:
+ 660              	.LFB140:
+ 176:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 177:Core/Src/boards/NucleoL476/uart-board.c **** void HAL_UART_TxCpltCallback( UART_HandleTypeDef *handle )
+ 178:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 661              		.loc 1 178 1 is_stmt 1 view -0
+ 662              		.cfi_startproc
+ 663              		@ args = 0, pretend = 0, frame = 0
+ 664              		@ frame_needed = 0, uses_anonymous_args = 0
+ 665              		.loc 1 178 1 is_stmt 0 view .LVU162
+ 666 0000 08B5     		push	{r3, lr}
+ 667              	.LCFI9:
+ 668              		.cfi_def_cfa_offset 8
+ 669              		.cfi_offset 3, -8
+ 670              		.cfi_offset 14, -4
+ 179:Core/Src/boards/NucleoL476/uart-board.c ****     if( IsFifoEmpty( &Uart2.FifoTx ) == false )
+ 671              		.loc 1 179 5 is_stmt 1 view .LVU163
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 17
+
+
+ 672              		.loc 1 179 9 is_stmt 0 view .LVU164
+ 673 0002 0A48     		ldr	r0, .L58
+ 674              	.LVL58:
+ 675              		.loc 1 179 9 view .LVU165
+ 676 0004 FFF7FEFF 		bl	IsFifoEmpty
+ 677              	.LVL59:
+ 678              		.loc 1 179 7 view .LVU166
+ 679 0008 28B1     		cbz	r0, .L57
+ 680              	.L54:
+ 180:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 181:Core/Src/boards/NucleoL476/uart-board.c ****         TxData = FifoPop( &Uart2.FifoTx );
+ 182:Core/Src/boards/NucleoL476/uart-board.c ****         //  Write one byte to the transmit data register
+ 183:Core/Src/boards/NucleoL476/uart-board.c ****         HAL_UART_Transmit_IT( &UartHandle, &TxData, 1 );
+ 184:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 185:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 186:Core/Src/boards/NucleoL476/uart-board.c ****     if( Uart2.IrqNotify != NULL )
+ 681              		.loc 1 186 5 is_stmt 1 view .LVU167
+ 682              		.loc 1 186 14 is_stmt 0 view .LVU168
+ 683 000a 094B     		ldr	r3, .L58+4
+ 684 000c 5B6B     		ldr	r3, [r3, #52]
+ 685              		.loc 1 186 7 view .LVU169
+ 686 000e 0BB1     		cbz	r3, .L53
+ 187:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 188:Core/Src/boards/NucleoL476/uart-board.c ****         Uart2.IrqNotify( UART_NOTIFY_TX );
+ 687              		.loc 1 188 9 is_stmt 1 view .LVU170
+ 688 0010 0020     		movs	r0, #0
+ 689 0012 9847     		blx	r3
+ 690              	.LVL60:
+ 691              	.L53:
+ 189:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 190:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 692              		.loc 1 190 1 is_stmt 0 view .LVU171
+ 693 0014 08BD     		pop	{r3, pc}
+ 694              	.L57:
+ 181:Core/Src/boards/NucleoL476/uart-board.c ****         //  Write one byte to the transmit data register
+ 695              		.loc 1 181 9 is_stmt 1 view .LVU172
+ 181:Core/Src/boards/NucleoL476/uart-board.c ****         //  Write one byte to the transmit data register
+ 696              		.loc 1 181 18 is_stmt 0 view .LVU173
+ 697 0016 0548     		ldr	r0, .L58
+ 698 0018 FFF7FEFF 		bl	FifoPop
+ 699              	.LVL61:
+ 181:Core/Src/boards/NucleoL476/uart-board.c ****         //  Write one byte to the transmit data register
+ 700              		.loc 1 181 16 view .LVU174
+ 701 001c 0549     		ldr	r1, .L58+8
+ 702 001e 0870     		strb	r0, [r1]
+ 183:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 703              		.loc 1 183 9 is_stmt 1 view .LVU175
+ 704 0020 0122     		movs	r2, #1
+ 705 0022 0548     		ldr	r0, .L58+12
+ 706 0024 FFF7FEFF 		bl	HAL_UART_Transmit_IT
+ 707              	.LVL62:
+ 708 0028 EFE7     		b	.L54
+ 709              	.L59:
+ 710 002a 00BF     		.align	2
+ 711              	.L58:
+ 712 002c 1C000000 		.word	Uart2+28
+ 713 0030 00000000 		.word	Uart2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 18
+
+
+ 714 0034 00000000 		.word	.LANCHOR2
+ 715 0038 00000000 		.word	.LANCHOR0
+ 716              		.cfi_endproc
+ 717              	.LFE140:
+ 719              		.section	.text.HAL_UART_RxCpltCallback,"ax",%progbits
+ 720              		.align	1
+ 721              		.global	HAL_UART_RxCpltCallback
+ 722              		.syntax unified
+ 723              		.thumb
+ 724              		.thumb_func
+ 725              		.fpu fpv4-sp-d16
+ 727              	HAL_UART_RxCpltCallback:
+ 728              	.LVL63:
+ 729              	.LFB141:
+ 191:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 192:Core/Src/boards/NucleoL476/uart-board.c **** void HAL_UART_RxCpltCallback( UART_HandleTypeDef *handle )
+ 193:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 730              		.loc 1 193 1 view -0
+ 731              		.cfi_startproc
+ 732              		@ args = 0, pretend = 0, frame = 0
+ 733              		@ frame_needed = 0, uses_anonymous_args = 0
+ 734              		.loc 1 193 1 is_stmt 0 view .LVU177
+ 735 0000 08B5     		push	{r3, lr}
+ 736              	.LCFI10:
+ 737              		.cfi_def_cfa_offset 8
+ 738              		.cfi_offset 3, -8
+ 739              		.cfi_offset 14, -4
+ 194:Core/Src/boards/NucleoL476/uart-board.c ****     if( IsFifoFull( &Uart2.FifoRx ) == false )
+ 740              		.loc 1 194 5 is_stmt 1 view .LVU178
+ 741              		.loc 1 194 9 is_stmt 0 view .LVU179
+ 742 0002 0A48     		ldr	r0, .L65
+ 743              	.LVL64:
+ 744              		.loc 1 194 9 view .LVU180
+ 745 0004 FFF7FEFF 		bl	IsFifoFull
+ 746              	.LVL65:
+ 747              		.loc 1 194 7 view .LVU181
+ 748 0008 50B1     		cbz	r0, .L64
+ 749              	.L61:
+ 195:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 196:Core/Src/boards/NucleoL476/uart-board.c ****         // Read one byte from the receive data register
+ 197:Core/Src/boards/NucleoL476/uart-board.c ****         FifoPush( &Uart2.FifoRx, RxData );
+ 198:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 199:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 200:Core/Src/boards/NucleoL476/uart-board.c ****     if( Uart2.IrqNotify != NULL )
+ 750              		.loc 1 200 5 is_stmt 1 view .LVU182
+ 751              		.loc 1 200 14 is_stmt 0 view .LVU183
+ 752 000a 094B     		ldr	r3, .L65+4
+ 753 000c 5B6B     		ldr	r3, [r3, #52]
+ 754              		.loc 1 200 7 view .LVU184
+ 755 000e 0BB1     		cbz	r3, .L62
+ 201:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 202:Core/Src/boards/NucleoL476/uart-board.c ****         Uart2.IrqNotify( UART_NOTIFY_RX );
+ 756              		.loc 1 202 9 is_stmt 1 view .LVU185
+ 757 0010 0120     		movs	r0, #1
+ 758 0012 9847     		blx	r3
+ 759              	.LVL66:
+ 760              	.L62:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 19
+
+
+ 203:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 204:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 205:Core/Src/boards/NucleoL476/uart-board.c ****     HAL_UART_Receive_IT( &UartHandle, &RxData, 1 );
+ 761              		.loc 1 205 5 view .LVU186
+ 762 0014 0122     		movs	r2, #1
+ 763 0016 0749     		ldr	r1, .L65+8
+ 764 0018 0748     		ldr	r0, .L65+12
+ 765 001a FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 766              	.LVL67:
+ 206:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 767              		.loc 1 206 1 is_stmt 0 view .LVU187
+ 768 001e 08BD     		pop	{r3, pc}
+ 769              	.L64:
+ 197:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 770              		.loc 1 197 9 is_stmt 1 view .LVU188
+ 771 0020 044B     		ldr	r3, .L65+8
+ 772 0022 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 773 0024 0148     		ldr	r0, .L65
+ 774 0026 FFF7FEFF 		bl	FifoPush
+ 775              	.LVL68:
+ 776 002a EEE7     		b	.L61
+ 777              	.L66:
+ 778              		.align	2
+ 779              	.L65:
+ 780 002c 28000000 		.word	Uart2+40
+ 781 0030 00000000 		.word	Uart2
+ 782 0034 00000000 		.word	.LANCHOR1
+ 783 0038 00000000 		.word	.LANCHOR0
+ 784              		.cfi_endproc
+ 785              	.LFE141:
+ 787              		.section	.text.HAL_UART_ErrorCallback,"ax",%progbits
+ 788              		.align	1
+ 789              		.global	HAL_UART_ErrorCallback
+ 790              		.syntax unified
+ 791              		.thumb
+ 792              		.thumb_func
+ 793              		.fpu fpv4-sp-d16
+ 795              	HAL_UART_ErrorCallback:
+ 796              	.LVL69:
+ 797              	.LFB142:
+ 207:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 208:Core/Src/boards/NucleoL476/uart-board.c **** void HAL_UART_ErrorCallback( UART_HandleTypeDef *handle )
+ 209:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 798              		.loc 1 209 1 view -0
+ 799              		.cfi_startproc
+ 800              		@ args = 0, pretend = 0, frame = 0
+ 801              		@ frame_needed = 0, uses_anonymous_args = 0
+ 802              		.loc 1 209 1 is_stmt 0 view .LVU190
+ 803 0000 08B5     		push	{r3, lr}
+ 804              	.LCFI11:
+ 805              		.cfi_def_cfa_offset 8
+ 806              		.cfi_offset 3, -8
+ 807              		.cfi_offset 14, -4
+ 210:Core/Src/boards/NucleoL476/uart-board.c ****     HAL_UART_Receive_IT( &UartHandle, &RxData, 1 );
+ 808              		.loc 1 210 5 is_stmt 1 view .LVU191
+ 809 0002 0122     		movs	r2, #1
+ 810 0004 0249     		ldr	r1, .L69
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 20
+
+
+ 811 0006 0348     		ldr	r0, .L69+4
+ 812              	.LVL70:
+ 813              		.loc 1 210 5 is_stmt 0 view .LVU192
+ 814 0008 FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 815              	.LVL71:
+ 211:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 816              		.loc 1 211 1 view .LVU193
+ 817 000c 08BD     		pop	{r3, pc}
+ 818              	.L70:
+ 819 000e 00BF     		.align	2
+ 820              	.L69:
+ 821 0010 00000000 		.word	.LANCHOR1
+ 822 0014 00000000 		.word	.LANCHOR0
+ 823              		.cfi_endproc
+ 824              	.LFE142:
+ 826              		.section	.text.USART2_IRQHandler,"ax",%progbits
+ 827              		.align	1
+ 828              		.global	USART2_IRQHandler
+ 829              		.syntax unified
+ 830              		.thumb
+ 831              		.thumb_func
+ 832              		.fpu fpv4-sp-d16
+ 834              	USART2_IRQHandler:
+ 835              	.LFB143:
+ 212:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 213:Core/Src/boards/NucleoL476/uart-board.c **** void USART2_IRQHandler( void )
+ 214:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 836              		.loc 1 214 1 is_stmt 1 view -0
+ 837              		.cfi_startproc
+ 838              		@ args = 0, pretend = 0, frame = 0
+ 839              		@ frame_needed = 0, uses_anonymous_args = 0
+ 840 0000 08B5     		push	{r3, lr}
+ 841              	.LCFI12:
+ 842              		.cfi_def_cfa_offset 8
+ 843              		.cfi_offset 3, -8
+ 844              		.cfi_offset 14, -4
+ 215:Core/Src/boards/NucleoL476/uart-board.c ****     // [BEGIN] Workaround to solve an issue with the HAL drivers not managin the uart state correct
+ 216:Core/Src/boards/NucleoL476/uart-board.c ****     uint32_t tmpFlag = 0, tmpItSource = 0;
+ 845              		.loc 1 216 5 view .LVU195
+ 846              	.LVL72:
+ 217:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 218:Core/Src/boards/NucleoL476/uart-board.c ****     tmpFlag = __HAL_UART_GET_FLAG( &UartHandle, UART_FLAG_TC );
+ 847              		.loc 1 218 5 view .LVU196
+ 848              		.loc 1 218 15 is_stmt 0 view .LVU197
+ 849 0002 0C4B     		ldr	r3, .L75
+ 850 0004 1B68     		ldr	r3, [r3]
+ 851 0006 DA69     		ldr	r2, [r3, #28]
+ 852              	.LVL73:
+ 219:Core/Src/boards/NucleoL476/uart-board.c ****     tmpItSource = __HAL_UART_GET_IT_SOURCE( &UartHandle, UART_IT_TC );
+ 853              		.loc 1 219 5 is_stmt 1 view .LVU198
+ 854              		.loc 1 219 19 is_stmt 0 view .LVU199
+ 855 0008 1B68     		ldr	r3, [r3]
+ 856              	.LVL74:
+ 220:Core/Src/boards/NucleoL476/uart-board.c ****     // UART in mode Transmitter end
+ 221:Core/Src/boards/NucleoL476/uart-board.c ****     if( ( tmpFlag != RESET ) && ( tmpItSource != RESET ) )
+ 857              		.loc 1 221 5 is_stmt 1 view .LVU200
+ 858              		.loc 1 221 7 is_stmt 0 view .LVU201
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 21
+
+
+ 859 000a 12F0400F 		tst	r2, #64
+ 860 000e 0DD0     		beq	.L72
+ 861 0010 03F04003 		and	r3, r3, #64
+ 862              	.LVL75:
+ 863              		.loc 1 221 30 discriminator 1 view .LVU202
+ 864 0014 53B1     		cbz	r3, .L72
+ 222:Core/Src/boards/NucleoL476/uart-board.c ****     {
+ 223:Core/Src/boards/NucleoL476/uart-board.c ****         if( ( UartHandle.gState == HAL_UART_STATE_BUSY_RX ) || UartHandle.gState == HAL_UART_STATE_
+ 865              		.loc 1 223 9 is_stmt 1 view .LVU203
+ 866              		.loc 1 223 25 is_stmt 0 view .LVU204
+ 867 0016 074B     		ldr	r3, .L75
+ 868              	.LVL76:
+ 869              		.loc 1 223 25 view .LVU205
+ 870 0018 9B6F     		ldr	r3, [r3, #120]
+ 871              		.loc 1 223 11 view .LVU206
+ 872 001a 222B     		cmp	r3, #34
+ 873 001c 03D0     		beq	.L73
+ 874              		.loc 1 223 74 discriminator 1 view .LVU207
+ 875 001e 054B     		ldr	r3, .L75
+ 876 0020 9B6F     		ldr	r3, [r3, #120]
+ 877              		.loc 1 223 61 discriminator 1 view .LVU208
+ 878 0022 232B     		cmp	r3, #35
+ 879 0024 02D1     		bne	.L72
+ 880              	.L73:
+ 224:Core/Src/boards/NucleoL476/uart-board.c ****         {
+ 225:Core/Src/boards/NucleoL476/uart-board.c ****             UartHandle.gState = HAL_UART_STATE_BUSY_TX_RX;
+ 881              		.loc 1 225 13 is_stmt 1 view .LVU209
+ 882              		.loc 1 225 31 is_stmt 0 view .LVU210
+ 883 0026 034B     		ldr	r3, .L75
+ 884 0028 2322     		movs	r2, #35
+ 885              	.LVL77:
+ 886              		.loc 1 225 31 view .LVU211
+ 887 002a 9A67     		str	r2, [r3, #120]
+ 888              	.L72:
+ 226:Core/Src/boards/NucleoL476/uart-board.c ****         }
+ 227:Core/Src/boards/NucleoL476/uart-board.c ****     }
+ 228:Core/Src/boards/NucleoL476/uart-board.c ****     // [END] Workaround to solve an issue with the HAL drivers not managin the uart state correctly
+ 229:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 230:Core/Src/boards/NucleoL476/uart-board.c ****     HAL_UART_IRQHandler( &UartHandle );
+ 889              		.loc 1 230 5 is_stmt 1 view .LVU212
+ 890 002c 0148     		ldr	r0, .L75
+ 891 002e FFF7FEFF 		bl	HAL_UART_IRQHandler
+ 892              	.LVL78:
+ 231:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 893              		.loc 1 231 1 is_stmt 0 view .LVU213
+ 894 0032 08BD     		pop	{r3, pc}
+ 895              	.L76:
+ 896              		.align	2
+ 897              	.L75:
+ 898 0034 00000000 		.word	.LANCHOR0
+ 899              		.cfi_endproc
+ 900              	.LFE143:
+ 902              		.section	.text.__io_putchar,"ax",%progbits
+ 903              		.align	1
+ 904              		.global	__io_putchar
+ 905              		.syntax unified
+ 906              		.thumb
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 22
+
+
+ 907              		.thumb_func
+ 908              		.fpu fpv4-sp-d16
+ 910              	__io_putchar:
+ 911              	.LVL79:
+ 912              	.LFB144:
+ 232:Core/Src/boards/NucleoL476/uart-board.c **** 
+ 233:Core/Src/boards/NucleoL476/uart-board.c **** #ifdef __GNUC__
+ 234:Core/Src/boards/NucleoL476/uart-board.c **** /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+ 235:Core/Src/boards/NucleoL476/uart-board.c ****    set to 'Yes') calls __io_putchar() */
+ 236:Core/Src/boards/NucleoL476/uart-board.c **** int __io_putchar( int c )
+ 237:Core/Src/boards/NucleoL476/uart-board.c **** #else /* __GNUC__ */
+ 238:Core/Src/boards/NucleoL476/uart-board.c **** int fputc( int c, FILE *stream )
+ 239:Core/Src/boards/NucleoL476/uart-board.c **** #endif
+ 240:Core/Src/boards/NucleoL476/uart-board.c **** {
+ 913              		.loc 1 240 1 is_stmt 1 view -0
+ 914              		.cfi_startproc
+ 915              		@ args = 0, pretend = 0, frame = 0
+ 916              		@ frame_needed = 0, uses_anonymous_args = 0
+ 917              		.loc 1 240 1 is_stmt 0 view .LVU215
+ 918 0000 10B5     		push	{r4, lr}
+ 919              	.LCFI13:
+ 920              		.cfi_def_cfa_offset 8
+ 921              		.cfi_offset 4, -8
+ 922              		.cfi_offset 14, -4
+ 923 0002 0446     		mov	r4, r0
+ 241:Core/Src/boards/NucleoL476/uart-board.c ****     while( UartMcuPutChar( &Uart2, c ) != 0 );
+ 924              		.loc 1 241 5 is_stmt 1 view .LVU216
+ 925              	.LVL80:
+ 926              	.L78:
+ 927              		.loc 1 241 46 discriminator 1 view .LVU217
+ 928              		.loc 1 241 10 discriminator 1 view .LVU218
+ 929              		.loc 1 241 12 is_stmt 0 discriminator 1 view .LVU219
+ 930 0004 E1B2     		uxtb	r1, r4
+ 931 0006 0348     		ldr	r0, .L80
+ 932 0008 FFF7FEFF 		bl	UartMcuPutChar
+ 933              	.LVL81:
+ 934              		.loc 1 241 10 discriminator 1 view .LVU220
+ 935 000c 0028     		cmp	r0, #0
+ 936 000e F9D1     		bne	.L78
+ 242:Core/Src/boards/NucleoL476/uart-board.c ****     return c;
+ 937              		.loc 1 242 5 is_stmt 1 view .LVU221
+ 243:Core/Src/boards/NucleoL476/uart-board.c **** }
+ 938              		.loc 1 243 1 is_stmt 0 view .LVU222
+ 939 0010 2046     		mov	r0, r4
+ 940 0012 10BD     		pop	{r4, pc}
+ 941              	.LVL82:
+ 942              	.L81:
+ 943              		.loc 1 243 1 view .LVU223
+ 944              		.align	2
+ 945              	.L80:
+ 946 0014 00000000 		.word	Uart2
+ 947              		.cfi_endproc
+ 948              	.LFE144:
+ 950              		.global	TxData
+ 951              		.global	RxData
+ 952              		.global	UartHandle
+ 953              		.section	.bss.RxData,"aw",%nobits
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 23
+
+
+ 954              		.set	.LANCHOR1,. + 0
+ 957              	RxData:
+ 958 0000 00       		.space	1
+ 959              		.section	.bss.TxData,"aw",%nobits
+ 960              		.set	.LANCHOR2,. + 0
+ 963              	TxData:
+ 964 0000 00       		.space	1
+ 965              		.section	.bss.UartHandle,"aw",%nobits
+ 966              		.align	2
+ 967              		.set	.LANCHOR0,. + 0
+ 970              	UartHandle:
+ 971 0000 00000000 		.space	132
+ 971      00000000 
+ 971      00000000 
+ 971      00000000 
+ 971      00000000 
+ 972              		.text
+ 973              	.Letext0:
+ 974              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 975              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 976              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h"
+ 977              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
+ 978              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 979              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h"
+ 980              		.file 8 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h"
+ 981              		.file 9 "Core/Src/system/gpio.h"
+ 982              		.file 10 "Core/Src/system/fifo.h"
+ 983              		.file 11 "Core/Src/system/uart.h"
+ 984              		.file 12 "Core/Src/boards/NucleoL476/board.h"
+ 985              		.file 13 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h"
+ 986              		.file 14 "Core/Inc/stm32l4xx_hal_conf.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart-board.c
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:18     .text.UartMcuInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:26     .text.UartMcuInit:00000000 UartMcuInit
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:113    .text.UartMcuInit:0000005c $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:118    .rodata.UartMcuConfig.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:122    .text.UartMcuConfig:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:129    .text.UartMcuConfig:00000000 UartMcuConfig
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:423    .text.UartMcuConfig:0000012c $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:431    .text.UartMcuDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:438    .text.UartMcuDeInit:00000000 UartMcuDeInit
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:500    .text.UartMcuDeInit:00000048 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:505    .text.UartMcuPutChar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:512    .text.UartMcuPutChar:00000000 UartMcuPutChar
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:579    .text.UartMcuPutChar:00000040 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:585    .text.UartMcuGetChar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:592    .text.UartMcuGetChar:00000000 UartMcuGetChar
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:651    .text.HAL_UART_TxCpltCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:658    .text.HAL_UART_TxCpltCallback:00000000 HAL_UART_TxCpltCallback
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:712    .text.HAL_UART_TxCpltCallback:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:720    .text.HAL_UART_RxCpltCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:727    .text.HAL_UART_RxCpltCallback:00000000 HAL_UART_RxCpltCallback
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:780    .text.HAL_UART_RxCpltCallback:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:788    .text.HAL_UART_ErrorCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:795    .text.HAL_UART_ErrorCallback:00000000 HAL_UART_ErrorCallback
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:821    .text.HAL_UART_ErrorCallback:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:827    .text.USART2_IRQHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:834    .text.USART2_IRQHandler:00000000 USART2_IRQHandler
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:898    .text.USART2_IRQHandler:00000034 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:903    .text.__io_putchar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:910    .text.__io_putchar:00000000 __io_putchar
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:946    .text.__io_putchar:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:963    .bss.TxData:00000000 TxData
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:957    .bss.RxData:00000000 RxData
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:970    .bss.UartHandle:00000000 UartHandle
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:958    .bss.RxData:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:964    .bss.TxData:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cc1OXFfP.s:966    .bss.UartHandle:00000000 $d
+
+UNDEFINED SYMBOLS
+GpioInit
+HAL_UART_Init
+HAL_NVIC_SetPriority
+HAL_NVIC_EnableIRQ
+HAL_UART_Receive_IT
+assert_failed
+BoardDisableIrq
+IsFifoFull
+BoardEnableIrq
+FifoPush
+IsFifoEmpty
+FifoPop
+HAL_UART_Transmit_IT
+Uart2
+HAL_UART_IRQHandler

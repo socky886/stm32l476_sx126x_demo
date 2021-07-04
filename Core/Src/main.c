@@ -62,7 +62,14 @@ static void MX_RTC_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int _write(int fd, char *pBuffer, int size)
+{
+  for (int i = 0; i < size; i++)
+  {
+    HAL_UART_Transmit(&huart2, (uint8_t *)(pBuffer+i), 1, 1000);
+  }
+  return size;
+}
 /* USER CODE END 0 */
 
 /**
@@ -104,13 +111,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // printf("this is sx126x application\n");
+    printf("this is sx126x application\n");
     // sx126x_rx_packet();
     // register_test();
     // sx126x_tx_packet(0,0);
-    // HAL_Delay(100);
+    HAL_Delay(100);
     // sx126x_rx_packet();
-    packet_rx();
+    // packet_rx();
     
     // printf("tx packet\n");
     /* USER CODE END WHILE */
@@ -426,8 +433,8 @@ void Error_Handler(void)
 // void assert_failed(uint8_t *file, uint32_t line)
 // {
 //   /* USER CODE BEGIN 6 */
-//   /* User can add his own implementation to report the file name and line number,
-//      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+// //   /* User can add his own implementation to report the file name and line number,
+// //      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 //   /* USER CODE END 6 */
 // }
 // #endif /* USE_FULL_ASSERT */

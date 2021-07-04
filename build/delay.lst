@@ -1,0 +1,141 @@
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"delay.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.DelayMs,"ax",%progbits
+  18              		.align	1
+  19              		.global	DelayMs
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	DelayMs:
+  27              	.LVL0:
+  28              	.LFB136:
+  29              		.file 1 "Core/Src/system/delay.c"
+   1:Core/Src/system/delay.c **** /*
+   2:Core/Src/system/delay.c ****  / _____)             _              | |
+   3:Core/Src/system/delay.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   4:Core/Src/system/delay.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   5:Core/Src/system/delay.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   6:Core/Src/system/delay.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   7:Core/Src/system/delay.c ****     (C)2013 Semtech
+   8:Core/Src/system/delay.c **** 
+   9:Core/Src/system/delay.c **** Description: Delay functions implementation
+  10:Core/Src/system/delay.c **** 
+  11:Core/Src/system/delay.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  12:Core/Src/system/delay.c **** 
+  13:Core/Src/system/delay.c **** Maintainer: Miguel Luis and Gregory Cristian
+  14:Core/Src/system/delay.c **** */
+  15:Core/Src/system/delay.c **** #include "board.h"
+  16:Core/Src/system/delay.c **** 
+  17:Core/Src/system/delay.c **** void Delay( float s )
+  18:Core/Src/system/delay.c **** {
+  19:Core/Src/system/delay.c ****     DelayMs( s * 1000.0f );
+  20:Core/Src/system/delay.c **** }
+  21:Core/Src/system/delay.c **** 
+  22:Core/Src/system/delay.c **** void DelayMs( uint32_t ms )
+  23:Core/Src/system/delay.c **** {
+  30              		.loc 1 23 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 23 1 is_stmt 0 view .LVU1
+  35 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s 			page 2
+
+
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+  24:Core/Src/system/delay.c ****     HAL_Delay( ms );
+  40              		.loc 1 24 5 is_stmt 1 view .LVU2
+  41 0002 FFF7FEFF 		bl	HAL_Delay
+  42              	.LVL1:
+  25:Core/Src/system/delay.c **** }
+  43              		.loc 1 25 1 is_stmt 0 view .LVU3
+  44 0006 08BD     		pop	{r3, pc}
+  45              		.cfi_endproc
+  46              	.LFE136:
+  48              		.section	.text.Delay,"ax",%progbits
+  49              		.align	1
+  50              		.global	Delay
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu fpv4-sp-d16
+  56              	Delay:
+  57              	.LVL2:
+  58              	.LFB135:
+  18:Core/Src/system/delay.c ****     DelayMs( s * 1000.0f );
+  59              		.loc 1 18 1 is_stmt 1 view -0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  18:Core/Src/system/delay.c ****     DelayMs( s * 1000.0f );
+  63              		.loc 1 18 1 is_stmt 0 view .LVU5
+  64 0000 08B5     		push	{r3, lr}
+  65              	.LCFI1:
+  66              		.cfi_def_cfa_offset 8
+  67              		.cfi_offset 3, -8
+  68              		.cfi_offset 14, -4
+  19:Core/Src/system/delay.c **** }
+  69              		.loc 1 19 5 is_stmt 1 view .LVU6
+  19:Core/Src/system/delay.c **** }
+  70              		.loc 1 19 16 is_stmt 0 view .LVU7
+  71 0002 DFED057A 		vldr.32	s15, .L5
+  72 0006 20EE270A 		vmul.f32	s0, s0, s15
+  73              	.LVL3:
+  19:Core/Src/system/delay.c **** }
+  74              		.loc 1 19 5 view .LVU8
+  75 000a FCEEC07A 		vcvt.u32.f32	s15, s0
+  76 000e 17EE900A 		vmov	r0, s15	@ int
+  77 0012 FFF7FEFF 		bl	DelayMs
+  78              	.LVL4:
+  20:Core/Src/system/delay.c **** 
+  79              		.loc 1 20 1 view .LVU9
+  80 0016 08BD     		pop	{r3, pc}
+  81              	.L6:
+  82              		.align	2
+  83              	.L5:
+  84 0018 00007A44 		.word	1148846080
+  85              		.cfi_endproc
+  86              	.LFE135:
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s 			page 3
+
+
+  88              		.text
+  89              	.Letext0:
+  90              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+  91              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+  92              		.file 4 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h"
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 delay.c
+C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s:18     .text.DelayMs:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s:26     .text.DelayMs:00000000 DelayMs
+C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s:49     .text.Delay:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s:56     .text.Delay:00000000 Delay
+C:\Users\andywei\AppData\Local\Temp\cceAsqWh.s:84     .text.Delay:00000018 $d
+
+UNDEFINED SYMBOLS
+HAL_Delay
