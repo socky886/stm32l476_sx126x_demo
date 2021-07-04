@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
   28:Core/Src/boards/NucleoL476/rtc-board.c **** /* Synchronous prediv  */
   29:Core/Src/boards/NucleoL476/rtc-board.c **** #define PREDIV_S                  ( ( 1 << N_PREDIV_S ) - 1 )
   30:Core/Src/boards/NucleoL476/rtc-board.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 2
 
 
   31:Core/Src/boards/NucleoL476/rtc-board.c **** /* Asynchronous prediv   */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
   85:Core/Src/boards/NucleoL476/rtc-board.c ****  */
   86:Core/Src/boards/NucleoL476/rtc-board.c **** volatile bool NonScheduledWakeUp = false;
   87:Core/Src/boards/NucleoL476/rtc-board.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 3
 
 
   88:Core/Src/boards/NucleoL476/rtc-board.c **** /*!
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  142:Core/Src/boards/NucleoL476/rtc-board.c **** static void RtcStartWakeUpAlarm( uint32_t timeoutValue );
  143:Core/Src/boards/NucleoL476/rtc-board.c **** 
  144:Core/Src/boards/NucleoL476/rtc-board.c **** /*!
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 4
 
 
  145:Core/Src/boards/NucleoL476/rtc-board.c ****  * \brief Converts a TimerTime_t value into RtcCalendar_t value
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  199:Core/Src/boards/NucleoL476/rtc-board.c **** 
  200:Core/Src/boards/NucleoL476/rtc-board.c ****         RtcHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
  201:Core/Src/boards/NucleoL476/rtc-board.c ****         RtcHandle.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 5
 
 
  202:Core/Src/boards/NucleoL476/rtc-board.c ****         RtcHandle.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  256:Core/Src/boards/NucleoL476/rtc-board.c ****             RtcTimerEventAllowsLowPower = true;
  257:Core/Src/boards/NucleoL476/rtc-board.c ****             timeout -= McuWakeUpTime;
  258:Core/Src/boards/NucleoL476/rtc-board.c ****         }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 6
 
 
  259:Core/Src/boards/NucleoL476/rtc-board.c ****     }
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  313:Core/Src/boards/NucleoL476/rtc-board.c ****         return( elapsedTime + ( 0xFFFFFFFF - eventInTime ) );
  314:Core/Src/boards/NucleoL476/rtc-board.c ****     }
  315:Core/Src/boards/NucleoL476/rtc-board.c ****     else
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 7
 
 
  316:Core/Src/boards/NucleoL476/rtc-board.c ****     {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  370:Core/Src/boards/NucleoL476/rtc-board.c ****     RTC_AlarmTypeDef  alarmRtc;
  371:Core/Src/boards/NucleoL476/rtc-board.c ****     RtcCalendar_t now;
  372:Core/Src/boards/NucleoL476/rtc-board.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 8
 
 
  373:Core/Src/boards/NucleoL476/rtc-board.c ****     if( WakeUpTimeInitialized == false )
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  427:Core/Src/boards/NucleoL476/rtc-board.c **** static RtcCalendar_t RtcComputeTimerTimeToAlarmTick( TimerTime_t timeCounter, RtcCalendar_t now )
  428:Core/Src/boards/NucleoL476/rtc-board.c **** {
   29              		.loc 1 428 1 view -0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 9
 
 
   30              		.cfi_startproc
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  437:Core/Src/boards/NucleoL476/rtc-board.c ****     uint16_t days = now.CalendarDate.Date;
   76              		.loc 1 437 5 is_stmt 1 view .LVU14
   77              		.loc 1 437 14 is_stmt 0 view .LVU15
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 10
 
 
   78 002a 9DF81650 		ldrb	r5, [sp, #22]	@ zero_extendqisi2
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  448:Core/Src/boards/NucleoL476/rtc-board.c ****     {
  118              		.loc 1 448 10 is_stmt 1 view .LVU33
  119 0054 354C     		ldr	r4, .L20
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 11
 
 
  120 0056 A142     		cmp	r1, r4
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  156 0072 3B29     		cmp	r1, #59
  157 0074 FAD8     		bhi	.L7
  466:Core/Src/boards/NucleoL476/rtc-board.c ****     }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 12
 
 
  467:Core/Src/boards/NucleoL476/rtc-board.c **** 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  196              	.LVL28:
  481:Core/Src/boards/NucleoL476/rtc-board.c ****         minutes++;
  197              		.loc 1 481 9 is_stmt 1 view .LVU64
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 13
 
 
  198              		.loc 1 481 16 is_stmt 0 view .LVU65
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  237 00ac 9BB2     		uxth	r3, r3
  238              	.LVL36:
  493:Core/Src/boards/NucleoL476/rtc-board.c ****         days++;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 14
 
 
  239              		.loc 1 493 9 is_stmt 1 view .LVU80
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  504:Core/Src/boards/NucleoL476/rtc-board.c ****     else
  505:Core/Src/boards/NucleoL476/rtc-board.c ****     {
  506:Core/Src/boards/NucleoL476/rtc-board.c ****         if( days > DaysInMonth[now.CalendarDate.Month - 1] )
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 15
 
 
  507:Core/Src/boards/NucleoL476/rtc-board.c ****         {
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  322              	.LVL43:
  323              	.L17:
  324              	.LCFI4:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 16
 
 
  325              		.cfi_restore_state
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  371              	.LVL45:
  372              	.LFB150:
  521:Core/Src/boards/NucleoL476/rtc-board.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 17
 
 
  522:Core/Src/boards/NucleoL476/rtc-board.c **** //
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  576:Core/Src/boards/NucleoL476/rtc-board.c ****         seconds++;
  577:Core/Src/boards/NucleoL476/rtc-board.c ****     }
  578:Core/Src/boards/NucleoL476/rtc-board.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 18
 
 
  579:Core/Src/boards/NucleoL476/rtc-board.c ****     while( seconds >= SecondsInMinute )
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  633:Core/Src/boards/NucleoL476/rtc-board.c ****     {
  634:Core/Src/boards/NucleoL476/rtc-board.c ****         if( ( i == 0 ) || ( i % 4 ) == 0 )
  635:Core/Src/boards/NucleoL476/rtc-board.c ****         {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 19
 
 
  636:Core/Src/boards/NucleoL476/rtc-board.c ****             timeCounterTemp += ( uint32_t )SecondsInLeapYear;
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  389              		.loc 1 673 46 view .LVU128
  390 0006 0022     		movs	r2, #0
  391 0008 074B     		ldr	r3, .L24
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 20
 
 
  392 000a FFF7FEFF 		bl	__aeabi_dmul
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  441              		.loc 1 680 23 is_stmt 0 view .LVU137
  442 0002 FFF7FEFF 		bl	__aeabi_ui2d
  443              	.LVL55:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 21
 
 
  444              		.loc 1 680 46 view .LVU138
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  495 0002 86B0     		sub	sp, sp, #24
  496              	.LCFI8:
  497              		.cfi_def_cfa_offset 40
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 22
 
 
  498 0004 0646     		mov	r6, r0
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  537              	.LVL69:
  701:Core/Src/boards/NucleoL476/rtc-board.c ****         second_read = now.CalendarTime.SubSeconds;
  538              		.loc 1 701 9 view .LVU159
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 23
 
 
  699:Core/Src/boards/NucleoL476/rtc-board.c ****         HAL_RTC_GetTime( &RtcHandle, &now.CalendarTime, RTC_FORMAT_BIN );
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  585      7264732F 
  585      4E75636C 
  586              		.section	.text.RtcStartWakeUpAlarm,"ax",%progbits
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 24
 
 
  587              		.align	1
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  401:Core/Src/boards/NucleoL476/rtc-board.c **** 
  631              		.loc 1 401 11 is_stmt 0 view .LVU181
  632 0016 16AE     		add	r6, sp, #88
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 25
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 25
 
 
  633 0018 3046     		mov	r0, r6
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  672              		.loc 1 415 5 is_stmt 1 view .LVU196
  415:Core/Src/boards/NucleoL476/rtc-board.c ****     alarmStructure.AlarmTime.Seconds = alarmTimer.CalendarTime.Seconds;
  673              		.loc 1 415 66 is_stmt 0 view .LVU197
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 26
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 26
 
 
  674 005c 129B     		ldr	r3, [sp, #72]
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  711              		@ sp needed
  712 008c 70BD     		pop	{r4, r5, r6, pc}
  713              	.LVL82:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 27
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 27
 
 
  714              	.L41:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  761 0004 60B1     		cbz	r0, .L59
  762 0006 8446     		mov	ip, r0
  628:Core/Src/boards/NucleoL476/rtc-board.c ****     }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 28
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 28
 
 
  763              		.loc 1 628 9 is_stmt 1 view .LVU224
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  636:Core/Src/boards/NucleoL476/rtc-board.c ****         }
  804              		.loc 1 636 29 view .LVU238
  805 002c 00F50540 		add	r0, r0, #34048
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 29
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 29
 
 
  806              	.LVL93:
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  844              		.loc 1 645 5 is_stmt 1 view .LVU254
  645:Core/Src/boards/NucleoL476/rtc-board.c ****     {
  845              		.loc 1 645 7 is_stmt 0 view .LVU255
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 30
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 30
 
 
  846 0054 5BB1     		cbz	r3, .L54
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  886              	.LBE6:
  660:Core/Src/boards/NucleoL476/rtc-board.c ****                      ( ( uint32_t )now.CalendarTime.Minutes * SecondsInMinute ) +
  887              		.loc 1 660 5 is_stmt 1 view .LVU270
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 31
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 31
 
 
  660:Core/Src/boards/NucleoL476/rtc-board.c ****                      ( ( uint32_t )now.CalendarTime.Minutes * SecondsInMinute ) +
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  928              	.LCFI17:
  929              		.cfi_restore_state
  930              	.LBB7:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 32
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 32
 
 
  656:Core/Src/boards/NucleoL476/rtc-board.c ****         }
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  976              	.LFB135:
  188:Core/Src/boards/NucleoL476/rtc-board.c ****     RtcCalendar_t rtcInit;
  977              		.loc 1 188 1 is_stmt 1 view -0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 33
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 33
 
 
  978              		.cfi_startproc
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1019              		.loc 1 198 9 is_stmt 1 view .LVU309
  198:Core/Src/boards/NucleoL476/rtc-board.c **** 
  1020              		.loc 1 198 36 is_stmt 0 view .LVU310
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 34
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 34
 
 
  1021 0028 40F2FF73 		movw	r3, #2047
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1057 0056 FFF7FEFF 		bl	HAL_RTC_SetDate
  1058              	.LVL112:
  214:Core/Src/boards/NucleoL476/rtc-board.c ****         rtcInit.CalendarTime.Minutes = 0;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 35
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 35
 
 
  1059              		.loc 1 214 9 view .LVU329
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1096              		.loc 1 227 9 view .LVU346
  1097 008a 2920     		movs	r0, #41
  1098 008c FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 36
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 36
 
 
  1099              	.LVL116:
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1147              		.loc 1 235 1 view .LVU354
  1148 000a 08BD     		pop	{r3, pc}
  1149              		.cfi_endproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 37
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 37
 
 
  1150              	.LFE136:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  248:Core/Src/boards/NucleoL476/rtc-board.c ****     {   // we don't go in Low Power mode for delay below 50ms (needed for LEDs)
  1194              		.loc 1 248 17 is_stmt 0 view .LVU367
  1195 001a 084B     		ldr	r3, .L78
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 38
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 38
 
 
  1196 001c 1B68     		ldr	r3, [r3]
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1240              		.thumb_func
  1241              		.fpu fpv4-sp-d16
  1243              	RtcGetTimerValue:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 39
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 39
 
 
  1244              	.LFB138:
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1290              		.loc 1 274 5 view .LVU388
  1291              	.LVL126:
  275:Core/Src/boards/NucleoL476/rtc-board.c ****     TimerTime_t contextTime = 0;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 40
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 40
 
 
  1292              		.loc 1 275 5 view .LVU389
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1330 001e 201A     		subs	r0, r4, r0
  1331              	.LVL135:
  287:Core/Src/boards/NucleoL476/rtc-board.c ****     }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 41
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 41
 
 
  1332              		.loc 1 287 16 view .LVU406
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1384              	.LFB141:
  298:Core/Src/boards/NucleoL476/rtc-board.c ****     TimerTime_t elapsedTime = 0;
  1385              		.loc 1 298 1 is_stmt 1 view -0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 42
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 42
 
 
  1386              		.cfi_startproc
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1426              	.LVL145:
  313:Core/Src/boards/NucleoL476/rtc-board.c ****     }
  1427              		.loc 1 313 29 view .LVU428
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 43
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 43
 
 
  1428 001a 013C     		subs	r4, r4, #1
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1474              	.L98:
  334:Core/Src/boards/NucleoL476/rtc-board.c **** 
  1475              		.loc 1 334 9 is_stmt 1 view .LVU439
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 44
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 44
 
 
  1476 0010 FFF7FEFF 		bl	BoardDeInitMcu
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1524 0006 002B     		cmp	r3, #0
  1525 0008 10DB     		blt	.L107
  356:Core/Src/boards/NucleoL476/rtc-board.c ****     }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 45
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 45
 
 
  1526              		.loc 1 356 9 is_stmt 1 view .LVU448
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1572              		.thumb
  1573              		.thumb_func
  1574              		.fpu fpv4-sp-d16
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 46
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 46
 
 
  1576              	BlockLowPowerDuringTask:
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1623              	RtcConvertTimerTimeToCalendarTick:
  1624              	.LVL157:
  1625              	.LFB148:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 47
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 47
 
 
  528:Core/Src/boards/NucleoL476/rtc-board.c ****     RtcCalendar_t calendar = { { 0 }, { 0 } };
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1663 0014 C90A     		lsrs	r1, r1, #11
  1664              	.LVL160:
  549:Core/Src/boards/NucleoL476/rtc-board.c ****     {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 48
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 48
 
 
  1665              		.loc 1 549 5 is_stmt 1 view .LVU484
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1704              		.loc 1 559 14 view .LVU499
  1705 003a 9BB2     		uxth	r3, r3
  1706              	.LVL169:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 49
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 49
 
 
  1707              	.L119:
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  576:Core/Src/boards/NucleoL476/rtc-board.c ****     }
  1746              		.loc 1 576 9 is_stmt 1 view .LVU515
  576:Core/Src/boards/NucleoL476/rtc-board.c ****     }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 50
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 50
 
 
  1747              		.loc 1 576 16 is_stmt 0 view .LVU516
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1787              	.LVL184:
  588:Core/Src/boards/NucleoL476/rtc-board.c ****     }
  1788              		.loc 1 588 9 is_stmt 1 view .LVU531
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 51
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 51
 
 
  588:Core/Src/boards/NucleoL476/rtc-board.c ****     }
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  599:Core/Src/boards/NucleoL476/rtc-board.c ****         months++;
  1829              		.loc 1 599 14 view .LVU546
  1830 009c 1FFA8CFC 		uxth	ip, ip
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 52
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 52
 
 
  1831              	.LVL193:
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  608:Core/Src/boards/NucleoL476/rtc-board.c ****     calendar.CalendarDate.Year = years; // on 32-bit, years will never go up
  1867              		.loc 1 608 5 is_stmt 1 view .LVU565
  608:Core/Src/boards/NucleoL476/rtc-board.c ****     calendar.CalendarDate.Year = years; // on 32-bit, years will never go up
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 53
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 53
 
 
  1868              		.loc 1 608 33 is_stmt 0 view .LVU566
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1921              		.section	.bss.RtcInitialized,"aw",%nobits
  1922              		.set	.LANCHOR4,. + 0
  1925              	RtcInitialized:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 54
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 54
 
 
  1926 0000 00       		.space	1
@@ -3216,80 +3216,80 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 1
  1960              		.file 13 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h"
  1961              		.file 14 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rtc_ex.h"
  1962              		.file 15 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 55
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 55
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 rtc-board.c
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:18     .text.RtcComputeTimerTimeToAlarmTick:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:25     .text.RtcComputeTimerTimeToAlarmTick:00000000 RtcComputeTimerTimeToAlarmTick
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:353    .text.RtcComputeTimerTimeToAlarmTick:0000012c $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:364    .text.RtcConvertMsToTick:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:370    .text.RtcConvertMsToTick:00000000 RtcConvertMsToTick
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:413    .text.RtcConvertMsToTick:00000028 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:419    .text.RtcConvertTickToMs:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:425    .text.RtcConvertTickToMs:00000000 RtcConvertTickToMs
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:468    .text.RtcConvertTickToMs:00000028 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:474    .text.RtcGetCalendar:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:480    .text.RtcGetCalendar:00000000 RtcGetCalendar
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:578    .text.RtcGetCalendar:00000054 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:583    .rodata.RtcStartWakeUpAlarm.str1.4:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:587    .text.RtcStartWakeUpAlarm:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:593    .text.RtcStartWakeUpAlarm:00000000 RtcStartWakeUpAlarm
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:727    .text.RtcStartWakeUpAlarm:0000009c $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:734    .text.RtcConvertCalendarTickToTimerTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:740    .text.RtcConvertCalendarTickToTimerTime:00000000 RtcConvertCalendarTickToTimerTime
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:960    .text.RtcConvertCalendarTickToTimerTime:000000cc $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:968    .text.RtcInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:975    .text.RtcInit:00000000 RtcInit
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1113   .text.RtcInit:00000098 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1121   .text.RtcSetTimeout:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1128   .text.RtcSetTimeout:00000000 RtcSetTimeout
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1153   .text.RtcGetAdjustedTimeoutValue:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1160   .text.RtcGetAdjustedTimeoutValue:00000000 RtcGetAdjustedTimeoutValue
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1229   .text.RtcGetAdjustedTimeoutValue:0000003c $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1236   .text.RtcGetTimerValue:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1243   .text.RtcGetTimerValue:00000000 RtcGetTimerValue
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1272   .text.RtcGetElapsedAlarmTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1279   .text.RtcGetElapsedAlarmTime:00000000 RtcGetElapsedAlarmTime
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1337   .text.RtcGetElapsedAlarmTime:00000024 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1342   .text.RtcComputeFutureEventTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1349   .text.RtcComputeFutureEventTime:00000000 RtcComputeFutureEventTime
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1375   .text.RtcComputeElapsedTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1382   .text.RtcComputeElapsedTime:00000000 RtcComputeElapsedTime
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1442   .text.RtcEnterLowPowerStopMode:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1449   .text.RtcEnterLowPowerStopMode:00000000 RtcEnterLowPowerStopMode
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1495   .text.RtcEnterLowPowerStopMode:0000002c $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1501   .text.RtcRecoverMcuStatus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1508   .text.RtcRecoverMcuStatus:00000000 RtcRecoverMcuStatus
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1562   .text.RtcRecoverMcuStatus:00000034 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1569   .text.BlockLowPowerDuringTask:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1576   .text.BlockLowPowerDuringTask:00000000 BlockLowPowerDuringTask
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1611   .text.BlockLowPowerDuringTask:00000014 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1616   .text.RtcConvertTimerTimeToCalendarTick:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1623   .text.RtcConvertTimerTimeToCalendarTick:00000000 RtcConvertTimerTimeToCalendarTick
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1879   .text.RtcConvertTimerTimeToCalendarTick:000000c4 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1899   .bss.McuWakeUpTime:00000000 McuWakeUpTime
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1919   .bss.RtcHandle:00000000 RtcHandle
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1912   .bss.RtcCalendarContext:00000000 RtcCalendarContext
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1905   .bss.NonScheduledWakeUp:00000000 NonScheduledWakeUp
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1892   .bss.LowPowerDisableDuringTask:00000000 LowPowerDisableDuringTask
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1893   .bss.LowPowerDisableDuringTask:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1895   .bss.McuWakeUpTime:00000000 $d
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s 			page 56
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:18     .text.RtcComputeTimerTimeToAlarmTick:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:25     .text.RtcComputeTimerTimeToAlarmTick:00000000 RtcComputeTimerTimeToAlarmTick
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:353    .text.RtcComputeTimerTimeToAlarmTick:0000012c $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:364    .text.RtcConvertMsToTick:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:370    .text.RtcConvertMsToTick:00000000 RtcConvertMsToTick
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:413    .text.RtcConvertMsToTick:00000028 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:419    .text.RtcConvertTickToMs:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:425    .text.RtcConvertTickToMs:00000000 RtcConvertTickToMs
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:468    .text.RtcConvertTickToMs:00000028 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:474    .text.RtcGetCalendar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:480    .text.RtcGetCalendar:00000000 RtcGetCalendar
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:578    .text.RtcGetCalendar:00000054 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:583    .rodata.RtcStartWakeUpAlarm.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:587    .text.RtcStartWakeUpAlarm:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:593    .text.RtcStartWakeUpAlarm:00000000 RtcStartWakeUpAlarm
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:727    .text.RtcStartWakeUpAlarm:0000009c $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:734    .text.RtcConvertCalendarTickToTimerTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:740    .text.RtcConvertCalendarTickToTimerTime:00000000 RtcConvertCalendarTickToTimerTime
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:960    .text.RtcConvertCalendarTickToTimerTime:000000cc $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:968    .text.RtcInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:975    .text.RtcInit:00000000 RtcInit
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1113   .text.RtcInit:00000098 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1121   .text.RtcSetTimeout:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1128   .text.RtcSetTimeout:00000000 RtcSetTimeout
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1153   .text.RtcGetAdjustedTimeoutValue:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1160   .text.RtcGetAdjustedTimeoutValue:00000000 RtcGetAdjustedTimeoutValue
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1229   .text.RtcGetAdjustedTimeoutValue:0000003c $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1236   .text.RtcGetTimerValue:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1243   .text.RtcGetTimerValue:00000000 RtcGetTimerValue
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1272   .text.RtcGetElapsedAlarmTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1279   .text.RtcGetElapsedAlarmTime:00000000 RtcGetElapsedAlarmTime
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1337   .text.RtcGetElapsedAlarmTime:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1342   .text.RtcComputeFutureEventTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1349   .text.RtcComputeFutureEventTime:00000000 RtcComputeFutureEventTime
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1375   .text.RtcComputeElapsedTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1382   .text.RtcComputeElapsedTime:00000000 RtcComputeElapsedTime
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1442   .text.RtcEnterLowPowerStopMode:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1449   .text.RtcEnterLowPowerStopMode:00000000 RtcEnterLowPowerStopMode
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1495   .text.RtcEnterLowPowerStopMode:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1501   .text.RtcRecoverMcuStatus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1508   .text.RtcRecoverMcuStatus:00000000 RtcRecoverMcuStatus
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1562   .text.RtcRecoverMcuStatus:00000034 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1569   .text.BlockLowPowerDuringTask:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1576   .text.BlockLowPowerDuringTask:00000000 BlockLowPowerDuringTask
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1611   .text.BlockLowPowerDuringTask:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1616   .text.RtcConvertTimerTimeToCalendarTick:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1623   .text.RtcConvertTimerTimeToCalendarTick:00000000 RtcConvertTimerTimeToCalendarTick
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1879   .text.RtcConvertTimerTimeToCalendarTick:000000c4 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1899   .bss.McuWakeUpTime:00000000 McuWakeUpTime
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1919   .bss.RtcHandle:00000000 RtcHandle
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1912   .bss.RtcCalendarContext:00000000 RtcCalendarContext
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1905   .bss.NonScheduledWakeUp:00000000 NonScheduledWakeUp
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1892   .bss.LowPowerDisableDuringTask:00000000 LowPowerDisableDuringTask
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1893   .bss.LowPowerDisableDuringTask:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1895   .bss.McuWakeUpTime:00000000 $d
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\cck236lx.s 			page 56
 
 
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1906   .bss.NonScheduledWakeUp:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1908   .bss.RtcCalendarContext:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1915   .bss.RtcHandle:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1925   .bss.RtcInitialized:00000000 RtcInitialized
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1926   .bss.RtcInitialized:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1931   .bss.RtcTimerEventAllowsLowPower:00000000 RtcTimerEventAllowsLowPower
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1932   .bss.RtcTimerEventAllowsLowPower:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1934   .rodata.DaysInMonth:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1938   .rodata.DaysInMonth:00000000 DaysInMonth
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1941   .rodata.DaysInMonthLeapYear:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccpkUNOp.s:1945   .rodata.DaysInMonthLeapYear:00000000 DaysInMonthLeapYear
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1906   .bss.NonScheduledWakeUp:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1908   .bss.RtcCalendarContext:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1915   .bss.RtcHandle:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1925   .bss.RtcInitialized:00000000 RtcInitialized
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1926   .bss.RtcInitialized:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1931   .bss.RtcTimerEventAllowsLowPower:00000000 RtcTimerEventAllowsLowPower
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1932   .bss.RtcTimerEventAllowsLowPower:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1934   .rodata.DaysInMonth:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1938   .rodata.DaysInMonth:00000000 DaysInMonth
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1941   .rodata.DaysInMonthLeapYear:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\cck236lx.s:1945   .rodata.DaysInMonthLeapYear:00000000 DaysInMonthLeapYear
 
 UNDEFINED SYMBOLS
 __aeabi_ui2d

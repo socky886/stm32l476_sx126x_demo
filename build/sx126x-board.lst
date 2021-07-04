@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
   28:Core/Src/boards/NucleoL476/sx126x-board.c **** {
   29              		.loc 1 28 1 view -0
   30              		.cfi_startproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 2
 
 
   31              		@ args = 0, pretend = 0, frame = 0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
   80              		.loc 1 33 1 is_stmt 0 view .LVU5
   81 004c 03B0     		add	sp, sp, #12
   82              	.LCFI2:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 3
 
 
   83              		.cfi_def_cfa_offset 12
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  135              		.global	SX126xIoDeInit
  136              		.syntax unified
  137              		.thumb
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 4
 
 
  138              		.thumb_func
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  186              		.loc 1 45 1 is_stmt 0 view .LVU15
  187 003e 03B0     		add	sp, sp, #12
  188              	.LCFI6:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 5
 
 
  189              		.cfi_def_cfa_offset 12
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  239 0020 FFF7FEFF 		bl	DelayMs
  240              	.LVL12:
   52:Core/Src/boards/NucleoL476/sx126x-board.c ****     GpioInit( &SX126x.Reset, RADIO_RESET, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // interna
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 6
 
 
  241              		.loc 1 52 5 view .LVU20
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  291 0004 FFF7FEFF 		bl	GpioRead
  292              	.LVL15:
  293              		.loc 1 58 10 discriminator 1 view .LVU27
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 7
 
 
  294 0008 0128     		cmp	r0, #1
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
   68:Core/Src/boards/NucleoL476/sx126x-board.c ****     SpiInOut( &SX126x.Spi, 0x00 );
  341              		.loc 1 68 5 view .LVU33
  342 001c 0021     		movs	r1, #0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 8
 
 
  343 001e 2846     		mov	r0, r5
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  388              		.cfi_offset 6, -12
  389              		.cfi_offset 7, -8
  390              		.cfi_offset 14, -4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 9
 
 
  391 0002 0746     		mov	r7, r0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  431              		.loc 1 86 5 is_stmt 0 discriminator 1 view .LVU52
  432 0030 AC42     		cmp	r4, r5
  433 0032 F7D3     		bcc	.L28
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 10
 
 
  434              	.LBE2:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  477              		.loc 1 100 1 is_stmt 0 view .LVU60
  478 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
  479              	.LCFI13:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 11
 
 
  480              		.cfi_def_cfa_offset 24
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  525              		.loc 1 109 19 discriminator 3 view .LVU71
  526 0034 3055     		strb	r0, [r6, r4]
  107:Core/Src/boards/NucleoL476/sx126x-board.c ****     for( uint16_t i = 0; i < size; i++ )
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 12
 
 
  527              		.loc 1 107 36 is_stmt 1 discriminator 3 view .LVU72
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  118:Core/Src/boards/NucleoL476/sx126x-board.c **** {
  571              		.loc 1 118 1 is_stmt 1 view -0
  572              		.cfi_startproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 13
 
 
  573              		@ args = 0, pretend = 0, frame = 0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  618              		.loc 1 127 5 view .LVU91
  619 0032 05E0     		b	.L41
  620              	.LVL52:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 14
 
 
  621              	.L42:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  663              		.syntax unified
  664              		.thumb
  665              		.thumb_func
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 15
 
 
  666              		.fpu fpv4-sp-d16
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  715              		.loc 1 143 1 is_stmt 0 view .LVU108
  716 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
  717              	.LCFI18:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 16
 
 
  718              		.cfi_def_cfa_offset 24
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  763              		.loc 1 152 5 view .LVU118
  764 003a 06E0     		b	.L49
  765              	.LVL69:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 17
 
 
  766              	.L50:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  809              		.align	1
  810              		.global	SX126xReadRegister
  811              		.syntax unified
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 18
 
 
  812              		.thumb
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  859              		.loc 1 169 1 is_stmt 1 view -0
  860              		.cfi_startproc
  861              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 19
 
 
  862              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  907 002e 0848     		ldr	r0, .L60+4
  908 0030 FFF7FEFF 		bl	SpiInOut
  909              	.LVL84:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 20
 
 
  176:Core/Src/boards/NucleoL476/sx126x-board.c ****     for( uint16_t i = 0; i < size; i++ )
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  955              	.LFB148:
  184:Core/Src/boards/NucleoL476/sx126x-board.c **** 
  185:Core/Src/boards/NucleoL476/sx126x-board.c **** void SX126xReadBuffer( uint8_t offset, uint8_t *buffer, uint8_t size )
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 21
 
 
  186:Core/Src/boards/NucleoL476/sx126x-board.c **** {
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  1001              		.loc 1 194 19 is_stmt 0 view .LVU167
  1002 0030 0024     		movs	r4, #0
  1003              		.loc 1 194 5 view .LVU168
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 22
 
 
  1004 0032 06E0     		b	.L63
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  1045 0058 C4000000 		.word	SX126x+196
  1046 005c 3C000000 		.word	SX126x+60
  1047              		.cfi_endproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 23
 
 
  1048              	.LFE148:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  212:Core/Src/boards/NucleoL476/sx126x-board.c ****     //     return SX1261;
  213:Core/Src/boards/NucleoL476/sx126x-board.c ****     // }
  214:Core/Src/boards/NucleoL476/sx126x-board.c ****     // else
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 24
 
 
  215:Core/Src/boards/NucleoL476/sx126x-board.c ****     {
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  1143              	.L73:
  1144 001c 00000000 		.word	.LANCHOR1
  1145              		.cfi_endproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 25
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 25
 
 
  1146              	.LFE151:
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  1199              	SX126xCheckRfFrequency:
  1200              	.LVL109:
  1201              	.LFB153:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 26
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 26
 
 
  229:Core/Src/boards/NucleoL476/sx126x-board.c **** 
@@ -1551,70 +1551,70 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 1
  1244              		.file 12 "Core/Src/boards/NucleoL476/sx126x-board.h"
  1245              		.file 13 "Core/Src/boards/NucleoL476/board.h"
  1246              		.file 14 "Core/Src/system/delay.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 27
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 27
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 sx126x-board.c
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:18     .text.SX126xIoInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:26     .text.SX126xIoInit:00000000 SX126xIoInit
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:89     .text.SX126xIoInit:00000050 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:95     .text.SX126xIoIrqInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:102    .text.SX126xIoIrqInit:00000000 SX126xIoIrqInit
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:129    .text.SX126xIoIrqInit:00000010 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:134    .text.SX126xIoDeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:141    .text.SX126xIoDeInit:00000000 SX126xIoDeInit
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:195    .text.SX126xIoDeInit:00000044 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:200    .text.SX126xReset:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:207    .text.SX126xReset:00000000 SX126xReset
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:263    .text.SX126xReset:00000040 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:268    .text.SX126xWaitOnBusy:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:275    .text.SX126xWaitOnBusy:00000000 SX126xWaitOnBusy
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:301    .text.SX126xWaitOnBusy:00000010 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:306    .text.SX126xWakeup:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:313    .text.SX126xWakeup:00000000 SX126xWakeup
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:362    .text.SX126xWakeup:00000038 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:367    .text.SX126xWriteCommand:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:374    .text.SX126xWriteCommand:00000000 SX126xWriteCommand
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:457    .text.SX126xWriteCommand:00000048 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:463    .text.SX126xReadCommand:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:470    .text.SX126xReadCommand:00000000 SX126xReadCommand
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:555    .text.SX126xReadCommand:0000004c $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:561    .text.SX126xWriteRegisters:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:568    .text.SX126xWriteRegisters:00000000 SX126xWriteRegisters
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:655    .text.SX126xWriteRegisters:00000054 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:661    .text.SX126xWriteRegister:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:668    .text.SX126xWriteRegister:00000000 SX126xWriteRegister
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:701    .text.SX126xReadRegisters:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:708    .text.SX126xReadRegisters:00000000 SX126xReadRegisters
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:803    .text.SX126xReadRegisters:0000005c $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:809    .text.SX126xReadRegister:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:816    .text.SX126xReadRegister:00000000 SX126xReadRegister
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:849    .text.SX126xWriteBuffer:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:856    .text.SX126xWriteBuffer:00000000 SX126xWriteBuffer
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:940    .text.SX126xWriteBuffer:0000004c $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:946    .text.SX126xReadBuffer:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:953    .text.SX126xReadBuffer:00000000 SX126xReadBuffer
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1045   .text.SX126xReadBuffer:00000058 $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1051   .text.SX126xSetRfTxPower:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1058   .text.SX126xSetRfTxPower:00000000 SX126xSetRfTxPower
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1081   .text.SX126xGetPaSelect:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1088   .text.SX126xGetPaSelect:00000000 SX126xGetPaSelect
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1106   .text.SX126xAntSwOn:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1113   .text.SX126xAntSwOn:00000000 SX126xAntSwOn
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1144   .text.SX126xAntSwOn:0000001c $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1149   .text.SX126xAntSwOff:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1156   .text.SX126xAntSwOff:00000000 SX126xAntSwOff
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1187   .text.SX126xAntSwOff:0000001c $d
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1192   .text.SX126xCheckRfFrequency:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1199   .text.SX126xCheckRfFrequency:00000000 SX126xCheckRfFrequency
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1230   .bss.DeviceSel:00000000 DeviceSel
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1223   .bss.AntPow:00000000 AntPow
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1219   .bss.AntPow:00000000 $d
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s 			page 28
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:18     .text.SX126xIoInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:26     .text.SX126xIoInit:00000000 SX126xIoInit
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:89     .text.SX126xIoInit:00000050 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:95     .text.SX126xIoIrqInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:102    .text.SX126xIoIrqInit:00000000 SX126xIoIrqInit
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:129    .text.SX126xIoIrqInit:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:134    .text.SX126xIoDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:141    .text.SX126xIoDeInit:00000000 SX126xIoDeInit
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:195    .text.SX126xIoDeInit:00000044 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:200    .text.SX126xReset:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:207    .text.SX126xReset:00000000 SX126xReset
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:263    .text.SX126xReset:00000040 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:268    .text.SX126xWaitOnBusy:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:275    .text.SX126xWaitOnBusy:00000000 SX126xWaitOnBusy
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:301    .text.SX126xWaitOnBusy:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:306    .text.SX126xWakeup:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:313    .text.SX126xWakeup:00000000 SX126xWakeup
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:362    .text.SX126xWakeup:00000038 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:367    .text.SX126xWriteCommand:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:374    .text.SX126xWriteCommand:00000000 SX126xWriteCommand
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:457    .text.SX126xWriteCommand:00000048 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:463    .text.SX126xReadCommand:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:470    .text.SX126xReadCommand:00000000 SX126xReadCommand
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:555    .text.SX126xReadCommand:0000004c $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:561    .text.SX126xWriteRegisters:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:568    .text.SX126xWriteRegisters:00000000 SX126xWriteRegisters
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:655    .text.SX126xWriteRegisters:00000054 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:661    .text.SX126xWriteRegister:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:668    .text.SX126xWriteRegister:00000000 SX126xWriteRegister
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:701    .text.SX126xReadRegisters:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:708    .text.SX126xReadRegisters:00000000 SX126xReadRegisters
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:803    .text.SX126xReadRegisters:0000005c $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:809    .text.SX126xReadRegister:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:816    .text.SX126xReadRegister:00000000 SX126xReadRegister
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:849    .text.SX126xWriteBuffer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:856    .text.SX126xWriteBuffer:00000000 SX126xWriteBuffer
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:940    .text.SX126xWriteBuffer:0000004c $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:946    .text.SX126xReadBuffer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:953    .text.SX126xReadBuffer:00000000 SX126xReadBuffer
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1045   .text.SX126xReadBuffer:00000058 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1051   .text.SX126xSetRfTxPower:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1058   .text.SX126xSetRfTxPower:00000000 SX126xSetRfTxPower
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1081   .text.SX126xGetPaSelect:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1088   .text.SX126xGetPaSelect:00000000 SX126xGetPaSelect
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1106   .text.SX126xAntSwOn:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1113   .text.SX126xAntSwOn:00000000 SX126xAntSwOn
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1144   .text.SX126xAntSwOn:0000001c $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1149   .text.SX126xAntSwOff:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1156   .text.SX126xAntSwOff:00000000 SX126xAntSwOff
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1187   .text.SX126xAntSwOff:0000001c $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1192   .text.SX126xCheckRfFrequency:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1199   .text.SX126xCheckRfFrequency:00000000 SX126xCheckRfFrequency
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1230   .bss.DeviceSel:00000000 DeviceSel
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1223   .bss.AntPow:00000000 AntPow
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1219   .bss.AntPow:00000000 $d
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s 			page 28
 
 
-C:\Users\andywei\AppData\Local\Temp\ccpniWjL.s:1226   .bss.DeviceSel:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccUe46lx.s:1226   .bss.DeviceSel:00000000 $d
 
 UNDEFINED SYMBOLS
 GpioInit

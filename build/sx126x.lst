@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
   28:Core/Src/radio/sx126x/sx126x.c **** 
   29:Core/Src/radio/sx126x/sx126x.c **** /*!
   30:Core/Src/radio/sx126x/sx126x.c ****  * \brief Radio registers definition
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 2
 
 
   31:Core/Src/radio/sx126x/sx126x.c ****  */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
   85:Core/Src/radio/sx126x/sx126x.c ****     SX126xReset( );
   86:Core/Src/radio/sx126x/sx126x.c **** 
   87:Core/Src/radio/sx126x/sx126x.c ****     SX126xIoIrqInit( dioIrq );
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 3
 
 
   88:Core/Src/radio/sx126x/sx126x.c **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
   62              		.cfi_def_cfa_offset 8
   63              		.cfi_offset 3, -8
   64              		.cfi_offset 14, -4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 4
 
 
  111:Core/Src/radio/sx126x/sx126x.c ****     if( ( SX126xGetOperatingMode( ) == MODE_SLEEP ) || ( SX126xGetOperatingMode( ) == MODE_RX_DC ) 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  110              		.cfi_offset 14, -4
  111 0002 0A46     		mov	r2, r1
  122:Core/Src/radio/sx126x/sx126x.c ****     SX126xWriteBuffer( 0x00, payload, size );
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 5
 
 
  112              		.loc 1 122 5 is_stmt 1 view .LVU14
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  145              		.cfi_offset 3, -8
  146              		.cfi_offset 14, -4
  147 0002 0146     		mov	r1, r0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 6
 
 
  146:Core/Src/radio/sx126x/sx126x.c ****     SX126xWriteRegisters( REG_LR_SYNCWORDBASEADDRESS, syncWord, 8 );
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  178:Core/Src/radio/sx126x/sx126x.c ****             SX126xWriteRegisters( REG_LR_CRCPOLYBASEADDR, buf, 2 );
  179:Core/Src/radio/sx126x/sx126x.c ****             break;
  180:Core/Src/radio/sx126x/sx126x.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 7
 
 
  181:Core/Src/radio/sx126x/sx126x.c ****         default:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  184              		.loc 1 222 5 view .LVU25
  185 0008 FFF7FEFF 		bl	SX126xAntSwOff
  186              	.LVL11:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 8
 
 
  223:Core/Src/radio/sx126x/sx126x.c **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  235              		.loc 1 230 5 is_stmt 1 view .LVU32
  236 0008 0122     		movs	r2, #1
  237 000a 0DF10701 		add	r1, sp, #7
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 9
 
 
  238 000e 8020     		movs	r0, #128
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  282              		.thumb
  283              		.thumb_func
  284              		.fpu fpv4-sp-d16
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 10
 
 
  286              	SX126xSetFs:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  333 0000 00B5     		push	{lr}
  334              	.LCFI11:
  335              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 11
 
 
  336              		.cfi_offset 14, -4
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  382              		.global	SX126xSendPayload
  383              		.syntax unified
  384              		.thumb
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 12
 
 
  385              		.thumb_func
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  433              		.cfi_def_cfa_offset 4
  434              		.cfi_offset 14, -4
  435 0002 83B0     		sub	sp, sp, #12
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 13
 
 
  436              	.LCFI16:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  482              		.thumb
  483              		.thumb_func
  484              		.fpu fpv4-sp-d16
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 14
 
 
  486              	SX126xGetRandom:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  217:Core/Src/radio/sx126x/sx126x.c **** }
  529              		.loc 1 217 29 view .LVU97
  530 0032 43EA0063 		orr	r3, r3, r0, lsl #24
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 15
 
 
  217:Core/Src/radio/sx126x/sx126x.c **** }
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  577 000a 1A70     		strb	r2, [r3]
  276:Core/Src/radio/sx126x/sx126x.c **** 
  277:Core/Src/radio/sx126x/sx126x.c ****     SX126xWriteRegister( REG_RX_GAIN, 0x96 ); // max LNA gain, increase current by ~2mA for around 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 16
 
 
  578              		.loc 1 277 5 is_stmt 1 view .LVU107
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  628              	.LVL35:
  629              	.LFB152:
  284:Core/Src/radio/sx126x/sx126x.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 17
 
 
  285:Core/Src/radio/sx126x/sx126x.c **** void SX126xSetRxDutyCycle( uint32_t rxTime, uint32_t sleepTime )
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  673              		.loc 1 295 5 is_stmt 0 view .LVU140
  674 0030 9420     		movs	r0, #148
  675              	.LVL37:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 18
 
 
  676              		.loc 1 295 5 view .LVU141
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  725 000e 0722     		movs	r2, #7
  726 0010 1A70     		strb	r2, [r3]
  303:Core/Src/radio/sx126x/sx126x.c **** }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 19
 
 
  727              		.loc 1 303 1 view .LVU149
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  777              		.cfi_startproc
  778              		@ args = 0, pretend = 0, frame = 0
  779              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 20
 
 
  780 0000 08B5     		push	{r3, lr}
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  829 0014 03B0     		add	sp, sp, #12
  830              	.LCFI32:
  831              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 21
 
 
  832              		@ sp needed
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  884              		.fpu fpv4-sp-d16
  886              	SX126xSetRegulatorMode:
  887              	.LVL48:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 22
 
 
  888              	.LFB158:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  936              		.cfi_offset 14, -4
  937 0002 83B0     		sub	sp, sp, #12
  938              	.LCFI40:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 23
 
 
  939              		.cfi_def_cfa_offset 16
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  985              		.loc 1 341 9 is_stmt 1 view .LVU179
  986              		.loc 1 341 20 is_stmt 0 view .LVU180
  987 000a E123     		movs	r3, #225
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 24
 
 
  988 000c 8DF80430 		strb	r3, [sp, #4]
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1016 0028 9842     		cmp	r0, r3
  1017 002a 06D9     		bls	.L65
  346:Core/Src/radio/sx126x/sx126x.c ****         calFreq[1] = 0xDB;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 25
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 25
 
 
  1018              		.loc 1 346 9 is_stmt 1 view .LVU188
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1057              	.L67:
  359:Core/Src/radio/sx126x/sx126x.c ****     {
  1058              		.loc 1 359 10 is_stmt 1 view .LVU204
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 26
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 26
 
 
  359:Core/Src/radio/sx126x/sx126x.c ****     {
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1106              		.loc 1 369 5 is_stmt 1 view .LVU212
  370:Core/Src/radio/sx126x/sx126x.c **** 
  371:Core/Src/radio/sx126x/sx126x.c ****     buf[0] = paDutyCycle;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 27
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 27
 
 
  1107              		.loc 1 371 5 view .LVU213
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1155              		.loc 1 379 1 is_stmt 0 view .LVU227
  1156 0000 00B5     		push	{lr}
  1157              	.LCFI49:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 28
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 28
 
 
  1158              		.cfi_def_cfa_offset 4
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1206              		.loc 1 387 14 is_stmt 0 view .LVU235
  1207 0004 4FEA102C 		lsr	ip, r0, #8
  1208              		.loc 1 387 12 view .LVU236
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 29
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 29
 
 
  1209 0008 8DF800C0 		strb	ip, [sp]
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1255              		.section	.text.SX126xGetIrqStatus,"ax",%progbits
  1256              		.align	1
  1257              		.global	SX126xGetIrqStatus
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 30
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 30
 
 
  1258              		.syntax unified
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1307              	.LVL70:
  1308              	.LFB165:
  405:Core/Src/radio/sx126x/sx126x.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 31
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 31
 
 
  406:Core/Src/radio/sx126x/sx126x.c **** void SX126xSetDio2AsRfSwitchCtrl( uint8_t enable )
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1359              		.cfi_offset 14, -4
  1360 0002 0446     		mov	r4, r0
   85:Core/Src/radio/sx126x/sx126x.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 32
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 32
 
 
  1361              		.loc 1 85 5 is_stmt 1 view .LVU270
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1406              		.loc 1 412 1 is_stmt 1 view -0
  1407              		.cfi_startproc
  1408              		@ args = 0, pretend = 0, frame = 8
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 33
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 33
 
 
  1409              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1455              		.global	__aeabi_ui2d
  1456              		.global	__aeabi_ddiv
  1457              		.global	__aeabi_d2uiz
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 34
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 34
 
 
  1458              		.section	.text.SX126xSetRfFrequency,"ax",%progbits
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1500 0012 11A3     		adr	r3, .L91
  1501 0014 D3E90023 		ldrd	r2, [r3]
  1502 0018 FFF7FEFF 		bl	__aeabi_ddiv
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 35
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 35
 
 
  1503              	.LVL88:
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1548              		.loc 1 431 25 is_stmt 0 view .LVU323
  1549 004e 044B     		ldr	r3, .L91+8
  1550 0050 0122     		movs	r2, #1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 36
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 36
 
 
  1551 0052 1A70     		strb	r2, [r3]
@@ -2107,7 +2107,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1554 0056 00BF     		.align	3
  1555              	.L91:
  1556 0058 00000000 		.word	0
- 1557 005c A8CBE83F 		.word	1072221096
+ 1557 005c 8084EE3F 		.word	1072596096
  1558 0060 00000000 		.word	.LANCHOR1
  1559              		.cfi_endproc
  1560              	.LFE167:
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1600 001a 03B0     		add	sp, sp, #12
  1601              	.LCFI71:
  1602              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 37
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 37
 
 
  1603              		@ sp needed
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1654              		.loc 1 151 1 is_stmt 0 view .LVU335
  1655 0000 00B5     		push	{lr}
  1656              	.LCFI72:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 38
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 38
 
 
  1657              		.cfi_def_cfa_offset 4
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1698              	.LFE142:
  1700              		.section	.text.SX126xSetCrcPolynomial,"ax",%progbits
  1701              		.align	1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 39
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 39
 
 
  1702              		.global	SX126xSetCrcPolynomial
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1745 0016 5DF804FB 		ldr	pc, [sp], #4
  1746              	.L107:
  1747              	.LCFI79:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 40
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 40
 
 
  1748              		.cfi_restore_state
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1794 000a 10BD     		pop	{r4, pc}
  1795              	.LVL107:
  1796              	.L111:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 41
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 41
 
 
  193:Core/Src/radio/sx126x/sx126x.c ****             regValue = ( ( seed >> 8 ) & 0x01 ) | regValue;
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1840              		@ args = 0, pretend = 0, frame = 8
  1841              		@ frame_needed = 0, uses_anonymous_args = 0
  1842              		.loc 1 455 1 is_stmt 0 view .LVU382
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 42
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 42
 
 
  1843 0000 30B5     		push	{r4, r5, lr}
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  472:Core/Src/radio/sx126x/sx126x.c ****         else if( power < -3 )
  1881              		.loc 1 472 14 is_stmt 1 view .LVU393
  1882              		.loc 1 472 16 is_stmt 0 view .LVU394
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 43
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 43
 
 
  1883 0026 14F1030F 		cmn	r4, #3
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1914              		.loc 1 493 5 is_stmt 1 view .LVU403
  1915 0054 0222     		movs	r2, #2
  1916 0056 01A9     		add	r1, sp, #4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 44
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 44
 
 
  1917 0058 8E20     		movs	r0, #142
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  1963              		.global	__aeabi_dmul
  1964              		.section	.text.SX126xSetModulationParams,"ax",%progbits
  1965              		.align	1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 45
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 45
 
 
  1966              		.global	SX126xSetModulationParams
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  506:Core/Src/radio/sx126x/sx126x.c ****         SX126xSetPacketType( modulationParams->PacketType );
  507:Core/Src/radio/sx126x/sx126x.c ****     }
  508:Core/Src/radio/sx126x/sx126x.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 46
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 46
 
 
  509:Core/Src/radio/sx126x/sx126x.c ****     switch( modulationParams->PacketType )
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2032              	.LVL131:
  2033 002c F6E7     		b	.L126
  2034              	.L127:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 47
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 47
 
 
  512:Core/Src/radio/sx126x/sx126x.c ****         tempVal = ( uint32_t )( 32 * ( ( double )XTAL_FREQ / ( double )modulationParams->Params.Gfs
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  517:Core/Src/radio/sx126x/sx126x.c ****         buf[4] = modulationParams->Params.Gfsk.Bandwidth;
  2073              		.loc 1 517 16 view .LVU445
  2074 0060 8DF80330 		strb	r3, [sp, #3]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 48
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 48
 
 
  518:Core/Src/radio/sx126x/sx126x.c ****         tempVal = ( uint32_t )( ( double )modulationParams->Params.Gfsk.Fdev / ( double )FREQ_STEP 
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2112              	.LVL141:
  523:Core/Src/radio/sx126x/sx126x.c ****         break;
  2113              		.loc 1 523 9 is_stmt 0 view .LVU463
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 49
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 49
 
 
  2114 0094 FFF7FEFF 		bl	SX126xWriteCommand
@@ -2936,12 +2936,12 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2150 00be 00BF     		.align	3
  2151              	.L134:
  2152 00c0 00000000 		.word	0
- 2153 00c4 A8CB7841 		.word	1098435496
+ 2153 00c4 80847E41 		.word	1098810496
  2154 00c8 00000000 		.word	0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 50
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 50
 
 
- 2155 00cc A8CBE83F 		.word	1072221096
+ 2155 00cc 8084EE3F 		.word	1072596096
  2156 00d0 00000000 		.word	.LANCHOR3
  2157 00d4 00000000 		.word	.LANCHOR2
  2158 00d8 00004040 		.word	1077936128
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2201 0010 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
  2202              		.loc 1 549 20 view .LVU489
  2203 0012 2D4B     		ldr	r3, .L149+4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 51
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 51
 
 
  2204 0014 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2221              		.loc 1 586 16 view .LVU497
  2222 0024 1A0A     		lsrs	r2, r3, #8
  2223 0026 8DF80420 		strb	r2, [sp, #4]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 52
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 52
 
 
  587:Core/Src/radio/sx126x/sx126x.c ****         buf[1] = packetParams->Params.LoRa.PreambleLength;
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  563:Core/Src/radio/sx126x/sx126x.c ****         {
  2266              		.loc 1 563 16 is_stmt 0 view .LVU520
  2267 0056 F22B     		cmp	r3, #242
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 53
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 53
 
 
  2268 0058 2AD0     		beq	.L148
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2302              		.loc 1 580 43 is_stmt 0 view .LVU540
  2303 007e 227A     		ldrb	r2, [r4, #8]	@ zero_extendqisi2
  580:Core/Src/radio/sx126x/sx126x.c ****         buf[7] = crcVal;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 54
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 54
 
 
  2304              		.loc 1 580 16 view .LVU541
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2343 00a8 FFF7FEFF 		bl	SX126xSetCrcPolynomial
  2344              	.LVL157:
  561:Core/Src/radio/sx126x/sx126x.c ****         }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 55
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 55
 
 
  2345              		.loc 1 561 13 view .LVU553
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2393              	.LCFI94:
  2394              		.cfi_def_cfa_offset 16
  2395 0004 049C     		ldr	r4, [sp, #16]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 56
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 56
 
 
  602:Core/Src/radio/sx126x/sx126x.c ****     uint8_t buf[7];
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2439 0038 1A70     		strb	r2, [r3]
  613:Core/Src/radio/sx126x/sx126x.c **** }
  2440              		.loc 1 613 1 view .LVU584
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 57
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 57
 
 
  2441 003a 02B0     		add	sp, sp, #8
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2489              		.loc 1 621 5 is_stmt 0 view .LVU594
  2490 0010 8F20     		movs	r0, #143
  2491              	.LVL170:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 58
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 58
 
 
  2492              		.loc 1 621 5 view .LVU595
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  632:Core/Src/radio/sx126x/sx126x.c **** }
  2538              		.loc 1 632 1 is_stmt 0 view .LVU604
  2539 0016 9DF80700 		ldrb	r0, [sp, #7]	@ zero_extendqisi2
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 59
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 59
 
 
  2540 001a 03B0     		add	sp, sp, #12
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2586 0014 4010     		asrs	r0, r0, #1
  2587              	.LVL176:
  2588              		.loc 1 642 1 view .LVU614
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 60
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 60
 
 
  2589 0016 03B0     		add	sp, sp, #12
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  652:Core/Src/radio/sx126x/sx126x.c ****     if( ( SX126xGetPacketType( ) == PACKET_TYPE_LORA ) && ( SX126xReadRegister( REG_LR_PACKETPARAMS
  2636              		.loc 1 652 5 is_stmt 1 view .LVU622
  2637              		.loc 1 652 11 is_stmt 0 view .LVU623
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 61
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 61
 
 
  2638 0012 FFF7FEFF 		bl	SX126xGetPacketType
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2678 003e FFF7FEFF 		bl	SX126xReadRegister
  2679              	.LVL184:
  654:Core/Src/radio/sx126x/sx126x.c ****     }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 62
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 62
 
 
  2680              		.loc 1 654 24 view .LVU637
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2728              		.loc 1 130 5 is_stmt 1 view .LVU645
  130:Core/Src/radio/sx126x/sx126x.c ****     {
  2729              		.loc 1 130 9 is_stmt 0 view .LVU646
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 63
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 63
 
 
  2730 001a 2278     		ldrb	r2, [r4]	@ zero_extendqisi2
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2777              	.LCFI113:
  2778              		.cfi_def_cfa_offset 8
  2779              		.cfi_offset 4, -8
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 64
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 64
 
 
  2780              		.cfi_offset 14, -4
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2808 0022 A360     		str	r3, [r4, #8]	@ unaligned
  2809 0024 E360     		str	r3, [r4, #12]	@ unaligned
  2810 0026 2361     		str	r3, [r4, #16]	@ unaligned
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 65
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 65
 
 
  691:Core/Src/radio/sx126x/sx126x.c ****             pktStatus->packetType = PACKET_TYPE_NONE;
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  677:Core/Src/radio/sx126x/sx126x.c **** 
  2846              		.loc 1 677 13 is_stmt 1 view .LVU682
  2847              	.L171:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 66
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 66
 
 
  2848              		.loc 1 694 1 is_stmt 0 view .LVU683
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2887              		.loc 1 682 50 view .LVU698
  2888 0072 A373     		strb	r3, [r4, #14]
  683:Core/Src/radio/sx126x/sx126x.c ****             break;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 67
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 67
 
 
  2889              		.loc 1 683 13 is_stmt 1 view .LVU699
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2934 0004 0222     		movs	r2, #2
  2935 0006 01A9     		add	r1, sp, #4
  2936 0008 1720     		movs	r0, #23
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 68
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 68
 
 
  2937 000a FFF7FEFF 		bl	SX126xReadCommand
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  2985              		@ sp needed
  2986 0016 5DF804FB 		ldr	pc, [sp], #4
  2987              		.cfi_endproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 69
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 69
 
 
  2988              	.LFE180:
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  3035 001a 5DF804FB 		ldr	pc, [sp], #4
  3036              		.cfi_endproc
  3037              	.LFE181:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 70
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 70
 
 
  3039              		.global	FrequencyError
@@ -4176,138 +4176,138 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 1
  3076              		.file 4 "Core/Src/radio/sx126x/sx126x.h"
  3077              		.file 5 "Core/Src/boards/NucleoL476/sx126x-board.h"
  3078              		.file 6 "Core/Src/system/delay.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 71
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 71
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 sx126x.c
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:18     .text.SX126xGetOperatingMode:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:26     .text.SX126xGetOperatingMode:00000000 SX126xGetOperatingMode
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:42     .text.SX126xGetOperatingMode:00000008 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:47     .text.SX126xCheckDeviceReady:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:54     .text.SX126xCheckDeviceReady:00000000 SX126xCheckDeviceReady
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:91     .text.SX126xSetPayload:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:98     .text.SX126xSetPayload:00000000 SX126xSetPayload
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:127    .text.SX126xSetSyncWord:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:134    .text.SX126xSetSyncWord:00000000 SX126xSetSyncWord
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:163    .text.SX126xSetSleep:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:170    .text.SX126xSetSleep:00000000 SX126xSetSleep
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:207    .text.SX126xSetSleep:00000024 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:212    .text.SX126xSetStandby:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:219    .text.SX126xSetStandby:00000000 SX126xSetStandby
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:274    .text.SX126xSetStandby:00000030 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:279    .text.SX126xSetFs:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:286    .text.SX126xSetFs:00000000 SX126xSetFs
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:313    .text.SX126xSetFs:00000014 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:318    .text.SX126xSetTx:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:325    .text.SX126xSetTx:00000000 SX126xSetTx
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:376    .text.SX126xSetTx:00000030 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:381    .text.SX126xSendPayload:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:388    .text.SX126xSendPayload:00000000 SX126xSendPayload
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:416    .text.SX126xSetRx:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:423    .text.SX126xSetRx:00000000 SX126xSetRx
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:474    .text.SX126xSetRx:00000030 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:479    .text.SX126xGetRandom:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:486    .text.SX126xGetRandom:00000000 SX126xGetRandom
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:548    .text.SX126xSetRxBoosted:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:555    .text.SX126xSetRxBoosted:00000000 SX126xSetRxBoosted
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:615    .text.SX126xSetRxBoosted:00000038 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:620    .text.SX126xSetRxDutyCycle:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:627    .text.SX126xSetRxDutyCycle:00000000 SX126xSetRxDutyCycle
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:693    .text.SX126xSetRxDutyCycle:00000044 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:698    .text.SX126xSetCad:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:705    .text.SX126xSetCad:00000000 SX126xSetCad
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:732    .text.SX126xSetCad:00000014 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:737    .text.SX126xSetTxContinuousWave:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:744    .text.SX126xSetTxContinuousWave:00000000 SX126xSetTxContinuousWave
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:767    .text.SX126xSetTxInfinitePreamble:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:774    .text.SX126xSetTxInfinitePreamble:00000000 SX126xSetTxInfinitePreamble
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:797    .text.SX126xSetStopRxTimerOnPreambleDetect:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:804    .text.SX126xSetStopRxTimerOnPreambleDetect:00000000 SX126xSetStopRxTimerOnPreambleDetect
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:838    .text.SX126xSetLoRaSymbNumTimeout:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:845    .text.SX126xSetLoRaSymbNumTimeout:00000000 SX126xSetLoRaSymbNumTimeout
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:879    .text.SX126xSetRegulatorMode:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:886    .text.SX126xSetRegulatorMode:00000000 SX126xSetRegulatorMode
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:920    .text.SX126xCalibrate:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:927    .text.SX126xCalibrate:00000000 SX126xCalibrate
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:957    .text.SX126xCalibrateImage:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:964    .text.SX126xCalibrateImage:00000000 SX126xCalibrateImage
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1075   .text.SX126xCalibrateImage:00000078 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1084   .text.SX126xSetPaConfig:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1091   .text.SX126xSetPaConfig:00000000 SX126xSetPaConfig
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1141   .text.SX126xSetRxTxFallbackMode:00000000 $t
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 72
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:18     .text.SX126xGetOperatingMode:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:26     .text.SX126xGetOperatingMode:00000000 SX126xGetOperatingMode
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:42     .text.SX126xGetOperatingMode:00000008 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:47     .text.SX126xCheckDeviceReady:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:54     .text.SX126xCheckDeviceReady:00000000 SX126xCheckDeviceReady
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:91     .text.SX126xSetPayload:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:98     .text.SX126xSetPayload:00000000 SX126xSetPayload
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:127    .text.SX126xSetSyncWord:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:134    .text.SX126xSetSyncWord:00000000 SX126xSetSyncWord
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:163    .text.SX126xSetSleep:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:170    .text.SX126xSetSleep:00000000 SX126xSetSleep
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:207    .text.SX126xSetSleep:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:212    .text.SX126xSetStandby:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:219    .text.SX126xSetStandby:00000000 SX126xSetStandby
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:274    .text.SX126xSetStandby:00000030 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:279    .text.SX126xSetFs:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:286    .text.SX126xSetFs:00000000 SX126xSetFs
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:313    .text.SX126xSetFs:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:318    .text.SX126xSetTx:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:325    .text.SX126xSetTx:00000000 SX126xSetTx
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:376    .text.SX126xSetTx:00000030 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:381    .text.SX126xSendPayload:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:388    .text.SX126xSendPayload:00000000 SX126xSendPayload
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:416    .text.SX126xSetRx:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:423    .text.SX126xSetRx:00000000 SX126xSetRx
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:474    .text.SX126xSetRx:00000030 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:479    .text.SX126xGetRandom:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:486    .text.SX126xGetRandom:00000000 SX126xGetRandom
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:548    .text.SX126xSetRxBoosted:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:555    .text.SX126xSetRxBoosted:00000000 SX126xSetRxBoosted
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:615    .text.SX126xSetRxBoosted:00000038 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:620    .text.SX126xSetRxDutyCycle:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:627    .text.SX126xSetRxDutyCycle:00000000 SX126xSetRxDutyCycle
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:693    .text.SX126xSetRxDutyCycle:00000044 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:698    .text.SX126xSetCad:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:705    .text.SX126xSetCad:00000000 SX126xSetCad
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:732    .text.SX126xSetCad:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:737    .text.SX126xSetTxContinuousWave:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:744    .text.SX126xSetTxContinuousWave:00000000 SX126xSetTxContinuousWave
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:767    .text.SX126xSetTxInfinitePreamble:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:774    .text.SX126xSetTxInfinitePreamble:00000000 SX126xSetTxInfinitePreamble
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:797    .text.SX126xSetStopRxTimerOnPreambleDetect:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:804    .text.SX126xSetStopRxTimerOnPreambleDetect:00000000 SX126xSetStopRxTimerOnPreambleDetect
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:838    .text.SX126xSetLoRaSymbNumTimeout:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:845    .text.SX126xSetLoRaSymbNumTimeout:00000000 SX126xSetLoRaSymbNumTimeout
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:879    .text.SX126xSetRegulatorMode:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:886    .text.SX126xSetRegulatorMode:00000000 SX126xSetRegulatorMode
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:920    .text.SX126xCalibrate:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:927    .text.SX126xCalibrate:00000000 SX126xCalibrate
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:957    .text.SX126xCalibrateImage:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:964    .text.SX126xCalibrateImage:00000000 SX126xCalibrateImage
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1075   .text.SX126xCalibrateImage:00000078 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1084   .text.SX126xSetPaConfig:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1091   .text.SX126xSetPaConfig:00000000 SX126xSetPaConfig
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1141   .text.SX126xSetRxTxFallbackMode:00000000 $t
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 72
 
 
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1148   .text.SX126xSetRxTxFallbackMode:00000000 SX126xSetRxTxFallbackMode
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1182   .text.SX126xSetDioIrqParams:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1189   .text.SX126xSetDioIrqParams:00000000 SX126xSetDioIrqParams
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1256   .text.SX126xGetIrqStatus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1263   .text.SX126xGetIrqStatus:00000000 SX126xGetIrqStatus
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1299   .text.SX126xSetDio2AsRfSwitchCtrl:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1306   .text.SX126xSetDio2AsRfSwitchCtrl:00000000 SX126xSetDio2AsRfSwitchCtrl
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1340   .text.SX126xInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1347   .text.SX126xInit:00000000 SX126xInit
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1391   .text.SX126xInit:00000028 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1396   .text.SX126xSetDio3AsTcxoCtrl:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1403   .text.SX126xSetDio3AsTcxoCtrl:00000000 SX126xSetDio3AsTcxoCtrl
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1459   .text.SX126xSetRfFrequency:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1466   .text.SX126xSetRfFrequency:00000000 SX126xSetRfFrequency
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1556   .text.SX126xSetRfFrequency:00000058 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1563   .text.SX126xSetPacketType:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1570   .text.SX126xSetPacketType:00000000 SX126xSetPacketType
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1608   .text.SX126xSetPacketType:00000020 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1613   .text.SX126xGetPacketType:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1620   .text.SX126xGetPacketType:00000000 SX126xGetPacketType
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1635   .text.SX126xGetPacketType:00000008 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1640   .text.SX126xSetCrcSeed:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1647   .text.SX126xSetCrcSeed:00000000 SX126xSetCrcSeed
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1701   .text.SX126xSetCrcPolynomial:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1708   .text.SX126xSetCrcPolynomial:00000000 SX126xSetCrcPolynomial
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1762   .text.SX126xSetWhiteningSeed:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1769   .text.SX126xSetWhiteningSeed:00000000 SX126xSetWhiteningSeed
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1828   .text.SX126xSetTxParams:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1835   .text.SX126xSetTxParams:00000000 SX126xSetTxParams
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1965   .text.SX126xSetModulationParams:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:1972   .text.SX126xSetModulationParams:00000000 SX126xSetModulationParams
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2152   .text.SX126xSetModulationParams:000000c0 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2163   .text.SX126xSetPacketParams:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2170   .text.SX126xSetPacketParams:00000000 SX126xSetPacketParams
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2366   .text.SX126xSetPacketParams:000000c4 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2372   .text.SX126xSetCadParams:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2379   .text.SX126xSetCadParams:00000000 SX126xSetCadParams
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2451   .text.SX126xSetCadParams:00000040 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2456   .text.SX126xSetBufferBaseAddress:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2463   .text.SX126xSetBufferBaseAddress:00000000 SX126xSetBufferBaseAddress
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2505   .text.SX126xGetStatus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2512   .text.SX126xGetStatus:00000000 SX126xGetStatus
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2549   .text.SX126xGetRssiInst:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2556   .text.SX126xGetRssiInst:00000000 SX126xGetRssiInst
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2599   .text.SX126xGetRxBufferStatus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2606   .text.SX126xGetRxBufferStatus:00000000 SX126xGetRxBufferStatus
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2687   .text.SX126xGetPayload:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2694   .text.SX126xGetPayload:00000000 SX126xGetPayload
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2761   .text.SX126xGetPacketStatus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2768   .text.SX126xGetPacketStatus:00000000 SX126xGetPacketStatus
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2907   .text.SX126xGetPacketStatus:00000088 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2912   .text.SX126xGetDeviceErrors:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2919   .text.SX126xGetDeviceErrors:00000000 SX126xGetDeviceErrors
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2951   .text.SX126xClearDeviceErrors:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2958   .text.SX126xClearDeviceErrors:00000000 SX126xClearDeviceErrors
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2991   .text.SX126xClearIrqStatus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:2998   .text.SX126xClearIrqStatus:00000000 SX126xClearIrqStatus
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s 			page 73
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1148   .text.SX126xSetRxTxFallbackMode:00000000 SX126xSetRxTxFallbackMode
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1182   .text.SX126xSetDioIrqParams:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1189   .text.SX126xSetDioIrqParams:00000000 SX126xSetDioIrqParams
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1256   .text.SX126xGetIrqStatus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1263   .text.SX126xGetIrqStatus:00000000 SX126xGetIrqStatus
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1299   .text.SX126xSetDio2AsRfSwitchCtrl:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1306   .text.SX126xSetDio2AsRfSwitchCtrl:00000000 SX126xSetDio2AsRfSwitchCtrl
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1340   .text.SX126xInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1347   .text.SX126xInit:00000000 SX126xInit
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1391   .text.SX126xInit:00000028 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1396   .text.SX126xSetDio3AsTcxoCtrl:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1403   .text.SX126xSetDio3AsTcxoCtrl:00000000 SX126xSetDio3AsTcxoCtrl
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1459   .text.SX126xSetRfFrequency:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1466   .text.SX126xSetRfFrequency:00000000 SX126xSetRfFrequency
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1556   .text.SX126xSetRfFrequency:00000058 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1563   .text.SX126xSetPacketType:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1570   .text.SX126xSetPacketType:00000000 SX126xSetPacketType
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1608   .text.SX126xSetPacketType:00000020 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1613   .text.SX126xGetPacketType:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1620   .text.SX126xGetPacketType:00000000 SX126xGetPacketType
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1635   .text.SX126xGetPacketType:00000008 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1640   .text.SX126xSetCrcSeed:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1647   .text.SX126xSetCrcSeed:00000000 SX126xSetCrcSeed
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1701   .text.SX126xSetCrcPolynomial:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1708   .text.SX126xSetCrcPolynomial:00000000 SX126xSetCrcPolynomial
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1762   .text.SX126xSetWhiteningSeed:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1769   .text.SX126xSetWhiteningSeed:00000000 SX126xSetWhiteningSeed
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1828   .text.SX126xSetTxParams:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1835   .text.SX126xSetTxParams:00000000 SX126xSetTxParams
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1965   .text.SX126xSetModulationParams:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:1972   .text.SX126xSetModulationParams:00000000 SX126xSetModulationParams
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2152   .text.SX126xSetModulationParams:000000c0 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2163   .text.SX126xSetPacketParams:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2170   .text.SX126xSetPacketParams:00000000 SX126xSetPacketParams
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2366   .text.SX126xSetPacketParams:000000c4 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2372   .text.SX126xSetCadParams:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2379   .text.SX126xSetCadParams:00000000 SX126xSetCadParams
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2451   .text.SX126xSetCadParams:00000040 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2456   .text.SX126xSetBufferBaseAddress:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2463   .text.SX126xSetBufferBaseAddress:00000000 SX126xSetBufferBaseAddress
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2505   .text.SX126xGetStatus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2512   .text.SX126xGetStatus:00000000 SX126xGetStatus
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2549   .text.SX126xGetRssiInst:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2556   .text.SX126xGetRssiInst:00000000 SX126xGetRssiInst
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2599   .text.SX126xGetRxBufferStatus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2606   .text.SX126xGetRxBufferStatus:00000000 SX126xGetRxBufferStatus
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2687   .text.SX126xGetPayload:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2694   .text.SX126xGetPayload:00000000 SX126xGetPayload
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2761   .text.SX126xGetPacketStatus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2768   .text.SX126xGetPacketStatus:00000000 SX126xGetPacketStatus
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2907   .text.SX126xGetPacketStatus:00000088 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2912   .text.SX126xGetDeviceErrors:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2919   .text.SX126xGetDeviceErrors:00000000 SX126xGetDeviceErrors
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2951   .text.SX126xClearDeviceErrors:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2958   .text.SX126xClearDeviceErrors:00000000 SX126xClearDeviceErrors
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2991   .text.SX126xClearIrqStatus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:2998   .text.SX126xClearIrqStatus:00000000 SX126xClearIrqStatus
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s 			page 73
 
 
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3052   .bss.FrequencyError:00000000 FrequencyError
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3041   .rodata:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3048   .bss.FrequencyError:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3058   .bss.ImageCalibrated:00000000 ImageCalibrated
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3059   .bss.ImageCalibrated:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3064   .bss.OperatingMode:00000000 OperatingMode
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3065   .bss.OperatingMode:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3070   .bss.PacketType:00000000 PacketType
-C:\Users\andywei\AppData\Local\Temp\ccsLkRth.s:3071   .bss.PacketType:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3052   .bss.FrequencyError:00000000 FrequencyError
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3041   .rodata:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3048   .bss.FrequencyError:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3058   .bss.ImageCalibrated:00000000 ImageCalibrated
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3059   .bss.ImageCalibrated:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3064   .bss.OperatingMode:00000000 OperatingMode
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3065   .bss.OperatingMode:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3070   .bss.PacketType:00000000 PacketType
+C:\Users\andywei\AppData\Local\Temp\ccZfFIOd.s:3071   .bss.PacketType:00000000 $d
 
 UNDEFINED SYMBOLS
 SX126xWakeup

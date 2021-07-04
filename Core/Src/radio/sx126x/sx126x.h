@@ -686,8 +686,8 @@ typedef void ( DioIrqHandler )( void );
  *
  * \remark These defines are used for computing the frequency divider to set the RF frequency
  */
-// #define XTAL_FREQ                                   ( double )32000000
-#define XTAL_FREQ                                   ( double )26000000
+#define XTAL_FREQ                                   ( double )32000000
+// #define XTAL_FREQ                                   ( double )26000000
 #define FREQ_DIV                                    ( double )pow( 2.0, 25.0 )
 #define FREQ_STEP                                   ( double )( XTAL_FREQ / FREQ_DIV )
 

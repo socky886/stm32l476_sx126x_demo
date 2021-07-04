@@ -22,8 +22,8 @@ Maintainer: Miguel Luis and Gregory Cristian
 // #define USE_TCXO
 
 
-// #define RF_FREQUENCY                               855800000// 868000000//490000000 // Hz
-#define RF_FREQUENCY                               433000000// 868000000//490000000 // Hz
+#define RF_FREQUENCY                               855800000// 868000000//490000000 // Hz
+// #define RF_FREQUENCY                               433000000// 868000000//490000000 // Hz
 // #define RF_FREQUENCY                               868000000// 868000000//490000000 // Hz
 
 #define TX_OUTPUT_POWER                             14//22        // dBm
@@ -47,10 +47,10 @@ Maintainer: Miguel Luis and Gregory Cristian
 #elif defined( USE_MODEM_FSK )
 
 
-// #define FSK_FDEV                                    50000      // Hz 
-// #define FSK_DATARATE                                38400      // bps
-#define FSK_FDEV                                    5000      // Hz 
-#define FSK_DATARATE                                20000      // bps
+#define FSK_FDEV                                    20000      // Hz 
+#define FSK_DATARATE                                2400      // bps
+// #define FSK_FDEV                                    5000      // Hz 
+// #define FSK_DATARATE                                20000      // bps
 #define FSK_BANDWIDTH                               50000     // Hz >> DSB in sx126x
 #define FSK_AFC_BANDWIDTH                           83333     // Hz
 #define FSK_PREAMBLE_LENGTH                         2          // 16 bits Same for Tx and Rx
@@ -260,23 +260,34 @@ bool isMaster = true;
 void sx126x_tx_packet(unsigned char *p,unsigned char len)
 {
     uint16_t irqRegs;
+    uint16_t crc;
     int i;
     // Buffer[0]=11^0xff;
-    // Buffer[0]=10;
+    Buffer[0]=0x07;
+    for ( i = 1; i <= 7; i++)
+    {
+        Buffer[i]=0x12+0x10*(i-1);
+        printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
+    }
+    crc=crc16(Buffer,8);
+    Buffer[8]=crc>>8;
+    Buffer[9]=crc&0xff;
+    BufferSize=10;
     // for (i = 1; i <= 10; i++)
     // {
     //     // Buffer[i]='A'+i;
-    //     // Buffer[i]=0x10+i;
+    //     //Buffer[i]=0x10+i;
     //     // Buffer[i]=Buffer[i]^xorbuf[i];
 
     // }
-    for ( i = 0; i < 7; i++)
-    {
-        Buffer[i]=0x12+0x10*(i);
-        // printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
-    }
+
+    // for ( i = 0; i < 7; i++)
+    // {
+    //     Buffer[i]=0x12+0x10*(i);
+    //     // printf("the buffer[%d] is 0x%02x\n",i,Buffer[i]);
+    // }
     
-    BufferSize=7;
+    // BufferSize=7;
     Radio.Standby();
     
     DelayMs(2);

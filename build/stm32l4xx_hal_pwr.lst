@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
   28:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @addtogroup STM32L4xx_HAL_Driver
   29:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
   30:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 2
 
 
   31:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
   85:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
   86:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
   87:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DeInit(void)
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 3
 
 
   88:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
   66              		@ link register save eliminated.
  107:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(PWR->CR1, PWR_CR1_DBP);
   67              		.loc 1 107 3 view .LVU5
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 4
 
 
   68 0000 024A     		ldr	r2, .L5
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  113      6572732F 
  113      53544D33 
  113      324C3478 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 5
 
 
  113      785F4841 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  161:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     *** Low Power modes configuration ***
  162:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     =====================================
  163:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 6
 
 
  164:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       The devices feature 8 low-power modes:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  218:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_LOWPOWERREGULATOR_ON
  219:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Exit (interrupt or event-triggered, specified when entering STOP mode):
  220:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_STOPENTRY_WFI: enter Stop mode with WFI instruction
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 7
 
 
  221:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_STOPENTRY_WFE: enter Stop mode with WFE instruction
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  275:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
  276:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
  277:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    *** Auto-wakeup (AWU) from low-power mode ***
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 8
 
 
  278:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    =============================================
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  142 000a 0BD0     		beq	.L11
  143              		.loc 1 315 3 discriminator 2 view .LVU14
  144 000c 042B     		cmp	r3, #4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 9
 
 
  145 000e 09D0     		beq	.L11
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  195 0058 5360     		str	r3, [r2, #4]
  320:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
  321:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Clear any previous config. Keep it clear if no event or IT mode is selected */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 10
 
 
  322:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  235 009e 5360     		str	r3, [r2, #4]
  236              	.L14:
  337:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 11
 
 
  338:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  275              	.L19:
  316:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
  276              		.loc 1 316 3 discriminator 7 view .LVU52
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 12
 
 
  277 00d4 4FF49E71 		mov	r1, #316
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  324              		.global	HAL_PWR_DisablePVD
  325              		.syntax unified
  326              		.thumb
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 13
 
 
  327              		.thumb_func
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  384:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN1_HIGH or PWR_WAKEUP_PIN1_LOW
  385:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN2_HIGH or PWR_WAKEUP_PIN2_LOW
  386:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN3_HIGH or PWR_WAKEUP_PIN3_LOW
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 14
 
 
  387:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN4_HIGH or PWR_WAKEUP_PIN4_LOW
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  408              	.L29:
  395:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
  396:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Specifies the Wake-Up pin polarity for the event detection
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 15
 
 
  397:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     (rising or falling edge) */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  407:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Disable the WakeUp PINx functionality.
  408:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param WakeUpPinx: Specifies the Power Wake-Up pin to disable.
  409:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         This parameter can be one of the following values:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 16
 
 
  410:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3, PWR_WAKEUP_PIN4, PWR_WAK
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  417:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinx));
  500              		.loc 1 417 3 is_stmt 1 view .LVU91
  501 0036 074B     		ldr	r3, .L38
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 17
 
 
  502 0038 9868     		ldr	r0, [r3, #8]
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  435:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  When exiting Low-power Sleep mode, the MCU is in Low-power Run mode. To move in
  436:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Run mode, the user must resort to HAL_PWREx_DisableLowPowerRunMode() API.
  437:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param SLEEPEntry: Specifies if Sleep mode is entered with WFI or WFE instruction.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 18
 
 
  438:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           This parameter can be one of the following values:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  575 0020 16D1     		bne	.L50
  576              	.L44:
  456:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 19
 
 
  457:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       if (HAL_PWREx_DisableLowPowerRunMode() != HAL_OK)
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  599              		.thumb
  600              		.syntax unified
  601              	.L40:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 20
 
 
  489:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  642              	.LVL26:
  643 0068 DBE7     		b	.L44
  644              	.L51:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 21
 
 
  481:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  519:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *          This parameter can be one of the following values:
  520:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_STOPENTRY_WFI  Enter Stop 0 or Stop 1 mode with WFI instruction.
  521:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_STOPENTRY_WFE  Enter Stop 0 or Stop 1 mode with WFE instruction.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 22
 
 
  522:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  527:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
  710              		.loc 1 527 3 discriminator 2 view .LVU134
  711 0020 0348     		ldr	r0, .L61
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 23
 
 
  712              	.LVL32:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  559:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set Stand-by mode */
  560:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_CR1_LPMS_STANDBY);
  745              		.loc 1 560 3 view .LVU138
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 24
 
 
  746 0000 064A     		ldr	r2, .L64
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  580:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       interruptions handling.
  581:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
  582:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 25
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 25
 
 
  583:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnableSleepOnExit(void)
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  600:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
  822              		.loc 1 600 1 is_stmt 0 view .LVU147
  823 000a 7047     		bx	lr
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 26
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 26
 
 
  824              	.L71:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  868              	HAL_PWR_DisableSEVOnPend:
  869              	.LFB146:
  615:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 27
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 27
 
 
  616:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  903              		@ link register save eliminated.
  639:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* NOTE : This function should not be modified; when the callback is needed,
  640:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****             the HAL_PWR_PVDCallback can be implemented in the user file
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 28
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 28
 
 
  641:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    */
@@ -1638,59 +1638,59 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 1
  917              		.file 8 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h"
  918              		.file 9 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h"
  919              		.file 10 "Core/Inc/stm32l4xx_hal_conf.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 29
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 29
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32l4xx_hal_pwr.c
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:18     .text.HAL_PWR_DeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:26     .text.HAL_PWR_DeInit:00000000 HAL_PWR_DeInit
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:48     .text.HAL_PWR_DeInit:00000014 $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:53     .text.HAL_PWR_EnableBkUpAccess:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:60     .text.HAL_PWR_EnableBkUpAccess:00000000 HAL_PWR_EnableBkUpAccess
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:77     .text.HAL_PWR_EnableBkUpAccess:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:82     .text.HAL_PWR_DisableBkUpAccess:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:89     .text.HAL_PWR_DisableBkUpAccess:00000000 HAL_PWR_DisableBkUpAccess
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:106    .text.HAL_PWR_DisableBkUpAccess:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:111    .rodata.HAL_PWR_ConfigPVD.str1.4:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:116    .text.HAL_PWR_ConfigPVD:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:123    .text.HAL_PWR_ConfigPVD:00000000 HAL_PWR_ConfigPVD
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:285    .text.HAL_PWR_ConfigPVD:000000e0 $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:294    .text.HAL_PWR_EnablePVD:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:301    .text.HAL_PWR_EnablePVD:00000000 HAL_PWR_EnablePVD
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:318    .text.HAL_PWR_EnablePVD:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:323    .text.HAL_PWR_DisablePVD:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:330    .text.HAL_PWR_DisablePVD:00000000 HAL_PWR_DisablePVD
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:347    .text.HAL_PWR_DisablePVD:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:352    .text.HAL_PWR_EnableWakeUpPin:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:359    .text.HAL_PWR_EnableWakeUpPin:00000000 HAL_PWR_EnableWakeUpPin
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:437    .text.HAL_PWR_EnableWakeUpPin:0000005c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:443    .text.HAL_PWR_DisableWakeUpPin:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:450    .text.HAL_PWR_DisableWakeUpPin:00000000 HAL_PWR_DisableWakeUpPin
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:523    .text.HAL_PWR_DisableWakeUpPin:00000054 $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:529    .text.HAL_PWR_EnterSLEEPMode:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:536    .text.HAL_PWR_EnterSLEEPMode:00000000 HAL_PWR_EnterSLEEPMode
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:656    .text.HAL_PWR_EnterSLEEPMode:00000070 $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:663    .text.HAL_PWR_EnterSTOPMode:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:670    .text.HAL_PWR_EnterSTOPMode:00000000 HAL_PWR_EnterSTOPMode
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:726    .text.HAL_PWR_EnterSTOPMode:00000030 $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:731    .text.HAL_PWR_EnterSTANDBYMode:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:738    .text.HAL_PWR_EnterSTANDBYMode:00000000 HAL_PWR_EnterSTANDBYMode
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:768    .text.HAL_PWR_EnterSTANDBYMode:0000001c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:774    .text.HAL_PWR_EnableSleepOnExit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:781    .text.HAL_PWR_EnableSleepOnExit:00000000 HAL_PWR_EnableSleepOnExit
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:798    .text.HAL_PWR_EnableSleepOnExit:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:803    .text.HAL_PWR_DisableSleepOnExit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:810    .text.HAL_PWR_DisableSleepOnExit:00000000 HAL_PWR_DisableSleepOnExit
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:827    .text.HAL_PWR_DisableSleepOnExit:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:832    .text.HAL_PWR_EnableSEVOnPend:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:839    .text.HAL_PWR_EnableSEVOnPend:00000000 HAL_PWR_EnableSEVOnPend
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:856    .text.HAL_PWR_EnableSEVOnPend:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:861    .text.HAL_PWR_DisableSEVOnPend:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:868    .text.HAL_PWR_DisableSEVOnPend:00000000 HAL_PWR_DisableSEVOnPend
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:885    .text.HAL_PWR_DisableSEVOnPend:0000000c $d
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:890    .text.HAL_PWR_PVDCallback:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s:897    .text.HAL_PWR_PVDCallback:00000000 HAL_PWR_PVDCallback
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:18     .text.HAL_PWR_DeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:26     .text.HAL_PWR_DeInit:00000000 HAL_PWR_DeInit
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:48     .text.HAL_PWR_DeInit:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:53     .text.HAL_PWR_EnableBkUpAccess:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:60     .text.HAL_PWR_EnableBkUpAccess:00000000 HAL_PWR_EnableBkUpAccess
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:77     .text.HAL_PWR_EnableBkUpAccess:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:82     .text.HAL_PWR_DisableBkUpAccess:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:89     .text.HAL_PWR_DisableBkUpAccess:00000000 HAL_PWR_DisableBkUpAccess
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:106    .text.HAL_PWR_DisableBkUpAccess:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:111    .rodata.HAL_PWR_ConfigPVD.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:116    .text.HAL_PWR_ConfigPVD:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:123    .text.HAL_PWR_ConfigPVD:00000000 HAL_PWR_ConfigPVD
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:285    .text.HAL_PWR_ConfigPVD:000000e0 $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:294    .text.HAL_PWR_EnablePVD:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:301    .text.HAL_PWR_EnablePVD:00000000 HAL_PWR_EnablePVD
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:318    .text.HAL_PWR_EnablePVD:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:323    .text.HAL_PWR_DisablePVD:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:330    .text.HAL_PWR_DisablePVD:00000000 HAL_PWR_DisablePVD
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:347    .text.HAL_PWR_DisablePVD:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:352    .text.HAL_PWR_EnableWakeUpPin:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:359    .text.HAL_PWR_EnableWakeUpPin:00000000 HAL_PWR_EnableWakeUpPin
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:437    .text.HAL_PWR_EnableWakeUpPin:0000005c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:443    .text.HAL_PWR_DisableWakeUpPin:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:450    .text.HAL_PWR_DisableWakeUpPin:00000000 HAL_PWR_DisableWakeUpPin
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:523    .text.HAL_PWR_DisableWakeUpPin:00000054 $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:529    .text.HAL_PWR_EnterSLEEPMode:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:536    .text.HAL_PWR_EnterSLEEPMode:00000000 HAL_PWR_EnterSLEEPMode
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:656    .text.HAL_PWR_EnterSLEEPMode:00000070 $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:663    .text.HAL_PWR_EnterSTOPMode:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:670    .text.HAL_PWR_EnterSTOPMode:00000000 HAL_PWR_EnterSTOPMode
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:726    .text.HAL_PWR_EnterSTOPMode:00000030 $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:731    .text.HAL_PWR_EnterSTANDBYMode:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:738    .text.HAL_PWR_EnterSTANDBYMode:00000000 HAL_PWR_EnterSTANDBYMode
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:768    .text.HAL_PWR_EnterSTANDBYMode:0000001c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:774    .text.HAL_PWR_EnableSleepOnExit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:781    .text.HAL_PWR_EnableSleepOnExit:00000000 HAL_PWR_EnableSleepOnExit
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:798    .text.HAL_PWR_EnableSleepOnExit:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:803    .text.HAL_PWR_DisableSleepOnExit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:810    .text.HAL_PWR_DisableSleepOnExit:00000000 HAL_PWR_DisableSleepOnExit
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:827    .text.HAL_PWR_DisableSleepOnExit:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:832    .text.HAL_PWR_EnableSEVOnPend:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:839    .text.HAL_PWR_EnableSEVOnPend:00000000 HAL_PWR_EnableSEVOnPend
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:856    .text.HAL_PWR_EnableSEVOnPend:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:861    .text.HAL_PWR_DisableSEVOnPend:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:868    .text.HAL_PWR_DisableSEVOnPend:00000000 HAL_PWR_DisableSEVOnPend
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:885    .text.HAL_PWR_DisableSEVOnPend:0000000c $d
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:890    .text.HAL_PWR_PVDCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s:897    .text.HAL_PWR_PVDCallback:00000000 HAL_PWR_PVDCallback
 
 UNDEFINED SYMBOLS
 assert_failed
@@ -1698,6 +1698,6 @@ HAL_PWREx_DisableLowPowerRunMode
 HAL_PWREx_EnableLowPowerRunMode
 HAL_PWREx_EnterSTOP0Mode
 HAL_PWREx_EnterSTOP1Mode
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccgtftXo.s 			page 30
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccNhxarc.s 			page 30
 
 

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
   17:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
   18:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****        (+) Possibility to disable or enable Analog Noise Filter
   19:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****        (+) Use of a configured Digital Noise Filter
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 2
 
 
   20:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****        (+) Disable or enable wakeup from Stop mode(s)
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
   74:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** /** @defgroup I2CEx_Exported_Functions_Group1 Extended features functions
   75:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   * @brief    Extended features functions
   76:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   *
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 3
 
 
   77:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** @verbatim
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
   65              		.loc 1 100 3 discriminator 3 view .LVU6
   66 0020 1D48     		ldr	r0, .L9+4
   67              	.LVL2:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 4
 
 
   68              		.loc 1 100 3 discriminator 3 view .LVU7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  108 005a 23F48053 		bic	r3, r3, #4096
  109 005e 1360     		str	r3, [r2]
  115:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 5
 
 
  116:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****     /* Set analog filter bit*/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  130:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   }
  146              		.loc 1 130 12 view .LVU36
  147 008a 0220     		movs	r0, #2
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 6
 
 
  148 008c F7E7     		b	.L4
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  189 0008 204A     		ldr	r2, .L19
  190 000a 9342     		cmp	r3, r2
  191 000c 0BD0     		beq	.L12
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 7
 
 
  192              		.loc 1 146 3 is_stmt 0 discriminator 1 view .LVU42
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  235 0048 2268     		ldr	r2, [r4]
  236 004a 1368     		ldr	r3, [r2]
  237 004c 23F00103 		bic	r3, r3, #1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 8
 
 
  238 0050 1360     		str	r3, [r2]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  271              	.LVL14:
  272              	.L14:
  179:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 9
 
 
  180:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   else
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  312              		@ args = 0, pretend = 0, frame = 0
  313              		@ frame_needed = 0, uses_anonymous_args = 0
  314              		.loc 1 193 1 is_stmt 0 view .LVU79
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 10
 
 
  315 0000 10B5     		push	{r4, lr}
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  360 003c 2423     		movs	r3, #36
  361 003e 84F84130 		strb	r3, [r4, #65]
  203:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 11
 
 
  204:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****     /* Disable the selected I2C peripheral */
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  395 006e 0220     		movs	r0, #2
  396 0070 FCE7     		b	.L23
  397              	.L25:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 12
 
 
  200:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  442 0018 9342     		cmp	r3, r2
  443 001a 03D0     		beq	.L30
  444              		.loc 1 234 3 discriminator 3 view .LVU113
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 13
 
 
  445 001c EA21     		movs	r1, #234
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  484              		.loc 1 249 5 is_stmt 1 discriminator 2 view .LVU128
  485 0056 2268     		ldr	r2, [r4]
  486 0058 1368     		ldr	r3, [r2]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 14
 
 
  487 005a 43F00103 		orr	r3, r3, #1
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  528              	.LVL25:
  529              	.LFB136:
  263:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 15
 
 
  264:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** /**
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  563              	.L39:
  285:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
  286:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   /* Enable SYSCFG clock */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 16
 
 
  287:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   __HAL_RCC_SYSCFG_CLK_ENABLE();
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  292:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** 
  293:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c **** /**
  294:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   * @brief Disable the I2C fast mode plus driving capability.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 17
 
 
  295:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   * @param ConfigFastModePlus Selects the pin.
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  315:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   /* Enable SYSCFG clock */
  316:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c ****   __HAL_RCC_SYSCFG_CLK_ENABLE();
  649              		.loc 1 316 3 is_stmt 1 view .LVU161
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 18
 
 
  650              	.LBB3:
@@ -1072,30 +1072,30 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 1
  695              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h"
  696              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_i2c.h"
  697              		.file 8 "Core/Inc/stm32l4xx_hal_conf.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32l4xx_hal_i2c_ex.c
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:18     .rodata.HAL_I2CEx_ConfigAnalogFilter.str1.4:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:23     .text.HAL_I2CEx_ConfigAnalogFilter:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:31     .text.HAL_I2CEx_ConfigAnalogFilter:00000000 HAL_I2CEx_ConfigAnalogFilter
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:156    .text.HAL_I2CEx_ConfigAnalogFilter:00000094 $d
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:162    .text.HAL_I2CEx_ConfigDigitalFilter:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:169    .text.HAL_I2CEx_ConfigDigitalFilter:00000000 HAL_I2CEx_ConfigDigitalFilter
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:294    .text.HAL_I2CEx_ConfigDigitalFilter:0000008c $d
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:300    .text.HAL_I2CEx_EnableWakeUp:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:307    .text.HAL_I2CEx_EnableWakeUp:00000000 HAL_I2CEx_EnableWakeUp
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:404    .text.HAL_I2CEx_EnableWakeUp:00000078 $d
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:410    .text.HAL_I2CEx_DisableWakeUp:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:417    .text.HAL_I2CEx_DisableWakeUp:00000000 HAL_I2CEx_DisableWakeUp
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:514    .text.HAL_I2CEx_DisableWakeUp:00000078 $d
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:520    .text.HAL_I2CEx_EnableFastModePlus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:527    .text.HAL_I2CEx_EnableFastModePlus:00000000 HAL_I2CEx_EnableFastModePlus
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:596    .text.HAL_I2CEx_EnableFastModePlus:00000044 $d
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:605    .text.HAL_I2CEx_DisableFastModePlus:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:612    .text.HAL_I2CEx_DisableFastModePlus:00000000 HAL_I2CEx_DisableFastModePlus
-C:\Users\andywei\AppData\Local\Temp\ccp6tZqP.s:681    .text.HAL_I2CEx_DisableFastModePlus:00000044 $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:18     .rodata.HAL_I2CEx_ConfigAnalogFilter.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:23     .text.HAL_I2CEx_ConfigAnalogFilter:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:31     .text.HAL_I2CEx_ConfigAnalogFilter:00000000 HAL_I2CEx_ConfigAnalogFilter
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:156    .text.HAL_I2CEx_ConfigAnalogFilter:00000094 $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:162    .text.HAL_I2CEx_ConfigDigitalFilter:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:169    .text.HAL_I2CEx_ConfigDigitalFilter:00000000 HAL_I2CEx_ConfigDigitalFilter
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:294    .text.HAL_I2CEx_ConfigDigitalFilter:0000008c $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:300    .text.HAL_I2CEx_EnableWakeUp:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:307    .text.HAL_I2CEx_EnableWakeUp:00000000 HAL_I2CEx_EnableWakeUp
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:404    .text.HAL_I2CEx_EnableWakeUp:00000078 $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:410    .text.HAL_I2CEx_DisableWakeUp:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:417    .text.HAL_I2CEx_DisableWakeUp:00000000 HAL_I2CEx_DisableWakeUp
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:514    .text.HAL_I2CEx_DisableWakeUp:00000078 $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:520    .text.HAL_I2CEx_EnableFastModePlus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:527    .text.HAL_I2CEx_EnableFastModePlus:00000000 HAL_I2CEx_EnableFastModePlus
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:596    .text.HAL_I2CEx_EnableFastModePlus:00000044 $d
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:605    .text.HAL_I2CEx_DisableFastModePlus:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:612    .text.HAL_I2CEx_DisableFastModePlus:00000000 HAL_I2CEx_DisableFastModePlus
+C:\Users\andywei\AppData\Local\Temp\ccEhSsjC.s:681    .text.HAL_I2CEx_DisableFastModePlus:00000044 $d
 
 UNDEFINED SYMBOLS
 assert_failed

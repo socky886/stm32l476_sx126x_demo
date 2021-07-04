@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
   27:Core/Src/boards/NucleoL476/spi-board.c **** {
   28:Core/Src/boards/NucleoL476/spi-board.c ****     SPI_1 = ( uint32_t )SPI1_BASE,
   29:Core/Src/boards/NucleoL476/spi-board.c ****     SPI_2 = ( uint32_t )SPI2_BASE,
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 2
 
 
   30:Core/Src/boards/NucleoL476/spi-board.c **** }SPIName;
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
   84:Core/Src/boards/NucleoL476/spi-board.c ****     }
   85:Core/Src/boards/NucleoL476/spi-board.c ****     SpiFrequency( obj, 16000000 );
   86:Core/Src/boards/NucleoL476/spi-board.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 3
 
 
   87:Core/Src/boards/NucleoL476/spi-board.c ****     HAL_SPI_Init( &obj->Spi );
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
   72 0038 0322     		movs	r2, #3
   73 003a 10F97C1F 		ldrsb	r1, [r0, #124]!
   74 003e FFF7FEFF 		bl	GpioInit
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 4
 
 
   75              	.LVL4:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  124              		.loc 1 105 7 is_stmt 0 view .LVU14
  125 000a 81B9     		cbnz	r1, .L4
  106:Core/Src/boards/NucleoL476/spi-board.c ****     {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 5
 
 
  107:Core/Src/boards/NucleoL476/spi-board.c ****         obj->Spi.Init.DataSize = SPI_DATASIZE_8BIT;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  124:Core/Src/boards/NucleoL476/spi-board.c ****     else
  125:Core/Src/boards/NucleoL476/spi-board.c ****     {
  126:Core/Src/boards/NucleoL476/spi-board.c ****         obj->Spi.Init.Mode = SPI_MODE_SLAVE;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 6
 
 
  127:Core/Src/boards/NucleoL476/spi-board.c ****     }
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  209              		@ frame_needed = 0, uses_anonymous_args = 0
  210              		@ link register save eliminated.
  132:Core/Src/boards/NucleoL476/spi-board.c ****     uint32_t divisor = 0;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 7
 
 
  211              		.loc 1 132 5 view .LVU44
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  248              		.loc 1 148 50 view .LVU61
  249 001a 13F00201 		ands	r1, r3, #2
  250              	.LVL19:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 8
 
 
  251              		.loc 1 148 50 view .LVU62
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  299              		.cfi_offset 5, -28
  300              		.cfi_offset 6, -24
  301              		.cfi_offset 7, -20
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 9
 
 
  302              		.cfi_offset 8, -16
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  346              		.cfi_def_cfa_offset 32
  347              		@ sp needed
  348 0036 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 10
 
 
  349              	.LVL28:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  392              	.LVL30:
   47:Core/Src/boards/NucleoL476/spi-board.c ****         GpioInit( &obj->Sclk, sclk, PIN_ALTERNATE_FCT, PIN_PUSH_PULL, PIN_PULL_DOWN, GPIO_AF5_SPI1 
  393              		.loc 1 47 9 view .LVU93
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 11
 
 
  394 0078 0197     		str	r7, [sp, #4]
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  440              		.loc 1 54 13 is_stmt 1 view .LVU101
  441 00ce 0021     		movs	r1, #0
  442 00d0 0091     		str	r1, [sp]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 12
 
 
  443 00d2 0B46     		mov	r3, r1
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  486 0112 0023     		movs	r3, #0
  487 0114 3246     		mov	r2, r6
  488 0116 2946     		mov	r1, r5
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 13
 
 
  489 0118 FFF7FEFF 		bl	GpioInit
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  535              		.loc 1 77 31 is_stmt 0 view .LVU120
  536 016c 4FF40073 		mov	r3, #512
  537 0170 A361     		str	r3, [r4, #24]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 14
 
 
   78:Core/Src/boards/NucleoL476/spi-board.c ****         }
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  156:Core/Src/boards/NucleoL476/spi-board.c ****     uint8_t rxData = 0;
  586              		.loc 1 156 5 is_stmt 1 view .LVU124
  587              		.loc 1 156 13 is_stmt 0 view .LVU125
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 15
 
 
  588 0008 0023     		movs	r3, #0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  626              		.cfi_def_cfa_offset 8
  627              		@ sp needed
  628 0044 10BD     		pop	{r4, pc}
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 16
 
 
  629              	.LVL49:
@@ -940,25 +940,25 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 1
  662              		.file 11 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/system_stm32l4xx.h"
  663              		.file 12 "Core/Src/boards/NucleoL476/board.h"
  664              		.file 13 "Core/Inc/stm32l4xx_hal_conf.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 spi-board.c
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:18     .text.SpiDeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:26     .text.SpiDeInit:00000000 SpiDeInit
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:97     .text.SpiFormat:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:104    .text.SpiFormat:00000000 SpiFormat
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:196    .text.SpiFrequency:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:203    .text.SpiFrequency:00000000 SpiFrequency
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:275    .text.SpiFrequency:00000034 $d
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:280    .text.SpiInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:287    .text.SpiInit:00000000 SpiInit
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:550    .text.SpiInit:00000184 $d
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:558    .rodata.SpiInOut.str1.4:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:562    .text.SpiInOut:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:569    .text.SpiInOut:00000000 SpiInOut
-C:\Users\andywei\AppData\Local\Temp\cc1CYiLA.s:647    .text.SpiInOut:00000050 $d
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:18     .text.SpiDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:26     .text.SpiDeInit:00000000 SpiDeInit
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:97     .text.SpiFormat:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:104    .text.SpiFormat:00000000 SpiFormat
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:196    .text.SpiFrequency:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:203    .text.SpiFrequency:00000000 SpiFrequency
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:275    .text.SpiFrequency:00000034 $d
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:280    .text.SpiInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:287    .text.SpiInit:00000000 SpiInit
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:550    .text.SpiInit:00000184 $d
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:558    .rodata.SpiInOut.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:562    .text.SpiInOut:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:569    .text.SpiInOut:00000000 SpiInOut
+C:\Users\andywei\AppData\Local\Temp\ccaTYvTw.s:647    .text.SpiInOut:00000050 $d
 
 UNDEFINED SYMBOLS
 HAL_SPI_DeInit
