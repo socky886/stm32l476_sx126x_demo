@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
   28:Core/Src/system/timer.c **** static TimerEvent_t *TimerListHead = NULL;
   29:Core/Src/system/timer.c **** 
   30:Core/Src/system/timer.c **** /*!
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 2
 
 
   31:Core/Src/system/timer.c ****  * \brief Adds or replace the head timer of the list.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
   85:Core/Src/system/timer.c ****     uint32_t elapsedTime = 0;
   86:Core/Src/system/timer.c ****     uint32_t remainingTime = 0;
   87:Core/Src/system/timer.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 3
 
 
   88:Core/Src/system/timer.c ****     BoardDisableIrq( );
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
   38              		.cfi_offset 4, -16
   39              		.cfi_offset 5, -12
   40              		.cfi_offset 6, -8
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 4
 
 
   41              		.cfi_offset 7, -4
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  142:Core/Src/system/timer.c ****         obj->Next = NULL;
   75              		.loc 1 142 9 is_stmt 1 view .LVU18
  142:Core/Src/system/timer.c ****         obj->Next = NULL;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 5
 
 
   76              		.loc 1 142 20 is_stmt 0 view .LVU19
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
   95              	.L11:
   96              	.LCFI2:
   97              		.cfi_restore_state
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 6
 
 
  154:Core/Src/system/timer.c ****                 if( cur != NULL )
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  134 0038 1946     		mov	r1, r3
  178:Core/Src/system/timer.c ****                 }
  135              		.loc 1 178 45 view .LVU41
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 7
 
 
  136 003a 3B44     		add	r3, r3, r7
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  173:Core/Src/system/timer.c ****                 }
  173              		.loc 1 173 21 is_stmt 1 view .LVU59
  174 0056 E1E7     		b	.L1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 8
 
 
  175              	.L13:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  223:Core/Src/system/timer.c **** 
  224:Core/Src/system/timer.c ****     while( ( TimerListHead != NULL ) && ( TimerListHead->Timestamp == 0 ) )
  225:Core/Src/system/timer.c ****     {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 9
 
 
  226:Core/Src/system/timer.c ****         TimerEvent_t* elapsedTimer = TimerListHead;
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  280:Core/Src/system/timer.c ****                 TimerListHead->IsRunning = true;
  281:Core/Src/system/timer.c ****                 TimerSetTimeout( TimerListHead );
  282:Core/Src/system/timer.c ****             }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 10
 
 
  283:Core/Src/system/timer.c ****             else
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  194              		@ args = 0, pretend = 0, frame = 0
  195              		@ frame_needed = 0, uses_anonymous_args = 0
  196              		@ link register save eliminated.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 11
 
 
  335:Core/Src/system/timer.c ****     TimerEvent_t* cur = TimerListHead;
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  233              		.cfi_endproc
  234              	.LFE141:
  236              		.section	.text.TimerSetTimeout,"ax",%progbits
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 12
 
 
  237              		.align	1
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  256 0002 0446     		mov	r4, r0
  383:Core/Src/system/timer.c ****     HasLoopedThroughMain = 0;
  257              		.loc 1 383 5 is_stmt 1 view .LVU76
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 13
 
 
  258              		.loc 1 383 26 is_stmt 0 view .LVU77
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  307 0002 084B     		ldr	r3, .L30
  308 0004 1B68     		ldr	r3, [r3]
  309              	.LVL30:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 14
 
 
  189:Core/Src/system/timer.c ****     {
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  347              	.L30:
  348 0024 00000000 		.word	.LANCHOR0
  349              		.cfi_endproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 15
 
 
  350              	.LFE138:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  395              		.fpu fpv4-sp-d16
  397              	TimerGetValue:
  398              	.LFB144:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 16
 
 
  362:Core/Src/system/timer.c ****     return RtcGetElapsedAlarmTime( );
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  445              		.loc 1 90 5 view .LVU127
   90:Core/Src/system/timer.c ****     {
  446              		.loc 1 90 7 is_stmt 0 view .LVU128
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 17
 
 
  447 0008 B4B1     		cbz	r4, .L36
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  483 0028 8B42     		cmp	r3, r1
  484 002a 16D2     		bcs	.L44
  121:Core/Src/system/timer.c ****         }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 18
 
 
  485              		.loc 1 121 13 is_stmt 1 view .LVU147
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  112:Core/Src/system/timer.c ****         }
  527              		.loc 1 112 27 is_stmt 0 view .LVU160
  528 0056 091A     		subs	r1, r1, r0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 19
 
 
  529              	.LVL49:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  575              		.loc 1 211 19 is_stmt 0 view .LVU170
  576 0008 FFF7FEFF 		bl	TimerGetValue
  577              	.LVL53:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 20
 
 
  213:Core/Src/system/timer.c ****     {
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  615 002a 094B     		ldr	r3, .L61
  616 002c 1A60     		str	r2, [r3]
  229:Core/Src/system/timer.c ****         {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 21
 
 
  617              		.loc 1 229 9 is_stmt 1 view .LVU188
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  655 0048 0372     		strb	r3, [r0, #8]
  241:Core/Src/system/timer.c ****         }
  656              		.loc 1 241 13 is_stmt 1 view .LVU205
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 22
 
 
  657 004a FFF7FEFF 		bl	TimerSetTimeout
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  257:Core/Src/system/timer.c ****     {
  703              		.loc 1 257 35 discriminator 1 view .LVU216
  704 000e 54B1     		cbz	r4, .L64
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 23
 
 
  263:Core/Src/system/timer.c ****     {
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  743              	.L79:
  265:Core/Src/system/timer.c ****         {
  744              		.loc 1 265 9 view .LVU233
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 24
 
 
  265:Core/Src/system/timer.c ****         {
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  782 004a 00D2     		bcs	.L69
  270:Core/Src/system/timer.c ****             }
  783              		.loc 1 270 29 view .LVU251
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 25
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 25
 
 
  784 004c 1846     		mov	r0, r3
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  823              	.L70:
  285:Core/Src/system/timer.c ****             }
  824              		.loc 1 285 17 view .LVU267
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 26
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 26
 
 
  285:Core/Src/system/timer.c ****             }
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  864              	.LVL89:
  865              	.L71:
  330:Core/Src/system/timer.c **** }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 27
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 27
 
 
  866              		.loc 1 330 5 is_stmt 1 view .LVU283
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  914 000a FFF7FEFF 		bl	TimerStart
  915              	.LVL94:
  352:Core/Src/system/timer.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 28
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 28
 
 
  916              		.loc 1 352 1 is_stmt 0 view .LVU292
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  963              		.align	1
  964              		.global	TimerGetCurrentTime
  965              		.syntax unified
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 29
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 29
 
 
  966              		.thumb
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  374:Core/Src/system/timer.c **** 
  1015              		.loc 1 374 1 view .LVU311
  1016 0006 08BD     		pop	{r3, pc}
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 30
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 30
 
 
  1017              		.cfi_endproc
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  1067              		.cfi_offset 3, -8
  1068              		.cfi_offset 14, -4
  390:Core/Src/system/timer.c ****     if( ( TimerListHead != NULL ) && ( TimerListHead->IsRunning == true ) )
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 31
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 31
 
 
  1069              		.loc 1 390 5 view .LVU318
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  1104              		.loc 1 399 17 is_stmt 0 view .LVU332
  1105 0028 FFF7FEFF 		bl	GetBoardPowerSource
  1106              	.LVL102:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 32
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 32
 
 
  399:Core/Src/system/timer.c ****             {
@@ -1890,58 +1890,58 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 1
  1136 0000 00000000 		.space	4
  1137              		.text
  1138              	.Letext0:
- 1139              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
- 1140              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1139              		.file 2 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machine\\_defau
+ 1140              		.file 3 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_stdint.h"
  1141              		.file 4 "Core/Src/system/timer.h"
  1142              		.file 5 "Core/Src/boards/NucleoL476/board.h"
  1143              		.file 6 "Core/Src/boards/NucleoL476/rtc-board.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s 			page 33
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s 			page 33
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 timer.c
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:18     .text.TimerInsertTimer:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:25     .text.TimerInsertTimer:00000000 TimerInsertTimer
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:178    .text.TimerInsertTimer:00000058 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:183    .text.TimerExists:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:189    .text.TimerExists:00000000 TimerExists
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:232    .text.TimerExists:00000018 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:237    .text.TimerSetTimeout:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:243    .text.TimerSetTimeout:00000000 TimerSetTimeout
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:281    .text.TimerSetTimeout:00000018 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:286    .text.TimerInsertNewHeadTimer:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:292    .text.TimerInsertNewHeadTimer:00000000 TimerInsertNewHeadTimer
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:348    .text.TimerInsertNewHeadTimer:00000024 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:353    .text.TimerInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:360    .text.TimerInit:00000000 TimerInit
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:390    .text.TimerGetValue:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:397    .text.TimerGetValue:00000000 TimerGetValue
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:418    .text.TimerStart:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:425    .text.TimerStart:00000000 TimerStart
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:543    .text.TimerStart:00000064 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:548    .text.TimerIrqHandler:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:555    .text.TimerIrqHandler:00000000 TimerIrqHandler
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:663    .text.TimerIrqHandler:00000050 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:668    .text.TimerStop:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:675    .text.TimerStop:00000000 TimerStop
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:883    .text.TimerStop:00000098 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:888    .text.TimerReset:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:895    .text.TimerReset:00000000 TimerReset
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:923    .text.TimerSetValue:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:930    .text.TimerSetValue:00000000 TimerSetValue
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:963    .text.TimerGetCurrentTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:970    .text.TimerGetCurrentTime:00000000 TimerGetCurrentTime
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:991    .text.TimerGetElapsedTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:998    .text.TimerGetElapsedTime:00000000 TimerGetElapsedTime
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1021   .text.TimerGetFutureTime:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1028   .text.TimerGetFutureTime:00000000 TimerGetFutureTime
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1051   .text.TimerLowPowerHandler:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1058   .text.TimerLowPowerHandler:00000000 TimerLowPowerHandler
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1118   .text.TimerLowPowerHandler:00000038 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1128   .bss.HasLoopedThroughMain:00000000 HasLoopedThroughMain
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1129   .bss.HasLoopedThroughMain:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1131   .bss.TimerListHead:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccVR6Jqd.s:1135   .bss.TimerListHead:00000000 TimerListHead
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:18     .text.TimerInsertTimer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:25     .text.TimerInsertTimer:00000000 TimerInsertTimer
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:178    .text.TimerInsertTimer:00000058 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:183    .text.TimerExists:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:189    .text.TimerExists:00000000 TimerExists
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:232    .text.TimerExists:00000018 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:237    .text.TimerSetTimeout:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:243    .text.TimerSetTimeout:00000000 TimerSetTimeout
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:281    .text.TimerSetTimeout:00000018 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:286    .text.TimerInsertNewHeadTimer:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:292    .text.TimerInsertNewHeadTimer:00000000 TimerInsertNewHeadTimer
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:348    .text.TimerInsertNewHeadTimer:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:353    .text.TimerInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:360    .text.TimerInit:00000000 TimerInit
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:390    .text.TimerGetValue:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:397    .text.TimerGetValue:00000000 TimerGetValue
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:418    .text.TimerStart:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:425    .text.TimerStart:00000000 TimerStart
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:543    .text.TimerStart:00000064 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:548    .text.TimerIrqHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:555    .text.TimerIrqHandler:00000000 TimerIrqHandler
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:663    .text.TimerIrqHandler:00000050 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:668    .text.TimerStop:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:675    .text.TimerStop:00000000 TimerStop
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:883    .text.TimerStop:00000098 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:888    .text.TimerReset:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:895    .text.TimerReset:00000000 TimerReset
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:923    .text.TimerSetValue:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:930    .text.TimerSetValue:00000000 TimerSetValue
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:963    .text.TimerGetCurrentTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:970    .text.TimerGetCurrentTime:00000000 TimerGetCurrentTime
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:991    .text.TimerGetElapsedTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:998    .text.TimerGetElapsedTime:00000000 TimerGetElapsedTime
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1021   .text.TimerGetFutureTime:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1028   .text.TimerGetFutureTime:00000000 TimerGetFutureTime
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1051   .text.TimerLowPowerHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1058   .text.TimerLowPowerHandler:00000000 TimerLowPowerHandler
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1118   .text.TimerLowPowerHandler:00000038 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1128   .bss.HasLoopedThroughMain:00000000 HasLoopedThroughMain
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1129   .bss.HasLoopedThroughMain:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1131   .bss.TimerListHead:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccP0Rl0z.s:1135   .bss.TimerListHead:00000000 TimerListHead
 
 UNDEFINED SYMBOLS
 RtcGetAdjustedTimeoutValue

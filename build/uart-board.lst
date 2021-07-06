@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
   31              		.cfi_startproc
   32              		@ args = 0, pretend = 0, frame = 8
   33              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 2
 
 
   34              		.loc 1 25 1 is_stmt 0 view .LVU1
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
   83              		.loc 1 30 5 view .LVU14
   31:Core/Src/boards/NucleoL476/uart-board.c **** 
   32:Core/Src/boards/NucleoL476/uart-board.c ****     GpioInit( &obj->Tx, tx, PIN_ALTERNATE_FCT, PIN_PUSH_PULL, PIN_PULL_UP, GPIO_AF7_USART2 );
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 3
 
 
   84              		.loc 1 32 5 view .LVU15
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
   37:Core/Src/boards/NucleoL476/uart-board.c **** {
  132              		.loc 1 37 1 is_stmt 1 view -0
  133              		.cfi_startproc
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 4
 
 
  134              		@ args = 12, pretend = 0, frame = 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
   49:Core/Src/boards/NucleoL476/uart-board.c ****     else if( mode == RX_ONLY )
   50:Core/Src/boards/NucleoL476/uart-board.c ****     {
   51:Core/Src/boards/NucleoL476/uart-board.c ****         if( obj->FifoRx.Data == NULL )
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 5
 
 
   52:Core/Src/boards/NucleoL476/uart-board.c ****         {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
   87:Core/Src/boards/NucleoL476/uart-board.c ****         break;
  196              		.loc 1 87 9 is_stmt 1 view .LVU40
  197              	.L17:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 6
 
 
   88:Core/Src/boards/NucleoL476/uart-board.c ****     }
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  219              		.loc 1 120 34 is_stmt 0 view .LVU50
  220 0050 3648     		ldr	r0, .L35
  221 0052 0023     		movs	r3, #0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 7
 
 
  222 0054 C361     		str	r3, [r0, #28]
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  260              		.loc 1 45 13 view .LVU61
  261 0082 CCE7     		b	.L7
  262              	.LVL19:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 8
 
 
  263              	.L6:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  301 00a2 0422     		movs	r2, #4
  302 00a4 5A61     		str	r2, [r3, #20]
  303 00a6 BDE7     		b	.L8
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 9
 
 
  304              	.LVL23:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
   74:Core/Src/boards/NucleoL476/uart-board.c ****     {
  345              		.loc 1 74 12 is_stmt 0 view .LVU91
  346 00c6 012C     		cmp	r4, #1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 10
 
 
  347 00c8 B1D1     		bne	.L15
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  386              		.loc 1 111 12 is_stmt 0 view .LVU106
  387 00fa 022D     		cmp	r5, #2
  388 00fc 0BD0     		beq	.L34
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 11
 
 
  115:Core/Src/boards/NucleoL476/uart-board.c ****     {
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  435              		.thumb_func
  436              		.fpu fpv4-sp-d16
  438              	UartMcuDeInit:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 12
 
 
  439              	.LVL36:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  484 0038 2B46     		mov	r3, r5
  485 003a 0322     		movs	r2, #3
  486 003c 10F9101F 		ldrsb	r1, [r0, #16]!
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 13
 
 
  487 0040 FFF7FEFF 		bl	GpioInit
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  149:Core/Src/boards/NucleoL476/uart-board.c ****     if( IsFifoFull( &obj->FifoTx ) == false )
  536              		.loc 1 149 5 is_stmt 1 view .LVU131
  537              		.loc 1 149 9 is_stmt 0 view .LVU132
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 14
 
 
  538 000e 1C34     		adds	r4, r4, #28
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  575 003c EFE7     		b	.L43
  576              	.L47:
  577 003e 00BF     		.align	2
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 15
 
 
  578              	.L46:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  622              		.loc 1 173 5 is_stmt 1 view .LVU151
  623 0014 FFF7FEFF 		bl	BoardEnableIrq
  624              	.LVL53:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 16
 
 
  174:Core/Src/boards/NucleoL476/uart-board.c ****     return 1;
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  670              		.cfi_offset 14, -4
  179:Core/Src/boards/NucleoL476/uart-board.c ****     if( IsFifoEmpty( &Uart2.FifoTx ) == false )
  671              		.loc 1 179 5 is_stmt 1 view .LVU163
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 17
 
 
  672              		.loc 1 179 9 is_stmt 0 view .LVU164
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  711              	.L58:
  712 002c 1C000000 		.word	Uart2+28
  713 0030 00000000 		.word	Uart2
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 18
 
 
  714 0034 00000000 		.word	.LANCHOR2
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  758 0012 9847     		blx	r3
  759              	.LVL66:
  760              	.L62:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 19
 
 
  203:Core/Src/boards/NucleoL476/uart-board.c ****     }
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  808              		.loc 1 210 5 is_stmt 1 view .LVU191
  809 0002 0122     		movs	r2, #1
  810 0004 0249     		ldr	r1, .L69
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 20
 
 
  811 0006 0348     		ldr	r0, .L69+4
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  221:Core/Src/boards/NucleoL476/uart-board.c ****     if( ( tmpFlag != RESET ) && ( tmpItSource != RESET ) )
  857              		.loc 1 221 5 is_stmt 1 view .LVU200
  858              		.loc 1 221 7 is_stmt 0 view .LVU201
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 21
 
 
  859 000a 12F0400F 		tst	r2, #64
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  904              		.global	__io_putchar
  905              		.syntax unified
  906              		.thumb
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 22
 
 
  907              		.thumb_func
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  951              		.global	RxData
  952              		.global	UartHandle
  953              		.section	.bss.RxData,"aw",%nobits
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 23
 
 
  954              		.set	.LANCHOR1,. + 0
@@ -1339,8 +1339,8 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  971      00000000 
  972              		.text
  973              	.Letext0:
- 974              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
- 975              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 974              		.file 2 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machine\\_defau
+ 975              		.file 3 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_stdint.h"
  976              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h"
  977              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
  978              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
@@ -1352,47 +1352,47 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 1
  984              		.file 12 "Core/Src/boards/NucleoL476/board.h"
  985              		.file 13 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h"
  986              		.file 14 "Core/Inc/stm32l4xx_hal_conf.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s 			page 24
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 uart-board.c
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:18     .text.UartMcuInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:26     .text.UartMcuInit:00000000 UartMcuInit
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:113    .text.UartMcuInit:0000005c $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:118    .rodata.UartMcuConfig.str1.4:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:122    .text.UartMcuConfig:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:129    .text.UartMcuConfig:00000000 UartMcuConfig
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:423    .text.UartMcuConfig:0000012c $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:431    .text.UartMcuDeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:438    .text.UartMcuDeInit:00000000 UartMcuDeInit
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:500    .text.UartMcuDeInit:00000048 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:505    .text.UartMcuPutChar:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:512    .text.UartMcuPutChar:00000000 UartMcuPutChar
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:579    .text.UartMcuPutChar:00000040 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:585    .text.UartMcuGetChar:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:592    .text.UartMcuGetChar:00000000 UartMcuGetChar
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:651    .text.HAL_UART_TxCpltCallback:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:658    .text.HAL_UART_TxCpltCallback:00000000 HAL_UART_TxCpltCallback
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:712    .text.HAL_UART_TxCpltCallback:0000002c $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:720    .text.HAL_UART_RxCpltCallback:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:727    .text.HAL_UART_RxCpltCallback:00000000 HAL_UART_RxCpltCallback
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:780    .text.HAL_UART_RxCpltCallback:0000002c $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:788    .text.HAL_UART_ErrorCallback:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:795    .text.HAL_UART_ErrorCallback:00000000 HAL_UART_ErrorCallback
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:821    .text.HAL_UART_ErrorCallback:00000010 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:827    .text.USART2_IRQHandler:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:834    .text.USART2_IRQHandler:00000000 USART2_IRQHandler
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:898    .text.USART2_IRQHandler:00000034 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:903    .text.__io_putchar:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:910    .text.__io_putchar:00000000 __io_putchar
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:946    .text.__io_putchar:00000014 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:963    .bss.TxData:00000000 TxData
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:957    .bss.RxData:00000000 RxData
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:970    .bss.UartHandle:00000000 UartHandle
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:958    .bss.RxData:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:964    .bss.TxData:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccAiGUoS.s:966    .bss.UartHandle:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:18     .text.UartMcuInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:26     .text.UartMcuInit:00000000 UartMcuInit
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:113    .text.UartMcuInit:0000005c $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:118    .rodata.UartMcuConfig.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:122    .text.UartMcuConfig:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:129    .text.UartMcuConfig:00000000 UartMcuConfig
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:423    .text.UartMcuConfig:0000012c $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:431    .text.UartMcuDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:438    .text.UartMcuDeInit:00000000 UartMcuDeInit
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:500    .text.UartMcuDeInit:00000048 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:505    .text.UartMcuPutChar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:512    .text.UartMcuPutChar:00000000 UartMcuPutChar
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:579    .text.UartMcuPutChar:00000040 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:585    .text.UartMcuGetChar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:592    .text.UartMcuGetChar:00000000 UartMcuGetChar
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:651    .text.HAL_UART_TxCpltCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:658    .text.HAL_UART_TxCpltCallback:00000000 HAL_UART_TxCpltCallback
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:712    .text.HAL_UART_TxCpltCallback:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:720    .text.HAL_UART_RxCpltCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:727    .text.HAL_UART_RxCpltCallback:00000000 HAL_UART_RxCpltCallback
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:780    .text.HAL_UART_RxCpltCallback:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:788    .text.HAL_UART_ErrorCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:795    .text.HAL_UART_ErrorCallback:00000000 HAL_UART_ErrorCallback
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:821    .text.HAL_UART_ErrorCallback:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:827    .text.USART2_IRQHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:834    .text.USART2_IRQHandler:00000000 USART2_IRQHandler
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:898    .text.USART2_IRQHandler:00000034 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:903    .text.__io_putchar:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:910    .text.__io_putchar:00000000 __io_putchar
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:946    .text.__io_putchar:00000014 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:963    .bss.TxData:00000000 TxData
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:957    .bss.RxData:00000000 RxData
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:970    .bss.UartHandle:00000000 UartHandle
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:958    .bss.RxData:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:964    .bss.TxData:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccH8oCwZ.s:966    .bss.UartHandle:00000000 $d
 
 UNDEFINED SYMBOLS
 GpioInit

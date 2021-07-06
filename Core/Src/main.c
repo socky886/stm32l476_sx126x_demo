@@ -113,8 +113,8 @@ int main(void)
   {
     // printf("this is sx126x application\n");
     // sx126x_rx_packet();
-    // register_test();
-    sx126x_tx_packet(0,0);
+    register_test();
+    // sx126x_tx_packet(0,0);
     HAL_Delay(100);
     // sx126x_rx_packet();
     // packet_rx();

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
   28:Core/Src/stm32l4xx_hal_msp.c **** /* Private typedef -----------------------------------------------------------*/
   29:Core/Src/stm32l4xx_hal_msp.c **** /* USER CODE BEGIN TD */
   30:Core/Src/stm32l4xx_hal_msp.c **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 2
 
 
   31:Core/Src/stm32l4xx_hal_msp.c **** /* USER CODE END TD */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
   43 0006 42F00102 		orr	r2, r2, #1
   44 000a 1A66     		str	r2, [r3, #96]
   45              		.loc 1 70 3 view .LVU4
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 3
 
 
   46 000c 1A6E     		ldr	r2, [r3, #96]
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
   81:Core/Src/stm32l4xx_hal_msp.c **** * @brief RTC MSP Initialization
   82:Core/Src/stm32l4xx_hal_msp.c **** * This function configures the hardware resources used in this example
   83:Core/Src/stm32l4xx_hal_msp.c **** * @param hrtc: RTC handle pointer
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 4
 
 
   84:Core/Src/stm32l4xx_hal_msp.c **** * @retval None
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  124              	.LVL3:
   96:Core/Src/stm32l4xx_hal_msp.c ****     HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
  125              		.loc 1 96 5 is_stmt 0 view .LVU22
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 5
 
 
  126 0020 FFF7FEFF 		bl	HAL_NVIC_SetPriority
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  171              	.L11:
  114:Core/Src/stm32l4xx_hal_msp.c ****   {
  115:Core/Src/stm32l4xx_hal_msp.c ****   /* USER CODE BEGIN RTC_MspDeInit 0 */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 6
 
 
  116:Core/Src/stm32l4xx_hal_msp.c **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  133:Core/Src/stm32l4xx_hal_msp.c **** * @param hspi: SPI handle pointer
  134:Core/Src/stm32l4xx_hal_msp.c **** * @retval None
  135:Core/Src/stm32l4xx_hal_msp.c **** */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 7
 
 
  136:Core/Src/stm32l4xx_hal_msp.c **** void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  161:Core/Src/stm32l4xx_hal_msp.c **** 
  162:Core/Src/stm32l4xx_hal_msp.c ****   /* USER CODE END SPI1_MspInit 1 */
  163:Core/Src/stm32l4xx_hal_msp.c ****   }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 8
 
 
  164:Core/Src/stm32l4xx_hal_msp.c **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  147:Core/Src/stm32l4xx_hal_msp.c ****     /**SPI1 GPIO Configuration
  278              		.loc 1 147 5 view .LVU54
  153:Core/Src/stm32l4xx_hal_msp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 9
 
 
  279              		.loc 1 153 5 view .LVU55
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  168:Core/Src/stm32l4xx_hal_msp.c **** * @brief SPI MSP De-Initialization
  169:Core/Src/stm32l4xx_hal_msp.c **** * This function freeze the hardware resources used in this example
  170:Core/Src/stm32l4xx_hal_msp.c **** * @param hspi: SPI handle pointer
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 10
 
 
  171:Core/Src/stm32l4xx_hal_msp.c **** * @retval None
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  188:Core/Src/stm32l4xx_hal_msp.c **** 
  351              		.loc 1 188 5 view .LVU74
  352 0016 E021     		movs	r1, #224
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 11
 
 
  353 0018 4FF09040 		mov	r0, #1207959552
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  398 0008 0493     		str	r3, [sp, #16]
  399 000a 0593     		str	r3, [sp, #20]
  400 000c 0693     		str	r3, [sp, #24]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 12
 
 
  401 000e 0793     		str	r3, [sp, #28]
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  212:Core/Src/stm32l4xx_hal_msp.c **** 
  422              		.loc 1 212 5 is_stmt 1 view .LVU85
  423              	.LBB6:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 13
 
 
  212:Core/Src/stm32l4xx_hal_msp.c **** 
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  222:Core/Src/stm32l4xx_hal_msp.c ****     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
  462              		.loc 1 222 5 view .LVU102
  222:Core/Src/stm32l4xx_hal_msp.c ****     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 14
 
 
  463              		.loc 1 222 27 is_stmt 0 view .LVU103
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  502              		.align	2
  503              	.L33:
  504 0078 00440040 		.word	1073759232
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 15
 
 
  505              		.cfi_endproc
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  262:Core/Src/stm32l4xx_hal_msp.c ****   /* USER CODE BEGIN USART2_MspDeInit 1 */
  263:Core/Src/stm32l4xx_hal_msp.c **** 
  264:Core/Src/stm32l4xx_hal_msp.c ****   /* USER CODE END USART2_MspDeInit 1 */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 16
 
 
  265:Core/Src/stm32l4xx_hal_msp.c ****   }
@@ -934,8 +934,8 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  562              	.LFE138:
  564              		.text
  565              	.Letext0:
- 566              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
- 567              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 566              		.file 2 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machine\\_defau
+ 567              		.file 3 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_stdint.h"
  568              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h"
  569              		.file 5 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
  570              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_gpio.h"
@@ -944,32 +944,32 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 1
  573              		.file 9 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_spi.h"
  574              		.file 10 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h"
  575              		.file 11 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccC81PID.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32l4xx_hal_msp.c
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:18     .text.HAL_MspInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:26     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:77     .text.HAL_MspInit:0000002c $d
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:82     .text.HAL_RTC_MspInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:89     .text.HAL_RTC_MspInit:00000000 HAL_RTC_MspInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:137    .text.HAL_RTC_MspInit:0000002c $d
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:143    .text.HAL_RTC_MspDeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:150    .text.HAL_RTC_MspDeInit:00000000 HAL_RTC_MspDeInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:192    .text.HAL_RTC_MspDeInit:00000024 $d
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:198    .text.HAL_SPI_MspInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:205    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:308    .text.HAL_SPI_MspInit:00000064 $d
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:313    .text.HAL_SPI_MspDeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:320    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:363    .text.HAL_SPI_MspDeInit:00000024 $d
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:369    .text.HAL_UART_MspInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:376    .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:504    .text.HAL_UART_MspInit:00000078 $d
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:509    .text.HAL_UART_MspDeInit:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:516    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
-C:\Users\andywei\AppData\Local\Temp\ccC81PID.s:559    .text.HAL_UART_MspDeInit:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:18     .text.HAL_MspInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:26     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:77     .text.HAL_MspInit:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:82     .text.HAL_RTC_MspInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:89     .text.HAL_RTC_MspInit:00000000 HAL_RTC_MspInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:137    .text.HAL_RTC_MspInit:0000002c $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:143    .text.HAL_RTC_MspDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:150    .text.HAL_RTC_MspDeInit:00000000 HAL_RTC_MspDeInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:192    .text.HAL_RTC_MspDeInit:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:198    .text.HAL_SPI_MspInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:205    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:308    .text.HAL_SPI_MspInit:00000064 $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:313    .text.HAL_SPI_MspDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:320    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:363    .text.HAL_SPI_MspDeInit:00000024 $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:369    .text.HAL_UART_MspInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:376    .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:504    .text.HAL_UART_MspInit:00000078 $d
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:509    .text.HAL_UART_MspDeInit:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:516    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
+C:\Users\andywei\AppData\Local\Temp\ccMlwZUH.s:559    .text.HAL_UART_MspDeInit:00000024 $d
 
 UNDEFINED SYMBOLS
 HAL_NVIC_SetPriority

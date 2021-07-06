@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
   19:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****        and the read and write protection mechanisms.
   20:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** 
   21:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   [..] The Flash memory interface accelerates code execution with a system of instruction
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 2
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 2
 
 
   22:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****        prefetch and cache lines.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
   76:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * @attention
   77:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   *
   78:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 3
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 3
 
 
   79:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * All rights reserved.</center></h2>
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  133:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****  */
  134:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** static void          FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data);
  135:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** static void          FLASH_Program_Fast(uint32_t Address, uint32_t DataAddress);
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 4
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 4
 
 
  136:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** /**
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  190:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     if(READ_BIT(FLASH->ACR, FLASH_ACR_DCEN) != 0U)
  191:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     {
  192:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****       /* Disable data cache  */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 5
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 5
 
 
  193:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****       __HAL_FLASH_DATA_CACHE_DISABLE();
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  247:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * @param  Data specifies the data to be programmed
  248:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   *                This parameter is the data for the double word program and the address where
  249:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   *                are stored the data for the row fast program
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 6
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 6
 
 
  250:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   *
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  304:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   }
  305:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** 
  306:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   return status;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 7
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 7
 
 
  307:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** }
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  361:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****        HAL_FLASH_OperationErrorCallback(pFlash.Address);
  362:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     }
  363:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     else
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 8
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 8
 
 
  364:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     {
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  418:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****         HAL_FLASH_EndOfOperationCallback(pFlash.Bank);
  419:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****       }
  420:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****       else if((procedure == FLASH_PROC_PROGRAM) ||
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 9
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 9
 
 
  421:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****               (procedure == FLASH_PROC_PROGRAM_LAST))
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  475:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** {
  476:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   /* Prevent unused argument(s) compilation warning */
  477:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   UNUSED(ReturnValue);
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 10
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 10
 
 
  478:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  532:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** {
  533:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   /* Set the LOCK Bit to lock the FLASH Registers access */
  534:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   SET_BIT(FLASH->CR, FLASH_CR_LOCK);
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 11
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 11
 
 
  535:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  589:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****  *  @brief   Peripheral Errors functions
  590:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****  *
  591:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** @verbatim
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 12
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 12
 
 
  592:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****  ===============================================================================
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  646:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * @retval HAL_StatusTypeDef HAL Status
  647:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   */
  648:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 13
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 13
 
 
  649:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** {
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
   37              		@ frame_needed = 0, uses_anonymous_args = 0
   38              		.loc 1 699 1 is_stmt 0 view .LVU1
   39 0000 70B5     		push	{r4, r5, r6, lr}
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 14
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 14
 
 
   40              	.LCFI0:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  706:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   /* Program first word */
  707:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   *(__IO uint32_t*)Address = (uint32_t)Data;
   88              		.loc 1 707 3 view .LVU11
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 15
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 15
 
 
   89              		.loc 1 707 28 is_stmt 0 view .LVU12
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
   45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
   47:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 16
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 16
 
 
   48:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
  103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
  104:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 17
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 17
 
 
  105:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  159:Drivers/CMSIS/Include/cmsis_gcc.h ****       pTable->dest[i] = 0u;
  160:Drivers/CMSIS/Include/cmsis_gcc.h ****     }
  161:Drivers/CMSIS/Include/cmsis_gcc.h ****   }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 18
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 18
 
 
  162:Drivers/CMSIS/Include/cmsis_gcc.h ****  
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  216:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Control Register value
  217:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  218:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_CONTROL(void)
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 19
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 19
 
 
  219:Drivers/CMSIS/Include/cmsis_gcc.h **** {
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  273:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  274:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
  275:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 20
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 20
 
 
  276:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  330:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  331:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
  332:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 21
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 21
 
 
  333:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp_ns"  : "=r" (result) );
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  387:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp_ns" : "=r" (result) );
  388:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
  389:Drivers/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 22
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 22
 
 
  390:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  444:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
  445:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Priority Mask
  446:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 23
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 23
 
 
  447:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Priority Mask value
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  501:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
  502:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable FIQ
  503:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 24
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 24
 
 
  504:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  558:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_BASEPRI(uint32_t basePri)
  559:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  560:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (basePri) : "memory");
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 25
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 25
 
 
  561:Drivers/CMSIS/Include/cmsis_gcc.h **** }
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  615:Drivers/CMSIS/Include/cmsis_gcc.h **** }
  616:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
  617:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 26
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 26
 
 
  618:Drivers/CMSIS/Include/cmsis_gcc.h **** 
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  672:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3))
  673:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
  674:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit (non-secure)
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 27
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 27
 
 
  675:Drivers/CMSIS/Include/cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  729:Drivers/CMSIS/Include/cmsis_gcc.h ****   (void)ProcStackPtrLimit;
  730:Drivers/CMSIS/Include/cmsis_gcc.h **** #else
  731:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR psplim_ns, %0\n" : : "r" (ProcStackPtrLimit));
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 28
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 28
 
 
  732:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  786:Drivers/CMSIS/Include/cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored in non-secure
  787:Drivers/CMSIS/Include/cmsis_gcc.h ****   mode.
  788:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 29
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 29
 
 
  789:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer Limit (MSPLIM).
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  843:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
  844:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  845:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 30
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 30
 
 
  846:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  900:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   No Operation
  901:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
  902:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 31
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 31
 
 
  903:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __NOP()                             __ASM volatile ("nop")
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  112              	.L10:
  701:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** 
  113              		.loc 1 701 3 discriminator 6 view .LVU19
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 32
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 32
 
 
  114 005e 0B4B     		ldr	r3, .L14+8
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  719:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * @param  Address specifies the address to be programmed.
  720:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * @param  DataAddress specifies the address where the data are stored.
  721:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   * @retval None
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 33
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 33
 
 
  722:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   */
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  206 0032 02E0     		b	.L17
  207              	.L25:
  208              		.loc 1 731 3 discriminator 3 view .LVU39
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 34
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 34
 
 
  209 0034 B0F1016F 		cmp	r0, #135266304
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  209:Drivers/CMSIS/Include/cmsis_gcc.h **** }
  250              		.loc 2 209 3 view .LVU52
  251              		.syntax unified
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 35
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 35
 
 
  252              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  291              	@ 481 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
  292 0066 81F31088 		MSR primask, r1
  293              	@ 0 "" 2
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 36
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 36
 
 
  294              	.LVL19:
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  344              		.loc 1 254 1 is_stmt 1 view -0
  345              		.cfi_startproc
  346              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 37
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 37
 
 
  347              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  389 0024 13F4806F 		tst	r3, #1024
  390 0028 1FD0     		beq	.L34
  269:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     pFlash.CacheToReactivate = FLASH_CACHE_DCACHE_ENABLED;
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 38
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 38
 
 
  391              		.loc 1 269 5 is_stmt 1 view .LVU86
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  296:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   {
  429              		.loc 1 296 51 is_stmt 0 view .LVU103
  430 0054 013C     		subs	r4, r4, #1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 39
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 39
 
 
  431              	.LVL24:
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  473 0080 FFF7FEFF 		bl	FLASH_Program_DoubleWord
  474              	.LVL30:
  306:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c **** }
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 40
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 40
 
 
  475              		.loc 1 306 10 is_stmt 0 view .LVU116
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  526              		.weak	HAL_FLASH_OperationErrorCallback
  527              		.syntax unified
  528              		.thumb
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 41
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 41
 
 
  529              		.thumb_func
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  577 0016 5361     		str	r3, [r2, #20]
  329:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   {
  578              		.loc 1 329 3 view .LVU132
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 42
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 42
 
 
  329:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   {
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  378:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     {
  617              		.loc 1 378 5 discriminator 4 view .LVU149
  378:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     {
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 43
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 43
 
 
  618              		.loc 1 378 14 is_stmt 0 discriminator 4 view .LVU150
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  657              		.loc 1 392 9 is_stmt 0 view .LVU165
  658 006c 45E0     		b	.L57
  659              	.L64:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 44
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 44
 
 
  331:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   }
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  697              		.loc 1 358 47 is_stmt 0 view .LVU182
  698 0094 033B     		subs	r3, r3, #3
  699              	.LVL45:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 45
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 45
 
 
  358:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****             (procedure == FLASH_PROC_PROGRAM_LAST))
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  361:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     }
  743              		.loc 1 361 8 is_stmt 0 view .LVU194
  744 00c4 EDE7     		b	.L54
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 46
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 46
 
 
  745              	.L59:
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  784              		.loc 1 420 14 view .LVU209
  785 00f0 012B     		cmp	r3, #1
  786 00f2 13D9     		bls	.L70
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 47
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 47
 
 
  787              	.LVL61:
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  418:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****       }
  825              		.loc 1 418 9 is_stmt 0 view .LVU226
  826 0114 1869     		ldr	r0, [r3, #16]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 48
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 48
 
 
  827 0116 FFF7FEFF 		bl	HAL_FLASH_EndOfOperationCallback
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  874 000a 7047     		bx	lr
  875              	.L77:
  514:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****     WRITE_REG(FLASH->KEYR, FLASH_KEY2);
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 49
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 49
 
 
  876              		.loc 1 514 5 is_stmt 1 view .LVU236
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  922              		.loc 1 534 3 view .LVU246
  923 0000 034A     		ldr	r2, .L81
  924 0002 5369     		ldr	r3, [r2, #20]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 50
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 50
 
 
  925 0004 43F00043 		orr	r3, r3, #-2147483648
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  971              	.L85:
  553:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   }
  972              		.loc 1 553 12 view .LVU257
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 51
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 51
 
 
  973 001a 0120     		movs	r0, #1
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1025              		.loc 1 625 1 is_stmt 1 view -0
  1026              		.cfi_startproc
  1027              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 52
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 52
 
 
  1028              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  657:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   {
  1075              		.loc 1 657 3 view .LVU273
  1076              	.L96:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 53
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 53
 
 
  657:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   {
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1114              		.loc 1 682 3 is_stmt 1 view .LVU290
  682:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   {
  1115              		.loc 1 682 7 is_stmt 0 view .LVU291
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 54
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 54
 
 
  1116 0034 094B     		ldr	r3, .L105
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1153              		.loc 1 690 1 view .LVU308
  1154 0056 38BD     		pop	{r3, r4, r5, pc}
  1155              	.LVL78:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 55
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 55
 
 
  1156              	.L101:
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1204 000c 50D0     		beq	.L116
  1205 000e 0446     		mov	r4, r0
  1206 0010 0E46     		mov	r6, r1
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 56
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 56
 
 
  1207 0012 9846     		mov	r8, r3
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1246 0044 1B4B     		ldr	r3, .L123
  1247 0046 0222     		movs	r2, #2
  1248 0048 1A77     		strb	r2, [r3, #28]
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 57
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 57
 
 
  1249              	.L112:
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1287              		.loc 1 237 3 view .LVU347
  1288 006e 114B     		ldr	r3, .L123
  1289 0070 0022     		movs	r2, #0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 58
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 58
 
 
  1290 0072 1A70     		strb	r2, [r3]
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1331              		.loc 1 205 16 view .LVU360
  1332 0098 DCE7     		b	.L114
  1333              	.LVL98:
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 59
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 59
 
 
  1334              	.L122:
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1381              	.LFB141:
  576:Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c ****   /* Set the bit to force the option byte reloading */
  1382              		.loc 1 576 1 is_stmt 1 view -0
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 60
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 60
 
 
  1383              		.cfi_startproc
@@ -3589,62 +3589,62 @@ ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 1
  1427 001d 000000   		.space	3
  1428              		.text
  1429              	.Letext0:
- 1430              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
- 1431              		.file 4 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 1430              		.file 3 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\machine\\_defau
+ 1431              		.file 4 "c:\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\include\\sys\\_stdint.h"
  1432              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h"
  1433              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
  1434              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash.h"
  1435              		.file 8 "Core/Inc/stm32l4xx_hal_conf.h"
  1436              		.file 9 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h"
  1437              		.file 10 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ex.h"
-ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s 			page 61
+ARM GAS  C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s 			page 61
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32l4xx_hal_flash.c
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:18     .rodata.FLASH_Program_DoubleWord.str1.4:00000000 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:23     .text.FLASH_Program_DoubleWord:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:30     .text.FLASH_Program_DoubleWord:00000000 FLASH_Program_DoubleWord
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:143    .text.FLASH_Program_DoubleWord:00000084 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:153    .text.FLASH_Program_Fast:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:159    .text.FLASH_Program_Fast:00000000 FLASH_Program_Fast
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:324    .text.FLASH_Program_Fast:00000084 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:334    .text.HAL_FLASH_Program_IT:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:341    .text.HAL_FLASH_Program_IT:00000000 HAL_FLASH_Program_IT
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:496    .text.HAL_FLASH_Program_IT:00000098 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:503    .text.HAL_FLASH_EndOfOperationCallback:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:510    .text.HAL_FLASH_EndOfOperationCallback:00000000 HAL_FLASH_EndOfOperationCallback
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:525    .text.HAL_FLASH_OperationErrorCallback:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:532    .text.HAL_FLASH_OperationErrorCallback:00000000 HAL_FLASH_OperationErrorCallback
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:547    .text.HAL_FLASH_IRQHandler:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:554    .text.HAL_FLASH_IRQHandler:00000000 HAL_FLASH_IRQHandler
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:843    .text.HAL_FLASH_IRQHandler:00000128 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:849    .text.HAL_FLASH_Unlock:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:856    .text.HAL_FLASH_Unlock:00000000 HAL_FLASH_Unlock
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:902    .text.HAL_FLASH_Unlock:00000028 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:908    .text.HAL_FLASH_Lock:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:915    .text.HAL_FLASH_Lock:00000000 HAL_FLASH_Lock
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:934    .text.HAL_FLASH_Lock:00000010 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:939    .text.HAL_FLASH_OB_Unlock:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:946    .text.HAL_FLASH_OB_Unlock:00000000 HAL_FLASH_OB_Unlock
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:979    .text.HAL_FLASH_OB_Unlock:00000020 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:985    .text.HAL_FLASH_OB_Lock:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:992    .text.HAL_FLASH_OB_Lock:00000000 HAL_FLASH_OB_Lock
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1011   .text.HAL_FLASH_OB_Lock:00000010 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1016   .text.HAL_FLASH_GetError:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1023   .text.HAL_FLASH_GetError:00000000 HAL_FLASH_GetError
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1039   .text.HAL_FLASH_GetError:00000008 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1044   .text.FLASH_WaitForLastOperation:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1051   .text.FLASH_WaitForLastOperation:00000000 FLASH_WaitForLastOperation
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1163   .text.FLASH_WaitForLastOperation:0000005c $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1169   .text.HAL_FLASH_Program:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1176   .text.HAL_FLASH_Program:00000000 HAL_FLASH_Program
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1366   .text.HAL_FLASH_Program:000000b4 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1373   .text.HAL_FLASH_OB_Launch:00000000 $t
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1380   .text.HAL_FLASH_OB_Launch:00000000 HAL_FLASH_OB_Launch
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1406   .text.HAL_FLASH_OB_Launch:00000018 $d
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1416   .data.pFlash:00000000 pFlash
-C:\Users\andywei\AppData\Local\Temp\ccwxqRUG.s:1412   .data.pFlash:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:18     .rodata.FLASH_Program_DoubleWord.str1.4:00000000 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:23     .text.FLASH_Program_DoubleWord:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:30     .text.FLASH_Program_DoubleWord:00000000 FLASH_Program_DoubleWord
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:143    .text.FLASH_Program_DoubleWord:00000084 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:153    .text.FLASH_Program_Fast:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:159    .text.FLASH_Program_Fast:00000000 FLASH_Program_Fast
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:324    .text.FLASH_Program_Fast:00000084 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:334    .text.HAL_FLASH_Program_IT:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:341    .text.HAL_FLASH_Program_IT:00000000 HAL_FLASH_Program_IT
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:496    .text.HAL_FLASH_Program_IT:00000098 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:503    .text.HAL_FLASH_EndOfOperationCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:510    .text.HAL_FLASH_EndOfOperationCallback:00000000 HAL_FLASH_EndOfOperationCallback
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:525    .text.HAL_FLASH_OperationErrorCallback:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:532    .text.HAL_FLASH_OperationErrorCallback:00000000 HAL_FLASH_OperationErrorCallback
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:547    .text.HAL_FLASH_IRQHandler:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:554    .text.HAL_FLASH_IRQHandler:00000000 HAL_FLASH_IRQHandler
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:843    .text.HAL_FLASH_IRQHandler:00000128 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:849    .text.HAL_FLASH_Unlock:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:856    .text.HAL_FLASH_Unlock:00000000 HAL_FLASH_Unlock
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:902    .text.HAL_FLASH_Unlock:00000028 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:908    .text.HAL_FLASH_Lock:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:915    .text.HAL_FLASH_Lock:00000000 HAL_FLASH_Lock
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:934    .text.HAL_FLASH_Lock:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:939    .text.HAL_FLASH_OB_Unlock:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:946    .text.HAL_FLASH_OB_Unlock:00000000 HAL_FLASH_OB_Unlock
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:979    .text.HAL_FLASH_OB_Unlock:00000020 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:985    .text.HAL_FLASH_OB_Lock:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:992    .text.HAL_FLASH_OB_Lock:00000000 HAL_FLASH_OB_Lock
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1011   .text.HAL_FLASH_OB_Lock:00000010 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1016   .text.HAL_FLASH_GetError:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1023   .text.HAL_FLASH_GetError:00000000 HAL_FLASH_GetError
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1039   .text.HAL_FLASH_GetError:00000008 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1044   .text.FLASH_WaitForLastOperation:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1051   .text.FLASH_WaitForLastOperation:00000000 FLASH_WaitForLastOperation
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1163   .text.FLASH_WaitForLastOperation:0000005c $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1169   .text.HAL_FLASH_Program:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1176   .text.HAL_FLASH_Program:00000000 HAL_FLASH_Program
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1366   .text.HAL_FLASH_Program:000000b4 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1373   .text.HAL_FLASH_OB_Launch:00000000 $t
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1380   .text.HAL_FLASH_OB_Launch:00000000 HAL_FLASH_OB_Launch
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1406   .text.HAL_FLASH_OB_Launch:00000018 $d
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1416   .data.pFlash:00000000 pFlash
+C:\Users\andywei\AppData\Local\Temp\ccGY0shK.s:1412   .data.pFlash:00000000 $d
 
 UNDEFINED SYMBOLS
 assert_failed
