@@ -1,5 +1,5 @@
 ## 2021/07/04
-1. add crc16 based IBM which can response to si4463
+1.add crc16 based IBM which can response to si4463
 2. add the whiten serial array
 3. add makefile which can support arm-none-eabi-gcc
 4. add the config to tx
